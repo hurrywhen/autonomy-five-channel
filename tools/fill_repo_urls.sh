@@ -38,8 +38,12 @@ echo "[fill] rebuilt $ROOT/latex/main.pdf ($(pdfinfo "$ROOT/latex/main.pdf" | aw
 # 重建 arXiv 源码包（仅当 arxiv 目录与快照同级存在时）
 ARX="$(dirname "$ROOT")/arxiv"
 if [ -d "$ARX" ]; then
-  ( cd "$ROOT/latex" && tar czf "$ARX/autonomy-five-channel-arxiv-src.tar.gz" \
-      main.tex main.bbl appendix.tex related_work.tex refs.bib sections figures )
+  if [ -x "$ROOT/tools/make_arxiv_package.sh" ]; then
+    "$ROOT/tools/make_arxiv_package.sh" "$ROOT"
+  else
+    ( cd "$ROOT/latex" && tar czf "$ARX/autonomy-five-channel-arxiv-src.tar.gz" \
+        main.tex main.bbl appendix.tex related_work.tex refs.bib sections figures )
+  fi
   echo "[fill] rebuilt $ARX/autonomy-five-channel-arxiv-src.tar.gz"
 fi
 
