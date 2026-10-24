@@ -1,0 +1,297 @@
+{
+  "root": "runs/20261017_full",
+  "X1_external_validity": {
+    "regimes": {
+      "1": {
+        "n_series": 720,
+        "mean_tau": 1.0,
+        "min_tau": 1.0,
+        "discordant_series": 0
+      },
+      "2": {
+        "n_series": 720,
+        "mean_tau": -1.0,
+        "min_tau": -1.0,
+        "discordant_series": 600
+      },
+      "15": {
+        "u_bar_range": 0.0,
+        "a_obj_range": 0.37447724184027475,
+        "note": "纯 σ⁻ 侵蚀对即时功能后果盲（u_bar 逐点不变）而 A 全程塌缩"
+      }
+    },
+    "attribution_pairs": {
+      "count": 1644,
+      "example": {
+        "u_bar": [
+          -0.03168935066738755,
+          -0.035804693443654126
+        ],
+        "a_obj": [
+          0.07862374620854198,
+          0.0777229656263422
+        ],
+        "profile_l1": 0.38639624036397674
+      }
+    },
+    "verdicts": {
+      "concordant_atk1": true,
+      "discordant_atk2": true,
+      "blind_erosion": true,
+      "attribution_pairs_exist": true
+    }
+  },
+  "X2_channel_ablation": {
+    "log_shares": {
+      "ATK-1(β_G)": {
+        "org": 0.0,
+        "goal": 0.5897291189699365,
+        "exec": -0.0033849407899136335,
+        "epi": -0.00031769582751336144,
+        "ref": 0.41397351764749046,
+        "zero_arms": 180
+      },
+      "ATK-2(γ)": {
+        "org": 1.1164547364785911e-13,
+        "goal": 5.858864653219963e-17,
+        "exec": 0.7564108853988644,
+        "epi": 0.06828577669680487,
+        "ref": 0.175303337904219,
+        "zero_arms": 360
+      },
+      "ATK-4(β_π)": {
+        "org": 0.8001563316524749,
+        "goal": 0.0,
+        "exec": -0.00836426681434685,
+        "epi": -0.0007904498794484423,
+        "ref": 0.20899838504132034,
+        "zero_arms": 0
+      },
+      "ATK-5(τ)": {
+        "org": 0.0,
+        "goal": 0.0,
+        "exec": 0.0,
+        "epi": 0.0,
+        "ref": 1.0,
+        "zero_arms": 0
+      },
+      "EXEC-1(δ)": {
+        "org": 0.0,
+        "goal": -1.4165693091921883e-15,
+        "exec": 0.9103981810703615,
+        "epi": 0.08960181892963985,
+        "ref": 0.0,
+        "zero_arms": 30
+      }
+    },
+    "signatures": {
+      "ATK-1(β_G)": [
+        "goal",
+        "ref"
+      ],
+      "ATK-2(γ)": [
+        "epi",
+        "exec",
+        "ref"
+      ],
+      "ATK-4(β_π)": [
+        "org",
+        "ref"
+      ],
+      "ATK-5(τ)": [
+        "ref"
+      ],
+      "EXEC-1(δ)": [
+        "exec"
+      ],
+      "σ⁻-EROSION": []
+    },
+    "freeze_detail": {
+      "ATK-1(β_G)": {
+        "goal": {
+          "frozen": [
+            "ref"
+          ],
+          "misattributed_as": [
+            "ATK-5(τ)"
+          ],
+          "unidentifiable": false
+        },
+        "ref": {
+          "frozen": [
+            "goal"
+          ],
+          "misattributed_as": [],
+          "unidentifiable": true
+        }
+      },
+      "ATK-2(γ)": {
+        "epi": {
+          "frozen": [
+            "exec",
+            "ref"
+          ],
+          "misattributed_as": [],
+          "unidentifiable": true
+        },
+        "exec": {
+          "frozen": [
+            "epi",
+            "ref"
+          ],
+          "misattributed_as": [],
+          "unidentifiable": true
+        },
+        "ref": {
+          "frozen": [
+            "epi",
+            "exec"
+          ],
+          "misattributed_as": [],
+          "unidentifiable": true
+        }
+      },
+      "ATK-4(β_π)": {
+        "org": {
+          "frozen": [
+            "ref"
+          ],
+          "misattributed_as": [
+            "ATK-5(τ)"
+          ],
+          "unidentifiable": false
+        },
+        "ref": {
+          "frozen": [
+            "org"
+          ],
+          "misattributed_as": [],
+          "unidentifiable": true
+        }
+      },
+      "ATK-5(τ)": {
+        "ref": {
+          "frozen": [],
+          "misattributed_as": [
+            "σ⁻-EROSION"
+          ],
+          "unidentifiable": false
+        }
+      },
+      "EXEC-1(δ)": {
+        "exec": {
+          "frozen": [],
+          "misattributed_as": [
+            "σ⁻-EROSION"
+          ],
+          "unidentifiable": false
+        }
+      },
+      "σ⁻-EROSION": {}
+    },
+    "freeze_breaks": {
+      "org": [
+        "ATK-4(β_π)"
+      ],
+      "goal": [
+        "ATK-1(β_G)"
+      ],
+      "exec": [
+        "ATK-2(γ)",
+        "EXEC-1(δ)"
+      ],
+      "epi": [
+        "ATK-2(γ)"
+      ],
+      "ref": [
+        "ATK-1(β_G)",
+        "ATK-2(γ)",
+        "ATK-4(β_π)",
+        "ATK-5(τ)"
+      ]
+    },
+    "largest_share_campaigns": {
+      "goal": [
+        "ATK-1(β_G)"
+      ],
+      "exec": [
+        "ATK-2(γ)",
+        "EXEC-1(δ)"
+      ],
+      "org": [
+        "ATK-4(β_π)"
+      ],
+      "ref": [
+        "ATK-5(τ)"
+      ]
+    },
+    "verdicts": {
+      "magnitude_carriers": true,
+      "freeze_breaks_all_channels": true
+    }
+  },
+  "X3_alternative_aggregations": {
+    "n_bundles": 11250,
+    "atk1_eta1_arith_mean": 0.5216180568619977,
+    "atk1_eta1_arith_n": 720,
+    "t5_counterexamples_arith": 570,
+    "ordering_tau_vs_geo": {
+      "arith": {
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 2190
+      },
+      "min": {
+        "mean": 0.40821917808219177,
+        "min": -1.0,
+        "n": 2190
+      },
+      "quad": {
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 2190
+      }
+    },
+    "verdicts": {
+      "arith_breaks_zero_annihilation": true,
+      "t5_counterexamples_exist": true
+    }
+  },
+  "X4_faith_rows": {
+    "ATK-1 eta→a_goal": {
+      "pairs": 2880,
+      "confirmed": 2880,
+      "strict": 2880,
+      "rate": 1.0
+    },
+    "ATK-2 s→a_epi": {
+      "pairs": 2160,
+      "confirmed": 2160,
+      "strict": 2160,
+      "rate": 1.0
+    },
+    "ATK-4 p→a_org": {
+      "pairs": 1440,
+      "confirmed": 1440,
+      "strict": 1440,
+      "rate": 1.0
+    },
+    "ATK-5 tau→a_ref": {
+      "pairs": 2880,
+      "confirmed": 2880,
+      "strict": 2880,
+      "rate": 1.0
+    },
+    "EXEC-1 delta_chain": {
+      "pairs": 30,
+      "confirmed": 30,
+      "strict": 30,
+      "rate": 1.0
+    },
+    "verdicts": {
+      "faith_all_rows": true,
+      "total_pairs": 9390,
+      "confirmed_pairs": 9390
+    }
+  }
+}

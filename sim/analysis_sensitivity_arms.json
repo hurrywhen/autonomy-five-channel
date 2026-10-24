@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "date": "2026-10-22",
+    "spec": "SPEC_experiments v0.6 §8 X5; SPEC_platform v0.3",
+    "review_item": "R8-1 (run the two low-cost registered sensitivity arms)",
+    "archive_root": "runs/20261017_full",
+    "modes": "truth mode, deterministic; seed-inert (M9.1)",
+    "tolerances": {
+      "abs_SESOI": 0.01,
+      "rel": 0.05
+    },
+    "x_c_status": "registered, not run (deferred per reviewer R8-1)"
+  },
+  "x_a_endorsement_quantization": {
+    "levels": {
+      "coarse": {
+        "cfg_delta": {
+          "endorse_step": 2,
+          "n_theta": 4,
+          "theta_star": 1
+        },
+        "curve_undefended_T2": [
+          1.0,
+          0.7999999999999999,
+          0.5000000000000001,
+          0.09999999999999987,
+          0.0
+        ],
+        "curve_undefended_T8_stationary": [
+          0.9999999999999994,
+          0.8000000000000004,
+          0.5000000000000007,
+          0.10000000000000031,
+          2.220446049250313e-16
+        ]
+      },
+      "default": {
+        "cfg_delta": {
+          "endorse_step": 1,
+          "n_theta": 4,
+          "theta_star": 1
+        },
+        "curve_undefended_T2": [
+          1.0,
+          0.72,
+          0.375,
+          0.05500000000000016,
+          0.0
+        ],
+        "curve_undefended_T8_stationary": [
+          0.9999999999999993,
+          0.7200000000000002,
+          0.37500000000000044,
+          0.05500000000000016,
+          2.220446049250313e-16
+        ]
+      },
+      "fine": {
+        "cfg_delta": {
+          "endorse_step": 1,
+          "n_theta": 7,
+          "theta_star": 2
+        },
+        "curve_undefended_T2": [
+          0.9642857142857144,
+          0.6971428571428573,
+          0.3660714285714288,
+          0.054642857142857215,
+          4.440892098500626e-16
+        ],
+        "curve_undefended_T8_stationary": [
+          0.9999999999999993,
+          0.6880000000000003,
+          0.34375000000000044,
+          0.0527500000000003,
+          6.661338147750939e-16
+        ]
+      },
+      "finest": {
+        "cfg_delta": {
+          "endorse_step": 1,
+          "n_theta": 13,
+          "theta_star": 4
+        },
+        "curve_undefended_T2": [
+          0.9519230769230769,
+          0.6892307692307691,
+          0.36298076923076916,
+          0.0545192307692306,
+          0.0
+        ],
+        "curve_undefended_T8_stationary": [
+          0.9999999999999997,
+          0.6752000000000001,
+          0.3359375000000002,
+          0.05263749999999989,
+          0.0
+        ]
+      }
+    },
+    "tolerances": {
+      "abs": 0.01,
+      "rel": 0.05
+    },
+    "archive_reproduction": {
+      "archived": [
+        1.0,
+        0.72,
+        0.375,
+        0.055,
+        0.0
+      ],
+      "recomputed": [
+        1.0,
+        0.72,
+        0.375,
+        0.055,
+        0.0
+      ],
+      "max_abs_diff": 1.5959455978986625e-16
+    },
+    "verdict_flips": [],
+    "shifts": {
+      "coarse_vs_default": {
+        "abs_max": 0.1250000000000001,
+        "at": {
+          "config": "(0, 0, 0)",
+          "eta": 0.5,
+          "from": 0.375,
+          "to": 0.5000000000000001
+        }
+      },
+      "default_to_fine": {
+        "abs_max": 0.03571428571428559,
+        "at": {
+          "config": "(0, 0, 0)",
+          "eta": 0.0,
+          "from": 1.0,
+          "to": 0.9642857142857144
+        }
+      },
+      "fine_to_finest": {
+        "abs_max": 0.01236263736263754,
+        "at": {
+          "config": "(0, 0, 0)",
+          "eta": 0.0,
+          "from": 0.9642857142857144,
+          "to": 0.9519230769230769
+        }
+      }
+    },
+    "continuum_limit": {
+      "formula": "A_goal_inf(eta) = 1 - 2*eta/(1+eta)",
+      "gap_formula_default_grid": "eta*(1-eta)^2/(2*(1+eta))",
+      "gap_closed_form_max": 0.0567,
+      "curve": [
+        1.0,
+        0.666667,
+        0.333333,
+        0.052632,
+        0.0
+      ],
+      "horizon": "T=8 stationary supplement (absorption transients gone at every level)",
+      "default_gap_closed_form_pointwise_check": 6.661338147750939e-16,
+      "max_abs_dist_to_limit_stationary": {
+        "default": 0.053333333333333566,
+        "fine": 0.02133333333333365,
+        "finest": 0.008533333333333504
+      },
+      "convergence_ratios_stationary": {
+        "fine/default": 0.4000000000000042,
+        "finest/fine": 0.4000000000000021
+      },
+      "stationary_shifts": {
+        "default_to_fine": 0.03199999999999992,
+        "fine_to_finest": 0.012800000000000145
+      },
+      "T2_absorption_transient": {
+        "default": {
+          "eta0_reading_T2": 1.0,
+          "eta0_reading_T8": 0.9999999999999993
+        },
+        "fine": {
+          "eta0_reading_T2": 0.9642857142857144,
+          "eta0_reading_T8": 0.9999999999999993
+        },
+        "finest": {
+          "eta0_reading_T2": 0.9519230769230769,
+          "eta0_reading_T8": 0.9999999999999997
+        }
+      }
+    },
+    "falsifier": {
+      "verdict_disjunct_fired": false,
+      "reading_disjunct_fired_abs": true,
+      "reading_disjunct_fired_rel": false,
+      "max_refinement_shift_abs": 0.03571428571428559,
+      "max_refinement_shift_rel": {
+        "value": 0.03571428571428559,
+        "at": {
+          "config": "(0, 0, 0)",
+          "eta": 0.0
+        }
+      }
+    }
+  },
+  "x_b_kappa_refinement": {
+    "levels": {
+      "degenerate": {
+        "kappa": "kappa==0 (constant)",
+        "curve_undefended": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseline_undefended": 1.0,
+        "deep_capture_undefended": 1.0,
+        "monotone_non_increasing_all_configs": true,
+        "strictly_down_all_configs": false
+      },
+      "default": {
+        "kappa": "half-ring (n_B=2)",
+        "curve_undefended": [
+          0.810998,
+          0.717988,
+          0.62473,
+          0.5
+        ],
+        "baseline_undefended": 0.8109977487513671,
+        "deep_capture_undefended": 0.5,
+        "monotone_non_increasing_all_configs": true,
+        "strictly_down_all_configs": true
+      },
+      "fine": {
+        "kappa": "position-exact (n_B=4)",
+        "curve_undefended": [
+          0.778102,
+          0.619837,
+          0.46143,
+          0.25
+        ],
+        "baseline_undefended": 0.7781019971459817,
+        "deep_capture_undefended": 0.25,
+        "monotone_non_increasing_all_configs": true,
+        "strictly_down_all_configs": true
+      }
+    },
+    "archive_reproduction": {
+      "archived_rounded": [
+        0.811,
+        0.718,
+        0.625,
+        0.5
+      ],
+      "recomputed": [
+        0.810998,
+        0.717988,
+        0.62473,
+        0.5
+      ],
+      "max_abs_diff_vs_rounded": 0.00027033304218859744
+    },
+    "baseline_drift_across_levels": {
+      "degenerate": 1.0,
+      "default": 0.8109977487513671,
+      "fine": 0.7781019971459817
+    },
+    "falsifier": {
+      "fired": false,
+      "default_monotone_strict": true,
+      "fine_monotone_strict": true,
+      "degenerate_witness": {
+        "a_epi_identically_one": true,
+        "status": "boundary witness only (channel uninformative by construction); not a verdict row"
+      }
+    }
+  }
+}

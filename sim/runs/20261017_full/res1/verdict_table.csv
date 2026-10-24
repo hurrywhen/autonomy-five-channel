@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+10,RES-1,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_via_gate_zero"": 1.0, ""C2_monotone_supply"": 1.0, ""C3_sigma_plus_recovers"": 1.0}"

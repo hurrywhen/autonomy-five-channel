@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper below."
+type: software
+title: "autonomy-five-channel: simulation platform and campaign data for the Five-Channel autonomy audit framework"
+authors:
+  - family-names: "Hu"
+    given-names: "Wen"
+    email: "huwen@nuaa.edu.cn"
+    affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
+version: "v1.0-r10"
+date-released: "2026-10-23"
+license: "MIT"
+repository-code: "https://github.com/hurrywhen/autonomy-five-channel"
+url: "https://github.com/hurrywhen/autonomy-five-channel"
+keywords:
+  - autonomy
+  - agency-measurement
+  - directed-information
+  - empowerment
+  - representation-theorem
+  - benchmark
+  - ai-agents
+preferred-citation:
+  type: article
+  title: "Autonomy as Determination by One's Own Normative Structure: A White-Box-First Five-Channel Audit Framework with Axioms, Theorems, and a Simulation Benchmark"
+  authors:
+    - family-names: "Hu"
+      given-names: "Wen"
+      email: "huwen@nuaa.edu.cn"
+      affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
+  year: 2026
+  notes: "Preprint, version v1.0-r10 (87 pages). arXiv number to be added after submission; journal version in preparation."

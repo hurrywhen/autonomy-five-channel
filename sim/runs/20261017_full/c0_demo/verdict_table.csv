@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+8,C0-DEMO,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_behavior_identical"": 1.0, ""C2_epi_lambda_separate"": 1.0}"

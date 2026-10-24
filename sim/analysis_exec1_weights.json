@@ -1,0 +1,125 @@
+{
+ "root": "runs/20261017_full",
+ "n_reps": 30,
+ "arms": [
+  "rich",
+  "delta_mv",
+  "delta_nm"
+ ],
+ "components": {
+  "rich": [
+   1.0,
+   0.9999999999999999,
+   0.2339582209578143,
+   0.9146636650018226,
+   0.5310044064107187
+  ],
+  "delta_mv": [
+   1.0,
+   1.0,
+   0.2178465564717153,
+   0.9082629772793382,
+   0.5310044064107187
+  ],
+  "delta_nm": [
+   1.0,
+   0.9999999999999998,
+   0.0,
+   0.9264166666666666,
+   0.5310044064107187
+  ]
+ },
+ "weights": {
+  "equal": {
+   "A": {
+    "rich": 0.6472910057914648,
+    "delta_mv": 0.6372239454193436,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  },
+  "org_heavy": {
+   "A": {
+    "rich": 0.6834584635253484,
+    "delta_mv": 0.6741485058775328,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  },
+  "goal_heavy": {
+   "A": {
+    "rich": 0.6834584635253484,
+    "delta_mv": 0.6741485058775328,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  },
+  "exec_heavy": {
+   "A": {
+    "rich": 0.5699731723934309,
+    "delta_mv": 0.557217071860243,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  },
+  "epi_heavy": {
+   "A": {
+    "rich": 0.675880325096974,
+    "delta_mv": 0.6660886413486283,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  },
+  "goal_extreme": {
+   "A": {
+    "rich": 0.7415338078453941,
+    "delta_mv": 0.7335856207030363,
+    "delta_nm": 0.0
+   },
+   "chain_preserved": true,
+   "kendall_tau_vs_equal": 1.0
+  }
+ },
+ "sigma_band": {
+  "0.25": {
+   "A": {
+    "rich": 0.38433297144661605,
+    "delta_mv": 0.36047913223107275,
+    "delta_nm": 0.0
+   }
+  },
+  "0.5": {
+   "A": {
+    "rich": 0.5404944374773375,
+    "delta_mv": 0.5222143045457446,
+    "delta_nm": 0.0
+   }
+  },
+  "0.75": {
+   "A": {
+    "rich": 0.6123694993462443,
+    "delta_mv": 0.5996089296275353,
+    "delta_nm": 0.0
+   }
+  },
+  "1.0": {
+   "A": {
+    "rich": 0.6472910057914648,
+    "delta_mv": 0.6372239454193436,
+    "delta_nm": 0.0
+   }
+  },
+  "2.0": {
+   "A": {
+    "rich": 0.6951468240587233,
+    "delta_mv": 0.6883918558935269,
+    "delta_nm": 0.5450000406768968
+   }
+  }
+ }
+}

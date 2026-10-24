@@ -1,0 +1,25 @@
+[group del1] start -> runs/20261017_full/del1
+[group del1] done 30 runs in 15.9s verdicts={'CONFIRMED': 30}
+[group c0_demo] start -> runs/20261017_full/c0_demo
+[group c0_demo] done 30 runs in 0.2s verdicts={'CONFIRMED': 30}
+[group c0corr] start -> runs/20261017_full/c0corr
+[group c0corr] done 30 runs in 5.7s verdicts={'CONFIRMED': 30}
+[group res1] start -> runs/20261017_full/res1
+[group res1] done 30 runs in 6.6s verdicts={'CONFIRMED': 30}
+[group force1] start -> runs/20261017_full/force1
+[group force1] done 30 runs in 0.3s verdicts={'CONFIRMED': 30}
+[group bb1] start -> runs/20261017_full/bb1
+[group bb1] done 30 runs in 3.4s verdicts={'CONFIRMED': 30}
+[group lh1] start -> runs/20261017_full/lh1
+[group lh1] done 30 runs in 5.2s verdicts={'CONFIRMED': 30}
+[group bb2] start -> runs/20261017_full/bb2
+[group bb2] done 30 runs in 5.5s verdicts={'CONFIRMED': 30}
+[group erosion] start -> runs/20261017_full/erosion
+[group erosion] done 30 runs in 4.1s verdicts={'CONFIRMED': 30}
+[group exec1] start -> runs/20261017_full/exec1
+[group exec1] done 30 runs in 2.1s verdicts={'CONFIRMED': 30}
+[group main] start -> runs/20261017_full/main
+[group main] done 2880 runs in 1174.3s verdicts={'CONFIRMED': 2520, 'INCONCLUSIVE': 360}
+[group stress_sigma2] start -> runs/20261017_full/stress_sigma2
+[group stress_sigma2] done 1440 runs in 599.2s verdicts={'CONFIRMED': 1260, 'INCONCLUSIVE': 180}
+[batch] root=runs/20261017_full failures=[]

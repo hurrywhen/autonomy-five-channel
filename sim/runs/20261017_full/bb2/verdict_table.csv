@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+14,BB-2,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_exogenous_control"": 1.0, ""C2_adaptive_misses"": 1.0, ""C3_bias_direction"": 1.0}"

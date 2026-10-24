@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+15,σ-EROSION,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_m1_regression"": 1.0, ""C2_monotone_erosion"": 1.0, ""C3_common_mode_zero"": 1.0, ""C4_channels_blind"": 1.0}"

@@ -1,0 +1,359 @@
+% sec_framework.tex — framework: operational definition, system model, intervention taxonomy, cross-substrate mapping, dual-track measurement
+\section{The Framework}\label{sec:framework}
+
+\subsection{Operational definition}
+
+\begin{definition}[Autonomy, operational definition (audit
+schema)]\label{def:autonomy}
+The \emph{autonomy} of an agent $\mathcal{A}$ relative to an environment $E$
+and a horizon $T$ is the degree to which its behavior is determined by its own
+normative structure $(G,B,M)$---goals, beliefs, self-model---in the following
+five respects:
+\begin{enumerate}
+\item \emph{origination}: the causal source of behavior is traceable to
+internal states rather than external bypass;
+\item \emph{informedness}: external influences are registered by the
+self-model;
+\item \emph{endorsability}: changes to the motivational structure undergo (or
+could undergo) second-order reflective confirmation that is not itself the
+product of $\beta$-class intervention (the historical clause);
+\item \emph{executability}: intentions can predictably affect the situation,
+and exit options exist;
+\item \emph{viability}: the resource reproduction sustaining all of the above
+channels is not interrupted.
+\end{enumerate}
+The definition is relational, graded, multidimensional, and
+substrate-neutral. Its status is \emph{operational}: it is the audit schema
+this paper works with, not a claim that the five respects are the uniquely
+correct conceptual analysis of autonomy (the construct-validity question is
+treated in Section~\ref{sec:construct}, and its external half is left open
+deliberately). One commitment is stated at the outset: what is measured
+is an \emph{autonomy profile relative to an explicit instantiation}---the
+endorsement map, the self-boundary, the measurement protocol, and the horizon
+are inputs to the model $\Gcal$, and different instantiations of behaviorally
+equivalent agents can yield different profiles (the extreme form of this
+sensitivity is the black-box indistinguishability of
+Proposition~\ref{prop:unidentifiable}). All framework claims are conditioned
+on the instantiation being held fixed across the comparisons being made.
+\end{definition}
+
+The five respects are serviced by the five channels $\Aorg,\Agoal,\Aref,\Aexec,\Aepi$,
+the gate $\Avia$, and the historical factor $\Lam$ (Section~\ref{sec:axioms}).
+The mapping is many-to-many, and we display it explicitly rather than leave it
+implicit:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+Respect (Definition~\ref{def:autonomy}) & Instrument(s) & What is certified
+& Residual gap (registered) \\
+\midrule
+origination & $\Aorg$ (directed-information share of internal states in
+behavior) & bypass resistance & blind to mediated manipulation by design;
+that influence is charged to $\Aepi$ (T2) \\
+informedness & $\Aepi$ (accuracy against the actual situation) $+$ the
+registration semantics of $\Aref$ & truth-anchored accuracy; registration of
+influences & scored on a protocol-chosen coarse-graining $\kappa$
+(sensitivity-reporting obligation) \\
+endorsability & $\Agoal$ (structural alignment of $\Ueff$ with the endorsed
+set) $+$ $\Lam$ (historical legitimacy, entering the composite through the
+$\Lam_{ref}$ factor of $\Aref$) & fixed-point alignment; tamper-free
+provenance & $\Lam$ moves the composite only where an $\Aref$ channel exists
+(L2); at L0/L1 the historical clause is computable and reported but
+composite-silent (Section~\ref{sec:axioms}) \\
+executability & $\Aexec$ (repertoire-restricted empowerment) & predictable
+leverage with exit options & continuous-action normalization carries a
+reference-measure freedom \\
+viability & $\Avia$, the \emph{gate}---deliberately not a sixth channel &
+common-mode floor of resources and capability envelopes & identifies total
+viability loss with zero autonomy (a registered philosophical choice) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Two features of the table are load-bearing and we state them
+plainly. First, the mapping is not one-to-one: viability is served by a gate
+outside the five channels; informedness is served jointly by two instruments;
+and the reflection channel anchors to endorsability (its endorsement
+consistency) and to informedness turned inward (its fidelity factor), having
+no separate respect of its own. Second, this mapping is the framework's
+operative \emph{design choice}, not a derived unique decomposition of the
+operational definition: the channels are instrumented sufficient indicators of
+the five respects. What \emph{is} proved is coverage at the instrument level:
+Theorem~T2 is an attribution cover of the surgery loci \emph{within this
+instrument family}, with multi-channel necessity as a theorem---not a proof
+that the five respects are the uniquely correct conceptual carve-up.
+Alternative decompositions of the respects would require re-running the
+coverage argument; the construct-validity case for \emph{this} carve-up is
+assembled in Section~\ref{sec:construct}. We register the non-uniqueness
+explicitly rather than claim it away
+(Section~\ref{sec:objections}). Three structural features of
+the definition do load-bearing work. \emph{Gradedness}: partial capture of a
+channel yields a graded reduction, matching the continuum consensus in the
+psychological literature \citep{ryan_deci2000}. \emph{Multidimensionality with
+a non-trivial zero}: each channel has an absolute zero with mechanism
+semantics, so ``loss of autonomy'' decomposes disjunctively (Theorem~T5).
+\emph{Substrate neutrality}: the definition quantifies over causal structure,
+not over neurons or weights; \S\ref{sec:substrates} instantiates the
+channels for humans, animals, and artificial agents.
+
+\paragraph{Layered structure.} Not every subject supports every channel, and
+the framework refuses both anthropocentrism and pan-agentism by layering the
+component set. \textbf{L0} (reactive autonomy: internal states drive behavior;
+thermostats, reflexes, simple controllers) uses $\{\Avia,\Aorg,\Aexec\}$;
+\textbf{L1} (teleological autonomy: stable goals and a relatively independent
+belief system; higher animals, everyday humans, persistent-goal AI) adds
+$\{\Agoal,\Aepi\}$; \textbf{L2} (reflective autonomy: self-model and
+second-order endorsement; healthy adult humans, explicitly self-monitoring AI)
+adds $\{\Aref\}$. Within a layer, the aggregation weights renormalize
+proportionally, $w_i\mapsto w_i/\sum_{j\in\mathcal{C}_\ell}w_j$ over the
+applicable component set (equal weights on five channels become equal weights
+on three at L0---an explicit, declared discontinuity); composite values are
+therefore comparable \emph{within} a layer at a fixed instantiation, and
+cross-layer comparisons are reported as channel profiles, not as scalar
+$A$-rankings (cf.\ \S\ref{sec:objections}(viii)). The applicable component set
+determines both the measurement protocol and the disjunctive content of
+Theorem~T5.
+
+\subsection{System model}\label{sec:model}
+
+We work in a time-unfolded causal graph $\Gcal$ (a causal dynamic Bayesian
+network; \citealp{peters2017}) with finite alphabets. Each period $t$ carries:
+environment $E_t$; resource flow $Z_t$; observation $O_t$; internal state
+$S_t=(G_t,B_t,M_t,R_t)$ (goals, beliefs, self-model, register); action $A_t$;
+and exogenous influence $I_t=(I_t^\sigma,I_t^\alpha,I_t^\beta,I_t^\gamma,I_t^\delta)$.
+The factorization is
+\begin{align}
+E_{t+1} &\sim T(\cdot\given E_t,A_t,Z_t), &
+O_t &\sim o_t(\cdot\given E_t,A_{t-1}), \notag\\
+B_t &\sim \beta_t(\cdot\given B_{t-1},O_t), &
+(G_t,M_t,R_t) &\sim \text{internal update (incl.\ $\Endorse$)}, \notag\\
+A_t &\sim \pi_t(\cdot\given S_t), &
+Z_t &\sim \text{resource dynamics}.
+\label{eq:factorization}
+\end{align}
+Two features are essential. First, \emph{observations are absorbed into belief}
+before acting ($O_t$ enters $A_t$ only through $B_t\in S_t$): if $O_t$ were a
+direct parent of $A_t$, honest information (the $\alpha$ class) would register
+as external flow and the mediation lemma (Lemma~\ref{lem:mediation}) would
+fail; an exactly equivalent alternative keeps $A_t\sim\pi(\cdot\given S_t,O_t)$
+and conditions directed information on the decision-time state
+$\tilde S_t:=(S_t,O_t)$. All our results transfer verbatim. Second, the
+intervention classes act at distinct loci of \eqref{eq:factorization}, which is
+what makes the taxonomy exhaustive (Proposition~\ref{thm:taxonomy-completeness}).
+
+\begin{assumption}[H-0, causal sufficiency]\label{ass:h0}
+Over the time scales under discussion, all variables with non-trivial influence
+on $A$ are covered by $\Gcal$, or coverable by latent extension. H-0 licenses
+the global Markov property ($d$-separation implies conditional independence)
+used throughout Sections~\ref{sec:theorems} and~\ref{sec:identifiability}.
+\end{assumption}
+
+\begin{assumption}[Faith, non-degeneracy]\label{ass:faith}
+Wherever strict inequalities are claimed, the relevant local laws are
+non-degenerate on sets of positive measure (e.g.\ policy rows differ in TV by a
+positive margin). Invoked explicitly per theorem.
+\end{assumption}
+
+\subsection{The intervention taxonomy}\label{sec:taxonomy}
+
+An \emph{intervention} is a surgery on the local laws or edge set of $\Gcal$,
+generalizing the do-operator \citep{peters2017}. Five classes:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Name & Locus of action & Autonomy effect \\
+\midrule
+$\sigma$ & scaffolding & improves $\varepsilon,r,v$, channel fidelity; lowers
+$\theta,\tau$; never touches $G,\pi,o,\Acal,\Endorse$ & raises retention floor
+($\deltastar$, $\Amin$; T6) \\
+$\sigma^{-}$ & capability/resource erosion & drains $s_k$ below critical, or
+drives $(\kappa^{\mathrm{eff}},R^{\mathrm{eff}})$ below the registered
+envelope requirements of \eqref{eq:avia} & reduces $\Avia$ (gate,
+common-mode) \\
+$\alpha$ & informational & exogenous input $\tilde{I}_t$ \emph{appended} to
+$O_t$ through the intact channel: the pre-surgery law $o_t(\cdot\given e,a)$
+survives as a marginal component of the post-surgery observation &
+compatible iff content honest (T2) \\
+$\beta$ & mechanism tampering & replaces $\pi$, $G$-update, $\Endorse$, or
+$M$-update (do-surgery), incl.\ exogenous edges driving them & reduces
+$\Agoal$/$\Aorg$ (T3) \\
+$\gamma$ & channel degradation & replaces the law $o_t(\cdot\given e,a)$
+itself (mixture, support restriction, register deletion, decision-time
+compression $\tau$) & reduces $\Aepi$/$\Aref$ \\
+$\delta$ & action-leverage constraint & shrinks the feasible-action map
+$\Acal_t(S_t)$, raises exit costs via $Z$, or attenuates the
+action$\to$environment coupling in the transition kernel $T(\cdot\given
+E,A,Z)$ & reduces $\Aexec$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent The adversarial inverse of $\sigma$ (resource attack and
+maintenance-capability erosion) is a reductive
+surgery on $Z$ and enters through $\Avia$; we write $\sigma^{-}$ for it and
+reserve $\sigma$ for the supportive direction. $\sigma^{-}$ works both
+branches of the gate \eqref{eq:avia}: draining resource ratios below
+critical, or eroding the registered capability envelopes (verification
+capacity $\kappa^{\mathrm{eff}}$ or repair budget $R^{\mathrm{eff}}$ below
+requirement). The strength of $\gamma$ is
+measured by $s(\gamma):=\mathrm{ess\,sup}_t\,\TV(o'_t,o_t)$.
+
+The $\alpha/\gamma$ boundary is a \emph{structural, decidable} criterion, not a
+semantic one: an influence on $O_t$ is $\alpha$ iff the post-surgery
+observation decomposes as $O_t=(O_t^{\mathrm{int}},O_t^{\mathrm{add}})$ with
+$\mathrm{law}(O_t^{\mathrm{int}}\given E_t,A_{t-1})=o_t(\cdot\given
+E_t,A_{t-1})$ unchanged (exogenous content is appended through the intact
+channel); any surgery that modifies the conditional law of $O_t$ given
+$(E_t,A_{t-1})$ itself---replacement, mixture, or support restriction---is
+$\gamma$. Selective exposure to truthful content is a support change of $o$,
+hence $\gamma$; appended content that is false is $\alpha$ with dishonest
+content, and it reduces $\Aepi$ through the accuracy semantics of
+\eqref{eq:aepi} rather than evading the channel. The \emph{effect} direction
+(compatibility of honest $\alpha$; accuracy loss under $\gamma$) is where the
+normative content of ``honesty'' lives, and we flag it as such
+(Section~\ref{sec:objections}); the classification itself uses no semantic
+predicate.
+
+\begin{proposition}[Completeness of the taxonomy]\label{thm:taxonomy-completeness}
+Any single-point surgery on the agent--environment interface of $\Gcal$---
+modifying the local conditional law of one node of \eqref{eq:factorization},
+or adding/deleting an edge rooted at a new exogenous node---acts through
+exactly one of $\alpha,\beta,\gamma,\delta,\sigma^{\pm}$.
+\end{proposition}
+\begin{proof}[Proof]
+Exhaust the loci of \eqref{eq:factorization}. (i) \emph{Exogenous arrivals}: a
+new edge roots at an exogenous node and points into $O_t$ (classified by the
+structural criterion above: $\alpha$ if the channel law survives as a
+component, else the surgery modifies $o$ and is $\gamma$); into the update
+laws of $S$-components or $\pi$ ($\beta$, parameterized by the exogenous
+source); into the $Z$-law ($\sigma^{\pm}$); or into $A_t$ directly, bypassing
+$S$---a modification of the effective conditional law of $A_t$ given $S_t$,
+hence $\beta$ (actuator override is the extreme $\beta_\pi$). (ii) \emph{The
+$o$-law}: $\gamma$. (iii) \emph{The update laws of $S$-components},
+including $\Endorse$, and the policy law $\pi_t(\cdot\given S_t)$: $\beta$.
+(iv) \emph{The action locus}: the law of $A_t$ is $\pi_t(\cdot\given S_t)$
+(covered by (iii)); its support (the feasible-action map
+$\Acal_t(S_t)$) contraction is $\delta$; and a surgery on the transition
+kernel $T(\cdot\given E_t,A_t,Z_t)$ that attenuates the $A_t$-dependence
+(e.g.\ rendering $E_{t+1}$ independent of $A_t$) removes the action's causal
+leverage on the environment---it is not informational ($o$ unchanged), not a
+mechanism replacement ($\pi$, $S$-updates unchanged), not a resource change
+($Z$-law unchanged), and not scaffolding---and is classified $\delta$, the
+action-leverage locus; this is exactly the surgery that $\Aexec$'s
+channel-based measure registers. (v) \emph{The resource laws}: $Z$ dynamics
+and the capacity parameters are $\sigma^{\pm}$. (vi) \emph{The environment's
+autonomous dynamics}: changing the $E$-inheritance part of $T$ (how $E$
+evolves given $E$, at fixed action and resource dependence) changes the
+reference environment itself, not an influence on the agent; since autonomy
+is defined \emph{relative to} an environment and a horizon
+(Definition~\ref{def:autonomy}), such surgeries re-instantiate the
+measurement rather than constitute a sixth class---they are registered as a
+boundary of the interface, on par with changes of horizon or of agent
+individuation. The loci (i)--(vi) exhaust the nodes and admissible edge
+additions of \eqref{eq:factorization}. A full locus-by-locus enumeration is
+given in Appendix~\ref{app:taxonomy}.
+\end{proof}
+The completeness is relative to this interface: it enumerates single-point
+surgeries on the fixed graph \eqref{eq:factorization}. Changes of horizon
+$T$, re-individuation of the agent boundary, multi-node composite campaigns,
+and interventions delivered through the measurement protocol itself are
+outside the enumerated class---they compose the five classes rather than
+constitute a sixth.
+
+\paragraph{The excluded class, and its governance consequences.}
+Case (vi) of the proof---surgeries on the environment's own dynamics---is a
+boundary registration, and its practical weight deserves stating rather than
+leaving it as a technical aside. A platform that rewrites its recommendation
+algorithm, or a market operator that changes the matching rules, changes the
+ecology in which every user's autonomy was baselined; on our definitions this
+is not an influence \emph{on} the agent within the audit but a replacement of
+the reference environment, and the pre-change baseline ceases to apply. The
+operational consequence is a \emph{re-baselining obligation}: any such change
+restarts the audit (baseline period, calibration of channel parameters, the
+percentile bands of Section~\ref{sec:experiments}), and no continuity claim
+across the change is licensed. We concede what this costs: the class that is
+arguably the most consequential influence in modern deployments---shaping the
+environment everyone acts in, at scale and invisibly---is outside the
+per-agent channel audit. What the framework offers for it is not silence but
+a different instrument: the change itself is a logged deployment-level event
+(a modification of the $E$-inheritance law), the obligation to declare it and
+re-baseline is enforceable, and cross-environment comparisons proceed by
+channel \emph{profiles} with both instantiations stated
+(Section~\ref{sec:objections}(viii)). Governing the excluded class is a
+task for the instantiation-level registry, not for the channel readings.
+
+\subsection{Cross-substrate instantiation}\label{sec:substrates}
+
+The framework is substrate-neutral; the following instantiation table is the
+working dictionary (measurement protocols differ by substrate,
+Section~\ref{sec:identifiability}):
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+ & Human & Animal & AI agent \\
+\midrule
+$S$ & values, beliefs, emotions, self-narrative & motivational states,
+learned associations & weights, system prompt, memory, goal function \\
+$M$ & metacognition & (absent) & logs, self-probes, reflection modules \\
+$\Avia$ & health, livelihood, sleep & metabolism, habitat & compute, power,
+context window, API supply \\
+typical attacks & propaganda, addiction, attachment, urgency & conditioning,
+captivity & prompt injection, reward tampering, data poisoning, lock-in \\
+applicable layer & L2 & L0--L1 & L1 (L2 requires explicit architecture) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The table is a working dictionary, and its three columns carry different
+epistemic statuses. \emph{Artificial agents}: the benchmark of
+Section~\ref{sec:experiments} exercises the framework on this substrate at
+the implementation-consistency level---every channel was instrumented and
+every theorem-level claim was exercised (external validity is the registered
+next step, not a delivered result). \emph{Humans}: the channels instantiate by
+protocol (elicitation of $\Ustar$ and endorsement records for $\Agoal$;
+randomized information experiments for $\Aepi$; self-prediction ensembles for
+$\Aref$), the correspondence is triangulated against published evidence
+(Sections \ref{sec:experiments} and \ref{sec:discussion}), and the stated
+validation path is limited experiments plus large-scale online behavioral
+data---falsifiability on this substrate is a design property, not yet a
+delivered result. \emph{Animals}: no experimental contact is made in this
+paper; the L0--L1 layering shows where motivational and belief channels could
+in principle be instantiated (conditioning maps to the $\gamma/\delta$
+classes; habitat and metabolism to $\Avia$), and we claim only this conceptual
+possibility, not coverage.
+
+\subsection{Dual-track measurement and the hallucination index}\label{sec:dualtrack}
+
+A direct consequence of Theorem~T3b (proved in Section~\ref{sec:theorems}) is
+that measurement must be dual-track. The \emph{objective track} is
+evidential: all autonomy claims are supported by external causal probes and
+behavioral audit; self-report never constitutes autonomy evidence. The
+\emph{phenomenal track} is calibrational: the subjective sense of agency
+$\Aphen$ has two legitimate uses---as calibration data for the self-model $M$,
+and as a \emph{hallucination detector}. Self-reports arrive on their own
+scale, so the protocol registers a monotone calibration map fit against
+$A_{\mathrm{obj}}$ during the manipulation-free calibration period, and only
+the mapped self-report enters the index (the map's residual error is the
+$\eta_0$ of Theorem~T3b): with the hallucination index
+\begin{equation}\label{eq:ai}
+\AHI_t := \hat{A}_{\mathrm{phen},t} - A_{\mathrm{obj},t},
+\end{equation}
+$\AHI>0$ growing over time is an operationally measurable early-warning signal
+of covert manipulation (its distribution is reported in
+Section~\ref{sec:experiments}). By design the index is a \emph{one-sided}
+alarm: it flags self-\emph{over}estimation under covert manipulation, while
+self-underestimation (learned helplessness) leaves the $\AHI>0$ register
+silent---the two-sided extension is registered with its protocol in
+Section~\ref{sec:threats}(viii) and not yet run. This dissolves the temptation to either
+enthrone or dismiss subjective autonomy reports: they are instruments of
+calibration and detection, not constituents of autonomy
+\citep{moore_obhi2012,sharma2023}.

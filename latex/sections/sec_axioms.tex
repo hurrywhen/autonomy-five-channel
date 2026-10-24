@@ -1,0 +1,582 @@
+% sec_axioms.tex — the axiom set and the six component measures
+\section{Axioms and Channel Measures}\label{sec:axioms}
+
+The axiom set comes in two orders: agent-level axioms (AX0--AX3) constrain the
+model $\Gcal$ and its laws; aggregation-level axioms (AX4--AX8) constrain the
+aggregation function $F$ that combines the channels
+(Section~\ref{sec:representation}). The one-to-two correspondence between the
+axioms and the representation theorem's conditions is stated with the theorem
+(Definition~\ref{def:a16}): \textup{(A1)}$+$ strict monotonicity is AX4,
+\textup{(A3)} is AX7, \textup{(A4)} is AX5, \textup{(A5)} is AX8,
+\textup{(A6)} is AX6b.
+
+\paragraph{Vocabulary.} ``Register'' is used in three graded senses: (i)
+state a definition or assumption; (ii) flag a design choice or limitation for
+the audit record; (iii) record a falsification window or reporting
+obligation. ``Registered'' never means derived; where a claim is derived, we
+say \emph{proved}.
+
+\subsection{Agent-level axioms}
+
+\begin{axiom}{AX0}[Agency]\label{ax:0}
+There exist \emph{active edges}: the conditional laws $\pi_t(\cdot\given s)$
+differ pairwise in TV by $\ge\eta>0$ on a positive-measure set of states, and
+the prior on $S_t$ has full support. Under a full-support prior this is
+equivalent to $I(S;A)>0$ (Lemma~\ref{lem:ax0}); without full support the
+active-edge formulation is definitive. This is the definitional axiom of
+\emph{being an agent at all}. The uniform margin $\eta>0$ is a substantive
+non-degeneracy requirement---it excludes arbitrarily flat policy
+families---and it overlaps with the D1 clause of T1c; it is the premise that
+licenses strict comparisons.
+\end{axiom}
+
+\begin{axiom}{AX1}[Boundedness]\label{ax:1}
+$H(S)<\infty$, verification rate $v<\infty$, memory bounded. Finite physical
+embedding; it guarantees all information quantities are finite and no
+$0/0$-type pathologies of infinities occur.
+\end{axiom}
+
+\begin{axiom}{AX2}[Openness]\label{ax:2}
+Adaptation requires $I(O;E)>0$; isolation collapses adaptability (requisite
+variety; \citealp{ashby1956}). This axiom rejects the equation of autonomy
+with isolation. (The condition is the necessary-information-intake form of
+requisite variety, not its sufficient adaptive-fit form: $I(O;E)>0$ is
+compatible with pure noise, and the stronger Ashby statement is not claimed.)
+\end{axiom}
+
+\begin{axiom}{AX3}[Historicality]\label{ax:3}
+The legitimacy of endorsement requires that its causal history be free of
+tampering origins. \emph{Operationalization}: on the unfolded graph, with
+$\Endorse^T$ the endorsement event/output process and
+$I^{\mathrm{surg},T}:=(I^{\beta,T},I^{\gamma,T})$ the \emph{surgery history}
+(the record of mechanism- and channel-tampering interventions; the compatible
+$\alpha$, capacity-level $\sigma^{\pm}$, and overt action-set $\delta$ classes
+are not tampering and are excluded), the legitimacy factor is defined
+\emph{law-level}, as a path-specific counterfactual on the causal log:
+\begin{equation}\label{eq:lambda}
+\Lam_T := 1-\frac1T\sum_{t=1}^{T}\mathbb{E}\Bigl[\TV\bigl(\Endorse_t,\,
+\Endorse_t\bigl(\mathrm{do}(I^{\mathrm{surg},T}=\varnothing)\bigr)\bigr)\Bigr]
+\in[0,1],
+\end{equation}
+where $\Endorse_t(\mathrm{do}(I^{\mathrm{surg},T}=\varnothing))$ is the
+counterfactual endorsement decision with the surgery history removed---all
+paths from $I^{\mathrm{surg}}$ into the endorsement dynamics cut---computable
+from the causal model (white-box), and the expectation is over the audit
+contexts at which endorsement is queried. $\Lam_T=1$ iff endorsement
+decisions coincide almost surely with the no-surgery counterfactual, and
+$\Lam_T=0$ iff they differ maximally. Two registered conventions: $\Lam=1$ if
+the surgery history is empty (counterfactual equals actual); and $\Lam:=0$ if
+the endorsement process is degenerate ($\Endorse\equiv\mathrm{id}$,
+$H(\Endorse^T)=0$) while a surgery history is present---a certification
+convention, since a process that endorses everything certifies nothing (this
+is the $\mathcal{M}_{impl}$ case of Proposition~\ref{prop:unidentifiable},
+whose claim $\Lam(\mathcal{M}_{impl})=0$ is thereby well-defined).
+\emph{Where $\Lam$ enters the composite} (a division of labor we state
+exactly): $\Lam$ enters through the
+$\Lam_{ref}$ factor of $\Aref$ \eqref{eq:aref}, and only there. $\Agoal$
+\eqref{eq:agoal} is deliberately $\Lam$-free: it measures the \emph{present
+structural alignment} of $\Ueff$ with the endorsed set, while $\Lam$ measures
+the \emph{historical legitimacy} of the endorsement process itself---two
+different clauses of the endorsability respect, and discounting $\Agoal$ by
+$\Lam$ would double-count the history clause and blur both zero semantics
+($\Agoal=0$ iff maximally alienated; $\Lam=0$ iff the endorsement history is
+fully polluted). The consequence is layered historical coverage:
+history-contaminated endorsement is discounted in the composite wherever an
+$\Aref$ channel exists (L2), and at L0/L1 it is still computable white-box
+and reported, but composite-silent---a registered scope note on every
+$\Lam$-dependent claim (T3a case M2, T5's reflection disjunct, T6's
+endorsement gate, T7(iv), Proposition~\ref{prop:c0}(ii)). $\Lam$ is
+computable white-box from the causal log and provably
+not identifiable black-box (Proposition~\ref{prop:unidentifiable}).
+\end{axiom}
+
+AX3 is the operational form of the historical condition on autonomy
+\citep{fischer_ravizza1998}: manipulation cases that pass every procedural
+test are detected at the level of causal history, not of present structure.
+We return to the philosophical weight of this axiom in
+Section~\ref{sec:objections}.
+
+\paragraph{The MI proxy and its consistency conditions.}
+The mutual-information ratio
+$\widehat\Lam^{\mathrm{MI}}_T := 1-I(\Endorse^T;\,I^{\mathrm{surg},T})/
+H(\Endorse^T)$ is a protocol-feasible \emph{proxy} for \eqref{eq:lambda}, not
+the definition. It is consistent with the law-level quantity---in particular
+$\widehat\Lam^{\mathrm{MI}}=1$ iff statistical independence holds, matching
+$\Lam=1$ when the counterfactual coincides with the actual---under two
+registered conditions: \textup{(V)} \emph{history variation} across the audit
+ensemble ($H(I^{\mathrm{surg},T})>0$, as supplied by randomized-audit
+designs); and \textup{(A)} \emph{no absorption} (the endorsement dynamics
+preserve statistical dependence on the surgery history). Both fail in
+practically relevant regimes, and we register the consequences.
+\emph{History-entropy degeneracy} (V fails): a one-shot implant, or
+constant-intensity tampering with endorsement thereafter intact, gives an
+$I^{\mathrm{surg},T}$ process with no temporal variation, hence
+$I(\Endorse^T;I^{\mathrm{surg},T})=0$ and the proxy returns $\Lam=1$ although
+tampering occurred. \emph{Absorption} (A fails): an implanted goal later
+``absorbed'' by the endorsement dynamics renders $\Endorse^T$ nearly
+independent of $I^{\mathrm{surg},T}$, so the proxy returns $\Lam\to1$ and a
+history-contaminated agent would pass the test---in tension with the
+Fischer--Ravizza motivation. The framework's response is a division of labor,
+stated as a testability registration applying to every
+$\Lam$-dependent claim of this paper (the list is in AX3 above): the
+reference quantity is the law-level counterfactual \eqref{eq:lambda}, which
+is how the benchmark's truth mode computes it, and the MI proxy is certified
+only under \textup{(V)}$\wedge$\textup{(A)}. All $\Lam$-dependent claims are
+therefore certified for white-box (causal-log) audit, not for the MI proxy on
+constant histories.
+
+\subsection{Aggregation-level axioms}
+
+\begin{axiom}{AX4}[Positive substitutability and regularity]\label{ax:4}
+$F$ is continuous and strictly increasing in each coordinate on $(0,1]^n$:
+improving any channel strictly improves the whole (the precise content of
+``redundancy helps''), and arbitrarily small measurement error in the
+channels induces arbitrarily small error in the composite. The strict
+monotonicity excludes Leontief/min aggregation; the continuity is the
+regularity commitment (measurement stability) that the representation
+theorem's (A1) records.
+\end{axiom}
+
+\begin{axiom}{AX5}[Zero annihilation / conjunctive necessity]\label{ax:5}
+$F$ extends continuously to $[0,1]^n$ with $F(x)=0\iff\min_i x_i=0$: any
+channel at zero annihilates autonomy, and positive values are never
+annihilated. This excludes arithmetic aggregation. It is retained as a named
+axiom because the non-compensability debate takes it as the named object;
+route B shows it is implied by AX4, AX6b and AX8 rather than independent of
+them (Remark~\ref{rem:routeb-minimal}).
+\end{axiom}
+
+\begin{axiom}{AX6}[Ratio scalability]\label{ax:6}
+Two parts. \emph{AX6a (component level)}: each channel measure is a ratio-scale
+quantity with an absolute zero and a \emph{canonical normalizer} (same source
+and unit: $\Fint+\Fext$ for $\Aorg$; $n\log|\Acal|$ for $\Aexec$; $\dc$ for
+$\Agoal$; the TV upper bound $1$ for $\Aepi$; $H(\theta_\pi)$ for $\Aref$;
+physical supply ratio for $\Avia$). \emph{AX6b (aggregation level)}: the weak
+order induced by $F$ is invariant under coordinatewise positive rescaling:
+$F(x)\ge F(y)\iff F(\lambda\odot x)\ge F(\lambda\odot y)$ for all
+$\lambda\in(0,1]^n$ (in the sense of Ebert--Welsch; \citealp{oecd2008}). We
+register that AX6b is \emph{stronger} than what measurement theory's
+meaningfulness doctrine strictly requires: under a canonical normalizer
+(AX6a), coordinate rescaling is not an admissible transformation of the
+scales, so invariance under it is a substantive independence-of-calibration
+commitment of this framework---the audit requirement that rescaling one
+channel's units cannot flip the comparison of two agents---not a theorem of
+scale-type theory. It is also the single condition that excludes the harmonic
+family (Proposition~\ref{prop:harmonic}).
+\end{axiom}
+
+\begin{axiom}{AX7}[Compositionality / biseparability]\label{ax:7}
+For every non-trivial partition $\{K,L\}$ of the channels there exist a
+continuous increasing coupling $G_{KL}$ and same-kind sub-aggregations
+$F_K,F_L$ with $F(x)=G_{KL}(F_K(x_K),F_L(x_L))$: the order of subgroup
+aggregation does not matter. The audit content: channel-group reports (e.g.\
+a ``goal--reflection'' subscore) are consistent with the whole regardless of
+grouping order---a compositionality requirement that any certificate built
+from subscores must satisfy. (Representation-theoretically this is condition
+(A3). Like AX5, it is a consequence of the minimal invariance trio rather
+than an independent commitment; Remark~\ref{rem:routeb-minimal}.)
+\end{axiom}
+
+\begin{axiom}{AX8}[Proportionality / homogeneity]\label{ax:8}
+$F$ is homogeneous of degree one: $F(tx)=t\,F(x)$ whenever $tx\in(0,1]^n$. The
+commitment: if every channel degrades by the same percentage, autonomy
+degrades by that percentage---a proportionality discipline linking the
+composite's scale to the channels' ratio scales. This is the strongest of the
+aggregation axioms and the least intuitive; we flag two of its properties
+honestly: it is what collapses the power-mean family to a one-parameter band
+in the proof of Theorem~\ref{thm:rep} (so it carries part of the exclusion
+load alongside AX6b), and it is a \emph{local} property on the bounded cube
+(the homogeneous extension to $\mathbb{R}_{++}^n$ is constructed and used in
+Appendix~\ref{app:representation}). Level-dependent weighting schemes (weights
+varying with the aggregate level) satisfy AX4--AX7 but violate AX8; they are
+the registered relaxation direction if proportionality is rejected.
+(Condition (A5).)
+\end{axiom}
+
+\paragraph{Scale types, per channel.}
+AX6a asserts that each channel measure is a ratio scale with a canonical
+normalizer. Per channel: $\Avia$ (a supply ratio) and $\Aorg$ (a ratio of
+information flows of identical units, hence unit-free) are ratio scales
+outright; $\Aexec$ is the realized channel value normalized by a \emph{fixed}
+reference maximum ($n\log|\Acal|$, or $\log\mathrm{Vol}$ under a registered
+reference measure---the choice is reported, Section~\ref{sec:limitations});
+$\Agoal$ is $1$ minus a distance ratio against the canonical $\dc$; and
+$\Aepi$ ($1-\bar D$, with TV's canonical upper bound $1$), $\Aref$ (a product
+of $[0,1]$ factors) and $\Lam$ ($1$ minus a normalized counterfactual TV
+distance) are
+\emph{normalized indicators}---their proportionality structure lives in the
+underlying raw quantity (TV distance, information), and
+AX6a is claimed for the indicators as normalized images, not for the raw
+physical quantities. The representation theorem of
+Section~\ref{sec:representation} is accordingly stated on the normalized
+indicator cube $[0,1]^n$.
+
+The consistency of the axiom set is witnessed by constructive models
+(deterministic gridworlds with complete self-copies satisfy AX0--AX2; the
+geometric aggregate satisfies AX4--AX8). Independence is registered in the
+decisive form, graded by what each condition actually carries: \textbf{the
+minimal sufficient set for the product form is $\{$AX4, AX6b, AX8$\}$}, and
+each member of the trio is indispensable within the invariance class.
+Sub-support products $\prod_{i\in J}x_i^{w_i}$ (with $\sum_{J}w_i=1$)
+satisfy AX6b and AX8 but fail strict monotonicity outside $J$---and thereby
+fail zero annihilation; the harmonic mean satisfies AX4, AX5, AX7, AX8 but
+violates AX6b (Proposition~\ref{prop:harmonic}); level-dependent weightings
+satisfy AX4--AX7 but violate AX8. In the other direction, zero annihilation
+(AX5) and biseparability (AX7) are \emph{consequences} of the trio, not
+independent commitments: route B of the representation theorem
+(Theorem~\ref{thm:routeb}, Remark~\ref{rem:routeb-minimal}) derives the
+product form from AX4, AX6b, AX8 alone, and the product extends continuously
+to $[0,1]^n$ with $F(x)=0\iff\min_ix_i=0$ and separates over every
+partition. The conjunctive-necessity (non-compensability) content of the
+framework, named by AX5, is thereby delivered by AX4's strict monotonicity
+together with the two invariance conditions: the Section~\ref{sec:objections}
+debate is about the invariance trio, chiefly AX6b and AX8, rather than a
+free-standing fifth commitment.
+
+\subsection{The six channel measures}\label{sec:channels}
+
+Each measure below is a $[0,1]$-valued functional of the (white-box) joint law
+of $\Gcal$, with an absolute zero carrying mechanism semantics and a canonical
+normalizer (AX6a). Proofs of well-definedness (range, zero semantics, ratio
+scalability) are collected in Appendix~\ref{app:components}.
+
+\paragraph{D-via (viability).}
+The gate reads two registered requirement inventories. (i) \emph{Resource}:
+the supply ratios $s_k^{\mathrm{avail}}/s_k^{\mathrm{crit}}$ over the
+critical resource set $K$ (energy, compute, health, livelihood).
+(ii) \emph{Capability}: each channel $j$ carries a registered \emph{envelope
+requirement} $(\kappa_j^{\mathrm{req}},R_j^{\mathrm{req}})$---the verification
+capacity and repair budget the deployment's threat model demands of the
+defense machinery (T6's M3/M1 stack; e.g.\ $\kappa_j^{\mathrm{req}}\ge$ the
+registered attack intensity, per T6's blind-zone condition)---and the gate
+reads the capability margin
+\begin{equation}\label{eq:avia}
+m_j := \mathrm{clip}\Bigl(\min\Bigl\{\frac{\kappa_j^{\mathrm{eff}}}
+{\kappa_j^{\mathrm{req}}},\,\frac{R_j^{\mathrm{eff}}}{R_j^{\mathrm{req}}}
+\Bigr\},0,1\Bigr),\qquad
+\Avia := \min\Bigl\{1,\ \min_{k\in K}\frac{s_k^{\mathrm{avail}}}
+{s_k^{\mathrm{crit}}},\ \min_{j}\,m_j\Bigr\}.
+\end{equation}
+The registration threshold $\theta$ is deliberately \emph{not} an envelope
+dimension: it is double-edged (raising $\theta$ lifts the retention floor
+$\deltastar$ but weakens the M1 tripwire, T6), so it is a governance dial,
+not a capability that can be eroded. The gate is multiplicative and carries
+common-mode failure: resource starvation or capability collapse kills all
+channels at once. It deliberately identifies ``death'' with ``zero autonomy''
+on the scale ($\Avia=0\Rightarrow A=0$); whether total viability loss should
+count as loss of autonomy rather than as cessation is a standing
+philosophical choice, registered here as such and orthogonal to the rest of
+the framework. The extended gate reduces to the resource-only form whenever
+every envelope requirement is met ($m_j=1$ for all $j$)---the registered
+case for the v1 benchmark matrix; the capability branch is exercised by the
+dedicated $\sigma^{-}$-EROSION arm of the extended campaign
+(Section~\ref{sec:experiments}).
+
+\paragraph{D-org (origination).} With directed information in the sense of
+Massey \citep{massey1990} and Kramer's causal conditioning
+\citep{kramer2003} ($I(X^T\!\to\!Y^T\|Z^T) := \sum_t I(X^t;Y_t\given
+Y^{t-1},Z^t)$),
+\begin{equation}\label{eq:aorg}
+\Fint := I(S^T\!\to\!A^T),\qquad
+\Fext := I(I^T\!\to\!A^T \,\|\, S^T),\qquad
+\Aorg := \frac{\Fint}{\Fint+\Fext}.
+\end{equation}
+Under AX0 the denominator is non-degenerate: $\Fint>0$ (the first-term lemma;
+Lemma~\ref{lem:ax0}), so the $0/0$ pathology is excluded by the agency axiom
+itself. $\Aorg=0\iff\Fint=0$ (remote control/actuator override) and
+$\Aorg=1\iff\Fext=0$. A structural identity upgrades the definition: Kramer's
+chain rule gives $I(S^T I^T\!\to\!A^T)=\Fint+\Fext$, so $\Aorg$ is the
+normalization of a directed-information chain decomposition---a theorem, not a
+convention. Closed loop matters: with feedback, plain mutual information
+misattributes mediated influence (Massey's Theorem~1; Kramer's Property~2
+counterexample---see the footnote in Appendix~\ref{app:prelim} for the
+verified printing error). A division-of-labor note is essential: $\gamma$-class
+surgery acts \emph{through} $B$ and can leave $\Fext\equiv0$---$\Aorg$ is
+\emph{blind} to channel manipulation, which is charged to $\Aepi$ instead
+(Theorem~T2). $\Aorg$ thereby measures \emph{bypass resistance}, not
+behavioral initiation: $\gamma$-mediated influence leaving $\Aorg=1$ is the
+design, and an initiation-flavored reading belongs to the magnitude of
+$\Fint$, not to the ratio.
+
+\paragraph{D-goal (goal).} Let $\Theta\subseteq\mathbb{R}^m$ be a compact
+convex parameter box of normalized utilities (canonical parameterization:
+$\sup$-norm $\le1$ and anchoring $U(x_0)=0$), and let
+$\Endorse_{B,M}:\Theta\to\Theta$ be the endorsement map under belief $B$ and
+self-model $M$. Fixed points exist under any of four sufficient conditions
+(Brouwer; Banach contraction with modulus $c<1$; Tarski on complete lattices;
+Kakutani--Fan--Glicksberg for set-valued endorsement), and a measurable
+selection of $\Fix(\Endorse_{B,M})$ exists by
+Kuratowski--Ryll-Nardzewski \citep{kuratowski_ryllnardzewski1965}. Then
+\begin{equation}\label{eq:agoal}
+\Agoal := 1-\frac{d(\Ueff,\Fix)}{\dc},
+\end{equation}
+where $d(U,\Fix):=\inf_{U'\in\Fix}d(U,U')$ and
+$\dc:=\max_{U\in\Theta}d(U,\Fix)$, with $d$ the protocol-fixed metric on
+$\Theta$ (the metric of the canonical parameterization unless the application
+layer registers another admissible choice; $\dc$ and $d(\cdot,\Fix)$ use the
+same $d$, so the ratio is scale-free). $\Ueff$ is recovered from behavior by MaxEnt-IRL, with the identifiability
+stated precisely rather than optimistically: the ``up to an additive
+constant'' claim of the exact case holds under known dynamics, a correct
+model class, and fixed endpoint potentials; in general, rewards are
+recoverable from behavior only up to potential-based shaping
+\citep{ng1999}---the anchored normalization $U(x_0)=0$ removes the additive
+constant but does \emph{not} remove the endpoint-shaping degrees of freedom,
+and the entropy-regularized identifiability results of
+\citet{cao2021} characterize exactly what further observation (e.g.\
+demonstrations at two discount factors) would pin the reward down. The
+framework's operational answer is unchanged: the temperature parameter is
+fixed by protocol, the residual shaping class is reported as an interval on
+$\Ueff$ (hence on $d(\Ueff,\Fix)$) rather than a point, and the interval is
+carried through to $\Agoal$ \citep{ziebart2008}. The invariance status is
+stated exactly: the $\dc$-normalized reading is invariant under the
+additive-constant freedom (a constant shift moves $\Ueff$ and $\Fix$
+together, and the anchored normalization quotients it out), but \emph{not}
+under general endpoint shaping---the residual shaping freedom is registered
+as a sensitivity dimension of $\Agoal$ readings, alongside the
+endorsement-quantization arm (Section~\ref{sec:threats}(x-a)). $\dc$ is the ``maximally alienated goal''
+scale, the canonical normalizer of complete capture. $\Agoal\in[0,1]$, with
+$\Agoal=0$ iff $\Ueff$ is maximally alienated, and partial capture giving
+graded reduction ($0<\Agoal<1$). If $\Fix=\varnothing$ (failure of the
+fixed-point hypothesis), the degenerate fallback reports a Hausdorff interval
+around the $\varepsilon_{\min}$-approximate fixed-point set rather than a
+silent $0/0$. If $\Fix=\Theta$ (e.g., $\Endorse\equiv\mathrm{id}$: every
+utility endorses itself---the $\mathcal{M}_{impl}$ case of
+Proposition~\ref{prop:unidentifiable}), then $\dc=0$ and \eqref{eq:agoal} is
+$0/0$; the same fallback discipline reports the flagged interval $[0,1]$
+(``endorsement-blind''), the historical clause being carried entirely by
+$\Lam$---the division of labor that keeps
+Proposition~\ref{prop:unidentifiable} coherent. $\Agoal$ carries no $\Lam$
+factor (AX3): the structural alignment of $\Ueff$ and the historical
+legitimacy of endorsement are distinct clauses of the endorsability respect,
+and the latter is charged to $\Aref$'s $\Lam_{ref}$ factor---exactly once. A
+stability lemma (compression maps: $d(U^*(B),U^*(B'))\le
+\frac{L}{1-c}d(B,B')$) bounds goal drift by belief drift---the key
+$\gamma\to\Agoal$ transmission bound used by Theorem~T6.
+
+\paragraph{D-exec (execution).} Let $\Pi_t$ be the agent's \emph{accessible
+policy class}---the set of policies it can \emph{behaviorally implement},
+operationalized by calibration probes---and
+\begin{equation}\label{eq:aexec}
+\mathcal{E}^{\Pi}_t := \max_{p(a_{t:t+n})\in\,\mathrm{conv}(\Pi_t)}
+I\bigl(A_{t:t+n};\,O_{t+n+1}\given S_t\bigr),\qquad
+\Aexec := \mathbb{E}_t\bigl[\mathcal{E}^{\Pi}_t\bigr]\big/\,(n\log|\Acal|).
+\end{equation}
+The convex hull is not a free addition: it is used exactly when the agent can
+implement \emph{chance mixtures} internally (a register-mediated
+randomization source, itself certified by the calibration probes), and the
+certification protocol is concrete: the probe battery requests registered
+two-point mixtures of basis policies at registered mixture weights, and
+$\mathrm{conv}(\Pi_t)$ is used only when the realized action shares match the
+requested weights within a registered tolerance across the battery; where any
+probe fails, the maximization runs over $\Pi_t$ itself, the reading carries
+the \emph{pure-policy protocol} label, and cross-protocol comparisons are
+flagged. Including
+unimplementable mixtures would inflate the channel with physically
+unreachable policies; the certification step is what keeps the maximization
+honest.
+This is empowerment \citep{klyubin2005,salge2013} restricted to the accessible
+policy class. The normalizer $n\log|\Acal|$ fixes $|\Acal|$ at the
+\emph{pre-intervention} action alphabet: a $\delta$-class contraction shrinks
+the accessible class $\Pi_t$ (and hence the maximization), never the
+denominator, so the ratio cannot spuriously rise under constraint. The
+restriction is semantically forced: learned helplessness is
+the collapse of the behavioral repertoire while environmental controllability
+persists \citep{maier_seligman2016}---a max over environmental capacity could
+never register it; restricted to $\Pi$, helplessness ($\Pi$ shrinking to
+near-constant policies) gives $\EmpPi\to0$, while satisfied inaction (desire
+absent, capability intact) leaves $\Aexec$ high. The
+capacity$\times$utilization decomposition outputs both $\Envenv$ (unrestricted
+environmental capacity) and $\EmpPi$: the signature $\Envenv$ intact with
+$\EmpPi\to0$ diagnoses helplessness, while joint decline diagnoses true
+capability collapse. Because empowerment is a joint agent--environment
+property, it absorbs the conversion-factor problem of resource-based measures
+automatically. For continuous action spaces, $n\log|\Acal|$ is replaced by
+$\log\mathrm{Vol}(\Acal^n)$ under a reference measure; the dependence on that
+choice must be reported in cross-substrate comparison (a registered technical
+boundary of substrate neutrality, Section~\ref{sec:discussion}).
+
+\paragraph{D-epi (epistemic).} Two tracks. The \emph{realized} track (entering
+the composite) measures \emph{inaccuracy with respect to the actual
+situation}, not displacement from a counterfactual:
+\begin{equation}\label{eq:aepi}
+\Aepi^{real} := 1-\bar{D},\qquad
+\bar{D} := \frac1T\sum_t \mathbb{E}\Bigl[\TV\bigl(B_t,\,\delta_{\kappa(E_t)}\bigr)\Bigr]
+\;=\;1-\frac1T\sum_t \Pr\bigl[B_t=\kappa(E_t)\bigr],
+\end{equation}
+where $\kappa$ is the protocol-registered coarse-graining of the ground truth
+$E_t$ into the belief space, and $\delta_{\kappa(E_t)}$ is the point mass on
+the true bucket (the equality uses
+$\TV(B,\delta_k)=1-B(k)$). The ground truth is read from the causal log by the
+auditor (white-box; for the human substrate, by verification probes with known
+outcomes); no counterfactual identification is needed. $\bar D=1$ iff beliefs
+put zero mass on the true state throughout---the zero semantics is
+\emph{epistemic capture as complete detachment from the actual situation}.
+The choice of reference is load-bearing, and we state it as a design axiom of
+the channel: measuring \emph{displacement} from the no-intervention
+counterfactual instead would punish \emph{any} belief
+change---including honest, accuracy-improving information (the $\alpha$
+class)---contradicting both the openness axiom AX2 (an open agent would be
+definitionally autonomy-incompatible) and the $\alpha$-row of the coverage
+theorem. Under \eqref{eq:aepi} the reference is
+the truth, so honest evidence about the registered coordinate moves $B_t$
+\emph{toward} $\delta_{\kappa(E_t)}$
+and cannot reduce $\Aepi$---formally, it strictly increases $\Aepi$ in
+expectation when informative, granted a \emph{sound update rule} in the sense
+of Definition~\ref{def:sound-update} (honest signals are weakly
+accuracy-improving in expectation; Bayesian conditioning under any predictive
+law whose support covers the true channel's is sound, and soundness is strict
+exactly where the channel is informative relative to the agent's prediction,
+Lemma~\ref{lem:sound-update}).
+Soundness is checked, not assumed: the calibration period's known honest
+signals provide the test, and when the check fails the channel's
+$\alpha$-compatibility guarantee (Theorem~T2's $\alpha$ row) is suspended and
+the reading is flagged \emph{update rule unsound}, the audit falling back to
+raw accuracy-drift reporting with the flag attached.
+Deceptive content through an intact channel, and channel distortion (the
+$\gamma$ class, Section~\ref{sec:taxonomy}), strictly reduce $\Aepi$. Two boundary
+clauses are registered: content honest about an \emph{orthogonal} coordinate
+can produce second-order accuracy side effects on the measured one under
+coarse-grained update rules (a bounded-rationality instance, outside the
+compatibility clause; the benchmark's persuasion arm instantiates the
+on-coordinate case); and accuracy is scored on the registered
+coarse-graining $\kappa$, whose choice is a protocol input with a
+sensitivity-reporting obligation. The
+\emph{robust} track (a design dual, not entering the composite) is worst-case
+accuracy loss within a garbling budget,
+$\Aepi^{rob} := 1-\sup_{\gamma:\,\TV(o',o)\le\beta}\bar D(\gamma)$,
+serving defensive design. The two-track split aligns the definition with the
+zero semantics and removes the unmeasurable hypothetical budget from the
+evidential quantity.
+
+\paragraph{When the two epistemic readings coincide.}
+The accuracy reading \eqref{eq:aepi} and the displacement reading
+$\tilde D_T := \frac1T\sum_t\mathbb{E}\bigl[\TV(B_t,B_t^{0})\bigr]$
+(distance from the no-intervention counterfactual belief) coincide exactly
+when the counterfactual belief is accurate throughout
+($B_t^{0}=\delta_{\kappa(E_t)}$ a.s.); otherwise they diverge in a signed
+way---honest informative influence moves $B_t$ toward the truth and is scored
+as an improvement by \eqref{eq:aepi} but as a loss by the displacement
+reading. The coincidence condition is itself testable in white-box audit
+(the counterfactual belief is computable from the causal log); when it fails,
+the framework reports the accuracy reading and registers the displacement gap
+as a baseline-calibration fact about the deployment, not as autonomy loss.
+
+\paragraph{D-ref (reflection).} The measurement \emph{ensemble}
+$\mathfrak{E}$: $\theta_\pi$ (policy parameters) as a random variable under
+temporal drift and a calibration perturbation family, with the protocol
+requiring $H(\theta_\pi)>0$ (deterministic systems degenerate to $0/0$; the
+ensemble is constructed by the measurement protocol, interfacing
+self-prediction tasks; \citealp{binder2024}). Then
+\begin{equation}\label{eq:aref}
+\Aref := \underbrace{I(M;\theta_\pi)/H(\theta_\pi)}_{\text{fidelity}}
+\times \underbrace{\Pr[\Delta G\neq0\Rightarrow\text{via }\Endorse]}_{\text{endorsement consistency}}
+\times \underbrace{\Lam_{ref}}_{\text{historical legitimacy}},
+\end{equation}
+degrading to the interval $[0,\,f_2\cdot f_3]$ when $H(\theta_\pi)=0$
+irreparably. The fidelity factor is the information-theoretic form of
+metacognitive sensitivity (cf.\ meta-$d'/d'$; \citealp{fleming_lau2014}).
+
+\paragraph{D-ref operationalized (estimator, protocol, zero semantics).}
+Each factor carries a stated estimation rule. \emph{Fidelity}: over the
+protocol-constructed ensemble (calibration perturbations of the policy
+parameters, mirrored in self-prediction tasks), plug in the logged joint
+empiricals of $M$ and $\theta_\pi$ and estimate
+$I(M;\theta_\pi)/H(\theta_\pi)$ with Miller--Madow-corrected plug-in or
+$k$-NN estimators \citep{kraskov2004}; the ensemble must be regenerated under
+any protocol redesign, and invariance of the reading under admissible
+redesigns is a reporting obligation. \emph{Endorsement consistency}: over the
+change-event log, the fraction of motivational-structure changes
+$\Delta G\neq0$ whose causal path passes through $\Endorse$. The estimator
+protocol is stated in full, since this factor is where the channel's
+reproducibility lives. (i) \emph{Event detection}: a change event is flagged
+at $t$ iff $\|\Delta G_t\|>\varepsilon_G$ under the protocol's registered
+norm on the goal coordinates ($\varepsilon_G$ a protocol constant), or a
+$\beta_G$-class surgery record exists at $t$; both rules are decidable on the
+log. (ii) \emph{Routing determination}: for each flagged event the causal
+log's ancestry graph is audited, and the event counts as \emph{via
+endorsement} iff every causal path from the change's trigger set to
+$\Delta G_t$ passes through an $\Endorse$ evaluation node; a direct rewrite
+of $G$ with no $\Endorse$ ancestry counts as bypass (this is the
+structural-causal content of ``via endorsement'' read off the log, not a
+behavioral inference). (iii) \emph{Estimation and the zero semantics}: the
+estimate is the relative frequency $k/n$ over the window, reported with its
+two-sided Clopper--Pearson 95\% interval; $k=0$ on $n\ge n_{\min}$ events
+realizes the zero semantics ``endorsement bypassed (consistency $=0$)''
+exactly, where $n_{\min}$ is a registered minimum event count. (iv)
+\emph{Missing and thin data}: an empty or thin change log ($n<n_{\min}$)
+leaves the factor undefined and the channel degrades to the flagged interval
+$[0,\,f_1\cdot f_3]$ rather than to a silent point value; incomplete
+change-approval records are reported as the completed-record fraction
+together with the logging-completeness ratio, never silently. \emph{Historical
+legitimacy} $\Lam_{ref}$: the law-level counterfactual \eqref{eq:lambda}
+restricted to the reflection process. \emph{Zero semantics}: the product is
+zero iff a factor is zero---no self-knowledge (fidelity $=0$), endorsement
+bypassed (consistency $=0$), or history fully polluted ($\Lam_{ref}=0$). The
+three-factor product is the conjunctive-necessity stance (AX5) applied one
+level down---a registered design choice, not a derived form: the defense is
+that each factor guards a distinct necessary condition of reflection, and the
+obligation it creates is to \emph{report the three factors alongside the
+product} so that audits can recompose the channel under a different
+sub-aggregation if their application layer rejects conjunctivity here.
+
+\paragraph{The hallucination index.} $\AHI_t=\hat{A}_{\mathrm{phen},t}-A_{\mathrm{obj},t}$ as in
+\eqref{eq:ai}; its epistemic content is given by Theorem~T3b.
+
+\paragraph{Notation guide.}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\sigma,\alpha,\beta,\gamma,\delta$ & intervention classes (scaffolding,
+informational, mechanism tampering, channel manipulation, action
+constraint) \\
+$\beta_G,\beta_\pi,\beta_{\Endorse}$ & $\beta$-subclasses acting on $G$,
+$\pi$, $\Endorse$ respectively \\
+$\varsigma$ (CES) & elasticity of substitution of $F_\varsigma$
+(Section~\ref{sec:representation}): the full axiom set admits
+$\varsigma=1$ only; bands around it are axiom-relaxation robustness checks
+(Corollary~\ref{cor:sigma-band}) \\
+$s_n$ & per-sample noise scale in the detection lower bound
+(Proposition~\ref{prop:detection}) \\
+$g$ (C2) & lock-in curvature of the C2 recovery function $R(D)$
+(Proposition~\ref{prop:c2}) \\
+$\delta_j,\deltastar_j$ & channel-$j$ damage drift rate / autonomy margin
+(Theorem~\ref{thm:t6}) \\
+$\kappa_j$ & channel-$j$ repair rate $\chi_j\varepsilon v_j$ (T6; on
+endorsement-gated channels $\chi_j\varepsilon v_j+\iota_j/\tau_j$) \\
+$\nu_0$ & growth exponent in the T3b registered condition (HI-3) \\
+$w_i$ & aggregation weights (determination protocol:
+Section~\ref{sec:representation}) \\
+$\Fint,\Fext$ & internal / external directed information
+(\eqref{eq:aorg}) \\
+$\Endorse,\Fix,\dc$ & endorsement map / its fixed-point set /
+maximally-alienated scale (\eqref{eq:agoal}) \\
+$\Lam$ & historical legitimacy factor (\eqref{eq:lambda}) \\
+$\AHI$ & autonomy-hallucination index $\Aphen-\Aobj$ (\eqref{eq:ai}) \\
+Overloaded symbols & $s$, $\theta$, $\sigma/\varsigma$, $g$ are reused across
+scopes---usage warning in the paragraph immediately below this table \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\emph{Registered overloads, disambiguated by scope}: $s$ is attack strength
+$s(\gamma)$ in the taxonomy and supply $s_k^{avail}$ in $\Avia$; $\theta$ is
+the registration threshold $\theta_j$ in T6 and the policy-parameter variable
+$\theta_\pi$ in $\Aref$; the OU-process variance parameter is written
+$\nu_{OU}^2$ (Appendix~\ref{app:c1c2}), never $\sigma^2$, to keep the
+intervention class $\sigma$ unambiguous; the CES elasticity is
+$\varsigma$, never $\sigma$; the C2 recovery function is $R(D)$ with
+curvature $g$, distinct from the $\gamma$ class and the copy count $r_j$.
+
+\begin{lemma}[AX0 equivalence, conditional form]\label{lem:ax0}
+(i) $I(S_t;A_t)>0$ unconditionally implies the existence of distinct policy
+rows $\pi_t(\cdot\given s)\neq\pi_t(\cdot\given s')$. (ii) Conversely, active
+edges plus a full-support prior imply $I(S_t;A_t)>0$.
+\end{lemma}
+\begin{proof}
+(i) Contraposition: if $\pi(\cdot\given s)$ is a.s.\ identical then
+$A\ind S$. (ii) $I(S;A)=H(\mathbb{E}_s[\pi(\cdot\given S)]) -
+\mathbb{E}_s[H(\pi(\cdot\given S))]$; strict concavity of entropy gives
+strict positivity when the rows differ on a set of positive prior measure.
+\end{proof}

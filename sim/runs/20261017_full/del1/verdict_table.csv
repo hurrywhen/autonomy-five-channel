@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+7,DEL-1,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_h1_linear_law"": 1.0, ""C2_bracket_non_h1"": 1.0, ""C3_composite_fit"": 1.0, ""C4_q1_alpha_equivalence"": 1.0, ""C5_f_pos_bracket"": 1.0, ""C6_rho_neq1_bracket"": 1.0}"

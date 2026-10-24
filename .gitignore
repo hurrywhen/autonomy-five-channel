@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# LaTeX build byproducts (main.pdf and main.bbl ARE intentionally tracked)
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.toc
+latex/*.blg
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.synctex.gz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~

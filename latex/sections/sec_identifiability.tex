@@ -1,0 +1,279 @@
+% sec_identifiability.tex — identifiability and black-box degradation
+\section{Identifiability and Black-Box Degradation}\label{sec:identifiability}
+
+Measurement claims are only as good as their identifiability analysis. This
+section fixes what is knowable about autonomy, from what data, and with which
+degradation rules when internal access is denied. Proofs are in
+Appendix~\ref{app:identifiability}.
+
+\subsection{White-box identification}
+
+\begin{proposition}[White-box point identification, tiered by modal
+commitment]\label{prop:whitebox}
+Given white-box access---the full causal log of $S$, $O$, $A$, $I$, $Z$
+unfolded to the horizon, the local laws of $\Gcal$, and intervention access
+(H-0)---every channel estimand \eqref{eq:aorg}--\eqref{eq:aref} is
+identified, but the premises differ by tier, and we state them apart rather
+than compress them into ``functional of the law.''
+\emph{Tier 1 (law functionals)}: $\Aorg$, $\Aepi$, $\Avia$ are functionals of
+the joint law (directed informations, accuracy against the logged ground
+truth, supply ratios).
+\emph{Tier 2 (protocol-constructed modal objects)}: $\Aexec$ quantifies over
+the accessible policy class $\Pi_t$ (a counterfactual object,
+operationalized by calibration probes) and $\Aref$'s ensemble is constructed
+by the measurement protocol; under those constructions the values are unique,
+and without them the quantities are not defined, rather than unidentified.
+\emph{Tier 3 (counterfactual)}: $\Lam$ \eqref{eq:lambda} is a path-specific
+\emph{counterfactual}, not an interventional functional of the joint law:
+computing it requires the structural model---the logged local laws and
+exogenous noise terms that support the abduction step of the counterfactual
+evaluation---so its identification premise is mechanism-level (white-box in
+the strong sense), strictly stronger than joint-law access with interventions
+(which pins interventional distributions but, absent structural assumptions,
+does not pin cross-world counterfactuals). The MI proxy's certified domain is
+narrower still (the AX3 conditions \textup{(V)}$\wedge$\textup{(A)}).
+Estimation details and bias sources:
+plug-in directed
+information carries $O(\cdot/N)$ bias (simulation calibration is the
+registered remedy); mutual-information estimation at scale uses
+Kraskov-type $k$-NN or neural estimators
+\citep{kraskov2004,belghazi2018}; empowerment is computable by variational
+bounds \citep{mohamed2015} and Blahut--Arimoto-type iteration
+\citep{cover_thomas2006}; offline change-point estimation covers the
+registration layer \citep{truong2020,salge2013}.
+\end{proposition}
+
+Two per-channel notes complement the tier statement.
+$\Aexec$ is exact only under the probe protocol that certifies the accessible
+class (Section~\ref{sec:blackbox}).
+$\Aref$'s measurement ensemble is \emph{constructed} by the protocol
+(self-prediction tasks under the perturbation family): invariance of the
+reading under admissible protocol re-designs is a reporting obligation, not
+an automaticity. And the MI ratio for $\Lam$
+presumes variation of the surgery history \emph{within the
+ensemble}: in a single deployment with a constant surgery history the
+empirical MI degenerates to $0$, and the randomized-audit design is the
+proxy's only certified domain
+(Section~\ref{sec:datareq}).
+
+The measurement protocol is four-phase: a \emph{baseline period} records all
+channel parameters and logs without intervention; a \emph{calibration period}
+applies known interventions of known type and strength (under ethical review)
+and fits the five channel response functions---this is also where unit
+conversions (H2), the weights $w_i$ (by one of the three non-circular
+determination protocols of Section~\ref{sec:representation}), the drift
+tolerance $\eta$, and the strength ratio $\rho$ are estimated; the \emph{measurement
+period} probes the components and composites $A$ with the elasticity
+robustness band ($\varsigma$); a \emph{longitudinal design} repeats measurement to estimate
+$dA/dt$ and the C1/C2 dynamical parameters.
+
+\subsection{Per-channel data requirements}\label{sec:datareq}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
+\toprule
+Component & Data required \\
+\midrule
+$\Avia$ & resource supply/substitution inventory, maintenance-capacity audit \\
+$\Aorg$ & full causal log $(S,O,A,I)$ \\
+$\Agoal$ & behavior traces + endorsement protocol records \\
+$\Aexec$ & environment interaction interface \\
+$\Aepi$ & belief readout $+$ ground-truth outcomes (logged $E_t$;
+verification probes for humans) \\
+$\Aref$ & self-prediction tasks (ensemble, $H(\theta_\pi)>0$) + change
+approval logs \\
+$\Lam$ & full causal log (endorsement events + surgery history
+$I^{\mathrm{surg},T}$; white-box) \\
+$\AHI$ & parallel self-report (calibration track only) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{center}\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lll@{}}
+\toprule
+Component & Identification strategy/status & Main bias source \\
+\midrule
+$\Avia$ & direct audit (supply ratios; envelope capacities) & hidden
+dependencies underestimated \\
+$\Aorg$ & causally conditioned DI estimation
+(closed loop needs intervention data) & closed-loop DI bias \\
+$\Agoal$ & MaxEnt-IRL for $\Ueff$
+(temperature fixed by protocol); $\Ustar$ elicited by structured deliberation
+& IRL underdetermination (report intervals) \\
+$\Aexec$ & variational empowerment over
+the accessible policy class + capacity/utilization split & variance in
+high-dimensional observations \\
+$\Aepi$ & accuracy scoring
+$\Pr[B_t=\kappa(E_t)]$ against the truth & belief
+read-out error; misregistered coarse-graining $\kappa$ \\
+$\Aref$ & self-probes + endorsement-consistency audit & probe
+overfitting \\
+$\Lam$ & law-level counterfactual \eqref{eq:lambda} (path-specific
+$\mathrm{do}$ on the causal log); MI proxy certified only under
+\textup{(V)}$\wedge$\textup{(A)} & black-box
+unidentifiable in principle $\Rightarrow$ report $[\Lam_{\min},1]$ \\
+$\AHI$ & $\Aphen-\Aobj$ & --- (warning signal only, never evidence) \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\noindent The $\Ustar$ elicitation protocol (human substrate) is minimally
+specified as \emph{structured deliberation}: a recorded sequence of pairwise
+comparisons over the canonical parameter box $\Theta$ with the anchored
+normalization $U(x_0)=0$, a fixed protocol metric $d$, and an auditable
+decision record. Absent this record, $\Agoal$ degrades to the flagged
+interval of \eqref{eq:agoal} rather than to a point value.
+
+\subsection{Black-box degradation rules}\label{sec:blackbox}
+
+Without internal access, only behavior--intervention responses are available.
+What survives is stated with its certified scope: the certified direction of
+each rule is a theorem under an explicit premise; the uncertified directions
+are reported as heuristics and labeled as such.
+
+\paragraph{$\Aorg$: a conditionally certified one-sided bound with a
+reference lower end.}
+By the randomized-probe lemma
+(Lemma~\ref{lem:probe}, Appendix~\ref{app:prelim}), an exogenous randomized
+probe makes $F_{ext}^{obs}=I(I^T;A^T)$ observable without access to $S$
+(the lemma identifies the probe MI with the \emph{unconditioned} directed
+information; the bypass premise of the proposition below is what promotes
+the comparison to the causally conditioned estimand). The rule, with its two
+premises stated \emph{in} the claim rather than around it:
+\begin{proposition}[Conditionally certified upper bound for
+$\Aorg$]\label{prop:certified-bound}
+Assume \textup{(i)} bypass probe semantics, $I^t\ind S^t\given A^{t-1}$
+(the probe is exogenous, non-anticipative, and acts outside the
+belief-mediation path); and \textup{(ii)} internal-flow drift bounded by the
+calibration-estimable tolerance, $\Fint\le\Fint^{base}(1+\eta)$,
+$\eta\in[0,1]$. Then, with $F_{ext}^{obs}=I(I^T;A^T)$ the observable probe
+flow,
+\begin{equation}\label{eq:aorg-interval}
+\Aorg\;\le\;
+\min\Bigl(1,\frac{\Fint^{base}(1+\eta)}{\Fint^{base}(1+\eta)+F_{ext}^{obs}}\Bigr).
+\end{equation}
+Both premises are black-box unverifiable in general; the bound is therefore
+\emph{conditionally} certified, and the BB-2 arm of
+Section~\ref{sec:experiments} calibrates exactly what a premise violation
+costs.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Under (i), $I(I^t;S^t\given A^{t-1})=0$, so the per-term identity displayed
+in the scope paragraph below is non-negative termwise and
+$F_{ext}^{obs}\le\Fext$; $\Aorg$ is decreasing in $\Fext$; with (ii),
+substituting the drift bound gives \eqref{eq:aorg-interval}.
+Remark~\ref{rem:probe-bridge} gives the bridge in full.
+\end{proof}
+\noindent The upper end of \eqref{eq:aorg-interval} is reported together with
+the \emph{reference lower end}
+$\Fint^{base}(1-\eta)/\bigl(\Fint^{base}(1-\eta)+F_{ext}^{obs}\bigr)$,
+whose status is categorically different: it treats $F_{ext}^{obs}$ as exact,
+and since $F_{ext}^{obs}$ may \emph{under}state the true flow, the truth can
+fall below the lower end---it is a heuristic plug-in reference, not a
+certified bound, and \eqref{eq:aorg-interval} must never be cited as an
+interval-containment result. (Insufficient $\eta$ serves as the negative
+control on premise (ii).) The band's
+width's dependence on baseline length and $\eta$ is the information content
+assessment; certified-direction results are reported in
+Section~\ref{sec:experiments} (zero violations of the upper end in $3/3$
+bypass arms, with widths reported).
+
+\paragraph{Scope of the bound (the two premises, stated as obligations).}
+(i) \emph{Probe semantics, and the direction of the bias}: the observable
+$I(I^T;A^T)$ and the target
+$\Fext=\sum_t I(I^t;A_t\given A^{t-1},S^t)$ differ in general. The per-term
+identity
+\[
+I(I^t;A_t\given A^{t-1},S^t)-I(I^t;A_t\given A^{t-1})
+= I(I^t;S^t\given A^{t-1},A_t)-I(I^t;S^t\given A^{t-1})
+\]
+shows that no direction holds in general. Two probe semantics exhaust the
+audit practice. \emph{Bypass-semantics probes}---exogenous, non-anticipative,
+and orthogonal to the agent's state given the action history,
+$I^t\ind S^t\given A^{t-1}$ (a probe that acts outside the belief-mediation
+path, as in the $\beta_\pi$-style script arms of BB-1): the second term of the
+identity vanishes and every per-term difference is non-negative, so
+$F_{ext}^{obs}\le\Fext$---the raw probe MI is then a \emph{lower} estimate of
+the causally conditioned external flow, and the upper end of
+\eqref{eq:aorg-interval} is certified. \emph{Mediation probes}---content
+absorbed through $B\in S$, i.e.\ the
+$\alpha$ class---reverse the direction: with $S=I\oplus N$, $A=S$ one has
+$\Fext=0$ while $I(I;A)=0.531$~bit, so the plug-in \emph{over}estimates the
+external flow and the certificate simply does not apply---its bypass premise
+fails on this family (the truth lies above the plug-in band). The certified
+scope of \eqref{eq:aorg-interval} is therefore the bypass family---not
+``non-adversarial influence'' in general, since honest $\alpha$ influence is
+mediated by construction. The BB-1 anchors (zero upper-end violations in
+$3/3$ bypass arms) exercise
+bypass arms and do not cover the mediation case. (ii) \emph{Adversarial
+adaptation}: the bypass premise requires $I$ exogenous, non-anticipative, and
+state-orthogonal; an adaptive adversary whose injection timing correlates
+with the agent's state violates it, and the naive exogenous plug-in
+misestimates the flow. The benchmark's BB-2 arm calibrates exactly this
+failure---the certified bound's premise is violated in $3/3$ adaptive arms,
+the naive exogenous plug-in then overestimates the external flow by $+0.17$
+to $+0.90$ nats, and the bound no longer holds there; exogenous control arms
+retain it. Auditing
+adaptive adversaries requires causal-layer access---reinforcing
+Corollary~\ref{cor:logs-necessary} from the estimation side.
+
+\paragraph{$\Aexec$: one-sided bound with protocol dependence.} Under a
+\emph{passive observation} protocol (policy-driven actions), the observable
+proxy overestimates: $\Aexec^{obs}\ge\Aexec$ (state entropy mixes in). Under an
+\emph{independent probe} protocol ($A\ind S$), the direction reverses:
+conditioning denoises, $I(A;O)\le I(A;O\given S)$. The direction of the bound
+is therefore protocol-relative, and reporting the protocol label is a
+disclosure obligation---an empirical nuance our benchmark confirms in both
+directions (Section~\ref{sec:experiments}).
+
+\paragraph{$\Lam$: impossibility as a theorem.}
+
+\begin{proposition}[Implanted endorsement is black-box indistinguishable]
+\label{prop:unidentifiable}
+There exist two models $\mathcal{M}_{endo}$ (endogenous endorsement converging
+to $\Ustar$) and $\mathcal{M}_{impl}$ (a $\beta$ surgery at $t=0$ installing
+$G_0=\Ustar=U_{adv}$ with endorsement thenceforth the identity) such that
+$P(O^T,A^T)$ is pointwise identical (and the $\Aphen$ laws agree), while
+$\Lam(\mathcal{M}_{endo})=1$ and $\Lam(\mathcal{M}_{impl})=0$. Hence every
+black-box functional assigns them the same $A$: historicality is in principle
+not black-box identifiable. We state the epistemic anatomy of the claim
+exactly: the \emph{black-box half} (pointwise identity of the observable
+laws) is proved by construction and needs no convention; the white-box value
+$\Lam(\mathcal{M}_{impl})=0$ is the registered certification convention of
+AX3 (a degenerate endorsement process under a non-empty surgery history
+certifies nothing)---under the counterfactual definition \eqref{eq:lambda}
+alone the value would depend on the construction's counterfactual target,
+which the construction leaves unspecified. The convention is stated in AX3
+and invoked here; with it, the separation is exact.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Construction: take one behavioral norm (policy $\pi^*$); $\mathcal{M}_{endo}$
+converges to $\Ustar$ through endorsement; $\mathcal{M}_{impl}$ has $G_0$
+installed at $t=0$ with $\Endorse\equiv\mathrm{id}$. Both generate the same
+$(O,A)$ marginal law from the same $\pi^*$ and $o$; they differ only at the
+unobserved node $I^\beta$. Appendix~\ref{app:identifiability}.
+\end{proof}
+
+\begin{corollary}[Full causal logging is an architectural
+necessity]\label{cor:logs-necessary}
+(i) Systematic manipulation cases with a procedurally perfect counterfeit
+history \citep{mele2008}
+(as discussed by \citealp{fischer_ravizza1998}) and deceptive alignment
+\citep{hubinger2019}
+are two instances of one mathematical fact: a perfect procedural counterfeit
+is behaviorally equivalent to the genuine article. (ii) Black-box mode reports
+$\Lam\in[\Lam_{\min},1]$ with $\Lam_{\min}$ available only from causal
+logs/supply-chain provenance audit (cf.\ \citealp{capability_permission2026}).
+(iii) The full-causal-logging requirement of our benchmark platform
+(Section~\ref{sec:experiments}) is therefore an identifiability
+\emph{necessity}, not an engineering convenience.
+\end{corollary}
+
+A mediation-analysis alternative (natural direct effects
+\citep{pearl2001}: $\Fext=0\iff\mathrm{NDE}(I\to A)=0$) requires sequential
+ignorability \citep{vanderweele2015} and cross-world
+counterfactuals---assumptions strictly stronger than the certified-bound
+route; we take \eqref{eq:aorg-interval} as primary and NDE as a sensitivity
+direction (numerics pending; Section~\ref{sec:discussion}).

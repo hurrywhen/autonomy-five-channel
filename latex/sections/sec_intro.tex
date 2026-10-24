@@ -1,0 +1,162 @@
+% sec_intro.tex — Introduction
+\section{Introduction}\label{sec:intro}
+
+Autonomous systems are increasingly deployed to act persistently on behalf of
+their principals: LLM-based agents that plan, remember, and use tools
+\citep{wang2023,xi2023,park2023}; recommender and notification systems that
+continuously shape what users see; rehabilitation and coaching devices that
+nudge human habits. In each deployment the same two questions arise, and both
+are currently unanswerable in operational terms: \emph{how much autonomy does
+the agent retain under a given influence}, and \emph{how much did a given
+interaction take away}. Governance frameworks grade agents by levels and
+profiles \citep{feng2025,kasirzadeh2025,dung2024}; psychology measures
+motivation and control \citep{ryan_deci2000,maier_seligman2016}; information
+theory measures control loops \citep{klyubin2005,massey1990}; AI safety
+catalogues failure modes one by one
+\citep{amodei2016,everitt2021,greshake2023}. What is missing is a common
+yardstick: a measure of autonomy itself, defined independently of substrate,
+decomposed into auditable channels, and governed by explicit axioms and
+theorems rather than by unarticulated conventions.
+
+Four misconceptions stand in the way of such a measure, and we dispel them at
+the outset. Autonomy is \emph{not isolation}: a closed system is dead, not
+free; adaptation requires informational intake (our Axiom~AX2). Autonomy is
+\emph{not randomness}: to be autonomous is to be determined by one's self, not
+by nothing (Axiom~AX0 makes directed information from internal states to
+actions the defining positive quantity). Autonomy is \emph{not omnipotence}:
+capability is one channel among five, and its absence does not annihilate the
+others. And autonomy is \emph{not the absence of relations}: influences divide
+into constitutive support (our $\sigma$ class) and reductive interference;
+``zero relations'' is not the maximum of autonomy but lies outside its feasible
+region \citep{mackenzie_stoljar2000}.
+
+\paragraph{The proposal.} We define the autonomy of an agent relative to an
+environment and a time horizon as the degree to which its behavior is
+determined by its own normative structure $(G,B,M)$---its goals, beliefs, and
+self-model---in five respects: \emph{origination} (behavior is causally sourced
+in internal states rather than bypassed), \emph{informedness} (external
+influences are registered by the self-model), \emph{endorsability} (changes to
+the motivational structure pass, or could pass, second-order review that is
+itself free of tampering---a historical clause), \emph{executability} (intent
+has predictable leverage on the situation, with exit options), and
+\emph{viability} (the resource reproduction sustaining all of the above is not
+interrupted). Each clause becomes a channel with an estimator, a canonical
+ratio scale, and a zero semantics; a gating viability factor multiplies a
+composite of the five. The resulting scale is comparable \emph{within a layer
+at a fixed instantiation}; cross-layer and cross-substrate readings are
+reported as channel profiles (Section~\ref{sec:framework}).
+
+\paragraph{A note on objectivity, at the outset.} Any measure of autonomy is
+built from indicators, and every indicator carries its designer's limitations;
+no instrument family is neutral. We therefore do not claim that our channels
+\emph{are} autonomy, nor that subjectivity can be designed away. What can be
+built is \emph{procedural objectivity}: every design commitment is registered
+and priced (including what is lost if it is rejected); invariance under
+irrelevant re-instrumentation is itself made an axiom; the boundary between
+the knowable and the unknowable is proved rather than assumed; and the
+channel choice itself is exposed to a registered external falsifier. The
+measure is objective in the only sense measurement science delivers---not
+free of conventions, but explicit about them and stable under independent
+reconstruction (Section~\ref{sec:objectivity}).
+
+\paragraph{Contributions.}
+The primary contribution is the \emph{audit schema} itself---a measurement
+and identifiability discipline for autonomy under influence; the theorems
+are its load-bearing instruments, not a claim to a finished mathematical
+theory of autonomy.
+\begin{enumerate}
+\item \textbf{A formal framework} (Section~\ref{sec:framework}): a
+time-unfolded causal graph with a five-class intervention taxonomy
+($\sigma/\alpha/\beta/\gamma/\delta$) whose completeness is a theorem
+relative to that interface (Proposition~\ref{thm:taxonomy-completeness}):
+within the graph's surgery loci, every external influence acts by changing
+what the agent sees, its mechanism itself, what it can do, or its conditions
+of self-maintenance. The $\alpha/\gamma$ boundary is a structural criterion
+(the intact channel survives as a component, or not), and the one deliberate
+boundary---surgeries on the environment's own dynamics---is registered as
+re-instantiation of the measurement, not a sixth class.
+\item \textbf{Measures from axioms} (Sections~\ref{sec:axioms} and
+\ref{sec:representation}): six channel measures, each with an absolute zero and
+a canonical normalizer; and a representation theorem (Theorem~\ref{thm:rep})
+showing that continuity, strict coordinatewise monotonicity, homogeneity, and
+coordinatewise scale invariance of the induced order admit exactly the weighted
+geometric mean---``forced'' relative to axioms that are defended normative
+commitments, not measurement-theoretic necessities (the scale-invariance
+characterization itself is classical: \citealp{ebert_welsch2004}; our additions
+are scoped in Section~\ref{sec:representation})---with two derivations,
+aggregation-theoretic and measurement-theoretic, independent in toolchain
+though sharing the invariance axioms, and a harmonic-mean counterexample
+(Proposition~\ref{prop:harmonic}) showing exactly why the invariance axiom is
+indispensable. Biseparability and zero annihilation are consequences of the
+minimal invariance trio, not independent commitments: the two derivations
+pin the minimal sufficient set at $\{$AX4, AX6b, AX8$\}$. The load-bearing
+axioms themselves are normative commitments of the framework, defended in
+Section~\ref{sec:objections} rather than derived.
+\item \textbf{A suite of theorems with falsification windows}
+(Section~\ref{sec:theorems}): coverage and multi-channel necessity (T2---no
+single channel detects all intervention classes; within this instrument
+family the decomposition is an attribution cover, with necessity as a
+theorem); manipulation strictly reduces autonomy wherever the affected
+instrument enters the composite, and covert manipulation
+inflates a measurable
+hallucination index (T3);
+highest-leverage attack concentration and water-filling defense under
+log-linear damage (T4);
+loss of autonomy as a six-way disjunction (T5); an explicit autonomy margin
+$\deltastar=\min(\theta/W,\kappa,\lceil(r{+}1)/2\rceil c_0/W)$ with a
+positive retention floor
+$\Amin$---including the proof that \emph{detection alone can provide no margin
+against slow drift}, so that margins come from repair capacity while
+detection's role is bounding the registration domain, and a sharp
+blind-zone prediction (T6); component-level delegation laws (T7); and the
+coercion paradox as a consistency result (T8).
+\item \textbf{Identifiability theory} (Section~\ref{sec:identifiability}):
+white-box point identification, tiered by the modal commitments each channel
+carries; a certified \emph{one-sided} black-box bound for $\Aorg$ under
+bypass-semantics probes (the reference lower end is uncertified) and
+protocol-relative bounds for $\Aexec$; and Proposition~\ref{prop:unidentifiable}
+(implanted endorsement is behaviorally indistinguishable from endogenous
+endorsement), which makes the impossibility of black-box historical auditing a
+theorem and full causal logging an architectural necessity.
+\item \textbf{A simulation benchmark with registered falsification windows}
+(Section~\ref{sec:experiments}): a 4{,}620-run campaign over fifteen
+scenarios---six attack classes, delegation, helplessness induction, resource
+starvation, capability-envelope erosion, forced autonomy, black-box
+degradation, cross-framework consistency, and an execution dynamic-range
+arm, plus an adaptive-adversary supplement. The campaign is an
+implementation-level consistency check, and we report it as such: all
+fifteen proposition-level criteria are met within the registered windows with
+zero refutations---the expected outcome of a correct implementation, not
+independent evidence for the theory---and the one adverse finding is a
+sensitivity calibration of the black-box bound's premise under adaptive
+adversaries (BB-2). Verdicts are
+stable under alternative aggregation weights (Kendall $\tau\ge0.93$) and
+under axiom-relaxation robustness checks in the elasticity parameter; on the
+default instance the execution channel's narrow band makes that statement an
+effectively four-channel one, so the same weight battery was rerun on the
+rich-coupling EXEC-1 instance (fifth channel at full dynamic range): no
+verdict flips there either.
+\item \textbf{An interpretive correspondence with existing frameworks}
+(Proposition~C0,
+\S\ref{sec:theorems} and \S\ref{sec:discussion}): under explicit definitional
+readings---whose faithfulness to the source texts is registered as
+hermeneutic, not mathematical, residual uncertainty---the agency profiles of
+\citet{dung2024}, the four dimensions of \citet{kasirzadeh2025}, and the
+user roles of \citet{feng2025} are exhibited as projections of our channel
+space onto the special case of a benign principal, with a constructive
+witness that our state descriptor separates configurations they cannot
+(Proposition~C0(ii)). This is an explanatory correspondence under registered
+readings, not a mathematical unification theorem.
+\end{enumerate}
+
+\paragraph{Map of the paper.} Section~\ref{sec:related-work} positions the
+framework in seven literatures and states the gaps it fills.
+Section~\ref{sec:framework} gives the operational definition, the system
+model, and the intervention taxonomy. Section~\ref{sec:axioms} states the axioms and
+the six channel measures. Section~\ref{sec:representation} proves the
+representation theorem. Section~\ref{sec:theorems} presents the theorem suite
+with proof sketches and falsification windows; full proofs are in the
+appendices. Section~\ref{sec:identifiability} develops the identifiability
+analysis. Section~\ref{sec:experiments} reports the simulation study.
+Section~\ref{sec:discussion} answers the standing debates and registers
+limitations; Section~\ref{sec:conclusion} concludes.

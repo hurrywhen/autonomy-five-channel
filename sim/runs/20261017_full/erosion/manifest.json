@@ -1,0 +1,26 @@
+{
+  "created": "2026-10-17T10:07:43.172750+00:00",
+  "git_commit": "a6e7670",
+  "grid": {
+    "defenses": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "grids": "full",
+    "reps": 30,
+    "scenarios": [
+      15
+    ],
+    "sigmas": [
+      1.0
+    ]
+  },
+  "matrix_id": "erosion",
+  "n_runs": 30,
+  "seed_rule": "P6.2",
+  "spec_version": "SPEC_experiments v0.3",
+  "type": "matrix_manifest"
+}

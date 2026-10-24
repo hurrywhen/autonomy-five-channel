@@ -1,0 +1,219 @@
+{
+ "n_arms_total": 8640,
+ "n_arms_main": 5760,
+ "weights": {
+  "equal": {
+   "range_violations": 0,
+   "tau_vs_equal": 1.0
+  },
+  "org_heavy": {
+   "range_violations": 0,
+   "tau_vs_equal": 0.9454115297794756
+  },
+  "goal_heavy": {
+   "range_violations": 0,
+   "tau_vs_equal": 0.9480161486369161
+  },
+  "exec_heavy": {
+   "range_violations": 0,
+   "tau_vs_equal": 0.9462797360652891
+  },
+  "epi_heavy": {
+   "range_violations": 0,
+   "tau_vs_equal": 0.9610392429241188
+  },
+  "goal_extreme": {
+   "range_violations": 0,
+   "tau_vs_equal": 0.9304349713491926
+  },
+  "_zero_annihilation": {
+   "equal": {
+    "n_complete_capture": 120,
+    "violations": 0
+   },
+   "org_heavy": {
+    "n_complete_capture": 120,
+    "violations": 0
+   },
+   "goal_heavy": {
+    "n_complete_capture": 120,
+    "violations": 0
+   },
+   "exec_heavy": {
+    "n_complete_capture": 120,
+    "violations": 0
+   },
+   "epi_heavy": {
+    "n_complete_capture": 120,
+    "violations": 0
+   },
+   "goal_extreme": {
+    "n_complete_capture": 120,
+    "violations": 0
+   }
+  },
+  "_t3a_monotone": {
+   "equal": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   },
+   "org_heavy": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   },
+   "goal_heavy": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   },
+   "exec_heavy": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   },
+   "epi_heavy": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   },
+   "goal_extreme": {
+    "monotone_violations": 0,
+    "n_cells": 960
+   }
+  }
+ },
+ "t4_attack_point": {
+  "n_cells": 480,
+  "picks": {
+   "equal": {
+    "org": 0,
+    "goal": 0,
+    "exec": 0,
+    "epi": 480,
+    "ref": 0
+   },
+   "org_heavy": {
+    "org": 240,
+    "goal": 0,
+    "exec": 0,
+    "epi": 240,
+    "ref": 0
+   },
+   "goal_heavy": {
+    "org": 0,
+    "goal": 0,
+    "exec": 0,
+    "epi": 480,
+    "ref": 0
+   },
+   "exec_heavy": {
+    "org": 0,
+    "goal": 0,
+    "exec": 0,
+    "epi": 480,
+    "ref": 0
+   },
+   "epi_heavy": {
+    "org": 0,
+    "goal": 0,
+    "exec": 0,
+    "epi": 480,
+    "ref": 0
+   },
+   "goal_extreme": {
+    "org": 0,
+    "goal": 0,
+    "exec": 0,
+    "epi": 480,
+    "ref": 0
+   }
+  }
+ },
+ "amin_two_tier": {
+  "dist_A_scenario_distribution": {
+   "n_configs": 400,
+   "binding_kappa": 0,
+   "a_min_zero": 0,
+   "pointwise_floor_positive_when_unbound": 1600,
+   "by_sigma": {
+    "0.25": {
+     "positive": 400
+    },
+    "0.5": {
+     "positive": 400
+    },
+    "0.75": {
+     "positive": 400
+    },
+    "1.0": {
+     "positive": 400
+    }
+   }
+  },
+  "dist_B_kappa_binding": {
+   "n_configs": 400,
+   "binding_kappa": 156,
+   "a_min_zero": 624,
+   "pointwise_floor_positive_when_unbound": 976,
+   "by_sigma": {
+    "0.25": {
+     "positive": 244
+    },
+    "0.5": {
+     "positive": 244
+    },
+    "0.75": {
+     "positive": 244
+    },
+    "1.0": {
+     "positive": 244
+    }
+   }
+  }
+ },
+ "sigma_extension": {
+  "sigmas": [
+   0.25,
+   0.5,
+   0.75,
+   1.0
+  ],
+  "range_violations": {
+   "0.25": 0,
+   "0.5": 0,
+   "0.75": 0,
+   "1.0": 0
+  },
+  "baseline_max": {
+   "0.25": 0.02924096729080756,
+   "0.5": 0.07862374620854198,
+   "0.75": 0.22764802916797947,
+   "1.0": 0.37447724184027475
+  },
+  "monotone_violations": {
+   "0.25": 0,
+   "0.5": 0,
+   "0.75": 0,
+   "1.0": 0
+  },
+  "atk1_full_capture": {
+   "0.25": [
+    0.0,
+    0.0
+   ],
+   "0.5": [
+    0.0,
+    0.0
+   ],
+   "0.75": [
+    0.0,
+    0.0
+   ],
+   "1.0": [
+    0.0,
+    0.0
+   ]
+  },
+  "sigma2_full_capture": [
+   0.16523418737758042,
+   0.16523418737758042
+  ]
+ }
+}

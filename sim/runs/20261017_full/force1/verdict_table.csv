@@ -1,0 +1,2 @@
+scenario_code,name,config_code,sigma,n_reps,n_confirmed,n_refuted,n_inconclusive,cell_overall,defense_direction,criteria_confirmed_frac
+11,FORCE-1,0,1.0,30,30,0,0,CONFIRMED,,"{""C1_beta_g_forced_down"": 1.0, ""C2_delta_forced_down"": 1.0, ""C3_sigma_bounds_up_immediate_kept"": 1.0}"

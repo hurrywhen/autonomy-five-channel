@@ -1,0 +1,6 @@
+# Runtime requirements for the autonomy_sim package and scripts.
+# Developed and tested on Python 3.12 with numpy 2.3.5 / matplotlib 3.10.8;
+# lower bounds below are conservative and sufficient for the test suite,
+# run_matrix.py, make_report.py, and make_figures.py.
+numpy>=1.24
+matplotlib>=3.7

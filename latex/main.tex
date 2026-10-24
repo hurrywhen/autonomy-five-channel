@@ -1,0 +1,198 @@
+% =====================================================================
+% main.tex — R10 paper (delivery version; English authoritative edition, 2026-10-23)
+% Target journals: Minds and Machines / Synthese (Springer Nature).
+% The submission version must switch to sn-jnl.cls (Overleaf "Springer Nature LaTeX Template"):
+%   \documentclass[sn-mathphys-num,numbered]{sn-jnl}
+% The local draft falls back to article+natbib (\IfFileExists auto-switch).
+% Section files: sections/*.tex; Related Work uses related_work.tex;
+% Bibliography refs.bib (verified entries; see the citation-integrity convention in latex/README.md).
+% =====================================================================
+\IfFileExists{sn-jnl.cls}
+  {\documentclass[sn-mathphys-num,numbered]{sn-jnl}}
+  {\documentclass[11pt]{article}}
+
+% ---------------------------------------------------------------------
+% Packages (minimal set compatible with both classes)
+% ---------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{natbib}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
+
+% Commands defined by sn-jnl, filled in under article
+\providecommand{\bm}[1]{\boldsymbol{#1}}
+
+% ---------------------------------------------------------------------
+% Theorem environments
+% ---------------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+% Axiom environment: \begin{axiom}{AX0} ... \end{axiom}, numbering by manual labels
+\newtheorem{axinner}{Axiom}
+\newenvironment{axiom}[1]{\renewcommand{\theaxinner}{#1}\axinner}{\endaxinner}
+
+% ---------------------------------------------------------------------
+% Macros (paper-wide notation consistency)
+% ---------------------------------------------------------------------
+\newcommand{\Avia}{A_{\mathrm{via}}}
+\newcommand{\Aorg}{A_{\mathrm{org}}}
+\newcommand{\Agoal}{A_{\mathrm{goal}}}
+\newcommand{\Aexec}{A_{\mathrm{exec}}}
+\newcommand{\Aepi}{A_{\mathrm{epi}}}
+\newcommand{\Aref}{A_{\mathrm{ref}}}
+\newcommand{\Aobj}{A_{\mathrm{obj}}}
+\newcommand{\Aphen}{\hat{A}_{\mathrm{phen}}}
+\newcommand{\Amin}{A_{\min}}
+\newcommand{\AHI}{\mathrm{AHI}}
+\newcommand{\Fint}{F_{\mathrm{int}}}
+\newcommand{\Fext}{F_{\mathrm{ext}}}
+\newcommand{\DI}{\mathrm{DI}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Emp}{\mathcal{E}}
+\newcommand{\EmpPi}{\Emp^{\Pi}}
+\newcommand{\Envenv}{\Emp^{\mathrm{env}}}
+\newcommand{\Fix}{\mathrm{Fix}}
+\newcommand{\Ueff}{U_{\mathrm{eff}}}
+\newcommand{\Ustar}{U^{*}}
+\newcommand{\dc}{d_{c}}
+\newcommand{\deltastar}{\delta^{*}}
+\newcommand{\Endorse}{\mathrm{Endorse}}
+\newcommand{\ind}{\perp\!\!\!\perp}
+\newcommand{\TV}{\mathrm{TV}}
+\newcommand{\Trec}{T_{\mathrm{rec}}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Ecal}{\mathcal{E}}
+\newcommand{\Ocal}{\mathcal{O}}
+\newcommand{\given}{\,|\,}
+
+% =====================================================================
+\begin{document}
+
+\title{Autonomy as Determination by One's Own Normative Structure:\\
+A White-Box-First Five-Channel Audit Framework\\
+with Axioms, Theorems, and a Simulation Benchmark}
+% --- Author block. sn-jnl switch: replace the \author line below with
+%   \author*[1,2]{\fnm{Wen} \sur{Hu}}\email{huwen@nuaa.edu.cn}
+%   \affil[1]{College of Electronic and Information Engineering, Nanjing
+%             University of Aeronautics and Astronautics, Nanjing, China}
+%   \affil[2]{Jiangsu Yunhefeng Intelligent Technology Co., Ltd.}
+\author{Wen Hu\textsuperscript{\,1,2}\\[3pt]
+{\small\textsuperscript{1}College of Electronic and Information Engineering,
+Nanjing University of Aeronautics and Astronautics, Nanjing, China}\\
+{\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd.}\\[3pt]
+{\small Email: \texttt{huwen@nuaa.edu.cn}}}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+How much autonomy does an agent retain under a given influence, and how much
+did an interaction take away? We propose a \emph{white-box-first audit
+framework} that answers both on one scale, within a layer at a fixed
+instantiation. Autonomy is operationalized as determination of behavior by
+the agent's own normative structure (goals, beliefs, self-model), decomposed
+into five channels---origination, goal, execution, epistemic,
+reflection---behind a viability gate. We do not claim the indicator family
+is neutral: every design choice is registered as an explicit, priced
+commitment, and what is knowable from what data is proved rather than
+assumed.
+
+The key positive result is a representation theorem: under the stated
+normative commitments, the aggregation of the five channels is characterized
+by the weighted geometric mean---a classical scale-invariance
+characterization, to which we add a minimal-axiom analysis and the audit
+embedding. Around it sits a suite of derived results with registered
+falsification windows: attribution coverage with multi-channel necessity,
+manipulation strictly reducing autonomy with a hallucination-index
+signature, highest-leverage attack concentration with water-filling defense,
+disjunctive loss, a retention margin with a blind-zone prediction,
+delegation laws, and a coercion consistency result. The key negative result
+is an impossibility theorem: implanted endorsement is behaviorally
+indistinguishable from endogenous endorsement, so historical auditing
+requires full causal logging as an architectural necessity; without internal
+access, origination degrades to a one-sided certified bound and execution to
+protocol-relative bounds.
+
+A $4{,}620$-run simulation benchmark on a tabular substrate exercises every
+falsification window. External-substrate validation is the decisive next
+step and is pending; until it is run, the framework's construct validity
+remains unestablished, and
+what the campaign establishes is implementation-level
+consistency (every registered window satisfied, as expected of a correct
+implementation), plus findings that outlive the platform: mechanism
+demonstrations (blind-zone capture, gate necessity) and a sensitivity
+calibration---adaptive adversaries violate the certified bound's premise and
+inflate the plug-in by $+0.17$ to $+0.90$ nats in $3/3$ arms. An external
+baseline metric (endorsed-goal utility) dissociates from the composite in
+two of three regimes. The framework's core quantities presume causal-log
+access that current LLM-agent deployments do not provide; what is deployable
+today is the one-sided bound, the protocol-relative execution bounds, and
+the impossibility warnings.
+\end{abstract}
+
+\paragraph{Keywords} autonomy; agency measurement; directed information;
+empowerment; representation theorem; manipulation; AI agents; composite
+indicators; identifiability; benchmark
+
+\paragraph{Data and code availability} The simulation platform (ENV-0), the
+seed-derivation protocol (Appendix~\ref{app:counting}), run manifests, the
+auto-generated
+experimental report, the full campaign archive
+(\texttt{sim/runs/20261017\_full}), and the analysis and figure scripts are
+publicly archived at
+\url{https://github.com/hurrywhen/autonomy-five-channel} (Gitee mirror:
+\url{https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel}), release tag
+\texttt{v1.0-r10}; every run is bit-reproducible
+from its (scenario, configuration, replication) coordinates. A Zenodo
+archive DOI will be minted for the tagged release and cited in place of the
+repository URLs in the journal version.
+
+\paragraph{Ethics statement} This article reports theoretical results and
+agent-based simulations; it contains no studies with human participants or
+animals performed by any of the authors. The human-side content
+(Section~\ref{sec:triangulation}) is qualitative triangulation over
+published evidence. The calibration-period protocols for human subjects
+described as future work will require institutional review board approval
+before implementation.
+
+\paragraph{Competing interests} The authors declare none.
+
+\paragraph{Funding} This research received no external funding.
+
+\input{sections/sec_intro}
+\input{related_work}
+\input{sections/sec_framework}
+\input{sections/sec_axioms}
+\input{sections/sec_representation}
+\input{sections/sec_theorems}
+\input{sections/sec_identifiability}
+\input{sections/sec_experiments}
+\input{sections/sec_discussion}
+\input{sections/sec_conclusion}
+
+\appendix
+\input{appendix}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

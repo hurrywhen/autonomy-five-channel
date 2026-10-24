@@ -1,0 +1,255 @@
+% sec_representation.tex — the representation theorem
+\section{Aggregation: the Representation Theorem}\label{sec:representation}
+
+The composite indicator has the gated form
+\begin{equation}\label{eq:composite}
+A \;=\; \Avia\cdot F_\varsigma(\Aorg,\Agoal,\Aexec,\Aepi,\Aref),\qquad
+F_\varsigma(x) = \Bigl(\textstyle\sum_i w_i\,x_i^{(\varsigma-1)/\varsigma}\Bigr)^{\frac{\varsigma}{\varsigma-1}},
+\end{equation}
+where the CES family $F_\varsigma$ is parameterized by the elasticity
+$\varsigma$ (equivalently the power-mean exponent $p=(\varsigma-1)/\varsigma$;
+the elasticity symbol is $\varsigma$ throughout, to be distinguished from the
+scaffolding intervention class $\sigma$). This section
+shows that the main case $\varsigma=1$---the weighted geometric mean
+$F(x)=\prod_i x_i^{w_i}$---is \emph{characterized} by the axioms, twice over:
+forced relative to the framework's stated normative commitments (which are
+defended and priced below and in Section~\ref{sec:objections}), not by
+measurement theory alone.
+
+\subsection{Statement}
+
+\begin{definition}[(A1)--(A6)]\label{def:a16}
+For $F:(0,1]^n\to(0,1]$, continuously extended to $[0,1]^n$:
+\textbf{(A1)} continuity (AX4, regularity); \textbf{(A2)} strict increase in
+each coordinate (AX4); \textbf{(A3)} \emph{biseparability}: for every
+non-trivial partition
+$\{K,L\}$ of the coordinates there are continuous increasing $G_{KL}$ and
+sub-aggregations $F_K,F_L$ of the same kind with
+$F=G_{KL}(F_K(x_K),F_L(x_L))$ (AX7)---the precise form of ``the order of
+subgroup aggregation does not matter''; \textbf{(A4)} zero annihilation (AX5);
+\textbf{(A5)} homogeneity of degree one, $F(tx)=tF(x)$ whenever
+$tx\in(0,1]^n$ (AX8; a local property on the bounded cube, extended to
+$\mathbb{R}_{++}^n$ by Lemma~\ref{lem:homog-ext}); \textbf{(A6)}
+coordinatewise scale invariance of the induced order (AX6b). Each condition
+is thus an axiom of Section~\ref{sec:axioms} with a stated normative defense;
+none is an undefended technical convenience. The minimal sufficient axiom
+set, however, is the invariance trio $\{$AX4, AX6b, AX8$\}$: route B below
+uses neither (A3) nor (A4), and the product form it returns satisfies both
+(Remark~\ref{rem:routeb-minimal}).
+\end{definition}
+
+\begin{theorem}[Representation theorem]\label{thm:rep}
+If $F$ satisfies \textup{(A1)--(A6)}, then $F(x)=\prod_i x_i^{w_i}$ with
+$w_i>0$, $\sum_i w_i=1$, uniquely determined by $F$ via the elasticities
+$w_i=\partial\log F/\partial\log x_i$.
+\end{theorem}
+
+\begin{proof}[Proof sketch (two routes, independent toolchains)]
+\emph{Route A} (aggregation theory): (A1)--(A3) give a quasilinear
+representation $F=\phi^{-1}(\sum_i w_i\phi(x_i))$ by the
+Nagumo--Kolmogorov--de Finetti theorem ($n=2$) and the
+biseparable/separability theory of \citet{debreu1960} with the
+reduction-to-common-generator step of Acz\'el
+\citep{aczel1966,aczel_dhombres1989,gorman1968}; (A4) forces
+$\phi(0^+)=-\infty$; (A5) solves an Acz\'el--Kolmogorov functional equation
+self-containedly (weighted Jensen $\Rightarrow$ affine; multiplicative Cauchy
+$\Rightarrow$ $\Psi(x)=x^\rho$), leaving the power-mean family $M_p$ with
+$p\le0$; (A6) excludes $p<0$ by an explicit order-reversal witness, leaving
+$p=0$. \emph{Route B} (scale-invariance route, no separability): on the
+bounded cube (A5) is a local property, so we first extend $F$ homogeneously
+to $\mathbb{R}_{++}^n$ (Lemma~\ref{lem:homog-ext}); in
+log-coordinates $g(u)=\log F(e^u)$, (A6) becomes translation invariance of the
+induced order; the set $D$ of order-preserving shifts is a closed convex cone
+with $D\cup(-D)=\mathbb{R}^n$; a half-space lemma on its quotient by the
+indifference subspace forces that quotient to be one-dimensional, so
+$g(u)=w\cdot u$; homogeneity and $F(1)=1$ then give $\sum_iw_i=1$ and the
+product form. Full proofs: Appendix~\ref{app:representation}.
+Because route B does not use (A3) or (A4), the theorem's minimal sufficient
+set is the invariance trio (AX4, AX6b, AX8), and biseparability and zero
+annihilation are consequences rather than independent commitments
+(Remark~\ref{rem:routeb-minimal}).
+\end{proof}
+
+\paragraph{The function form is derived; the weights are chosen.}
+Theorem~\ref{thm:rep} pins down the \emph{form} of $F$; the elasticities
+$w_i=\partial\log F/\partial\log x_i$ are then an identity of the resulting
+composite, not an estimation procedure---regressing $\partial\log
+F/\partial\log x_i$ presupposes $F$, hence the $w_i$ (a circularity we do not
+commit). Two normalization details are explicit: $F(1,\dots,1)=1$ is what
+fixes $\sum_iw_i=1$ (route A inherits the Nagumo--Kolmogorov normalization;
+route B assumes it), and without that normalization the product carries a
+multiplicative constant, $c\prod_ix_i^{w_i}$ with $c>0$. Three non-circular determination protocols are compatible with the
+framework: (a) \emph{equal weights} as the transparent default, defended
+normatively---each channel is a necessary condition of autonomy, and nothing
+in the framework licenses ex ante inequality (the benchmark uses this);
+(b) \emph{independently elicited} importance weights (expert or stakeholder
+annotation), registered as application-layer input; (c) \emph{behaviorally
+measured} weights, recovered from the agent's own trade-offs under controlled
+single-channel perturbations. Whichever protocol is used, reporting a
+weight-sensitivity band is an obligation: Section~\ref{sec:experiments}
+recomputes every campaign verdict under five alternative weight vectors
+(ordering Kendall $\tau\ge0.93$ against equal weights; zero verdict flips).
+
+That two derivations---axiomatic aggregation theory and measurement scale
+theory, sharing the invariance axioms but independent in mathematical
+toolchain---converge on the same product form is our answer to
+the standing objection that composite aggregation is arbitrary
+(\citealp{oecd2008}; Section~\ref{sec:objections}).
+
+\paragraph{Attribution and the locus of novelty.}
+The scale-invariance characterization is classical, and we locate our
+additions exactly. \citet{ebert_welsch2004} proved, in a social-choice
+analysis of environmental indices, that meaningful aggregation of ratio-scale
+indices under scale-invariance requirements yields geometric
+(Cobb--Douglas-type) forms---the result the OECD handbook inherits as its
+scale-type discipline \citep{oecd2008}. Route B is best read as the
+bounded-cube, order-invariance form of that characterization, re-derived
+with the audit setting's quantifiers (invariance of the \emph{induced order}
+under coordinatewise rescaling, localized to $(0,1]^n$ by the homogeneous
+extension of Lemma~\ref{lem:homog-ext}). What this paper adds is not the
+product form itself but: (i) the \emph{minimal-trio} analysis---zero
+annihilation and biseparability are consequences of $\{$AX4, AX6b, AX8$\}$,
+not independent commitments (Remark~\ref{rem:routeb-minimal}); (ii) the
+harmonic counterexample isolating exactly which commitment excludes the
+harmonic family (Proposition~\ref{prop:harmonic}); (iii) the convergence of
+two independent toolchains on one form; and (iv) the audit embedding---the
+viability gate as an explicit departure from the theorem's hypotheses, the
+non-circular weight-determination protocols, the falsification windows, and
+the mandatory axiom-relaxation bands of Section~\ref{sec:experiments}.
+Novelty claims in this paper are to be read with this scope.
+
+\begin{proposition}[The harmonic counterexample]\label{prop:harmonic}
+The harmonic mean $H(x)=(\sum_i w_i x_i^{-1})^{-1}$ satisfies continuity,
+strict monotonicity, zero-annihilation, biseparability (quasi-arithmetic
+generator $-1/x$), and homogeneity, but violates \textup{(A6)}: with
+$n=2$, $w=(\tfrac12,\tfrac12)$, $x=(0.25,1)$, $y=(0.5,0.5)$,
+$\lambda=(1,0.25)$, one has $H(y)=0.5>H(x)=0.4$ yet
+$H(\lambda\odot y)=0.2<H(\lambda\odot x)=0.25$. Hence the invariance axiom
+is indispensable: the remaining five conditions do not characterize the
+geometric mean, and (A6) is exactly what excludes the harmonic family.
+\end{proposition}
+
+\begin{corollary}[The admissible elasticity is a singleton]\label{cor:sigma-band}
+$p\le0\iff\varsigma\in(0,1]$ is the domain admitted by
+\textup{(A1)}--\textup{(A5)} alone; \textup{(A6)} then excludes every $p<0$
+(Lemma~\ref{lem:ax6b}), so the full axiom set admits exactly
+$\varsigma=1$---the weighted geometric mean. $\varsigma\to0$ (Leontief/min) is
+excluded by \textup{(A2)}; $\varsigma\to\infty$ (arithmetic) by
+\textup{(A4)}; $\varsigma>1$ violates zero-annihilation. The framework's
+reporting discipline follows from this, with the epistemic status made
+explicit: all conclusions are computed at the admissible point $\varsigma=1$,
+and the bands $\varsigma\in[0.5,1)$ (relaxing \textup{(A6)}) and
+$\varsigma=2$ (relaxing \textup{(A4)}/AX5) are reported as
+\emph{axiom-relaxation robustness checks} of exactly equal standing
+(Section~\ref{sec:experiments})---they probe whether verdicts survive in a
+neighborhood of the forced form; they are not axiom-admissible alternatives.
+\end{corollary}
+
+\paragraph{The normative commitments, and what rejecting one costs.}
+The theorem is conditional on the invariance trio; the following map records
+what each rejection buys and what it destroys, so that the normative choice is
+made with its price visible.
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}X@{}}
+\toprule
+Rejected commitment & Admissible family & What is lost \\
+\midrule
+AX6b (scale invariance) & power means $M_p$, $p\le0$ (harmonic included) &
+unique form; order can flip under unit rescaling (Prop.~\ref{prop:harmonic});
+cross-calibration comparisons ill-defined; T4/T5/T7 conclusions become
+family-relative \\
+AX8 (homogeneity) & level-dependent weightings (AX4--AX7 kept) &
+composite scale no longer tracks channel scales; T4's log-linear LP and T7's
+$(1-m)^{w_{org}}$ law lose their exact form; T6's product floor becomes
+level-dependent \\
+AX4 (strict monotonicity) & sub-support products, $\min$, discontinuous rules &
+strict improvement fails; T1b positivity fails; coverage/T3 strict-decrease
+conclusions weaken to non-strict; T5's ``iff'' becomes one direction \\
+AX5 (zero annihilation) & not independently rejectable: within the invariance
+class AX5 $\iff$ strict monotonicity (Remark~\ref{rem:routeb-minimal}); a
+non-annihilating stance (e.g.\ arithmetic aggregation) must also give up AX6b &
+the conjunctive-necessity semantics; T5's zero-disjunction reading; the
+$\varsigma=2$ stress arm's failure mode (complete capture reads
+$A=0.1652>0$) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The AX5 stance---any channel at zero annihilates autonomy---is the strongest
+of the aggregation commitments, and it is defended as conjunctive necessity:
+each channel is a necessary condition of the operational definition, so no
+surplus on one channel compensates a zero on another. The
+multidimensional-poverty literature supplies the precedent
+\citep{alkire2011}, and the benchmark supplies the sensitivity obligation:
+the $\varsigma=2$ arm exhibits exactly what zero annihilation buys
+(complete capture at $A=0$ versus $A=0.1652$ under the relaxed form). The
+cost is registered: the framework does not permit compensation for a dead
+channel; applications that require it must move to the relaxation band and
+report the move. Everything not listed in the third column survives the
+corresponding rejection: in particular, T6's comparison-principle margins and
+the identifiability analysis do not depend on the aggregation form, and T2's
+attribution cover survives for any strictly monotone $F$ (the strict-decrease
+readings weaken only if AX4 itself is dropped).
+
+\paragraph{Why these two invariance commitments at all (the positive defense).}
+The rejection map prices refusal; here we state what acceptance buys, since
+AX6b and AX8 carry the exclusion load and deserve affirmative defenses rather
+than silent uptake. \emph{AX6b (coordinatewise scale invariance).} Under
+AX6a's canonical normalizers, coordinate rescaling is not an admissible
+transformation in the strict scale-type sense---we registered this in
+Section~\ref{sec:axioms} and do not claim measurement-theoretic necessity.
+The commitment is instead \emph{defense in depth against the audit's
+participants}: normalizers are themselves protocol choices made by fallible
+instrument designers, and AX6b guarantees that no unilateral
+re-instrumentation of a single channel---a vendor recalibrating the goal
+metric, a platform renormalizing its empowerment probe---can flip the
+ordering of two audited agents. That is the operational content of ``no party
+to the audit can change the verdict by changing a ruler''; it is also what
+makes cross-deployment comparisons meaningful when channels were normalized
+by different teams. The price is visible in the map: the harmonic family,
+which some welfare traditions prefer for its penalty on imbalance, is
+excluded (Proposition~\ref{prop:harmonic}). \emph{AX8 (homogeneity).} Audit
+language is percentage language: governance asks ``how much autonomy did the
+interaction cost?'' and expects the answer to compose---equal proportional
+damage to every channel should mean equal proportional damage to autonomy.
+Homogeneity is exactly what ties the composite's scale to the channels'
+ratio scales and makes marginal rates of substitution between channels
+level-independent; without it, a ``$20\%$ autonomy loss'' has no
+channel-consistent meaning. The price is equally visible: level-dependent
+weighting schemes---weights that shift with the autonomy level---are
+excluded, and applications that want them must move to the relaxation band
+and report the move (Corollary~\ref{cor:sigma-band}). Both defenses are
+offered as arguments, not proofs; the sensitivity obligations of
+Section~\ref{sec:experiments} exist precisely because they may be rejected.
+
+\subsection{Gate structure and dependence}
+
+\begin{assumption}[Via-Ind: conditional independence of channel degradations]
+\label{ass:via-ind}
+Given viability, channel degradations are conditionally independent.
+\end{assumption}
+
+Writing $\Avia$ as an external multiplicative gate corresponds to
+(Via-Ind). The gate's axiom status is
+one-sided and we state it exactly: as an $(n{+}1)$-th geometric factor with
+external weight $1$ outside the $\sum_iw_i=1$ normalization, the gated form
+$\tilde F(x_{\mathrm{via}},x)=x_{\mathrm{via}}\cdot\prod_ix_i^{w_i}$ preserves
+continuity, strict monotonicity, biseparability, zero-annihilation, and
+coordinatewise scale invariance, but it is homogeneous of degree
+$1+\sum_iw_i=2$ in the extended vector, so \emph{homogeneity \textup{(A5)} is
+deliberately not preserved}: the gate is an explicit departure from the
+hypotheses of Theorem~\ref{thm:rep}, defended by its semantics (a viability
+cut scales the whole once, independently of any proportional rescaling of the
+five channels) rather than absorbed into the theorem. \emph{Scope statement}:
+Theorem~\ref{thm:rep} applies to the five-channel aggregator $F_\varsigma$;
+the full index is the composite design
+$A=\Avia\cdot F_\varsigma$, and every ``forced'' claim in this paper is to be
+read with that scope.
+When (Via-Ind) fails---an attack striking channel clusters at once---nested
+CES aggregation is automatically compatible with the axioms because (A3) is
+exactly subgroup-order independence; and with marginals known but dependence
+unknown, $\mathbb{E}[F]$ admits computable Fr\'echet/comonotonicity bounds
+(Appendix~\ref{app:copula}). Component uncertainty biases the composite
+\emph{downward} in expectation (Jensen gap, Lemma~\ref{lem:jensen-gap}), so
+black-box interval mode that substitutes expected components overestimates $A$
+by a signed amount.
