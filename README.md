@@ -6,7 +6,7 @@ Wen Hu<sup>1,2</sup> — <sup>1</sup>College of Electronic and Information Engin
 
 Paper (PDF): [`latex/main.pdf`](latex/main.pdf) (87 pages, 5 figures) · arXiv: *number assigned after submission* · Gitee mirror: `https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel`
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608752.svg)](https://doi.org/10.5281/zenodo.23608752) — archived release `v1.0-r10` on Zenodo (concept DOI: [10.5281/zenodo.23608751](https://doi.org/10.5281/zenodo.23608751))
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — archived release `v1.0-r10` on Zenodo (concept DOI: [10.5281/zenodo.23608751](https://doi.org/10.5281/zenodo.23608751))
 
 ---
 
@@ -78,7 +78,7 @@ Every run is bit-reproducible from its (scenario, configuration, replication) co
   year    = {2026},
   note    = {Preprint; version v1.0-r10},
   url     = {https://github.com/hurrywhen/autonomy-five-channel},
-  doi     = {10.5281/zenodo.23608752}
+  doi     = {10.5281/zenodo.23608751}
 }
 ```
 
