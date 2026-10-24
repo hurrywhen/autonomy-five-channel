@@ -12,6 +12,10 @@ date-released: "2026-10-23"
 license: "MIT"
 repository-code: "https://github.com/hurrywhen/autonomy-five-channel"
 url: "https://github.com/hurrywhen/autonomy-five-channel"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23608752
+    description: "Zenodo archive of the v1.0-r10 release (concept DOI: 10.5281/zenodo.23608751)"
 keywords:
   - autonomy
   - agency-measurement
