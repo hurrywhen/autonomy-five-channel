@@ -14,6 +14,8 @@
 """
 import math
 
+from .numerics import clip_unit_interval, clip_unit_value
+
 MAIN_BAND = (0.5, 1.0)
 
 
@@ -37,10 +39,7 @@ def _check_weights(w) -> tuple:
 
 
 def _check_components(x) -> tuple:
-    x = tuple(float(v) for v in x)
-    if any(not 0.0 <= v <= 1.0 for v in x):
-        raise ValueError(f"分量须在 [0,1]（(0,1]^n 连续延拓）: {x}")
-    return x
+    return clip_unit_interval(x, label="aggregate.components")
 
 
 def F_sigma(x, w, sigma: float) -> float:
@@ -85,7 +84,5 @@ def composite_A(a_via: float, components, w, sigma: float = 1.0) -> float:
     A_via=0 ⇒ A=0（存续闸门，与 σ 无关）。σ 主带 [0.5,1] 外（σ>1）为 AX5 松弛
     压力测试，须显式传入 sigma 并标注违反公理。
     """
-    a_via = float(a_via)
-    if not 0.0 <= a_via <= 1.0:
-        raise ValueError(f"A_via 须在 [0,1]: {a_via}")
+    a_via = clip_unit_value(a_via, label="aggregate.a_via")
     return a_via * F_sigma(components, w, sigma)

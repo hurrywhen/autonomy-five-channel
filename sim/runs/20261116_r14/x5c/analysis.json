@@ -1,0 +1,181 @@
+{
+  "type": "r14_x5c_analysis",
+  "date": "2026-11-16",
+  "spec": "SPEC_experiments v1.0 §10.3–10.4",
+  "results": [
+    {
+      "noise": "gaussian",
+      "arm": "no_surgery",
+      "a": 0.35,
+      "b": 1.0,
+      "surgery": 0,
+      "n_contexts": 20000,
+      "seed": 910160,
+      "lambda": 1.0,
+      "mean_tv": 0.0,
+      "tv_se": 0.0,
+      "normal_95_halfwidth": 0.0,
+      "surgery_history": 0
+    },
+    {
+      "noise": "gaussian",
+      "arm": "history_without_output_effect",
+      "a": 0.35,
+      "b": 0.0,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910160,
+      "lambda": 1.0,
+      "mean_tv": 0.0,
+      "tv_se": 0.0,
+      "normal_95_halfwidth": 0.0,
+      "surgery_history": 1
+    },
+    {
+      "noise": "gaussian",
+      "arm": "graded_weak",
+      "a": 0.35,
+      "b": 0.35,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910160,
+      "lambda": 0.905583628205729,
+      "mean_tv": 0.09441637179427095,
+      "tv_se": 0.0002863329620416553,
+      "normal_95_halfwidth": 0.0005612126056016444,
+      "surgery_history": 1
+    },
+    {
+      "noise": "gaussian",
+      "arm": "graded_strong",
+      "a": 0.35,
+      "b": 1.0,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910160,
+      "lambda": 0.7548280889221579,
+      "mean_tv": 0.24517191107784211,
+      "tv_se": 0.0008323463800837758,
+      "normal_95_halfwidth": 0.0016313989049642006,
+      "surgery_history": 1
+    },
+    {
+      "noise": "logistic",
+      "arm": "no_surgery",
+      "a": 0.35,
+      "b": 1.0,
+      "surgery": 0,
+      "n_contexts": 20000,
+      "seed": 910161,
+      "lambda": 1.0,
+      "mean_tv": 0.0,
+      "tv_se": 0.0,
+      "normal_95_halfwidth": 0.0,
+      "surgery_history": 0
+    },
+    {
+      "noise": "logistic",
+      "arm": "history_without_output_effect",
+      "a": 0.35,
+      "b": 0.0,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910161,
+      "lambda": 1.0,
+      "mean_tv": 0.0,
+      "tv_se": 0.0,
+      "normal_95_halfwidth": 0.0,
+      "surgery_history": 1
+    },
+    {
+      "noise": "logistic",
+      "arm": "graded_weak",
+      "a": 0.35,
+      "b": 0.35,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910161,
+      "lambda": 0.9425720383634338,
+      "mean_tv": 0.05742796163656615,
+      "tv_se": 0.00018588495056845065,
+      "normal_95_halfwidth": 0.00036433450311416324,
+      "surgery_history": 1
+    },
+    {
+      "noise": "logistic",
+      "arm": "graded_strong",
+      "a": 0.35,
+      "b": 1.0,
+      "surgery": 1,
+      "n_contexts": 20000,
+      "seed": 910161,
+      "lambda": 0.8422511220166384,
+      "mean_tv": 0.15774887798336157,
+      "tv_se": 0.0005287343104267264,
+      "normal_95_halfwidth": 0.0010363192484363838,
+      "surgery_history": 1
+    }
+  ],
+  "crosscheck": [
+    {
+      "noise": "gaussian",
+      "n_contexts": 4000,
+      "context_seed": 910162,
+      "downstream_seed": 910262,
+      "integrated_lambda": 0.7526673234878895,
+      "sampled_lambda": 0.7462500000000001,
+      "integrated_tv_se": 0.0018577739744849863,
+      "sampled_tv_se": 0.0068812842110392665,
+      "abs_tv_difference": 0.006417323487889454,
+      "combined_se": 0.0071276501410613615,
+      "tolerance": 0.028510600564245446,
+      "passed": true
+    },
+    {
+      "noise": "logistic",
+      "n_contexts": 4000,
+      "context_seed": 910163,
+      "downstream_seed": 910263,
+      "integrated_lambda": 0.8428132711346594,
+      "sampled_lambda": 0.8505,
+      "integrated_tv_se": 0.001188294850416668,
+      "sampled_tv_se": 0.005638739783549747,
+      "abs_tv_difference": 0.007686728865340581,
+      "combined_se": 0.0057625889145516375,
+      "tolerance": 0.02305035565820655,
+      "passed": true
+    }
+  ],
+  "xor": {
+    "implanted": {
+      "lam": 0.0,
+      "mean_tv": 1.0,
+      "tv_se": 0.0,
+      "n_contexts": 2,
+      "surgery_history": 1
+    },
+    "endogenous": {
+      "lam": 1.0,
+      "mean_tv": 0.0,
+      "tv_se": 0.0,
+      "n_contexts": 2,
+      "surgery_history": 0
+    }
+  },
+  "criteria": {
+    "C1_invariance_and_history_separation": true,
+    "C2_graded_nondegenerate_and_ordered": true,
+    "C3_no_noise_model_direction_flip": true,
+    "C4_xor_analytic_boundary": true,
+    "C5_independent_shared_noise_crosscheck": true
+  },
+  "overall_verdict": "CONFIRMED",
+  "noise_model_max_abs_lambda_difference_by_arm": {
+    "no_surgery": 0.0,
+    "history_without_output_effect": 0.0,
+    "graded_weak": 0.03698841015770482,
+    "graded_strong": 0.08742303309448052
+  },
+  "independent_substrate_validation": false,
+  "historical_archives_modified": false
+}

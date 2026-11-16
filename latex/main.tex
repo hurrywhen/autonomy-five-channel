@@ -1,5 +1,5 @@
 % =====================================================================
-% main.tex — R10 paper (delivery version; English authoritative edition, 2026-10-23)
+% main.tex — R14 paper (counterexample, estimand, and evidence-chain revision; English authoritative edition, 2026-11-16)
 % Target journals: Minds and Machines / Synthese (Springer Nature).
 % The submission version must switch to sn-jnl.cls (Overleaf "Springer Nature LaTeX Template"):
 %   \documentclass[sn-mathphys-num,numbered]{sn-jnl}
@@ -23,6 +23,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
@@ -90,81 +91,90 @@
 
 \title{Autonomy as Determination by One's Own Normative Structure:\\
 A White-Box-First Five-Channel Audit Framework\\
-with Axioms, Theorems, and a Simulation Benchmark}
+with Axioms and Conditional Theorems}
 % --- Author block. sn-jnl switch: replace the \author line below with
 %   \author*[1,2]{\fnm{Wen} \sur{Hu}}\email{huwen@nuaa.edu.cn}
+%   \author[1,2]{\fnm{Gong} \sur{Zhang}}\email{gzhang@nuaa.edu.cn}
 %   \affil[1]{College of Electronic and Information Engineering, Nanjing
 %             University of Aeronautics and Astronautics, Nanjing, China}
-%   \affil[2]{Jiangsu Yunhefeng Intelligent Technology Co., Ltd.}
-\author{Wen Hu\textsuperscript{\,1,2}\\[3pt]
-{\small\textsuperscript{1}College of Electronic and Information Engineering,
-Nanjing University of Aeronautics and Astronautics, Nanjing, China}\\
-{\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd.}\\[3pt]
-{\small Email: \texttt{huwen@nuaa.edu.cn}}}
+%   \affil[2]{Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China}
+\author{Wen Hu\textsuperscript{\,1,2}\quad Gong Zhang\textsuperscript{\,1,2}\\[3pt]
+{\small\shortstack{\textsuperscript{1}College of Electronic and Information Engineering,\\
+Nanjing University of Aeronautics and Astronautics, Nanjing, China}}\\
+{\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China}\\[3pt]
+{\small Email: \texttt{huwen@nuaa.edu.cn; gzhang@nuaa.edu.cn}}}
 \date{\today}
 \maketitle
 
 \begin{abstract}
-How much autonomy does an agent retain under a given influence, and how much
-did an interaction take away? We propose a \emph{white-box-first audit
-framework} that answers both on one scale, within a layer at a fixed
-instantiation. Autonomy is operationalized as determination of behavior by
-the agent's own normative structure (goals, beliefs, self-model), decomposed
-into five channels---origination, goal, execution, epistemic,
-reflection---behind a viability gate. We do not claim the indicator family
-is neutral: every design choice is registered as an explicit, priced
-commitment, and what is knowable from what data is proved rather than
-assumed.
+How much autonomy does an agent retain under influence? We present a
+white-box-first audit schema with five channels behind a viability gate. Its
+primary output is an instantiation-relative channel profile and evidence
+grade, not a context-free autonomy score. A conditional representation
+theorem recovers the classical weighted-geometric characterization under
+explicit calibration, invariance, and homogeneity commitments; boundedness and
+zero semantics are not claimed to prove ratio scales.
 
-The key positive result is a representation theorem: under the stated
-normative commitments, the aggregation of the five channels is characterized
-by the weighted geometric mean---a classical scale-invariance
-characterization, to which we add a minimal-axiom analysis and the audit
-embedding. Around it sits a suite of derived results with registered
-falsification windows: attribution coverage with multi-channel necessity,
-manipulation strictly reducing autonomy with a hallucination-index
-signature, highest-leverage attack concentration with water-filling defense,
-disjunctive loss, a retention margin with a blind-zone prediction,
-delegation laws, and a coercion consistency result. The key negative result
-is an impossibility theorem: implanted endorsement is behaviorally
-indistinguishable from endogenous endorsement, so historical auditing
-requires full causal logging as an architectural necessity; without internal
-access, origination degrades to a one-sided certified bound and execution to
-protocol-relative bounds.
+The main results concern attribution coverage, conditional strict
+comparisons, retention margins, and identifiability. Explicit counterexamples
+now delimit positivity, flow-ratio and goal-distance monotonicity, and
+log-linear versus linear-fraction attack optimization. The endorsement factor
+$\Lambda$ is defined solely by actual/no-surgery output-law total variation
+under abduction--action--prediction, and is distinguished from surgery
+history. Environment accuracy and direct-bypass resistance are likewise not
+identified with source recognition or general origination. Nondegenerate
+observationally equivalent SCMs prove that the specified passive protocol
+cannot identify $\Lambda$; additional provenance or mechanism evidence is
+required.
 
-A $4{,}620$-run simulation benchmark on a tabular substrate exercises every
-falsification window. External-substrate validation is the decisive next
-step and is pending; until it is run, the framework's construct validity
-remains unestablished, and
-what the campaign establishes is implementation-level
-consistency (every registered window satisfied, as expected of a correct
-implementation), plus findings that outlive the platform: mechanism
-demonstrations (blind-zone capture, gate necessity) and a sensitivity
-calibration---adaptive adversaries violate the certified bound's premise and
-inflate the plug-in by $+0.17$ to $+0.90$ nats in $3/3$ arms. An external
-baseline metric (endorsed-goal utility) dissociates from the composite in
-two of three regimes. The framework's core quantities presume causal-log
-access that current LLM-agent deployments do not provide; what is deployable
-today is the one-sided bound, the protocol-relative execution bounds, and
-the impossibility warnings.
+A legacy $4{,}620$-run campaign supplies definition checks, implementation
+replays, and same-model demonstrations, not external validation or a tally of
+confirmed theories. New R14 tests cover the counterexamples and the corrected
+linear-fraction optimizer. A preregistered pooled X5-c implementation and a post hoc time-stratified
+sensitivity supplement execute Gaussian and logistic counterfactual
+computations; their point estimates are model-sensitive, so we report
+two-model bands. A separate same-environment C0
+witness preserves identical full-trajectory $(E^T,O^T,A^T)$ laws while separating epistemic accuracy
+and $\Lambda$. Failed criteria, post hoc replacements, and unrun work remain
+in the evidence ledger. Independent-substrate validation, external power
+analysis, and a frozen public R14 release/version DOI remain outstanding.
 \end{abstract}
 
 \paragraph{Keywords} autonomy; agency measurement; directed information;
 empowerment; representation theorem; manipulation; AI agents; composite
 indicators; identifiability; benchmark
 
-\paragraph{Data and code availability} The simulation platform (ENV-0), the
-seed-derivation protocol (Appendix~\ref{app:counting}), run manifests, the
-auto-generated
-experimental report, the full campaign archive
-(\texttt{sim/runs/20261017\_full}), and the analysis and figure scripts are
-publicly archived at
-\url{https://github.com/hurrywhen/autonomy-five-channel} (Gitee mirror:
-\url{https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel}), release tag
-\texttt{v1.0-r10} and its corrected re-release, DOI
-\url{https://doi.org/10.5281/zenodo.23608751} (concept DOI; version DOIs are
-listed in the repository release notes); every run is bit-reproducible
-from its (scenario, configuration, replication) coordinates.
+\paragraph{Data and code availability}
+\begin{sloppypar}
+The historical ENV-0 platform, seed-derivation protocol
+(Appendix~\ref{app:counting}), manifests, auto-generated report, full
+4,620-run archive (\texttt{sim/runs/20261017\_full}), and analysis scripts
+are publicly archived at\newline
+\url{https://github.com/hurrywhen/autonomy-five-channel}\newline
+Gitee mirror:\newline
+\url{https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel}.\newline
+The historical release is \texttt{v1.0-r10.1}; its DOI is
+\url{https://doi.org/10.5281/zenodo.23608751} (a concept DOI, not a version
+DOI for the present revision). Every historical run is bit-reproducible
+from its coordinates. The present R14 source tree adds
+\texttt{sim/CRITERION\_VERSION\_MAP.md}, the separate 30-run R11 DEL-1
+replay (\texttt{sim/runs/20261102\_r11/del1}), read-only CUSUM recomputation,
+counterexample/optimizer analysis (\texttt{sim/analysis\_r14\_math.json}),
+time-stratified X5-c evidence
+(\texttt{sim/runs/20261116\_r14/x5c\_stratified}), and the same-environment
+C0 package (\texttt{sim/runs/20261116\_r14/c0cf\_v2}). These R11--R14 materials
+are not asserted to be contained in the historical public tag. The map records
+superseded criteria and post hoc status; legacy marker results and true
+counterfactual-SCM results are not pooled. The R14 public source
+synchronization is available from the repository \texttt{main} branches listed
+above; \texttt{RELEASE\_NOTES.md} records the development-source commit and
+the fresh-history public-snapshot relationship. An immutable R14 release tag,
+version DOI, and frozen release replay manifest remain publication-time
+requirements; the historical concept DOI does not discharge them. The complete
+compilable LaTeX source tree, bibliography, figures, and
+submission manifest are included with the submission rather than only the
+top-level \texttt{main.tex} shell.
+\end{sloppypar}
 
 \paragraph{Ethics statement} This article reports theoretical results and
 agent-based simulations; it contains no studies with human participants or
@@ -185,11 +195,11 @@ before implementation.
 \input{sections/sec_representation}
 \input{sections/sec_theorems}
 \input{sections/sec_identifiability}
-\input{sections/sec_experiments}
 \input{sections/sec_discussion}
 \input{sections/sec_conclusion}
 
 \appendix
+\input{sections/sec_experiments}
 \input{appendix}
 
 \bibliographystyle{plainnat}

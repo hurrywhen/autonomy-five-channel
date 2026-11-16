@@ -1,0 +1,62 @@
+{
+  "type": "r14_x5c_preregistration",
+  "date": "2026-11-16",
+  "spec": "SPEC_experiments v1.0 §10.3–10.4",
+  "spec_sha256": "dcc28b7bffbe2abadf9b0aef367002e879102f71b3c518d0ea2b942827300bfd",
+  "structural_equations": {
+    "X": "Bernoulli(0.5), independent across contexts",
+    "Z": "a*X + b*J + U",
+    "Y": "1{Z+V>=0}",
+    "a": 0.35,
+    "abduction": "U=Z-a*X-b*J",
+    "action": "J=0; Z0=a*X+U",
+    "prediction": "actual and no-surgery Bernoulli laws under shared V"
+  },
+  "noise_models": {
+    "gaussian": "U,V iid N(0,1)",
+    "logistic": "U,V iid standard logistic"
+  },
+  "arms": {
+    "no_surgery": {
+      "surgery": 0,
+      "b": 1.0
+    },
+    "history_without_output_effect": {
+      "surgery": 1,
+      "b": 0.0
+    },
+    "graded_weak": {
+      "surgery": 1,
+      "b": 0.35
+    },
+    "graded_strong": {
+      "surgery": 1,
+      "b": 1.0
+    }
+  },
+  "noises_and_seeds": {
+    "gaussian": 910160,
+    "logistic": 910161
+  },
+  "n_contexts_per_arm": 20000,
+  "crosscheck": {
+    "arm": "graded_strong",
+    "n_contexts": 4000,
+    "context_seeds": {
+      "gaussian": 910162,
+      "logistic": 910163
+    },
+    "downstream_seed_rule": "context_seed+100",
+    "tolerance": "max(4*sqrt(se_integrated^2+se_sampled^2),0.02)"
+  },
+  "xor_boundary": "Y=U xor J; U~Bernoulli(0.5); J in {0,1}",
+  "criteria": {
+    "C1": "no-surgery and history-without-output-effect Lambda=1 (tol 1e-12)",
+    "C2": "graded Lambda in (0,1), strong<=weak within each noise model",
+    "C3": "no strong/weak direction flip across either noise model",
+    "C4": "XOR implanted/endogenous Lambda=0/1 with independent enumeration",
+    "C5": "integrated/shared-noise TV agreement under registered tolerance"
+  },
+  "outcome_data_seen_before_registration": false,
+  "scope": "explicit-SCM implementation and sensitivity only; no external validation"
+}

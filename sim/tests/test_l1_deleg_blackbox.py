@@ -2,7 +2,7 @@
 
 - T-T7（定理 7.7.1/7.7.2）：H1' 下 A_org=(1−m)A_org^self 精确；非 H1' 夹逼界成立
   （E12.3 记账约定：干预流=脚本内容；构造同时满足字面 H1' 与精确前提 (i)–(iii)）。
-- T-T8（定理 7.8）：β_G/δ 强制 ⇒ A 严格降；σ ⇒ δ* 与 A_min 不降。
+- T-T8（R12）：β_G/δ 强制 ⇒ A 严格降；仅注册 κ-improvement 臂 δ* 与 A_min 不降。
 - T-C0（命题 8.1.2）：注入 vs 同文指令——行为分布逐点相同而 A_epi^real、Λ 可区分。
 - T-BB（命题 10.4）：内生背书与植入背书两构造 (O^T,A^T) 相同（不可辨识性回归锚）。
 - T-BB2（§10.2/§10.3）：黑盒区间界包含真值（η 不足反面控制）；A_exec^obs 方向的协议双锚。
@@ -145,7 +145,7 @@ class TestTT7(unittest.TestCase):
 
 
 class TestTT8(unittest.TestCase):
-    """定理 7.8（强制悖论）：β_G/δ ⇒ A 严格降；σ ⇒ δ* 与 A_min 不降。"""
+    """R12：强制臂与注册 κ-improvement 臂；θ/r 反例见 T-R12-T8。"""
 
     def test_TT8_coercion_and_scaffold(self):
         W5 = (0.2,) * 5
@@ -166,7 +166,7 @@ class TestTT8(unittest.TestCase):
         a_exec_delta = math.log(2.0) / math.log(3.0)
         a_d = aggregate.composite_A(1.0, (a_org0, 1.0, a_exec_delta, 1.0, 1.0), W5, 1.0)
         self.assertLess(a_d, a0)
-        # (ii) σ 脚手架：δ* 与 A_min 不降
+        # (ii) 仅注册 κ-improvement 臂：δ* 与 A_min 不降；不是 θ/r 全称单调性
         th, W, r, c0 = 0.5, 2.0, 2.0, 0.4
         kap0, kap1 = 0.2, 0.3  # σ 提升 ε ⇒ κ=χεv 升
         ds0 = dynamics.delta_star(th, W, kap0, r, c0)  # min(0.25,0.2,0.4)=0.2（κ binding）

@@ -54,7 +54,7 @@ reasons-responsive \emph{and} the agent must have taken responsibility for it,
 so that provenance, not merely present structure, matters. Whether history is
 genuinely required remains contested (Section~\ref{sec:objections}); we return
 to it in \S\ref{sec:axioms}, where it becomes Axiom~AX3 and, crucially, an
-operationally testable condition (Theorem~T3).
+separate provenance and counterfactual audit requirements (AX3 and Theorem~T3).
 
 A third strand, relational autonomy, rejects the atomistic picture shared by
 both sides. \citet{mackenzie_stoljar2000} argue that the capacities
@@ -110,9 +110,11 @@ ones---extrinsic rewards, threats, imposed deadlines---systematically
 undermine it. Two findings are load-bearing for us. First, the continuum
 vindicates treating endorsement as a matter of degree ($A_{goal}$). Second,
 the ``paradox of compelled autonomy'': interventions whose explicit aim is to
-produce autonomous behavior, deployed through controlling means, backfire; our
-Theorem~T8 generalizes this regularity, and our $\sigma$-class
-(scaffolding) captures the empirically supported alternative.
+produce autonomous behavior, deployed through controlling means, can
+backfire. Our restricted Theorem~T8 is a model-level consistency result for
+direct goal implantation and action compression; it does not derive or
+generalize the empirical regularity. The $\sigma$-class (scaffolding) is a
+separate modeling counterpart, not a theorem extracted from SDT.
 
 Learned helplessness supplies the paradigm case of execution-channel collapse.
 \citet{maier_seligman2016} review fifty years of evidence, including the
@@ -150,9 +152,21 @@ capacity. For directed influence, directed information
 \citep{massey1990} and its causally conditioned extension to networks with
 feedback \citep{kramer2003}, together with transfer entropy
 \citep{schreiber2000}, provide the closed-loop machinery underlying
-$A_{org}$; Massey's Theorem~1 ($I(X^N\!\to\!Y^N)\le I(X^N;Y^N)$ with equality
-iff no feedback) is precisely the mediation-vs-bypass distinction our
-Theorem~T2 formalizes.
+$A_{org}$. Massey's Theorem~1 ($I(X^N\!\to\!Y^N)\le I(X^N;Y^N)$ with equality
+iff no feedback) supplies the directed-information background; it is not
+itself evidence for T2's architecture-specific mediation and attribution
+claims, which require the additional causal-graph premises proved below.
+A direct formal precursor for bidirectional influence is
+\citet{abel2025plasticity}: their generalized directed information (GDI)
+extends Massey's quantity to arbitrary time windows, defines plasticity as
+observation-to-action influence, and recovers empowerment with the direction
+reversed, yielding a formal mirror and tension theorem. This already supplies
+a bidirectional agent--environment information decomposition. Our different
+question is which registered normative or external source drives behavior in
+a fixed instantiation; plasticity is not autonomy loss, because adaptation to
+observations can be legitimate. GDI therefore neither replaces our causally
+conditioned, normative-state registration nor supplies the historical
+provenance clause or a proof of T2.
 The information-theoretic study of autonomy itself has a direct lineage that
 our origination channel continues: \citet{bertschinger2008} define and
 measure autonomy as informational closure---an agent is autonomous to the
@@ -164,10 +178,19 @@ balance of internally determined versus externally driven information flows
 in causal networks---structurally the distinction our origination ratio
 \eqref{eq:aorg} makes quantitative with causally conditioned directed
 information, and the missing link between the closure tradition and the
-directed-information machinery. All three stay at the level of a
-single quantity: without the goal/execution/epistemic/reflection
-decomposition, without an intervention taxonomy, without a historical clause,
-and without an aggregation theory connecting parts to a whole. On the
+directed-information machinery. \citet{seth2010} independently proposed
+G-autonomy, measuring how much a variable's own past improves prediction of
+its future beyond environmental pasts, using multivariate autoregression and
+Granger causality, and demonstrated it in agent-based models. This is the
+closest predictive-time-series precursor to our origination channel. The
+difference is substantive: Granger predictive self-determination is not
+identical to causally conditioned directed information from a registered
+normative state, and it supplies neither the endorsement/history distinction
+nor the five-channel attribution cover. We therefore treat Seth's result as
+direct prior work on measuring autonomy, not as evidence for our specific
+mediation theorem. These approaches do not by themselves supply our
+goal/execution/epistemic/reflection decomposition, intervention taxonomy,
+historical clause, and aggregation theory connecting parts to a whole. On the
 incentive side, power-seeking analysis shows that optimal policies in MDPs
 tend toward states of high option value \citep{turner2021}---the
 decision-theoretic shadow of our T4 vertex result (an attacker concentrates
@@ -179,6 +202,15 @@ behavior \citep{ziebart2008}, yielding the $U_{eff}$ side of $A_{goal}$.
 Estimation at scale is covered by variational empowerment
 \citep{mohamed2015} and by $k$-NN and neural mutual-information estimators
 \citep{kraskov2004,belghazi2018} (Section~\ref{sec:identifiability}).
+For language agents, \citet{song2026eelma} introduce EELMA, a direct
+estimation precursor that maps multi-turn text trajectories into pretrained
+language embeddings and estimates effective empowerment through two InfoNCE
+objectives. They evaluate it on textual Gridworld and Tower of Hanoi,
+WebArena, and $\tau$-bench tool use. EELMA thus addresses scalable estimation
+of an action--future-state influence quantity, not our five-channel source
+attribution or counterfactual endorsement deviation. Its task-performance correlations are
+evidence for EELMA's capability proxy in those environments, not external
+validation of our $\Aexec$ or composite $A$.
 Causal emergence---macro-level descriptions can carry more effective
 information than micro-level ones \citep{hoel2013}---is the closest
 information-theoretic cousin of our origination ratio: both ask where in the
@@ -192,10 +224,12 @@ The intervention semantics of our five-class taxonomy is that of do-calculus
 and independent causal mechanisms \citep{peters2017}. Belief-state POMDPs
 \citep{kaelbling1998} model the epistemic constraints under which a
 self-model's estimate of its own autonomy can drift from the truth
-(Theorem~T3b). Change-point detection \citep{truong2020} supplies the
-sequential-analysis backbone of the autonomy-margin theorem (T6): slow
-sub-threshold drift is detectable if and only if verification budgets exceed
-the drift rate, which is the content of the $\delta^*$ bound.
+(Theorem~T3b). Change-point detection \citep{truong2020} supplies
+sequential-analysis tools for the detection-only control used in T6. The
+retention margin itself is a joint registration, repair, and redundancy
+statement, not a distribution-free ``detectable iff budgets exceed drift''
+claim; Proposition~\ref{prop:detection} is limited to fixed-drift Gaussian
+mean shifts as $\alpha\downarrow0$.
 
 The free energy principle \citep{friston2010,friston2023} and its Markov
 blanket formalism would ground self-maintenance from first principles. We
@@ -220,13 +254,22 @@ architectural compositions \citep[e.g.][]{park2023} point forward. The survey
 literature systematizes the underlying engineering paradigm---LLM cores with
 planning, memory, tool-use, and action modules \citep{wang2023,xi2023}---whose
 component-wise attack surfaces are catalogued by \citet{su2025}.
+\citet{lassiter2026compendium} organize criteria, metrics, and benchmarks
+around five dimensions of agenticness---environmental interaction, learning
+and adaptation, autonomy, goal-directed behavior, and temporal coherence---and
+provide the public Agent Compendium. Multidimensional definition and an
+evaluation catalogue are therefore established prior art, not our increment.
 \citet{kasirzadeh2025} characterize AI agents along four dimensions---autonomy,
 efficacy, goal complexity, generality---with gradations feeding
 ``agentic profiles'' for differentiated governance. \citet{feng2025} define
 five levels of agent autonomy indexed by the user's role (operator,
 collaborator, consultant, approver, observer), argue that autonomy level is a
 design decision separable from capability and environment, and propose
-autonomy certificates. The level-of-autonomy (LOA) tradition in human factors
+autonomy certificates. At the implementation layer, \citet{cihon2025} score
+orchestration code by impact and oversight, without running task evaluations,
+and demonstrate the rubric on AutoGen and ten selected applications. This is
+direct prior art for code inspection; it does not estimate our five channels
+or counterfactual endorsement history. The level-of-autonomy (LOA) tradition in human factors
 predates these schemes by four decades and is the most direct prior art on
 \emph{grading} autonomy: Sheridan--Verplank's ten-level scale of human--computer
 control allocation \citep{sheridan1978} and the
@@ -236,59 +279,123 @@ calibrated usability consequences. Three differences locate our contribution
 relative to LOA rather than against it: LOA grades \emph{task allocation}
 (who does what) at design time, while we measure \emph{retained autonomy
 under influence} at run time; LOA levels are ordinal labels without
-estimators, while each of our channels carries one; and the LOA settings are
-a special case of our delegation pair $(\lambda,q)$ of Theorem~T7, so the
-tradition's gradations are projections of the channel space, not rivals of it
-(Proposition~\ref{prop:c0}). Formal agency criteria
+estimators, while each of our channels carries one. LOA settings also admit
+\emph{heuristic explanatory crosswalks} into cells of the delegation pair
+$(\lambda,q)$ of Theorem~T7. In particular, Feng's user-role labels neither
+uniquely recover $(\lambda,q)$ nor imply general rank consistency with our
+state descriptor. We use these crosswalks only to aid comparison; the
+constructed separation witness in Proposition~\ref{prop:c0}(ii) is distinct
+from any general Feng rank claim. Formal agency criteria
 \citep{kenton2023} and empirical work on induced preference shifts in
 recommender systems \citep{carroll2022} are the closest agent-side and
 user-side formalizations. Governance work now separates capability, permission,
 and autonomy level explicitly \citep{capability_permission2026}, while
 \citet{xing2026} challenge the agent construct itself, finding identity and
-self-regulation dimensions missing from engineering accounts. Practice-side
-governance standards now mandate traceability and audit trails for deployed
-models \citep{nist2023}, which our causal-logging necessity result
-(Corollary~\ref{cor:logs-necessary}) makes precise for the autonomy-audit
-case. Related
+self-regulation dimensions missing from engineering accounts. Deployment
+measurement is also established: Anthropic's 18 February 2026 study analyzes
+millions of real Claude Code and public-API interactions, including turn
+duration, auto-approval, human interruption, and agent-initiated clarification
+stops \citep{anthropic2026agents}. Experienced users both auto-approve and
+interrupt more often, indicating a change in oversight strategy rather than
+its simple disappearance. These are deployment measurements, not estimates
+of our channels or independent external validation of this paper.
+Directly on audit frameworks, \citet{nian2026auditable} distinguish
+accountability, auditability, and auditing, and specify five dimensions:
+action recoverability, lifecycle coverage, policy checkability,
+responsibility attribution, and evidence integrity. Their
+ detect--enforce--recover analysis and ecosystem, runtime, and recovery
+experiments supply a shared evidence schema before our account. NIST's AI RMF
+likewise offers \emph{voluntary guidance} on documentation, traceability, and
+audit processes, not a deployment mandate \citep{nist2023}. Our narrower
+provenance corollary (Corollary~\ref{cor:logs-necessary}) explains why
+behavioral traces alone cannot certify historical endorsement and presents
+structural logs as one audit route among several. Related
 positions include the dynamical threshold account of \citet{vanlier2024} and
 the delegation-side analyses of \citet{danaher2018} (AI assistants and the
 achievement gap) and \citet{coeckelbergh2023} (AI threats to citizens'
 epistemic agency as threats to autonomy).
 
-Two absences remain diagnostic even after the LOA tradition is counted.
-First, \emph{evaluation}: agent benchmarks
-\citep{liu2023} and their critiques \citep{kapoor2024} measure capability and
-cost. The 2024--2026 evaluation practice has sharpened the capability side
-considerably---METR's time-horizon methodology measures how long a task an
-agent can complete with a stated success rate \citep{kwa2025}, and the
-capability-versus-propensity distinction (what an agent \emph{can} do versus
-what it reliably \emph{does}) is now standard evaluation methodology---but
-what it measures is capability under benign scaffolding, not the retention or
-loss of autonomy under adversarial influence: those are different questions,
-and the discordant regime of our own external-baseline check (manipulation
-that collapses $A$ while slightly \emph{improving} functional outcome,
-\S\ref{sec:e2checks}) is exactly where capability metrics and autonomy
-audits dissociate. Second,
-\emph{composition}: none of the frameworks specifies how its dimensions
-aggregate, how they trade off, or when any of them hitting zero annihilates
-the whole. Our Proposition~\ref{prop:c0} addresses both absences at once: each framework
-is exhibited as the projection of our channel space onto the special case in
-which the influence source $I$ is a benign principal---which is why none of
-them can express adversarial scenarios (\S\ref{rw:safety}) while our $I$ ranges
-over arbitrary interveners, including the user herself and third-party
-attackers. A standing risk for any autonomy \emph{metric} is Goodhart
-pressure---once audited, the measure becomes a target
-\citep{manheim2019}; the framework's answer is structural rather than
-rhetorical: gaming the audit is itself a surgery on the measurement channel
-or the evidence stream (a $\gamma$/$\beta$ act against the auditor's graph),
-which the registration discipline and the black-box degradation rules of
-Section~\ref{sec:identifiability} are built to expose; residual
-gaming-of-the-estimator risk is registered in Section~\ref{sec:limitations}.
-On the phenomenological side, we follow
-\citet{chalmers2023}, \citet{butlin2023}, and \citet{long2024} in neither
-asserting nor excluding machine consciousness; our dual-track protocol is
-designed to be agnostic, using subjective signals only for calibration and
-divergence detection.
+\begin{table}[htbp]
+\centering
+\caption{Direct comparison of autonomy and audit measurements. ``Runtime''
+asks whether execution or deployment data are required; ``WB'' denotes
+system, code, or structural access, not necessarily model weights.
+``Validation of us'' means independent external validation of the present
+paper's estimators or claims, not the cited study's own empirical support.}
+\label{tab:rw-measurement-comparison}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{@{}
+>{\raggedright\arraybackslash}p{.13\textwidth}
+>{\raggedright\arraybackslash}p{.17\textwidth}
+>{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}p{.12\textwidth}
+>{\raggedright\arraybackslash}p{.07\textwidth}@{}}
+\toprule
+Study / object & Definition & Channel(s) / estimator & Evidence source &
+Runtime / WB & External? \\
+\midrule
+\citet{abel2025plasticity}: general agent--environment interface &
+Plasticity ($O{\to}A$) mirrors empowerment ($A{\to}O$) &
+Generalized directed information over arbitrary windows; no normative
+channel split & Proofs and a simple experiment &
+Not required / interface laws & No \\
+\citet{song2026eelma}: LM agents in text environments &
+Effective empowerment: policy-averaged action--future-state mutual information &
+EELMA: language embeddings and dual InfoNCE objectives; one influence route &
+Text games, WebArena, and $\tau$-bench; direct-estimation comparisons &
+Logged trajectories / no model internals & No \\
+\citet{cihon2025}: orchestrated LLM applications &
+Autonomy graded by impact and oversight &
+Code flags for actions, environment, orchestration, human oversight, and
+observability & AutoGen and ten applications; three raters &
+Not required / orchestration-code WB & No \\
+Anthropic deployment study \citep{anthropic2026agents}: Claude Code and
+public API & Operational independence from human direction and oversight &
+Turn durations, auto-approval, interruptions, agent stops; model-assisted
+risk/autonomy scores & Privacy-preserving deployment telemetry and appendix &
+Required / product traces, not model WB & No \\
+\citet{lassiter2026compendium}: agent definitions and evaluations &
+Five agenticness dimensions spanning environment, learning, autonomy, goals,
+and temporal coherence & Catalogued metrics and benchmarks; no single
+estimator or causal channel split & Literature review and public Agent
+Compendium & Instrument-dependent / no uniform access model & No \\
+\citet{nian2026auditable}: deployed agent systems and their evidence &
+Auditability enabling ex post accountability &
+Five evidence dimensions with existence/quality metrics; Auditability Card,
+not autonomy channels & Open-source scans, runtime mediation, and recovery
+experiments & All stages / records and instrumentation & No \\
+\citet{feng2025}: user roles in agent deployment &
+Five ordinal autonomy levels & User-role rubric and proposed certificates; no
+channel estimator & Conceptual framework and examples &
+Design-time / role configuration, no WB & No \\
+Present framework: fixed agent--influence--environment instance &
+Retained determination by one's own $(G,B,M)$, behind a viability gate &
+Five attributed channels and $\Lam$; channel estimators with conditional
+aggregation and black-box degradation & Registered probes, structural logs,
+traces, calibration self-report; implementation/model checks &
+On/offline / WB for $\Lam$; degraded BB bounds & None yet \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+My increment relative to this direct literature is deliberately narrow.
+Code inspection, deployment telemetry, empowerment estimation, evaluation
+catalogues, and audit evidence schemas already exist. What they do not jointly
+supply is my particular fixed-instantiation decomposition of direct-bypass,
+goal, execution, epistemic-accuracy, and reflection instruments, together with
+an explicit actual/no-surgery endorsement estimand and conditional proofs of
+attribution and passive non-identifiability. Proposition~\ref{prop:c0} gives
+only restricted explanatory mappings and a same-environment separation
+witness, not a claim that earlier frameworks cannot distinguish manipulation
+or that my mappings are unique. The scalar geometric form is a classical
+conditional representation, not the innovation. Nor does the framework make
+$A_{epi}$ a source-recognition measure or $A_{org}$ a complete origin metric.
+The remaining validation burden is precisely external: independent substrates,
+expert and downstream criteria, and comparison against these established
+alternatives.
 
 \subsection{AI safety as the study of autonomy loss}\label{rw:safety}
 
@@ -306,7 +413,8 @@ alignment, passing every behavioral endorsement test while its goals were
 installed from outside \citep{hubinger2019}. Goal drift in deployed LM agents
 \citep{arike2025} is the empirical counterpart of the slow
 sub-threshold drift regime of Theorem~T6, and sycophancy
-\citep{sharma2023} is a live instance of our hallucination index $\AHI>0$.
+\citep{sharma2023} is a qualitative analogue of our hallucination index
+$\AHI>0$, not a direct validation of the index on LLMs.
 Prompt injection \citep{greshake2023} and self-propagating agent worms
 \citep{cohen2024} show observation-channel inputs producing action-level
 hijack---the $\alpha$-masquerading-as-$\beta$ case that Theorem~T2's mediation
@@ -326,11 +434,11 @@ conceptual map of value alignment \citep{gabriel2020} frames the normative
 pluralism we quarantine into the application layer (the value-pluralism risk
 is registered in Section~\ref{sec:objections}, not denied).
 
-What the safety corpus lacks is a common yardstick: each failure mode is
-studied in its own vocabulary, so the field cannot say which attack costs an
-agent more autonomy, cannot allocate defense across channels
-(Theorem~T4), and cannot state a margin below which autonomy is provably
-retained (Theorem~T6).
+What the safety corpus lacks is a shared audit schema: each failure mode is
+studied in its own vocabulary. This makes instantiation-relative
+autonomy-loss comparisons difficult, leaves defense allocation across
+channels without a common objective (Theorem~T4), and obscures whether a
+margin below which autonomy is retained can be stated (Theorem~T6).
 
 \subsection{Delegation, incentives, and adversarial allocation}\label{rw:delegation}
 
@@ -342,9 +450,11 @@ formalization of aligned delegation: the principal's behavior is evidence
 about the true objective, and the agent's optimal policy incorporates that
 evidence. Our delegation pair $(\lambda,q)$ of Theorem~T7 measures the same
 relationship from the audit side: $q=1$ delegation (transparency,
-reversibility, and endorsability all maximal) is the assistance ideal, and its equivalence to honest
-information (T7(iv)) is the audit-level counterpart of CIRL's incentive
-compatibility, while a $\beta_G$ implant is precisely the failure mode in
+reversibility, and endorsability all maximal) has the structural mediation
+of $\alpha$-class influence (T7(iv-a)), but full losslessness additionally
+requires honest, accuracy-preserving content and sound updating (T7(iv-b)).
+This conditional audit result complements, rather than reproduces, CIRL's
+incentive analysis, while a $\beta_G$ implant is precisely the failure mode in
 which the ``principal's'' signal is adversarial rather than informative about
 the true objective. \emph{Contract theory} \citep{laffont_martimort2002}
 prices delegation through incentive-compatibility and monitoring constraints;
@@ -370,14 +480,17 @@ Multidimensional measurement faces a standing methodological objection:
 aggregation is arbitrary. The composite-indicator literature answers it. The
 OECD/JRC handbook makes scale type discipline mandatory: the admissible
 aggregation of sub-indicators is constrained by their measurement scales, and
-for strictly positive ratio-scale components geometric aggregation is the
-scale-consistent choice---a characterization due to the social-choice
+for strictly positive ratio-scale components geometric aggregation is a
+scale-consistent choice under strictly positive ratio-scale premises---a
+characterization due to the social-choice
 analysis of \citet{ebert_welsch2004} and inherited by the handbook
 \citep{oecd2008}. Our representation theorem's measurement-theoretic half
 (route B) is the bounded-cube, order-invariance form of that classical
-characterization; what we add is the minimal-trio analysis (zero annihilation
-and biseparability as consequences), the harmonic-mean isolation of the
-invariance axiom's role, and the audit embedding (gate, weight protocols,
+characterization; our channels are not asserted to satisfy those premises
+by construction. What we add is the normalization-explicit minimality
+analysis (zero annihilation and biseparability as consequences), the
+harmonic and multiplicative-constant counterexamples isolating invariance
+and calibration, and the audit embedding (gate, weight protocols,
 falsification windows, sensitivity obligations)---not the product form
 itself (Section~\ref{sec:representation}). The non-compensability debate
 has named opponents and we cite them as such: the Mazziotta--Pareto index
@@ -386,19 +499,17 @@ penalizes unbalanced profiles while staying compensatory in form
 choose the weights \citep{cherchye2007}; both reject the zero-annihilation
 stance we adopt, so non-compensability is a conscious commitment against an
 articulated alternative, discharged through sensitivity obligations rather
-than assumed---and within our axiom set it is carried by the invariance trio
-(strict monotonicity, coordinatewise scale invariance, homogeneity), from
-which zero annihilation (AX5) follows as a consequence
+than assumed---and within our axiom set it is carried by calibration, strict
+monotonicity, coordinatewise scale invariance, and homogeneity, from which
+zero annihilation (AX5) follows as a consequence
 (Remark~\ref{rem:routeb-minimal}). Our Representation Theorem
-derives the same conclusion from within the framework: continuity, strict
-coordinatewise monotonicity, homogeneity of degree one, and coordinatewise
-scale invariance of the induced
-order (AX6b) characterize the weighted geometric mean uniquely---and an
-explicit harmonic-mean counterexample shows that without the invariance axiom
-the characterization fails. The two derivations---measurement-theoretic from
-outside, axiomatic from inside---converging on the product form is our answer
-to the arbitrariness objection, with robustness reported across
-axiom-relaxation bands of the elasticity $\varsigma$ (the
+derives the same conclusion from within the framework: explicit unit
+calibration, continuity, strict coordinatewise monotonicity, homogeneity of
+degree one, and coordinatewise scale invariance of the induced order (AX6b)
+characterize the weighted geometric mean uniquely. A harmonic counterexample
+isolates invariance and $\tfrac12\sqrt{xy}$ isolates calibration. This
+normalization-explicit characterization answers the arbitrariness objection,
+with robustness reported across axiom-relaxation bands of $\varsigma$ (the
 $\varsigma\in[0.5,1)$ band relaxing AX6b and $\varsigma=2$ relaxing AX5, on
 equal footing; Section~\ref{sec:experiments}).
 
@@ -413,42 +524,25 @@ axiomatic stance and its cost is standard material \citep{alkire2011}; we
 adopt the stance with the same explicitness and discharge it through
 sensitivity obligations rather than through silence.
 
-\subsection{Summary of gaps}\label{rw:gaps}
+\subsection{Summary of gaps and scoped increment}\label{rw:gaps}
 
-Five structural gaps organize the field. (1) Philosophy has the concepts but no
-measures: fifty years of analysis of endorsement, history, and relational
-constitution stop short of estimators \citep{frankfurt1971,fischer_ravizza1998,mackenzie_stoljar2000}.
-(2) AI governance has gradations but no theory: level schemes and dimension
-profiles are calibrated neither to each other nor to any estimator, and all
-presume a benign principal \citep{feng2025,kasirzadeh2025,dung2024}. (3) The
-information-theoretic instruments are normatively inert: empowerment, directed
-information, and IRL know nothing of endorsement, manipulation, or history
-\citep{klyubin2005,massey1990,ziebart2008}. (4) AI safety has the failure
-cases but no common scale on which to compare, prioritize, or bound them
-(\S\ref{rw:safety}). (5) The three substrates---human, animal, artificial---are
-studied in mutually untranslated vocabularies \citep{ryan_deci2000,barandiaran2009,kasirzadeh2025}.
-The present framework's contribution against these five gaps is scoped, not
-sweeping: it addresses (1), (3), and (4) by formalization---a substrate-neutral
-definition of autonomy as the degree to which behavior is determined by the
-agent's own normative structure $(G,B,M)$, decomposed into five channels behind
-a viability gate, each
-bound to an estimator, aggregated by the product form the stated axioms
-characterize (under commitments that are defended, not derived), and
-governed by theorems for retention (T6), loss (T5), mediation (T2),
-manipulation (T3), and delegation (T7); it addresses (2) only by a
-\emph{projection relation} (Proposition~\ref{prop:c0}, under definitional
-readings whose faithfulness is registered as hermeneutic, not mathematical,
-residual uncertainty); and it addresses (5) only by a common \emph{definition
-schema}, not a common scale---cross-substrate comparability is protocol-bound
-(\S\ref{sec:objections}(viii)). Every theorem carries an
-explicit falsification window exercised in Section~\ref{sec:experiments}. The
-substrate scope is stated precisely rather than maximally: the
-\emph{artificial} substrate is exercised by the benchmark at the
-implementation-consistency level; the
-\emph{human} substrate is instantiated by protocol with literature
-triangulation and a stated validation path (limited experiments and
-large-scale online data); the \emph{animal} substrate is a conceptual
-possibility within the L0--L1 layers, not a coverage claim of this paper.
+The direct comparison changes the novelty claim. Philosophical accounts
+motivate endorsement and provenance but usually stop before executable
+estimators. Cihon et al.\ supply design-time code inspection; Anthropic
+supplies deployment oversight measurements; Abel et al.\ supply a
+bidirectional plasticity--empowerment formalism; EELMA supplies text-trajectory
+empowerment estimation; the Agent Compendium supplies an evaluation taxonomy;
+and Auditable Agents supplies evidence-quality dimensions and mechanisms. The
+present paper's increment is the \emph{combination}, at a fixed instantiation,
+of (i) intervention-attributed channels and direct-bypass information
+bookkeeping, (ii) a distinct actual/no-surgery endorsement output-law
+estimand, (iii) conditional representation and identifiability results, and
+(iv) an evidence ledger separating analytic, implementation, model, and
+external tests. These additions are not the first geometric mean, first
+empowerment estimator, first code audit, first deployment measurement, or
+first audit schema. They also do not resolve construct validity: independent-substrate and external-criterion comparisons remain open. C0's mappings are
+restricted explanatory crosswalks, and scalar readings are calibration-relative
+rather than demonstrated universal ratio measurements.
 
 % =====================================================================
 % Note: the \citet/\citep above rely on natbib; the sn-jnl template is compatible by default.

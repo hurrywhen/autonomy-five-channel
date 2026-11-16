@@ -1,0 +1,22 @@
+{
+  "T": 3,
+  "w_epi": 0.2,
+  "behavior_equal_full_EOA": true,
+  "a_epi_z1": 1.0,
+  "a_epi_z2": 0.5,
+  "composite_z1": 0.7528604778657167,
+  "composite_z2": 0.6554031130893889,
+  "xor_identity_lambda": 1.0,
+  "xor_implanted_lambda": 0.0,
+  "factual_p_y1_identity": 0.5,
+  "factual_p_y1_xor": 0.5,
+  "criteria": {
+    "C1_same_environment_observation_action_law": true,
+    "C2_epistemic_values": true,
+    "C3_positive_composite_separation": true,
+    "C4_observationally_equivalent_xor_lambda": true
+  },
+  "overall_verdict": "CONFIRMED",
+  "evidence_type": "same-environment constructive implementation check; no external validation",
+  "lambda_layer": "L1 composite plus auxiliary nondegenerate endorsement SCM; composite-silent at L1"
+}

@@ -1,0 +1,63 @@
+{
+  "type": "r14_x5c_stratified_preregistration",
+  "date": "2026-11-16",
+  "spec": "SPEC_experiments v1.0 §10.6",
+  "spec_sha256": "97ca5b773141b78c35ede03feee81f1926eabe40c421e16989d03ba38c4c8fc4",
+  "post_hoc_protocol_clarification": true,
+  "reason": "pooled run lacked per-t records and nontrivial sensitivity consequence",
+  "estimand_version": "R14-output-law-v1",
+  "T": 3,
+  "n_contexts_per_t_arm_noise": 20000,
+  "audit_observation": "(X,Z,J); Y is not additionally conditioned on",
+  "structural_equations": {
+    "X": "Bernoulli(0.5)",
+    "Z": "aX+bJ+U",
+    "Y": "1{Z+V>=0}",
+    "a": 0.35,
+    "abduction": "U=Z-aX-bJ",
+    "action": "J=0"
+  },
+  "arms": {
+    "no_surgery": [
+      0,
+      1.0
+    ],
+    "history_without_output_effect": [
+      1,
+      0.0
+    ],
+    "graded_weak": [
+      1,
+      0.35
+    ],
+    "graded_strong": [
+      1,
+      1.0
+    ]
+  },
+  "noise_seeds": {
+    "gaussian": [
+      910170,
+      910171,
+      910172
+    ],
+    "logistic": [
+      910180,
+      910181,
+      910182
+    ]
+  },
+  "crosscheck": {
+    "t": 2,
+    "n": 4000,
+    "context_seeds": {
+      "gaussian": 910190,
+      "logistic": 910191
+    },
+    "downstream_seed_rule": "+100"
+  },
+  "noise_SESOI": 0.01,
+  "sensitivity_consequence": "D_noise>SESOI => MODEL_SENSITIVE and report two-model band",
+  "observation_equivalent_witness": "identity Y=U vs XOR Y=U xor 1; fair factual Y; fixed passive A",
+  "outcome_scope": "explicit-SCM implementation check; no old ENV-0 or external validation upgrade"
+}

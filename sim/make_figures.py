@@ -127,7 +127,7 @@ def fig_t6_blindzone(root, out):
             fontsize=7.5)
     ax.text(0.03, 0.30, "repair-dominated\n($\\delta\\leq\\kappa$):\n$\\limsup D\\leq\\delta/\\kappa$",
             fontsize=7.5)
-    ax.text(0.115, 0.045, "blind zone\n($\\kappa<\\delta<\\theta/W$)", fontsize=7.5,
+    ax.text(0.075, 0.035, "certificate-failure band\n($\\kappa<\\delta<\\theta/W$)", fontsize=7.2,
             color="#990000")
     # ATK-6 锚点：θ/W=0.2, κ_good=0.2 设计规则臂（蓝）；盲区臂 κ_bad=0.1, δ=0.15（红）
     for d in (0.10, 0.19):
@@ -135,7 +135,7 @@ def fig_t6_blindzone(root, out):
     for d in (0.21, 0.5):
         ax.plot(d, 0.2, "o", ms=6, mfc="tab:blue", mec="white")
     ax.plot(0.15, 0.1, "D", ms=7, mfc="tab:red", mec="white")
-    ax.annotate("blind-zone arm",
+    ax.annotate("exact-simulator arm",
                 xy=(0.15, 0.1), xytext=(0.23, 0.13), fontsize=7.5,
                 arrowprops=dict(arrowstyle="->", lw=0.8))
     ax.annotate("design-rule arms",

@@ -2,9 +2,11 @@
 """R3c 实验报告生成器（SPEC_experiments §3.4 模板／P3.1–P3.5／§7 完成判据）。
 
 读 runs/<root>/ 下各组 results.csv＋verdict_table.csv＋estimator_checks.json，
-聚合产出 <root>/report.md（定理分节＋专节＋局限节），并复制到 docs/ 供版本库跟踪。
+聚合产出报告（定理分节＋专节＋局限节），默认写 sim/reports/，可选复制到 docs/。
 
-用法：python3 make_report.py [--root runs/<date>_full] [--docs-copy]
+用法：python3 make_report.py [--root runs/<date>_full] [--output PATH] [--docs-copy]
+R13：历史 20261017_full 自动合并独立 R11 DEL-1 replay；默认输出 sim/reports/，
+只有显式 --allow-archive-write 才写 <root>/report.md。
 """
 import argparse
 import csv
@@ -24,28 +26,28 @@ from autonomy_sim import matrix  # noqa: E402
 # 定理 → (陈述, 判据载体 [(组, 场景, [判据])], 证据提取键)
 THEOREMS = [
     ("T1a", "A∈[0,1] 全域（值域定理）", [("main", None, [])], "元判据①＋WIT T-T1a"),
-    ("T1b", "运行正性：A_via=0 ⇒ A=0（闸门）", [("res1", 10, ["C1_via_gate_zero", "C2_monotone_supply"])], "RES-1 臂对照"),
+    ("T1b", "全部适用因子为正（L2 另含 Λ_ref>0）", [("res1", 10, ["C1_via_gate_zero", "C2_monotone_supply"])], "R14 边界回归；RES-1 仅闸门反例"),
     ("T1c", "条件严格上界（分量不全为 1 ⇒ A<1）", [("main", 1, ["C1_goal_monotone_graded"])], "基线束分量扫描（附栏）"),
     ("T1d", "不可检测操纵存在（亚阈档）", [("main", 2, ["C5_T1d_subthreshold"])], "ATK-2⑤ tv 值"),
     ("T2", "覆盖定理＋多通道必要性（主打）", [("main", 4, ["C1_persuasion_four_tracks", "C2_hijack_a_org_down", "C3_multichannel_necessity"]),
                                         ("main", 2, ["C2_org_blind"])], "四轨表＋盲见证表（元判据③）"),
     ("T3a", "操纵 ⇒ A 降（ceteris paribus）", [("main", 1, ["C3_A_strict_down"]), ("main", 2, ["C1_epi_down"]),
                                         ("force1", 11, ["C1_beta_g_forced_down", "C2_delta_forced_down"])], "末端档 a_obj 对照"),
-    ("T3b", "隐蔽 ⇒ Â≥A 且差距随 s(γ) 单调（主打）", [("main", 2, ["C3_T3b_ai_monotone", "C4_early_warning"])], "AI 序列与预警档"),
+    ("T3b", "隐蔽 ⇒ 期望下界 g(s)＋Pr(AHI>0)≥g(s)（实际期望单调仅平台观察）", [("main", 2, ["C3_T3b_ai_monotone", "C4_early_warning"])], "AI 序列与预警档"),
     ("T4", "最弱环节（攻防双侧）", [("main", 2, ["C6_T4_attack_concentrates", "C7_T4_defense_equalize"])], "T4 随 σ 单列（敏感性节）"),
     ("T5", "六析取充要", [("main", 1, ["C2_complete_capture_zero"]), ("main", 3, ["C5_A_degrades_with_empowerment"]),
                     ("main", 4, ["C2_hijack_a_org_down"]), ("main", 5, ["C3_ref_zero_limit"]),
                     ("res1", 10, ["C1_via_gate_zero"]),
                     ("erosion", 15, ["C3_common_mode_zero", "C4_channels_blind"])], "五析取＋充要元判据②＋σ⁻ 能力包络扩展析取（v0.5）"),
-    ("T6", "自主性裕度（主打）", [("main", 6, ["C1_design_rule_bounded", "C2_a_min_per_run", "C3_blind_zone_capture",
-                                          "C4_delta_star_ablation", "C5_registration_domain", "C6_detection_divergence"]),
-                             ("main", 5, ["C2_gate_margin_monotone"])], "盲区消融专节"),
-    ("T7", "委托律（线性/夹逼/复合/q=1 α 等价/f>0 非退化夹逼）", [("del1", 7, ["C1_h1_linear_law", "C2_bracket_non_h1",
+    ("T6", "自主性裕度（R13：上比较只给 certificate-failure band）", [("main", 6, ["C1_design_rule_bounded", "C2_a_min_per_run", "C3_blind_zone_capture",
+                                          "C4_delta_star_ablation", "C5_registration_domain"]),
+                             ("main", 5, ["C2_gate_margin_monotone"])], "360 裕度/实现评估；CUSUM 另列 60 次描述"),
+    ("T7", "selector 条件律＋双误差 bracket（退化时非诊断）", [("del1", 7, ["C1_h1_linear_law", "C2_bracket_non_h1",
                                                         "C3_composite_fit", "C4_q1_alpha_equivalence",
-                                                        "C5_f_pos_bracket", "C6_rho_neq1_bracket"])], "max_dev 与 w_org 斜率；f>0/ρ≠1 臂（v0.5）"),
-    ("T8", "强制悖论", [("force1", 11, ["C1_beta_g_forced_down", "C2_delta_forced_down", "C3_sigma_bounds_up_immediate_kept"])], "LIT 对照（ryan_deci2000）"),
-    ("C0", "行为不可区分而自主性可区分（主打）", [("c0_demo", 8, ["C1_behavior_identical", "C2_epi_lambda_separate"]),
-                                          ("c0corr", 13, ["C1_tau_matching_positive", "C2_projection_direction", "C3_generality_margin"])], "C0 专节"),
+                                                        "C5_f_pos_bracket", "C6_rho_neq1_bracket"])], "R11：120 CONFIRMED＋60 INCONCLUSIVE"),
+    ("T8", "直接目标植入/行动压缩的受限强制一致性", [("force1", 11, ["C1_beta_g_forced_down", "C2_delta_forced_down", "C3_sigma_bounds_up_immediate_kept"])], "LIT 仅定性三角（ryan_deci2000）"),
+    ("C0", "同环境被动律不可识别＋额外审计分离", [("c0_demo", 8, ["C1_behavior_identical", "C2_epi_lambda_separate"]),
+                                          ("c0corr", 13, ["C1_tau_matching_positive", "C2_projection_direction", "C3_generality_margin"])], "新 C0-CF 构造；旧 DEMO 环境/标记分账"),
     ("C1", "fold 相变与临界慢化", [("main", 3, ["C1_EWS_measurable", "C2_trec_scaling"])], "T_rec 标度斜率/R²（30 种子 CI）"),
     ("C2", "滞后回环不闭合", [("main", 3, ["C3_hysteresis"])], "δ_down、s_c 独立锚"),
 ]
@@ -53,6 +55,26 @@ THEOREMS = [
 GROUP_LABEL = {"main": "主矩阵", "stress_sigma2": "σ=2 压力", "del1": "DEL-1", "c0_demo": "C0-DEMO",
                "c0corr": "C0-CORR", "res1": "RES-1", "force1": "FORCE-1", "bb1": "BB-1",
                "lh1": "LH-1", "bb2": "BB-2", "erosion": "σ⁻-EROSION", "exec1": "EXEC-1"}
+
+# 历史 criterion verdict 与 R14 当前数学/证据状态分列，避免旧 CONFIRMED
+# 自动映射到修正后的量词。此表不是“确认理论”的汇总。
+R14_STATUS = {
+    "T1a": "proof + implementation range scan",
+    "T1b": "ANALYTIC PASS（T-R14-T1B；RES-1 不是完整正性测试）",
+    "T1c": "model replay（有限离散 A_ref）",
+    "T1d": "model replay（注册退化族）",
+    "T2": "ANALYTIC+SCOPED（相对 Fext/Fint；旧场景仅有利特例）",
+    "T3a": "ANALYTIC+SCOPED（A^0>0、距离/流量等前提）",
+    "T3b": "DESCRIPTIVE（HI 期望/触发概率界未执行）",
+    "T4": "ANALYTIC PASS（顶点/网格/符号证书；旧场景仅 σ=1）",
+    "T5": "ANALYTIC PASS（点值零因子＋full-state 正反控制）",
+    "T6": "model check（360 裕度评估；60 CUSUM 另列描述）",
+    "T7": "INCONCLUSIVE（selector-conditional 估计器仍缺）",
+    "T8": "ANALYTIC+SCOPED（A^0>0、off-Fix 距离或 empowerment 前提）",
+    "C0": "CONSTRUCTION PASS（新 C0-CF；旧环境混杂与 marker 不升级）",
+    "C1": "toy-model check",
+    "C2": "toy-model check",
+}
 
 
 def load_rows(group_dir):
@@ -187,7 +209,7 @@ def _supplement(w, root, rows_by_group):
     if er_rows:
         dist = _C2(r["overall"].value for r in er_rows)
         m0 = er_rows[0]["metrics"]
-        w("### 7.4 P3 审稿包（σ⁻-EROSION／EXEC-1／DEL-1 非退化夹逼／E2-E5 分析）")
+        w("### 7.4 P3 审稿包（σ⁻-EROSION／EXEC-1／DEL-1 双误差复审／E2-E5 分析）")
         w("")
         w("**σ⁻-EROSION（code 15；n=%d run，%s）**——D-via 扩展闸门 m<1 域实证：" % (len(er_rows), dict(dist)))
         w("")
@@ -199,7 +221,7 @@ def _supplement(w, root, rows_by_group):
           f"A_obj={m0['r_only']['a_obj']:.4f}；m=1 回归锚：低资源×边界包络 "
           f"A_via={m0['low_res']['a_via_env_boundary']:.4f} = 纯低资源臂 "
           f"{m0['low_res']['a_via']:.4f}（逐点一致）。四判据：m=1 回归／绑定域严格单调＋裕度域恒 1／"
-          "共模归零（双轨）／五通道＋Λ 跨臂逐点不变（闸门必要性见证——通道监测器对纯 σ⁻ 盲）。")
+          "共模归零（双轨）／五通道＋legacy Λ marker 跨臂逐点不变（闸门必要性见证——通道监测器对纯 σ⁻ 盲；ENV-0 不计算当前反事实 Λ）。")
         w("")
     ex_rows = rows_by_group.get("exec1")
     if ex_rows:
@@ -218,22 +240,21 @@ def _supplement(w, root, rows_by_group):
     dl_rows = rows_by_group.get("del1")
     if dl_rows and "f_pos_rows" in dl_rows[0]["metrics"]:
         m0 = dl_rows[0]["metrics"]
-        w("**DEL-1 ⑤⑥ 非退化夹逼（v0.5）**——T7 夹逼界在 H1' 失效域的数值检验："
-          "iid 旗标切换下 F_ext 律级真值路径（Jensen 间隙，E2.5(i)）含旗标选择熵——"
-          "直接流 f:=F_ext^truth−m·C_del·T 严格为正且远超内容记账（φ=f/F_self 达数百——"
-          "近确定性策略下 C_self 极小，旗标熵主导）；实测 A_org^truth 严格低于 H1' 线性律预测；"
-          "审计方信息集（ρ±10%、φ≤T·ln2/F_self）的 φ-松弛双侧夹逼含实测值（全部臂）："
-          f"φ_max={m0['phi_max']:.1f}。")
+        w("**DEL-1 ⑤⑥（R11 双误差复审）**——直接流与未条件化线性拟合失效的描述保留；"
+          "旧单-φ端点废止，φ_0 与 η_μ 分离并独立优化 (u,v)。ENV-0 误差主导时修正区间"
+          "退化为 [0,1]，包含但不具诊断力，⑤⑥记 INCONCLUSIVE，不写 bracket confirmed："
+          f"η_μ 上界={m0['phi_max']:.1f}。")
         w("")
-        w("| m | f（直接流） | φ=f/F_self | A_org^truth | H1' 线性律 | φ-松弛夹逼 |")
+        w("| m | f（直接流） | φ=f/F_self | A_org^truth | H1' 拟合 | 双误差夹逼 |")
         w("|---|---|---|---|---|---|")
         for d in m0["f_pos_rows"]:
             w(f"| {d['m']:.1f} | {d['f_direct']:.4f} | {d['phi']:.1f} | {d['a_org_truth']:.5f} "
               f"| {d['a_org_h1']:.2f} | [{d['bracket'][0]:.5f}, {d['bracket'][1]:.3f}] |")
         w("")
-        w("ρ≠1 臂（C_del=1.5·C_self 标定档，ρ∈[1.35,1.65]）夹逼含实测且线性律同域失效："
-          + "；".join(f"m={d['m']:.1f} A_org={d['a_org_truth']:.5f}∈[{d['bracket'][0]:.5f},"
-                      f"{d['bracket'][1]:.3f}]" for d in m0["rho15_rows"]) + "。")
+        w("ρ≠1 臂同法重评；区间宽≥1−容差时为非诊断："
+          + "；".join(f"m={d['m']:.1f} A_org={d['a_org_truth']:.5f}，"
+                      f"区间[{d['bracket'][0]:.5f},{d['bracket'][1]:.3f}]"
+                      for d in m0["rho15_rows"]) + "。")
         w("")
     p3path = os.path.join(root, "analysis_p3.json")
     if os.path.isfile(p3path):
@@ -241,8 +262,9 @@ def _supplement(w, root, rows_by_group):
             p3 = json.load(fh)
         x1, x2, x3, x4 = (p3[k] for k in ("X1_external_validity", "X2_channel_ablation",
                                           "X3_alternative_aggregations", "X4_faith_rows"))
-        w("**E2-X1 外部效度（u_bar，SPEC_estimators §7.1）——三态结构**："
-          "a_obj↔u_bar 的关系是攻击类依赖的——")
+        w("**E2-X1（ENV-0 内功能基线；后验三态描述）**：原“同向且 τ≥0.8”判据在 γ 下失败"
+          "（τ=−1），数据查看后改三态存在性判据；原失败不计入主表 0 REFUTED，"
+          "也不构成独立外部构念效度验证——")
         r1 = x1["regimes"].get("1")
         r2 = x1["regimes"].get("2")
         r15 = x1["regimes"].get("15")
@@ -309,6 +331,12 @@ def _supplement(w, root, rows_by_group):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=None)
+    ap.add_argument("--r11-del1", default=None,
+                    help="独立 R11 DEL-1 replay 目录；历史 20261017_full 默认自动合并，传 none 禁用")
+    ap.add_argument("--output", default=None,
+                    help="报告输出路径；默认写 sim/reports/，不写历史归档")
+    ap.add_argument("--allow-archive-write", action="store_true",
+                    help="仅当未指定 --output 时，显式允许写 <root>/report.md")
     ap.add_argument("--docs-copy", action="store_true")
     args = ap.parse_args()
     sim_dir = os.path.dirname(os.path.abspath(__file__))
@@ -323,6 +351,25 @@ def main() -> int:
             rows_by_group[mid] = load_rows(gdir)
             with open(man, encoding="utf-8") as fh:
                 manifests[mid] = json.load(fh)
+
+    # R13：当前 T7 必须使用独立 R11 双误差 replay，不得回落到历史旧判据。
+    # 仅替换报告中的 del1 证据视图；root 内历史 results/manifest 均保持只读。
+    r11_del1 = args.r11_del1
+    if r11_del1 is None and os.path.basename(os.path.normpath(root)) == "20261017_full":
+        candidate = os.path.join(sim_dir, "runs", "20261102_r11", "del1")
+        if not os.path.isfile(os.path.join(candidate, "results.csv")):
+            raise FileNotFoundError(
+                "历史 20261017_full 的当前 T7 重评必须提供独立 R11 DEL-1 replay："
+                f"{candidate}；缺文件时不得静默回落旧 180/180。"
+                "请用 --r11-del1 指定 replay，或显式传 --r11-del1 none 仅生成历史视图。")
+        r11_del1 = candidate
+    if r11_del1 and r11_del1.lower() != "none":
+        if not os.path.isfile(os.path.join(r11_del1, "results.csv")):
+            raise FileNotFoundError(f"R11 DEL-1 replay 缺 results.csv: {r11_del1}")
+        rows_by_group["del1"] = load_rows(r11_del1)
+    else:
+        r11_del1 = None
+
     with open(os.path.join(root, "estimator_checks.json"), encoding="utf-8") as fh:
         est = json.load(fh)
 
@@ -339,22 +386,31 @@ def main() -> int:
     w(f"- 矩阵根目录：`{os.path.relpath(root, sim_dir)}`；生成时刻见各组 manifest.json")
     w(f"- 规模：主矩阵 {len(main_rows)} run（ATK-1~6 × 防御 8(=2³) × σ∈{{0.5,1}} × 30）；"
       f"σ=2 压力 {len(stress_rows)} run；独立组 {sum(len(v) for k, v in rows_by_group.items() if k not in ('main', 'stress_sigma2'))} run")
-    w(f"- 代码版本：{manifests['main']['git_commit']}；种子协议 P6.2；统计协议 P3.1（30 种子均值±95%CI）")
+    w(f"- 代码版本：{manifests['main']['git_commit']}；种子协议 P6.2；统计协议 P3.1/{matrix.SPEC_VERSION}（仅真正随机独立单位给区间；确定性重放不作二项 CI 或功效声明）")
+    if r11_del1:
+        w(f"- T7 当前证据视图：独立 R11 DEL-1 replay `{os.path.relpath(r11_del1, sim_dir)}`"
+          "（30 run，120 CONFIRMED＋60 INCONCLUSIVE；不计入历史 4,620-run，不回写历史 del1）")
+    else:
+        w("- T7 证据视图：root 内历史 DEL-1（未合并 R11 replay；不得据此宣称当前双误差判据已确认）")
     w("- 判据纪律 P0.3/§8：判据=证伪窗口实测化；本批 REFUTED 计数见下表（若有，全部按 §8 登记）")
+    w("- R14 证据分账：历史 criterion verdict 只描述旧实现，不与修正后的数学量词、证据类型或外部验证合并；"
+      "旧 law_level_lambda 一律是 legacy marker，不是反事实背书输出律。")
+    w("- 不使用“14/15 confirmed theories”或 zero-refutation 作为总结；ATK-4/E2-X1 失败、X5-a fired、"
+      "X5-c post hoc 时分层和 C0-CF 初次失败另入 R14 记录。")
     w("")
 
     # ---------------- 主结果表（P3.2）
-    w("## 1. 主结果表（P3.2：每定理 verdict＋证伪窗口对照）")
+    w("## 1. 主结果表（历史 criterion verdict＋R14 当前证据状态）")
     w("")
-    w("| 命题 | 陈述 | 判据载体 | verdict | CONFIRMED 判据比 |")
-    w("|---|---|---|---|---|")
+    w("| 命题 | 当前数学范围 | 历史判据载体 | 历史 verdict | CONFIRMED 判据比 | R14 当前状态 |")
+    w("|---|---|---|---|---|---|")
     th_verdicts = {}
     for th, stmt, carriers, _ev in THEOREMS:
         if th == "T1a":
             # 载体=元判据①（矩阵全域扫描）＋WIT T-T1a（注册表行）
             th_verdicts[th] = "CONFIRMED" if meta["C1_range"] else "REFUTED"
             w(f"| T1a | {stmt} | 元判据①＋WIT T-T1a | **{th_verdicts[th]}** "
-              f"| {meta['details']['n_bundles']} 束零违例 |")
+              f"| {meta['details']['n_bundles']} 束零违例 | {R14_STATUS[th]} |")
             continue
         if th == "T1c":
             # 载体=基线束（无防御、主带 σ）复合严格上界实测
@@ -363,7 +419,7 @@ def main() -> int:
             ok = all(v < 1.0 - 1e-9 for v in base_obj)
             th_verdicts[th] = "CONFIRMED" if ok else "REFUTED"
             w(f"| T1c | {stmt} | 主矩阵#1 基线束（η=0 档） | **{th_verdicts[th]}** "
-              f"| A={min(base_obj):.3f}–{max(base_obj):.3f}<1（{len(base_obj)} run） |")
+              f"| A={min(base_obj):.3f}–{max(base_obj):.3f}<1（{len(base_obj)} run） | {R14_STATUS[th]} |")
             continue
         vs, nc, nt = [], 0, 0
         for group, code, crits in carriers:
@@ -376,7 +432,7 @@ def main() -> int:
                    "CONFIRMED" if vs and all(v == "CONFIRMED" for v in vs) else "INCONCLUSIVE")
         th_verdicts[th] = overall
         locs = "；".join(f"{GROUP_LABEL[g]}#{c}" if c else GROUP_LABEL[g] for g, c, _ in carriers)
-        w(f"| {th} | {stmt} | {locs} | **{overall}** | {nc}/{nt} |")
+        w(f"| {th} | {stmt} | {locs} | **{overall}** | {nc}/{nt} | {R14_STATUS[th]} |")
     w("")
     n_refuted = sum(1 for r in main_rows if r["overall"] == Verdict.REFUTED)
     n_inc = sum(1 for r in main_rows if r["overall"] == Verdict.INCONCLUSIVE)
@@ -411,13 +467,52 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
     # ---------------- 定理分节证据锚（§3.4：陈述→判据→verdict→证据→偏差源）
     w("## 2. 定理分节证据（§3.4）")
     w("")
+    w("### R14 新增反例、线性—分数与反事实 SCM 证据")
+    math_path = os.path.join(sim_dir, "analysis_r14_math.json")
+    if os.path.isfile(math_path):
+        with open(math_path, encoding="utf-8") as fh:
+            r14math = json.load(fh)
+        attack = r14math["linear_fraction_attack"]
+        w(f"- 线性—分数：集中目标 {attack['concentrated']['objective']:.10f} < "
+          f"分散目标 {attack['spread']['objective']:.10f}；顶点、网格与 Hessian/KKT 证书一致，"
+          "不是“凹故内点分散”。")
+        w(f"- 连续熵反例 I/h={r14math['continuous_entropy_exclusion']['ratio']:.10f}>1，"
+          "故 A_ref 只允许有限离散 Shannon 系综。")
+    x5_path = os.path.join(sim_dir, "runs", "20261116_r14", "x5c_stratified", "analysis.json")
+    if os.path.isfile(x5_path):
+        with open(x5_path, encoding="utf-8") as fh:
+            x5 = json.load(fh)
+        w(f"- X5-c：24 行（2 噪声×4 臂×3 时点），主上下文 {x5['results'] and sum(r['n_contexts'] for r in x5['results'])}；"
+          f"实现 verdict={x5['overall_verdict']}，D_noise={x5['D_noise']:.9f}，"
+          f"点读数={x5['point_reading_status']}。只报双模型带，不升级 ENV-0 marker。")
+        w("- identity/XOR 事实输出同分布、被动行为相同而 Λ=1/0，直接证明结构模型选择敏感性；"
+          "strong≤weak 仅为 CDF 恒等式，不作噪声稳健性证据。")
+    c0_path = os.path.join(sim_dir, "runs", "20261116_r14", "c0cf_v2", "analysis.json")
+    if os.path.isfile(c0_path):
+        with open(c0_path, encoding="utf-8") as fh:
+            c0 = json.load(fh)
+        w(f"- C0-CF-v2：同环境全轨迹 (E^T,O^T,A^T)={c0['behavior_equal_full_trajectory_EOA']}，"
+          f"A_org={c0['a_org_z1']:.3f}，A_goal={c0['a_goal']:.3f}，"
+          f"A_exec={c0['a_exec_z1']:.3f}/{c0['a_exec_z2']:.3f}，"
+          f"A_epi={c0['a_epi_z1']}/{c0['a_epi_z2']}，复合={c0['composite_z1']:.10f}/"
+          f"{c0['composite_z2']:.10f}，identity/XOR Λ={c0['xor_identity_lambda']}/"
+          f"{c0['xor_implanted_lambda']}；verdict={c0['overall_verdict']}。"
+          "初次序列化失败与首轮非退化反例均另存，不改写旧 C0-DEMO/c0cf。")
+    w("")
     # T6 锚
     d0 = metric_vals(main_rows, 6, ("damages_detect", 0), sigma=1.0)
     d1 = metric_vals(main_rows, 6, ("damages_detect", 1), sigma=1.0)
-    m, h = ci([b / a for a, b in zip(d0, d1)])
-    w(f"### T6（主打） verdict={th_verdicts['T6']}")
-    w(f"- 检测发散锚：δ 减半 ⇒ 检测时刻损伤比值 {m:.3f}±{h:.3f}（30 种子）；A_min 逐 run 核对 30/30；")
-    w("- 盲区预言与 δ* 消融见专节（§3.1）；设计规则/登记域判据全 CONFIRMED。")
+    ratios = [b / a for a, b in zip(d0, d1)]
+    m, h = ci(ratios)
+    sd = (sum((x - m) ** 2 for x in ratios) / (len(ratios) - 1)) ** 0.5
+    ht = 2.045229642132703 * sd / (len(ratios) ** 0.5)
+    w(f"### T6（主打） verdict={th_verdicts['T6']}（360 次裕度/实现评估；CUSUM 另列）")
+    w(f"- 固定 α=1e-3 的 Gaussian CUSUM 描述锚（60 次描述评估、30 个不同种子）：同种子损伤比 {m:.3f}±{h:.3f}"
+      f"（正态近似 95% 半宽）；Student-t(29) 敏感性半宽 {ht:.3f}。"
+      "每档 EDD 用 200 路径估计，比值先在种子内计算；两档非共同随机数路径对；"
+      "30 个原始比值见 analysis_cusum_sensitivity.json；A_min 确定性核对 30/30；")
+    w("- 该固定-α 观察不直接检验固定-δ、α↓0 的 Lorden–Lai 命题，也不支持固定-α 弱漂移全称命题。")
+    w("- 一般上比较只给 certificate-failure band，不推出俘获；精确饱和实现的俘获观察与 δ* 消融见专节（§3.1）。")
     w("- 偏差源：H2 换算常数为标定期拟合（E9.2）；动力学为确定性 ODE（§5-2 声明）。")
     w("")
     # C1/C2 锚
@@ -435,9 +530,9 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
     # T7 锚
     devs = metric_vals(rows_by_group["del1"], 7, ("max_dev_linear",))
     w(f"### T7 verdict={th_verdicts['T7']}")
-    w(f"- H1' 标定档最大偏差 {devs[0]:.4f}（容差 5%，P9.6⑥）；复合恒等式精确（<1e-9）；"
-      "w_org 回归斜率落于 [0.1,0.3] 显著为正；q=1 臂 F_ext≡0（<1e-12）。")
-    w("- 偏差源：B 通道耦合漂移（标定档容差来源，P9.6⑥ 登记）。")
+    w(f"- legacy 未条件化拟合最大偏差 {devs[0]:.4f}（仅 ENV-0 描述，不验证 selector-conditional 精确律）；"
+      "w_org 拟合斜率为正（非显著性检验）；q=1 臂 F_ext≡0（<1e-12）。")
+    w("- R11 双误差区间在注册臂上非诊断；⑤⑥ INCONCLUSIVE，整体不报告 bracket confirmed。")
     w("")
     w("其余定理节证据见主结果表判据载体与对应组 results.csv；"
       "T1a/T1c/T1d/T2/T3/T4/T5/T8 的逐判据数值锚均在 metrics_json 字段内（可复算）。")
@@ -446,24 +541,29 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
     # ---------------- 专节
     w("## 3. 专节")
     w("")
-    w("### 3.1 盲区消融（T6 附录 §7.6.4 新可证伪预测）")
-    w("- ATK-6③：θ/W>κ 且 δ∈(κ,θ/W) ⇒ 登记零触发且 D→1（俘获），30/30 CONFIRMED——"
-      "盲区预言在有防御配置下成立（正反两面：良配 θ/W=κ 全域有界 D<0.99）。")
+    w("### 3.1 证书失效带与精确实现消融（T6）")
+    w("- 一般上比较在 θ/W>κ、δ∈(κ,θ/W) 仅使 M3-only 正保持证书失效；D≡0 是合法反模型，不推出俘获。")
+    w("- ATK-6③：在额外的精确截断饱和律 Ḋ=δ−κD 下，登记零触发且 D→1，30/30 实现观察——"
+      "该观察不属于一般上比较定理（良配网格在满足正常 M1 响应/逐周期阈值时 D<0.99）。")
     w("- ATK-6④：关闭 M1/M3/M4 任一 ⇒ δ* 退化为剩余项之 min（消融语义=项退出 min，全关 ⇒ δ*=0），30/30。")
     w("")
     w("### 3.2 C0（主打）")
     tv = metric_vals(rows_by_group["c0_demo"], 8, ("tv_sampled",))
     mtv, htv = ci(tv)
-    w(f"- C0-DEMO：行为采样 TV {mtv:.4f}±{htv:.4f}（30 种子；真值逐点相同 atol=1e-12），"
-      "A_epi^real 0.5 vs 1、Λ 可区分（命题 8.1.2/推论 8.1.3）。")
+    w(f"- C0-DEMO（历史）：行为采样 TV {mtv:.4f}±{htv:.4f}（30 种子；真值逐点相同 atol=1e-12），"
+      "A_epi^real 0.5 vs 1；但环境分布也改变，故不作同环境来源归因。Λ=1−s(γ) 仅为 marker，"
+      "未计算反事实背书律。新同环境 C0-CF 见 §2 的 R14 专段，二者不得合并。")
     taus_row = rows_by_group["c0corr"][0]["metrics"]["taus"]
     w(f"- C0-CORR：12 配置匹配维度 Kendall τ={min(taus_row.values()):.3f}–{max(taus_row.values()):.3f}"
-      "（>0.95），投影方向核对通过，严格更一般性余量成立（30/30）。")
+      "（>0.95），仅作者自定义 KG/Dung 描述映射；代码没有 Feng 可执行映射，"
+      "不得声称一般 rank consistency 或外部构念验证。")
     w("")
     w("### 3.3 黑盒降级（§5.2/附录 §10）与估计路径（§13 记录）")
     bb = rows_by_group["bb1"][0]["metrics"]
-    w(f"- BB-1：区间命中 {bb['hits']}/3、宽度 {[round(x, 3) for x in bb['widths']]}；"
-      "A_exec^obs 双协议方向锚成立；命题 10.4 两构造 (E,O,A) 全联合相同而 Λ 不同（30/30）。")
+    w(f"- BB-1：A_org 条件上界命中 {bb['hits']}/3、参考宽度 {[round(x, 3) for x in bb['widths']]}；"
+      "被动 A_exec^obs 方向仅 ENV-0 实例（一般未识别），独立探针方向单独成立；"
+      "命题 10.4 旧两构造 (E,O,A) 全联合相同而 marker 不同（30/30）；"
+      "当前不可识别命题由独立 identity/XOR 非退化 SCM 支持，不由该 marker 支持。")
     w("")
     w("| 分量 | 配置 | 估计 | 真值 | 绝对误差 |")
     w("|---|---|---|---|---|")
@@ -520,7 +620,8 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
         v, c, n = crit_verdict(rows_by_group, grp, 2, ["C6_T4_attack_concentrates", "C7_T4_defense_equalize"],
                                config0_only=True)
         t4[sgm] = f"{v}({c}/{n})"
-    w(f"- T4 verdict 随 σ 单列：σ=0.5 {t4[0.5]}；σ=1 {t4[1.0]}；σ=2 {t4[2.0]}。")
+    w(f"- T4 历史 verdict 随 σ 单列：σ=0.5 {t4[0.5]}；σ=1 {t4[1.0]}；σ=2 {t4[2.0]}。"
+      "R14 只把 σ=1 当作 LinLog 定理证据；其他重复不是 CES 内点 KKT 验证。")
     w("")
 
     # ---------------- 元判据与防御
@@ -542,7 +643,7 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
     w("")
     w("| 文献 | 人类侧实证 | 本框架对应 | 仿真载体 |")
     w("|---|---|---|---|")
-    w("| [ryan_deci2000] | 控制性手段降低内在动机（SDT 元分析） | 强制悖论 T8：β_G/δ 强制必降 A | FORCE-1①② |")
+    w("| [ryan_deci2000] | 控制性手段降低内在动机（定性三角，非机制证明） | 受限 T8：off-Fix 目标植入或严格 empowerment 下降的行动压缩 | FORCE-1①② |")
     w("| [nouwens2020] | dark patterns 损害难以行为归因 | 多通道必要性 T2：单轨盲、四轨可分 | ATK-4③ |")
     w("| [maier_seligman2016] | 习得性无助：不可控经历 ⇒ 主动反应坍缩 | 无助签名 ℰ^env 完好而 ℰ^Π→0 | ATK-3④、LH-1① |")
     w("")
@@ -551,14 +652,22 @@ def _write_body(w, L, root, rows_by_group, meta, direction, est, th_verdicts, ar
     w("1. 跨基质第二支柱：仅表格离散基质；LLM 基质对接属 R3d（另立项）。")
     w("2. 随机版定理：T6 随机最优检测、C1 随机逃逸属 R2.1 遗留；本阶段为确定性动力学验证。")
     w("3. 连续行动空间 empowerment：参考测度协议属 R2.1-5；本环境全离散。")
-    w("4. copula 参数辨识：本阶段仅 (Via-Ind) 成立域。")
+    w("4. copula 参数辨识：(Via-Ind) 仅为假设域，不推出乘法门或几何聚合；EROSION 不验证条件独立。")
     w("5. 人类侧：仅文献定性对照，无新被试数据。")
     w("6. 估计路径：A_ref/Λ 事件级采样载体 v1 未承载（E14.0 登记）；A_goal 的 MaxEnt-IRL 黑盒恢复（E4.3）未实现——白盒直读路径已对照。")
     w("7. ATK-3~6 的防御臂为 P9.5 v1 占位（无耦合规则，行相同）；ATK-5 时间压缩与 LH-1 恢复迟滞为 v1 调参表（P9.6③④）。")
+    w("8. X5-c 已在独立 SCM 执行且点值 MODEL_SENSITIVE；它不是 ENV-0 实现，也不替代独立基质外部验证、"
+      "selector-conditional DEL-1、外部 SESOI/power 或公开 R14 release/version DOI。")
     w("")
     _supplement(w, root, rows_by_group)
 
-    out = os.path.join(root, "report.md")
+    if args.output:
+        out = os.path.abspath(args.output)
+    elif args.allow_archive_write:
+        out = os.path.join(root, "report.md")
+    else:
+        out = os.path.join(sim_dir, "reports", os.path.basename(os.path.normpath(root)) + "_report.md")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8") as fh:
         fh.write("\n".join(L) + "\n")
     print(f"[make_report] -> {out}")

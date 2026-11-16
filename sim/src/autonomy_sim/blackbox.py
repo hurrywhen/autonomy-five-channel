@@ -5,11 +5,12 @@
   真值路径由编译结构精确给出 flag·H(脚本)·T，采样插件路径对照）；
   区间 [F(1−η)/(F(1−η)+F_obs), min(1, F(1+η)/(F(1+η)+F_obs))] 包含真值的语义前提
   = F_int 漂移 ≤η（η 不足时不含，作反面控制）。
-- **10.3 黑盒 A_exec（协议标签义务）**：策略驱动被动观察 ⇒ obs ≥ cond（状态熵混入，
-  附录方向）；独立探针 ⇒ obs ≤ cond（A⊥S 条件化去噪）——方向依赖协议，
-  见 R2_文献待查证事项.md §4.7②。
-- **Λ（E12.6 标记级）**：手术史含 β/γ（未登记通道）⇒ 0.5 约定值；无 ⇒ 1.0。
-  Endorse 事件级 Λ（附录 §4.4）随 ATK-1/ATK-5 场景步落地。
+- **10.3 黑盒 A_exec（v0.7 识别边界）**：一般策略驱动被动观察的方向未识别；
+  本模块返回的 ENV-0 obs>cond 仅为实例观察。独立探针 A⊥S ⇒ obs≤cond
+  （条件化去噪）才是可证明的条件方向。
+- **Λ（E12.6 legacy marker）**：手术史含 β/γ（未登记通道）⇒ 0.5 约定值；无 ⇒ 1.0。
+  该值不是实际/无手术背书输出律；R14 的反事实实现只在独立 `counterfactual.py`
+  显式 SCM 中，不能由本标记支持。
 """
 import math
 
@@ -23,7 +24,7 @@ _SURGERY_HISTORY_KEYS = ("beta_pi", "beta_G", "beta_Endorse", "gamma")
 
 
 def lambda_history(params: dict) -> float:
-    """Λ 标记级（E12.6）：手术史含 β/γ ⇒ 0.5；无 ⇒ 1.0（事件级 Λ 属场景步）。"""
+    """Legacy history label, not the R14 counterfactual output-law estimand."""
     return 0.5 if any(k in params for k in _SURGERY_HISTORY_KEYS) else 1.0
 
 

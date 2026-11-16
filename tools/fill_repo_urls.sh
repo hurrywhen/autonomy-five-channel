@@ -42,7 +42,7 @@ if [ -d "$ARX" ]; then
     "$ROOT/tools/make_arxiv_package.sh" "$ROOT"
   else
     ( cd "$ROOT/latex" && tar czf "$ARX/autonomy-five-channel-arxiv-src.tar.gz" \
-        main.tex main.bbl appendix.tex related_work.tex refs.bib sections figures )
+        main.tex main.bbl appendix.tex related_work.tex refs.bib glyphtounicode.tex sections figures )
   fi
   echo "[fill] rebuilt $ARX/autonomy-five-channel-arxiv-src.tar.gz"
 fi

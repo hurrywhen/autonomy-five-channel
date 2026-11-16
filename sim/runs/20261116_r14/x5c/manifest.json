@@ -1,0 +1,24 @@
+{
+  "type": "matrix_manifest",
+  "matrix_id": "20261116_r14_x5c",
+  "created": "2026-11-16",
+  "spec_version": "SPEC_experiments v1.0 §10.3–10.4",
+  "git_commit_baseline": "f816848370d676e08e67559c2544d6dc937322c3",
+  "frozen_release": false,
+  "note": "baseline commit plus working-tree source hashes; not a frozen public release",
+  "source_sha256": {
+    "run_x5c_r14.py": "4d744173b7c81c3cc65a95ad0ce5113e527236844a91480d22c2480bcfc237ec",
+    "src/autonomy_sim/counterfactual.py": "84623ce287b0b3d91de63f102a3cd2399c63d550c4b420ddd2bd604bae0d5b31",
+    "src/autonomy_sim/rng.py": "0a9819406f0d8b92a03cc7cc11bbc7e78b2fc5cfaf16ea7a0624710f0a14ce51"
+  },
+  "preregistration_sha256": "57997d07e60d6d3573366d08a122198bc240be08ac4c0cff3ef8f971c4f48ddb",
+  "results_sha256": "aa3d464f3acee28e585884b2bcc17433b185e14c5c89d5aec26771c06788cec7",
+  "crosscheck_results_sha256": "bbc06740d31259d32a9444094b70aededcd6b3841a1306f4c0b2fb7a18711ff2",
+  "verdict_table_sha256": "9d52adcd26ff5a2fab68c6d7011b5502e57d9b4deddc4e5394e1c101c5610291",
+  "analysis_sha256": "884b1f5d5ba4ef76c441c9b0df377f62df938355a6cc7a6127ea59b6041054a3",
+  "n_contexts": 160000,
+  "n_crosscheck_contexts": 8000,
+  "independent_random_units": "one sampled context per row entry; CDF-integrated downstream noise",
+  "seed_rule": "registered PCG64 seeds in preregistration.json",
+  "historical_4620_run_included": false
+}

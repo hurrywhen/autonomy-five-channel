@@ -1,0 +1,15 @@
+{
+  "type": "r14_c0cf_preregistration",
+  "date": "2026-11-16",
+  "spec": "SPEC_experiments v1.0 §10.6",
+  "spec_sha256": "97ca5b773141b78c35ede03feee81f1926eabe40c421e16989d03ba38c4c8fc4",
+  "scope": "same-environment constructive check; not legacy C0-DEMO and not external validation",
+  "criteria": [
+    "identical full (E,O,A) law",
+    "Aepi=1 vs 0.5",
+    "positive composite separation",
+    "observation-equivalent XOR Lambda=1 vs 0"
+  ],
+  "T": 3,
+  "w_epi": 0.2
+}

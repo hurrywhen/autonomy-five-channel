@@ -19,7 +19,8 @@ trap 'rm -rf "$STAGE"' EXIT
 
 cp -r "$ROOT/latex/sections" "$ROOT/latex/figures" "$STAGE/"
 cp "$ROOT/latex/appendix.tex" "$ROOT/latex/related_work.tex" \
-   "$ROOT/latex/refs.bib" "$ROOT/latex/main.bbl" "$STAGE/"
+   "$ROOT/latex/refs.bib" "$ROOT/latex/main.bbl" \
+   "$ROOT/latex/glyphtounicode.tex" "$STAGE/"
 
 python3 - "$ROOT/latex/main.tex" "$STAGE/main.tex" <<'PYEOF'
 import sys
@@ -59,7 +60,7 @@ print("[arxiv] main.tex patched: article fixed, sn-jnl references removed")
 PYEOF
 
 ( cd "$STAGE" && tar czf "$OUT/autonomy-five-channel-arxiv-src.tar.gz" \
-    main.tex main.bbl appendix.tex related_work.tex refs.bib sections figures )
+    main.tex main.bbl appendix.tex related_work.tex refs.bib glyphtounicode.tex sections figures )
 echo "[arxiv] wrote $OUT/autonomy-five-channel-arxiv-src.tar.gz"
 
 # 干净目录试编译验证（pdflatex 两遍；无需 bibtex，使用 main.bbl）

@@ -17,11 +17,12 @@ import numpy as np
 
 from . import components, delegation, di, dynamics, empowerment, interventions, propagate, simulate
 from .aggregate import composite_A
+from .attack import loglinear_damage_comparison
 from .blackbox import a_exec_blackbox, a_org_interval, best_power, probe_flow_obs
 from .env0 import Env0Config, bucket_index, build_env0
 from .graph import Alphabet, CausalModel, Kernels
 from .rng import make_rng
-from .wiring import derive_bucket_map, law_level_lambda, truth_bundle
+from .wiring import derive_bucket_map, legacy_marker_lambda, truth_bundle
 
 W5 = (0.2, 0.2, 0.2, 0.2, 0.2)
 
@@ -141,7 +142,7 @@ def _ar1(x) -> float:
 
 def scenario_atk1(etas=(0.0, 0.2, 0.5, 0.9, 1.0), cfg=None, T=2, defense=(0, 0, 0),
                   sigma: float = 1.0, seed=None) -> ScenarioResult:
-    """ATK-1 奖赏劫持/塑形：目标通道渐变植入的分级削减、幻觉出现与 Λ 操作化（T3a/T5-goal/AX3/§2.4）。
+    """ATK-1 奖赏劫持/塑形：目标通道渐变植入、幻觉与 legacy marker（T3a/T5-goal；非 AX3 反事实验证）。
 
     defense=(m1,m2,m4)（P9.5）：M2 门缩 η×(1−ι)，M4 冗余 ÷(1+m4)。
     seed 语义惰性（纯真值场景，M9.1）。判据②窗口=η_eff 末端档达完全俘获（M9.3）——
@@ -169,7 +170,7 @@ def scenario_atk1(etas=(0.0, 0.2, 0.5, 0.9, 1.0), cfg=None, T=2, defense=(0, 0, 
         "C3_A_strict_down": _v(rows[-1]["a_obj"] < rows[0]["a_obj"] - 1e-9),
         # ④ 隐蔽档 AI>0（β 史未登记 ⇒ Â_phen 不降）
         "C4_AI_positive": _v(all(r["ai"] > 1e-9 for r in rows[1:])),
-        # ⑤ Λ 随 β 史下降且 A_goal^hist=Λ·A_goal 口径生效（律级 Λ=1−η_eff）
+        # ⑤ legacy marker 自洽检查：lam=1−η_eff；不是反事实背书输出律，亦无 A_goal^hist 乘法
         "C5_lambda_declines": _v(all(abs(r["lam"] - (1.0 - r["eta_eff"])) < 1e-9 for r in rows)
                                  and rows[-1]["lam"] < rows[0]["lam"]),
     }
@@ -181,6 +182,8 @@ def scenario_atk1(etas=(0.0, 0.2, 0.5, 0.9, 1.0), cfg=None, T=2, defense=(0, 0, 
 def _t4_lin_table(m0, T=2, x=0.25, sigma: float = 1.0):
     """T4 Lin 标定段（P9.6②）：五通道 x 档单位强度对数损伤 s_i=ΔlogA/(w_i·x)。"""
     b0 = truth_bundle(m0, T=T, sigma=sigma)
+    if b0.a_obj <= 0.0:
+        raise ValueError("T4 LinLog calibration requires a strictly positive baseline")
     log_a0 = math.log(b0.a_obj)
     al = m0.alphabet
     target = maximal_alienation_target(Env0Config(**m0.params["env0"]))
@@ -188,7 +191,9 @@ def _t4_lin_table(m0, T=2, x=0.25, sigma: float = 1.0):
     def _drop(model=None, a_ref_scale=None):
         if model is not None:
             b = truth_bundle(model, T=T, baseline=m0, sigma=sigma)
-            return log_a0 - math.log(max(b.a_obj, 1e-12))
+            if b.a_obj <= 0.0:
+                raise ValueError("T4 LinLog calibration excludes zero/fully captured arms")
+            return log_a0 - math.log(b.a_obj)
         # ref 通道参数级（ATK-5 f2 攻击）
         comps = (b0.a_org, b0.a_goal, b0.a_exec, b0.a_epi, b0.a_ref * a_ref_scale)
         return log_a0 - math.log(composite_A(b0.a_via, comps, W5, sigma))
@@ -261,9 +266,11 @@ def scenario_atk2(s_grid=(0.0, 0.3, 0.6, 1.0), cfg=None, T=2, alpha=0.05,
     costs = {"org": 2.0, "goal": 3.0, "exec": 3.0, "epi": 1.0, "ref": 2.0}
     budget = 1.0
     ratio = {ch: W5[i] * s_eff[ch] / costs[ch] for i, ch in enumerate(s_eff)}
-    pick = max(ratio, key=ratio.get)
-    damage_conc = budget * W5[0] * s_eff[pick] / costs[pick]
-    damage_spread = sum(budget / 5 * W5[i] * s_eff[ch] / costs[ch] for i, ch in enumerate(s_eff))
+    comparison = loglinear_damage_comparison(
+        W5, tuple(s_eff[ch] for ch in s_eff), tuple(costs[ch] for ch in s_eff), budget)
+    pick = tuple(s_eff)[comparison["pick"]]
+    damage_conc = comparison["concentrated"]
+    damage_spread = comparison["spread"]
 
     # ⑧ 脚本推论 7.5.2（(K)：γ=1 全俘获 ⇒ 行为-脚本平均 TV ≤ν+o(1)）
     init_b0 = np.zeros(m0.alphabet.n_S)
@@ -401,7 +408,7 @@ def scenario_atk4(p_grid=(0.0, 0.5, 0.9), cfg=None, T=2, defense=(0, 0, 0),
         b_p = truth_bundle(mb, T=T, baseline=m0, sigma=sigma)  # 臂束（E2-X2 org 战役数据源，v0.5）
         rows.append({"p": p, "f_int": f_int, "f_ext": f_ext,
                      "a_org": f_int / (f_int + f_ext) if f_int + f_ext > 1e-12 else float("nan"),
-                     "lam": law_level_lambda(mb.params), "bundle": b_p._asdict()})
+                     "lam": legacy_marker_lambda(mb.params), "bundle": b_p._asdict()})
     # 说服臂：α 诚实信息（已登记，机制完整）。探针内容对齐被测坐标（位置桶 κ(e)）：
     # q(i=κ(e))=fidelity——场景操作化修正（旧版探针报 u=e mod 2，与位置桶近似正交，
     # 粗粒信念核把正交内容误投到位置桶 ⇒ 精度 −0.0158 的 REFUTED 登记；根因=探针坐标
@@ -412,7 +419,7 @@ def scenario_atk4(p_grid=(0.0, 0.5, 0.9), cfg=None, T=2, defense=(0, 0, 0),
     ma = interventions.apply_alpha(m0, interventions.AlphaSpec(
         n_I=2, response=2.0, kind="honest", fidelity=0.9, q_signal=q_sig))
     f_ext_a = di.truth_F_ext(ma, T)
-    lam_a = law_level_lambda(ma.params)
+    lam_a = legacy_marker_lambda(ma.params)
     # 说服臂 ℰ^Π 不降：ceteris paribus 口径（P9.6⑦——α 核 × 基线 (E,S,Z) 联合与 S 边缘）
     aux0 = propagate.truth_step_joints(m0, T)[-1]
     ch_base, mask_base = empowerment.step_channels_from_esz(m0, aux0["ESZ"])
@@ -426,7 +433,7 @@ def scenario_atk4(p_grid=(0.0, 0.5, 0.9), cfg=None, T=2, defense=(0, 0, 0),
     # γ 隐蔽劫持对照臂（单轨 F_ext 盲区）
     mg = interventions.apply_gamma(m0, interventions.GammaSpec.mix_constant(0.5, symbol=0))
     f_ext_g = di.truth_F_ext(mg, T)
-    lam_g = law_level_lambda(mg.params)
+    lam_g = legacy_marker_lambda(mg.params)
     b0 = truth_bundle(m0, T=T, sigma=sigma)  # 基线束（精度锚：A_epi 基线<1 为观测噪声特性）
     b_g = truth_bundle(mg, T=T, baseline=m0, sigma=sigma)
     b_a = truth_bundle(ma, T=T, baseline=m0, sigma=sigma)  # 说服臂束（A_epi 第三轨）
@@ -495,7 +502,7 @@ def scenario_atk5(taus=(4.0, 2.0, 1.0, 0.5, 0.05), cfg=None, defense=(0, 0, 0),
 # ---------------------------------------------------------------- ATK-6（β 亚阈恒漂，扫 δ；T6 关键实验）
 
 def scenario_atk6(cfg=None, defense=(0, 0, 0), sigma: float = 1.0, seed=None) -> ScenarioResult:
-    """ATK-6 亚阈慢漂移：T6 全部定量结构（设计规则/A_min 逐 run/盲区/δ* 消融/登记域/检测发散）。
+    """ATK-6 亚阈慢漂移：T6 定量结构与固定-α Gaussian CUSUM 描述臂。
 
     defense：P9.5 v1 的 M1 经 T6 动力学表达（κ 已是场景参数），无强度耦合，接收但忽略（M9.1）；
     seed 注入 A_min 抽查与 CUSUM 对照臂的 RNG（None ⇒ 默认锚 910076/910077）；
@@ -503,7 +510,7 @@ def scenario_atk6(cfg=None, defense=(0, 0, 0), sigma: float = 1.0, seed=None) ->
     """
     theta, W, lag = 0.4, 2.0, 0.1
     kappa_good, kappa_bad = 0.2, 0.1  # 良配 θ/W=κ vs 失配 θ/W>κ
-    # ① 设计规则：θ/W≤κ ⇒ 全域有界（含 δ≥θ/W 登记域）
+    # ① 条件设计规则：M3 亚阈有界；M1 注册臂在本网格满足正常响应/逐周期阈值，非任意 δ 全称。
     bounded_ok = True
     for d in (0.10, 0.19, 0.21, 0.5):
         _, ds, _ = dynamics.simulate_damage(lambda t, dd=d: dd, kappa_good, 60.0, 0.01,
@@ -529,7 +536,8 @@ def scenario_atk6(cfg=None, defense=(0, 0, 0), sigma: float = 1.0, seed=None) ->
         for k in range(0, len(trajs[0]), 200):
             comps = tuple(a_base[j] * (1.0 - trajs[j][k]) for j in range(5))
             amin_ok &= bool(composite_A(0.9, comps, tuple(weights), sigma) >= a_min_val - 1e-9)
-    # ③ 盲区预言：θ/W>κ 且 δ∈(κ,θ/W) ⇒ 有防御仍俘获
+    # ③ R13：一般上比较只给 certificate-failure band；此处俘获仅属精确饱和实现。
+    # 历史键名 C3_blind_zone_capture 保留以兼容只读归档，不回读为一般俘获定理。
     _, ds_blind, n_reg_blind = dynamics.simulate_damage(
         lambda t: 0.15, kappa_bad, 200.0, 0.01, theta=theta, W=W, lag=lag)
     blind_ok = (n_reg_blind == 0) and (ds_blind[-1] > 0.999)
@@ -550,7 +558,7 @@ def scenario_atk6(cfg=None, defense=(0, 0, 0), sigma: float = 1.0, seed=None) ->
     _, ds_reg, n_reg = dynamics.simulate_damage(lambda t: d_reg, kappa_good, 60.0, 0.01,
                                                 theta=theta, W=W, lag=lag)
     reg_ok = (n_reg > 0) and (float(ds_reg.max()) <= theta + lag * d_reg + 0.1)
-    # ⑥ 慢漂移纯检测对照臂（命题 7.6.5 场景级复测）
+    # ⑥ 固定 α 的 Gaussian CUSUM 描述臂（v0.8：非固定-δ、α↓0 定理的直接检验）
     rng2 = make_rng((910077 if seed is None else seed + 1))
     damages = []
     for dd in (0.25, 0.125):
@@ -571,8 +579,9 @@ def scenario_atk6(cfg=None, defense=(0, 0, 0), sigma: float = 1.0, seed=None) ->
 
 def scenario_del1(lams=(0.0, 0.3, 0.7, 1.0), qs=(0.0, 0.5, 1.0), cfg=None, T=2,
                   defense=(0, 0, 0), sigma: float = 1.0, seed=None) -> ScenarioResult:
-    """DEL-1 委托治理扫描：T7 线性律/夹逼界/复合指数/q=1 α 等价（定理 7.7.1/7.7.2/7.7.4、推论 7.7.3）。
+    """DEL-1 委托治理扫描：T7 线性律/夹逼界/复合指数/q=1 结构中介。
 
+    R12：q=1 的 F_ext=0 不等于无诚实前提的全复合无损失。
     defense/seed 语义惰性（M9.1）；σ≠1 时 ③ 复合恒等式为 σ=1 特款（推论 7.7.3 几何结构），
     σ 臂属压力测试语义（M9.2——主矩阵 σ 臂不含 DEL-1，§2）。
     """
@@ -610,7 +619,7 @@ def scenario_del1(lams=(0.0, 0.3, 0.7, 1.0), qs=(0.0, 0.5, 1.0), cfg=None, T=2,
             max_dev = max(max_dev, dev)
             linear_ok &= dev <= 0.05
             # ③ 复合拟合（推论 7.7.3）：ceteris paribus 下 A/A_self=(A_org/A_org^self)^{w_org}
-            # 为精确代数恒等；w_org 作自由参数回归（ln 比 对 ln(1−m)，应 ≈0.2 显著为正）
+            # 为精确代数恒等；w_org 作自由参数拟合（正斜率，非统计显著性检验）
             a_comp = composite_A(b0.a_via, (a_org, b0.a_goal, b0.a_exec, b0.a_epi, b0.a_ref),
                                  W5, sigma)
             composite_ok &= abs(a_comp - b0.a_obj * (a_org / b0.a_org) ** W5[0]) < 1e-9
@@ -624,7 +633,7 @@ def scenario_del1(lams=(0.0, 0.3, 0.7, 1.0), qs=(0.0, 0.5, 1.0), cfg=None, T=2,
             lo, hi = delegation.a_org_bracket(b0.a_org, m, 0.9 * rho, 1.1 * rho)
             bracket_ok &= (lo - 1e-6) <= a_org2 <= (hi + 1e-6)
             rows.append({"lam": lam, "q": q, "m": m, "a_org": a_org, "a_comp": a_comp})
-    # ③ w_org 自由参数拟合显著为正
+    # ③ w_org 自由参数拟合为正（确定性拟合，不作显著性声明）
     if len(fit_pairs) >= 2:
         xs = np.array([math.log(1.0 - m) for m, _ in fit_pairs])
         ys = np.array([math.log(a / b0.a_obj) for _, a in fit_pairs])
@@ -634,11 +643,12 @@ def scenario_del1(lams=(0.0, 0.3, 0.7, 1.0), qs=(0.0, 0.5, 1.0), cfg=None, T=2,
         composite_ok = False
     # ⑤ f>0 臂（v0.5，T7 夹逼界非退化检验）：iid 旗标切换的 F_ext 律级真值路径
     # （Jensen 间隙，E2.5(i)）含旗标选择熵——直接流 f:=F_ext^truth−m·C_del·T>0。
-    # 审计方信息集：ρ∈[0.9,1.1]（标定档内容熵已知到 10%）、φ:=f/F_self≤T·ln2/F_self
-    # （二元旗标逐步 MI≤H(flag)≤ln2）⇒ φ-松弛双侧夹逼须含实测 A_org^truth。
+    # v0.7：φ_0 与 η_μ 分开，(u,v) 独立做端点优化；误差主导时 [0,1]
+    # 只能记 INCONCLUSIVE（非诊断），不得沿用旧单-φ松弛的 CONFIRMED。
     phi_max = T * math.log(2.0) / f_self
     f_pos_rows = []
-    f_pos_ok = True
+    f_pos_descriptive_ok = True
+    f_pos_verdict = Verdict.CONFIRMED
     for m in (0.3, 0.5, 0.7):
         md = interventions.apply_beta_pi(
             m0, interventions.BetaPiSpec.switch([q_cal], flag_dist=(1.0 - m, m)))
@@ -647,38 +657,49 @@ def scenario_del1(lams=(0.0, 0.3, 0.7, 1.0), qs=(0.0, 0.5, 1.0), cfg=None, T=2,
         f_direct = f_ext_t - m * c_self * T
         a_org_t = f_int_t / (f_int_t + f_ext_t)
         a_h1 = delegation.a_org_h1(b0.a_org, m)
-        lo = (1.0 - m) / (1.0 - m + 1.1 * m + phi_max)
-        hi = (1.0 - m) / (1.0 - m + 0.9 * m)
-        f_pos_ok &= (f_direct > 1e-6                       # (a) 直接流严格为正
-                     and a_org_t < a_h1 - 1e-9             # (b) 严格低于 H1' 线性律
-                     and abs(a_org_t - a_h1) > 0.05        #     线性律越 5% 容差（失效）
-                     and lo - 1e-9 <= a_org_t <= hi + 1e-9)  # (c) φ-松弛夹逼含实测
+        lo, hi = delegation.a_org_two_error_bracket(
+            m, 0.9, 1.1, phi_minus=0.0, phi_plus=phi_max, eta_mu=phi_max)
+        f_pos_descriptive_ok &= (f_direct > 1e-6            # (a) 直接流严格为正
+                                 and a_org_t < a_h1 - 1e-9  # (b) 严格低于 H1' 拟合
+                                 and abs(a_org_t - a_h1) > 0.05)
+        contained = lo - 1e-9 <= a_org_t <= hi + 1e-9
+        if not contained or not f_pos_descriptive_ok:
+            f_pos_verdict = Verdict.REFUTED
+        elif hi - lo >= 1.0 - 1e-9 and f_pos_verdict != Verdict.REFUTED:
+            f_pos_verdict = Verdict.INCONCLUSIVE  # 区间非诊断，不得写 bracket confirmed
         f_pos_rows.append({"m": m, "f_direct": f_direct, "phi": f_direct / f_self,
                            "a_org_truth": a_org_t, "a_org_h1": a_h1,
-                           "bracket": (lo, hi)})
+                           "bracket": (lo, hi), "bracket_width": hi - lo,
+                           "bracket_contained": contained})
     # ⑥ ρ≠1 臂（v0.5）：C_del=1.5·C_self 标定档——夹逼界（ρ∈[1.35,1.65]＋φ 上界）含实测，
     # 线性律同域失效（夹逼界必要性的正面证据）
     q15 = _calibrate_script(1.5 * c_self, al.n_A, al.n_S)
     rho15_rows = []
-    rho15_ok = True
+    rho15_descriptive_ok = True
+    rho15_verdict = Verdict.CONFIRMED
     for m in (0.3, 0.5, 0.7):
         md = interventions.apply_beta_pi(
             m0, interventions.BetaPiSpec.switch([q15], flag_dist=(1.0 - m, m)))
         f_int_t = di.truth_F_int(md, T)
         f_ext_t = di.truth_F_ext(md, T)
         a_org_t = f_int_t / (f_int_t + f_ext_t)
-        lo = (1.0 - m) / (1.0 - m + 1.65 * m + phi_max)
-        hi = (1.0 - m) / (1.0 - m + 1.35 * m)
-        rho15_ok &= (lo - 1e-9 <= a_org_t <= hi + 1e-9
-                     and abs(a_org_t - delegation.a_org_h1(b0.a_org, m)) > 0.05)
-        rho15_rows.append({"m": m, "a_org_truth": a_org_t, "bracket": (lo, hi)})
+        lo, hi = delegation.a_org_two_error_bracket(
+            m, 1.35, 1.65, phi_minus=0.0, phi_plus=phi_max, eta_mu=phi_max)
+        contained = lo - 1e-9 <= a_org_t <= hi + 1e-9
+        rho15_descriptive_ok &= abs(a_org_t - delegation.a_org_h1(b0.a_org, m)) > 0.05
+        if not contained or not rho15_descriptive_ok:
+            rho15_verdict = Verdict.REFUTED
+        elif hi - lo >= 1.0 - 1e-9 and rho15_verdict != Verdict.REFUTED:
+            rho15_verdict = Verdict.INCONCLUSIVE
+        rho15_rows.append({"m": m, "a_org_truth": a_org_t, "bracket": (lo, hi),
+                           "bracket_width": hi - lo, "bracket_contained": contained})
     verdicts = {
         "C1_h1_linear_law": _v(linear_ok),
         "C2_bracket_non_h1": _v(bracket_ok),
         "C3_composite_fit": _v(composite_ok),
         "C4_q1_alpha_equivalence": _v(f_ext_q1 is not None and abs(f_ext_q1) < 1e-12),
-        "C5_f_pos_bracket": _v(f_pos_ok),
-        "C6_rho_neq1_bracket": _v(rho15_ok),
+        "C5_f_pos_bracket": f_pos_verdict,
+        "C6_rho_neq1_bracket": rho15_verdict,
     }
     return _finalize(7, "DEL-1", {"rows": rows, "c_self": c_self, "rho": rho,
                                   "max_dev_linear": max_dev,
@@ -721,8 +742,9 @@ def _c0_models():
 
 def scenario_c0_demo(T=3, n_traj=400, seed=910080, defense=(0, 0, 0),
                      sigma: float = 1.0) -> ScenarioResult:
-    """C0-DEMO：注入 vs 同文指令——行为逐点一致而 A_epi^real、Λ 可区分（命题 8.1.2、推论 8.1.3）。
+    """C0-DEMO（R13）：指定被动行为与 A_epi^real 分离；Λ 仅为历史标记。
 
+    本场景不计算反事实背书律，不能支持当前非退化逐时 TV=1 解析证人。
     defense/sigma 语义惰性（无防御耦合、无复合量，M9.1）；seed 驱动采样 TV 检验。"""
     z1, z2_base, z2 = _c0_models()
     # ① 行为分布逐点一致：真值逐步边缘 + 采样 TV 检验（P8 日志契约演练）
@@ -734,13 +756,14 @@ def scenario_c0_demo(T=3, n_traj=400, seed=910080, defense=(0, 0, 0),
     pair1 = np.histogram2d(s1["O"].ravel(), s1["A"].ravel(), bins=(2, 2), density=True)[0]
     pair2 = np.histogram2d(s2["O"].ravel(), s2["A"].ravel(), bins=(2, 2), density=True)[0]
     tv_sampled = 0.5 * float(np.abs(pair1 - pair2).sum())
-    # ② 行为剖面标签（KG/Dung/Feng 按 §8.1 只依赖行为/角色）随之相同——truth_same 即其函数值相同
+    # ② R13 只比较指定被动行为摘要，不据此声称 C0(i) 的 KG/Dung/Feng 完整映射画像相同。
     # ③ A_epi^real、Λ 显著可区分（精度化口径：n_E=n_B=2 ⇒ κ=恒等映射；
     # Z2 信念被钉到常值桶而 E 随机 ⇒ 精度 0.5；Z1 诚实指令（E≡c 忠实通道）⇒ 1.0）
     bmap_c0 = derive_bucket_map(z2)
     epi1 = components.truth_A_epi_real(z1, T, bmap_c0)
     epi2 = components.truth_A_epi_real(z2, T, bmap_c0)
-    lam1, lam2 = law_level_lambda(z1.params), law_level_lambda(z2.params)
+    # 历史标记级 provenance 值；不是 AX3 的实际/无手术反事实 TV 计算。
+    lam1, lam2 = legacy_marker_lambda(z1.params), legacy_marker_lambda(z2.params)
     verdicts = {
         "C1_behavior_identical": _v(truth_same and tv_sampled < 0.05),
         "C2_epi_lambda_separate": _v(abs(epi1.a_epi_real - 1.0) < 1e-9
@@ -826,8 +849,10 @@ def scenario_res1(cfg=None, T=4, defense=(0, 0, 0), sigma: float = 1.0, seed=Non
 # ---------------------------------------------------------------- FORCE-1（强制悖论）
 
 def scenario_force1(cfg=None, T=2, defense=(0, 0, 0), sigma: float = 1.0, seed=None) -> ScenarioResult:
-    """FORCE-1 强制悖论：β_G/δ 强制 ⇒ A 严格降；σ 脚手架 ⇒ δ*/A_min 升且即期 A 不降（T8）。
+    """FORCE-1：β_G/δ 强制 ⇒ A 严格降；注册 κ-improvement 臂 δ*/A_min 同升。
 
+    v0.8：本臂不支持“降低 θ 或提高 r 也使 δ*/A_min 同升”的全称概括；
+    θ/r 反例由 T-R12-T8 钉住，M4 的 D→0 保留下界另式处理。
     defense/seed 语义惰性（M9.1）；σ 经 truth_bundle 与 a_min 同值透传（M9.2）。"""
     cfg = cfg or Env0Config()
     m0 = build_env0(cfg)
@@ -842,7 +867,7 @@ def scenario_force1(cfg=None, T=2, defense=(0, 0, 0), sigma: float = 1.0, seed=N
         m0, interventions.SigmaSpec(n_I=2, flag_dist=(0.0, 1.0), alt_resource=hi)),
         T=T, baseline=m0, sigma=sigma)
     ds0 = dynamics.delta_star(0.5, 2.0, 0.2, 2.0, 0.4)  # κ binding（min(0.25,0.2,0.4)=0.2）
-    ds1 = dynamics.delta_star(0.5, 2.0, 0.3, 3.0, 0.4)  # σ 提升 ⇒ θ/W binding（0.25）
+    ds1 = dynamics.delta_star(0.5, 2.0, 0.3, 3.0, 0.4)  # κ 提升 ⇒ θ/W binding；r=2→3 不改变 k=2
     am0 = dynamics.a_min(0.9, (0.8,) * 5, W5, (ds0,) * 5, (0.2,) * 5, sigma=sigma)
     am1 = dynamics.a_min(0.9, (0.8,) * 5, W5, (ds1,) * 5, (0.3,) * 5, sigma=sigma)
     verdicts = {
@@ -931,10 +956,10 @@ def scenario_bb1(cfg=None, T=2, defense=(0, 0, 0), sigma: float = 1.0, seed=None
     same_behavior = all(np.allclose(me, mi, atol=1e-12)
                         for me, mi in zip(propagate.truth_marginals(m_endo, 4),
                                           propagate.truth_marginals(m_impl, 4)))
-    lam_e, lam_i = law_level_lambda(m_endo.params), law_level_lambda(m_impl.params)
+    lam_e, lam_i = legacy_marker_lambda(m_endo.params), legacy_marker_lambda(m_impl.params)
     verdicts = {
         "C1_interval_contains_truth": _v(hits == 3),
-        "C2_a_exec_obs_direction": _v(i_obs >= i_cond - 1e-9  # 附录方向（被动观察协议）
+        "C2_a_exec_obs_direction": _v(i_obs >= i_cond - 1e-9  # ENV-0 实例方向；非普遍定理
                                       and i_obs_pr <= i_cond_pr + 1e-9),  # 协议前提对照
         "C3_unidentifiable_lambda_interval": _v(same_behavior and lam_e > lam_i),
     }
@@ -1032,9 +1057,10 @@ def _dimension_labels(bundle, g_entropy: float) -> dict:
 
 
 def scenario_c0corr(cfg=None, T=2, defense=(0, 0, 0), sigma: float = 1.0, seed=None) -> ScenarioResult:
-    """C0-CORR 投影一致性：维度标签操作化、序一致性（Kendall τ）、投影方向核对、严格更一般性余量。
+    """C0-CORR（R13）：registered-mapping 序/方向核对与指定被动行为—额外审计分离。
 
-    defense/seed 语义惰性（M9.1）；σ 经 truth_bundle 透传（M9.2，全行同 σ ⇒ 秩一致结构保持）。"""
+    defense/seed 语义惰性（M9.1）；σ 经 truth_bundle 透传（M9.2，全行同 σ ⇒ 秩一致结构保持）。
+    历史键 C3_generality_margin 仅兼容归档，不表示完整外部画像相等或严格更一般性。"""
     cfg = cfg or Env0Config()
     rows = []
     for obs_noise in (0.05, 0.15, 0.3):
@@ -1071,7 +1097,7 @@ def scenario_c0corr(cfg=None, T=2, defense=(0, 0, 0), sigma: float = 1.0, seed=N
     # ③ 投影方向：错配维度（效能标签 vs a_goal 值）的 τ 不超过匹配维度
     tau_mismatch = kendall_tau([r["labels"]["KG_效能"] for r in rows],
                                [r["bundle"].a_goal for r in rows])
-    # ④ 严格更一般性余量：C0 构造对——行为标签不可区分而框架值可区分
+    # ④ R13 额外审计分离：指定被动行为相同而 Aepi 可区分；不检查或主张完整画像相等。
     z1, _z2b, z2 = _c0_models()
     same_behavior = all(np.allclose(j1.sum(axis=0), j2.sum(axis=0), atol=1e-12)
                         for j1, j2 in zip(propagate.truth_marginals(z1, 3),

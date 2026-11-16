@@ -200,3 +200,19 @@
 - 评审另报的 "Intellectual→Intellectica"、"Stogbauer/Scholkopf/Ueltzhoffer 变音符"、
   "Page 84 编号混乱" 经核**均不存在于源**（vanlier2024 journal 字段本为 Intellectica；
   后三名作者不在 bib；plainnat 作者年制无编号——系评审侧 PDF 提取 artifacts，与 R7 同源）。
+
+## Q. 2026-11-02 R11 审稿修订新增（1 条；网络核验渠道，无本地 PDF）
+
+- **seth2010**：回应“补并正面比较 Granger causality 自主性测量”的意见。PubMed PMID 20067405 与 Crossref API 交叉核验：Anil K. Seth, *Measuring Autonomy and Emergence via Granger Causality*, Artificial Life 16(2):179–196, DOI 10.1162/artl.2010.16.2.16204。正文明确区分 Granger 预测自主与本文注册规范状态的因果条件 DI，不把该文当作 T2 机制定理的直接证据。
+
+## R. 2026-11-16 R14 直接前沿对照（官方页面/论文全文网络核验，无本地 PDF）
+
+- **cihon2025**：arXiv:2502.15212v1 全文——Cihon、Stein、Bansal、Manning、Xu，以 orchestration code 的 impact/oversight 评分；AutoGen 与十个应用、三名评分者。本文按设计时白盒代码审计对照，不把它当作运行时五通道估计。
+- **anthropic2026agents**：Anthropic 官方报告及引用块（2026-02-18）——百万级 Claude Code/API 交互，turn duration、auto-approve、human interruption、agent-initiated stops 等；本文承认真实部署测量已存在，但不冒充其外部验证。
+- **abel2025plasticity**：NeurIPS 2025 Proceedings 官方摘要与 BibTeX——generalized directed information、plasticity/empowerment 对偶；DOI 10.52202/085713-5481。按双向信息结构直接前驱对照。
+- **song2026eelma**：arXiv:2509.22504v3 官方页——Song、Gore、Kleiman-Weiner，ICML 2026 camera-ready；文本游戏、WebArena、工具使用环境的 EELMA。本文不再把 LM 执行估计写成无直接前驱的未来工作。
+- **lassiter2026compendium**：arXiv:2609.11018v1 全文——Lassiter、Bent，环境交互、学习适应、自主性、目标导向、时间连续性五维及 Agent Compendium。
+- **nian2026auditable**：arXiv:2604.05485v4 全文——Nian 等，action recoverability、lifecycle coverage、policy checkability、responsibility attribution、evidence integrity 五维及 detect/enforce/recover；按直接审计框架对照。
+- **nist2023**：补 DOI 10.6028/NIST.AI.100-1，正文统一为 voluntary guidance，不再写成强制审计义务。
+
+上述六组研究均有对比表和增量边界，不用于声称本文已实现外部构念验证。

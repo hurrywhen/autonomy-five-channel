@@ -29,12 +29,38 @@ def a_org_h1(a_org_self: float, m: float) -> float:
 
 
 def a_org_bracket(a_org_self: float, m: float, rho_min: float, rho_max: float) -> tuple:
-    """命题 7.7.2 夹逼界（无 H1'，ρ=C_del/C_self∈[ρ_min,ρ_max]，上端对 1 取 min）。"""
+    """零松弛（η_μ=0）代数夹逼；有 selector 混合误差时必须改用双误差函数。"""
     _check_m(m)
     if not 0 < rho_min <= rho_max:
         raise ValueError(f"须 0<ρ_min≤ρ_max: ({rho_min},{rho_max})")
     lo = float(a_org_self) * (1.0 - m) / (1.0 - m + m * rho_max)
     hi = float(a_org_self) * (1.0 - m) / (1.0 - m + m * rho_min)
+    return lo, min(1.0, hi)
+
+
+def a_org_two_error_bracket(m: float, rho_min: float, rho_max: float,
+                            phi_minus: float, phi_plus: float,
+                            eta_mu: float) -> tuple:
+    """v0.7 双误差夹逼 [L,U]（SPEC_experiments DEL-1⑤⑥）。
+
+    实际比值为 (a+u)/(a+u+d+v)，|u|,|v|≤eta_mu；L 最小化分子并最大化
+    外部流，U 反向优化。phi_0∈[phi_minus,phi_plus] 时两端分别取最坏值。
+    非负流量/正分母域由 (x)_+=max(x,0) 表达；区间可退化为 [0,1]。
+    """
+    _check_m(m)
+    if not 0 < rho_min <= rho_max:
+        raise ValueError(f"须 0<ρ_min≤ρ_max: ({rho_min},{rho_max})")
+    if not 0.0 <= phi_minus <= phi_plus:
+        raise ValueError(f"须 0≤φ_-≤φ_+: ({phi_minus},{phi_plus})")
+    if eta_mu < 0:
+        raise ValueError(f"η_μ≥0: {eta_mu}")
+    a = 1.0 - m
+    n_min = max(0.0, a - eta_mu)
+    d_max = m * rho_max + phi_plus + eta_mu
+    lo = n_min / (n_min + d_max) if n_min + d_max > 0 else 0.0
+    n_max = a + eta_mu
+    d_min = max(0.0, m * rho_min + phi_minus - eta_mu)
+    hi = n_max / (n_max + d_min) if n_max + d_min > 0 else 1.0
     return lo, min(1.0, hi)
 
 

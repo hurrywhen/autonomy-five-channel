@@ -1,0 +1,3 @@
+arm,a_via,a_org,a_goal,a_exec,a_epi,composite,factual_p_y1,lambda,surgery_history
+faithful_plus_identity_endorsement,1.0,1.0,0.4999999999999999,1.0,1.0,0.8312378961427878,0.5,1.0,1
+pinned_belief_plus_xor_endorsement,1.0,1.0,0.4999999999999999,0.9999999999999999,0.5,0.723634618720189,0.5,0.0,1

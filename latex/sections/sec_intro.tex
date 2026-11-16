@@ -5,18 +5,28 @@ Autonomous systems are increasingly deployed to act persistently on behalf of
 their principals: LLM-based agents that plan, remember, and use tools
 \citep{wang2023,xi2023,park2023}; recommender and notification systems that
 continuously shape what users see; rehabilitation and coaching devices that
-nudge human habits. In each deployment the same two questions arise, and both
-are currently unanswerable in operational terms: \emph{how much autonomy does
-the agent retain under a given influence}, and \emph{how much did a given
-interaction take away}. Governance frameworks grade agents by levels and
+nudge human habits. In each deployment the same two questions arise:
+\emph{how much autonomy does the agent retain under a given influence}, and
+\emph{how much did a given interaction take away}. Existing literatures
+operationalize parts of both questions, but lack the proposed shared audit
+schema. Governance frameworks grade agents by levels and
 profiles \citep{feng2025,kasirzadeh2025,dung2024}; psychology measures
 motivation and control \citep{ryan_deci2000,maier_seligman2016}; information
 theory measures control loops \citep{klyubin2005,massey1990}; AI safety
 catalogues failure modes one by one
-\citep{amodei2016,everitt2021,greshake2023}. What is missing is a common
-yardstick: a measure of autonomy itself, defined independently of substrate,
-decomposed into auditable channels, and governed by explicit axioms and
-theorems rather than by unarticulated conventions.
+\citep{amodei2016,everitt2021,greshake2023}. What is missing is a shared
+audit schema: an instantiation-relative operationalization of autonomy,
+decomposed into auditable channels and governed by explicit axioms and
+theorems rather than unarticulated conventions. This gap is narrower than a
+claim that prior work measured only capability and cost: code inspection
+\citep{cihon2025}, real deployment oversight measurements
+\citep{anthropic2026agents}, bidirectional plasticity--empowerment analysis
+\citep{abel2025plasticity}, text-trajectory empowerment estimation
+\citep{song2026eelma}, evaluation catalogues
+\citep{lassiter2026compendium}, and auditability frameworks
+\citep{nian2026auditable} are direct precursors. The schema is
+substrate-neutral; its instruments and scalar readings are not automatically
+comparable across substrates.
 
 Four misconceptions stand in the way of such a measure, and we dispel them at
 the outset. Autonomy is \emph{not isolation}: a closed system is dead, not
@@ -33,18 +43,23 @@ region \citep{mackenzie_stoljar2000}.
 \paragraph{The proposal.} We define the autonomy of an agent relative to an
 environment and a time horizon as the degree to which its behavior is
 determined by its own normative structure $(G,B,M)$---its goals, beliefs, and
-self-model---in five respects: \emph{origination} (behavior is causally sourced
-in internal states rather than bypassed), \emph{informedness} (external
-influences are registered by the self-model), \emph{endorsability} (changes to
-the motivational structure pass, or could pass, second-order review that is
-itself free of tampering---a historical clause), \emph{executability} (intent
+self-model---in five respects: \emph{direct-bypass origination} (behavior is
+not externally driven around the registered decision state), \emph{informedness}
+(environment accuracy is distinguished from influence-source and intervention
+registration), \emph{endorsability} (second-order review is assessed separately
+from tampering history and actual/no-surgery endorsement output deviation),
+\emph{executability} (intent
 has predictable leverage on the situation, with exit options), and
 \emph{viability} (the resource reproduction sustaining all of the above is not
-interrupted). Each clause becomes a channel with an estimator, a canonical
-ratio scale, and a zero semantics; a gating viability factor multiplies a
-composite of the five. The resulting scale is comparable \emph{within a layer
-at a fixed instantiation}; cross-layer and cross-substrate readings are
-reported as channel profiles (Section~\ref{sec:framework}).
+interrupted). These respects map many-to-many onto five channels, each with
+an estimator, a protocol normalizer, and a zero semantics; ratio
+interpretations remain separate normative commitments rather than proved scale
+facts. Reflection has
+no separate respect of its own, and viability is a gate rather than a sixth
+channel. The primary output is the channel profile and evidence grade. The
+secondary scalar composite is comparable \emph{within a layer at a fixed
+instantiation}; cross-layer and cross-substrate readings remain profiles
+(Section~\ref{sec:framework}).
 
 \paragraph{A note on objectivity, at the outset.} Any measure of autonomy is
 built from indicators, and every indicator carries its designer's limitations;
@@ -55,9 +70,10 @@ and priced (including what is lost if it is rejected); invariance under
 irrelevant re-instrumentation is itself made an axiom; the boundary between
 the knowable and the unknowable is proved rather than assumed; and the
 channel choice itself is exposed to a registered external falsifier. The
-measure is objective in the only sense measurement science delivers---not
-free of conventions, but explicit about them and stable under independent
-reconstruction (Section~\ref{sec:objectivity}).
+resulting claim is procedural and conditional auditability: conventions are
+explicit, particular invariances and identifiability limits are proved, and
+sensitivity is reported. Stability under reconstruction by independent teams
+has not been tested (Section~\ref{sec:objectivity}).
 
 \paragraph{Contributions.}
 The primary contribution is the \emph{audit schema} itself---a measurement
@@ -67,8 +83,9 @@ theory of autonomy.
 \begin{enumerate}
 \item \textbf{A formal framework} (Section~\ref{sec:framework}): a
 time-unfolded causal graph with a five-class intervention taxonomy
-($\sigma/\alpha/\beta/\gamma/\delta$) whose completeness is a theorem
-relative to that interface (Proposition~\ref{thm:taxonomy-completeness}):
+($\sigma/\alpha/\beta/\gamma/\delta$) whose primitive coverage is proved
+relative to that interface (Proposition~\ref{thm:taxonomy-completeness}),
+with composite labels where one surgery changes several couplings:
 within the graph's surgery loci, every external influence acts by changing
 what the agent sees, its mechanism itself, what it can do, or its conditions
 of self-maintenance. The $\alpha/\gamma$ boundary is a structural criterion
@@ -78,58 +95,69 @@ re-instantiation of the measurement, not a sixth class.
 \item \textbf{Measures from axioms} (Sections~\ref{sec:axioms} and
 \ref{sec:representation}): six channel measures, each with an absolute zero and
 a canonical normalizer; and a representation theorem (Theorem~\ref{thm:rep})
-showing that continuity, strict coordinatewise monotonicity, homogeneity, and
-coordinatewise scale invariance of the induced order admit exactly the weighted
-geometric mean---``forced'' relative to axioms that are defended normative
+showing that the calibration $F(1,\ldots,1)=1$, continuity, strict
+coordinatewise monotonicity, homogeneity, and coordinatewise scale
+invariance of the induced order admit exactly the weighted geometric
+mean---``forced'' relative to axioms that are defended normative
 commitments, not measurement-theoretic necessities (the scale-invariance
 characterization itself is classical: \citealp{ebert_welsch2004}; our additions
-are scoped in Section~\ref{sec:representation})---with two derivations,
-aggregation-theoretic and measurement-theoretic, independent in toolchain
-though sharing the invariance axioms, and a harmonic-mean counterexample
-(Proposition~\ref{prop:harmonic}) showing exactly why the invariance axiom is
-indispensable. Biseparability and zero annihilation are consequences of the
-minimal invariance trio, not independent commitments: the two derivations
-pin the minimal sufficient set at $\{$AX4, AX6b, AX8$\}$. The load-bearing
-axioms themselves are normative commitments of the framework, defended in
-Section~\ref{sec:objections} rather than derived.
+are scoped in Section~\ref{sec:representation}). One normalization-explicit
+proof is used; we do not claim that (A1)--(A3) alone yield a
+quasi-arithmetic mean. Harmonic and multiplicative-constant counterexamples
+isolate the roles of invariance and calibration. Biseparability and zero
+annihilation are consequences of the calibrated sufficient set
+$\{\textup{(A0)},\textup{AX4},\textup{AX6b},\textup{AX8}\}$, not independent
+commitments. The load-bearing axioms themselves are normative commitments
+of the framework, defended in Section~\ref{sec:objections} rather than
+derived.
 \item \textbf{A suite of theorems with falsification windows}
 (Section~\ref{sec:theorems}): coverage and multi-channel necessity (T2---no
 single channel detects all intervention classes; within this instrument
 family the decomposition is an attribution cover, with necessity as a
-theorem); manipulation strictly reduces autonomy wherever the affected
-instrument enters the composite, and covert manipulation
-inflates a measurable
-hallucination index (T3);
+theorem); manipulation strictly reduces autonomy only under explicit
+relative-baseline strictness premises and a positive baseline, while covert
+manipulation can inflate a measurable hallucination index (T3);
 highest-leverage attack concentration and water-filling defense under
 log-linear damage (T4);
 loss of autonomy as a six-way disjunction (T5); an explicit autonomy margin
 $\deltastar=\min(\theta/W,\kappa,\lceil(r{+}1)/2\rceil c_0/W)$ with a
 positive retention floor
-$\Amin$---including the proof that \emph{detection alone can provide no margin
-against slow drift}, so that margins come from repair capacity while
-detection's role is bounding the registration domain, and a sharp
-blind-zone prediction (T6); component-level delegation laws (T7); and the
-coercion paradox as a consistency result (T8).
+$\Amin$---including an iid Gaussian mean-shift lower bound showing that
+expected drift damage at detection diverges as $\alpha\downarrow0$ at fixed
+nonzero drift, with no universal fixed-$\alpha$ weak-drift claim---and a
+certificate-failure band under the registered upper comparison model, with
+capture reported separately for ATK-6's exact saturating implementation (T6);
+component-level delegation laws with a two-error bracket (T7); and
+coercion consistency for direct goal implantation and action compression
+(T8).
 \item \textbf{Identifiability theory} (Section~\ref{sec:identifiability}):
 white-box point identification, tiered by the modal commitments each channel
 carries; a certified \emph{one-sided} black-box bound for $\Aorg$ under
-bypass-semantics probes (the reference lower end is uncertified) and
-protocol-relative bounds for $\Aexec$; and Proposition~\ref{prop:unidentifiable}
+bypass-semantics probes (the reference lower end is uncertified); a valid
+one-sided direction for $\Aexec$ only under independent probes, with passive
+direction otherwise unidentified; and Proposition~\ref{prop:unidentifiable}
 (implanted endorsement is behaviorally indistinguishable from endogenous
-endorsement), which makes the impossibility of black-box historical auditing a
-theorem and full causal logging an architectural necessity.
-\item \textbf{A simulation benchmark with registered falsification windows}
+endorsement), which proves the need for non-behavioral provenance or
+mechanism evidence while leaving full causal logs as one sufficient route,
+not a uniquely necessary architecture.
+\item \textbf{Illustrative simulations with registered evidence boundaries}
 (Section~\ref{sec:experiments}): a 4{,}620-run campaign over fifteen
 scenarios---six attack classes, delegation, helplessness induction, resource
 starvation, capability-envelope erosion, forced autonomy, black-box
 degradation, cross-framework consistency, and an execution dynamic-range
 arm, plus an adaptive-adversary supplement. The campaign is an
-implementation-level consistency check, and we report it as such: all
-fifteen proposition-level criteria are met within the registered windows with
-zero refutations---the expected outcome of a correct implementation, not
-independent evidence for the theory---and the one adverse finding is a
-sensitivity calibration of the black-box bound's premise under adaptive
-adversaries (BB-2). Verdicts are
+implementation-level consistency check, and we report it as such, separating
+mathematical status, criterion outcomes, evidence type, and external
+validation rather than issuing a single ``confirmed theories'' tally. T7 is
+inconclusive because the corrected two-error bracket is non-diagnostic on the
+registered DEL-1 arms. The original E2-X1 criterion failed before its post hoc
+replacement, and the X5-a absolute-reading falsifier fired. New R14
+counterexample and optimizer tests are separate analytic checks. The newly
+executed time-stratified X5-c implements $\Lambda$ on an explicit SCM under
+Gaussian and logistic noise; it reports model-sensitive two-model bands and
+does not upgrade legacy marker scenarios. A separate C0-CF construction uses
+the same environment and full passive $(E,O,A)$ laws. Adaptive adversaries supply a separate sensitivity calibration of
+the black-box origination bound's premise (BB-2). Verdicts are
 stable under alternative aggregation weights (Kendall $\tau\ge0.93$) and
 under axiom-relaxation robustness checks in the elasticity parameter; on the
 default instance the execution channel's narrow band makes that statement an
@@ -142,11 +170,13 @@ verdict flips there either.
 readings---whose faithfulness to the source texts is registered as
 hermeneutic, not mathematical, residual uncertainty---the agency profiles of
 \citet{dung2024}, the four dimensions of \citet{kasirzadeh2025}, and the
-user roles of \citet{feng2025} are exhibited as projections of our channel
-space onto the special case of a benign principal, with a constructive
-witness that our state descriptor separates configurations they cannot
-(Proposition~C0(ii)). This is an explanatory correspondence under registered
-readings, not a mathematical unification theorem.
+user roles of \citet{feng2025} admit only restricted explanatory comparisons,
+not general rank consistency. A same-environment constructive witness shows
+that identical full-trajectory $(E^T,O^T,A^T)$ laws can coexist with different
+epistemic accuracy and counterfactual endorsement deviation
+(Proposition~C0(ii)). It does not assert identical full external profiles or
+construct validation. These mappings are explanatory correspondences, not
+mathematical special cases, subsumption, or a unification theorem.
 \end{enumerate}
 
 \paragraph{Map of the paper.} Section~\ref{sec:related-work} positions the
@@ -157,6 +187,7 @@ the six channel measures. Section~\ref{sec:representation} proves the
 representation theorem. Section~\ref{sec:theorems} presents the theorem suite
 with proof sketches and falsification windows; full proofs are in the
 appendices. Section~\ref{sec:identifiability} develops the identifiability
-analysis. Section~\ref{sec:experiments} reports the simulation study.
-Section~\ref{sec:discussion} answers the standing debates and registers
-limitations; Section~\ref{sec:conclusion} concludes.
+analysis. Section~\ref{sec:discussion} answers the standing debates and
+registers limitations; Section~\ref{sec:conclusion} concludes. Appendix~
+\ref{sec:experiments} presents simulation and implementation evidence,
+followed by the technical proofs.

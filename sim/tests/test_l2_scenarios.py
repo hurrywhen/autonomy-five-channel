@@ -92,9 +92,14 @@ class TestScenariosSmoke(unittest.TestCase):
     def test_XDEL1_delegation_grid(self):
         res = SCENARIOS[7]()
         self._check_legal(res)
-        self.assertEqual(res.overall, Verdict.CONFIRMED)
+        self.assertEqual(res.overall, Verdict.INCONCLUSIVE)  # v0.7 双误差区间非诊断
+        self.assertEqual(res.verdicts["C5_f_pos_bracket"], Verdict.INCONCLUSIVE)
+        self.assertEqual(res.verdicts["C6_rho_neq1_bracket"], Verdict.INCONCLUSIVE)
+        for name in ("C1_h1_linear_law", "C2_bracket_non_h1",
+                     "C3_composite_fit", "C4_q1_alpha_equivalence"):
+            self.assertEqual(res.verdicts[name], Verdict.CONFIRMED)
         for r in res.metrics["rows"]:
-            self.assertAlmostEqual(r["a_org"], 1.0 - r["m"], places=1)  # 线性律（5% 容差带内）
+            self.assertAlmostEqual(r["a_org"], 1.0 - r["m"], places=1)  # ENV-0 未条件化拟合
 
     def test_XC0_injection_vs_instruction(self):
         res = SCENARIOS[8]()
@@ -145,7 +150,7 @@ class TestScenariosSmoke(unittest.TestCase):
         self.assertEqual(res.overall, Verdict.CONFIRMED)
         self.assertEqual(res.metrics["hits"], 3)  # 区间界全命中
         i_obs, i_cond = res.metrics["a_exec_obs_cond"]
-        self.assertGreaterEqual(i_obs, i_cond - 1e-9)  # A_exec^obs≥A_exec（被动观察协议）
+        self.assertGreaterEqual(i_obs, i_cond - 1e-9)  # ENV-0 实例方向，非普遍被动界
         lam_e, lam_i = res.metrics["lam"]
         self.assertGreater(lam_e, lam_i)  # 黑盒不可区分而 Λ 不同（命题 10.4）
 

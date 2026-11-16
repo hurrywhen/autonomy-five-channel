@@ -21,14 +21,14 @@
 |---|---|---|
 | T-AX0 | 附录引理 4.1 | 活性边＋全支撑 ⇒ $I(S;A)>0$；无活性边 ⇒ $=0$（真值模式） |
 | T-AX5 | input AX5 | 任一分量置 0 ⇒ $A=0$；全正值 ⇒ $A>0$（σ 主带内） |
-| T-REP1 | 附录定理 6.5/6.6 | 几何聚合满足 (A1)–(A6) 的数值抽查（含 AX6b 逐坐标标度序不变） |
+| T-REP1 | 附录表示定理（R11） | 几何聚合满足 (A0)–(A6) 的数值抽查（含显式归一化与 AX6b） |
 | T-REP2 | 附录命题 6.7 | **反例见证**：调和平均满足 (A1)–(A5) 但违反 (A6b)（指定翻转 witness 复现序翻转） |
 | T-SIGMA | 附录 §6.5（E3） | σ=2 ⇒ $p>0$ ⇒ 零歼灭失效的数值见证（压力测试的正当性） |
 | T-DI1 | 附录引理 2.3.1 | 随机化外源干预 ⇒ $I(I^T;A^T)=I(I^T\!\to\!A^T)$（真值精确 ≤1e-9 与采样容差（实测偏差 4e-3，容差 1e-2，≥2.5× 裕度）双路径；I_t 日志契约 i_decoder 同步核验） |
 | T-DI2 | Kramer Property 2 反例（IEEE 原文方向笔误已核验订正，`R2_文献待查证事项.md` §4.6） | 双构造回归锚：①Kramer 原例 X1⊥Y1、X2=X1、Y2=X1⊕Y1：$I(X^2;Y^2)=\ln2$、$I(X^2\!\to\!Y^2)=\ln2$（无反馈⇒DI=MI，Massey 定理 1）而 $I(Y^2\!\to\!X^2)=0$（原文印刷"$I(X^2\!\to\!Y^2)=0$"系方向笔误）；②反馈构造 X2=Y1、Y2=X2：$I(X^2\!\to\!Y^2)=0$ 而 $I(X^2;Y^2)=\ln2$——闭环/反馈下普通 MI≠DI 且 MI 无方向的回归锚 |
 | T-ORG | 附录命题 5.2 | AX0 下 $F_{int}>0$；$A_{org}\in(0,1]$；零点语义 |
 | T-MED | 附录引理 7.2.1 | α/σ 干预下 $F_{ext}=0$ **精确成立**（真值模式，容差 1e-12） |
-| T-COV | 附录定理 7.2.2/7.2.3 | 五类手术的分量覆盖表逐行验证：β_π→A_org 降；β_G→A_goal 降且 $F_{ext}=0$；γ→A_epi 降且 $A_{org}$ 不动（盲见证）；δ→A_exec 降（β_Endorse→Λ/A_ref 行依赖 Endorse 事件日志操作化，登记推迟至 ATK-5 场景步） |
+| T-COV | 附录定理 7.2.2/7.2.3（R14 相对基线限定） | 旧有利特例重放：β_π 在固定 $F_{int}$ 且外内比上升时 A_org 降；β_G 在 $d^1>d^0$ 时 A_goal 降且 $F_{ext}=0$；γ 在 (R-epi) 下 A_epi 降且 $A_{org}$ 可不动；δ 在 $\mathcal E^\Pi$ 严格下降时 A_exec 降。旧 Λ/A_ref 行只作 marker，不作反事实证据 |
 | T-GOAL | 附录命题 5.4＋E9 | $d=d_c$ ⇒ $A_{goal}=0$；部分俘获分级；Fix=∅ 时 $\mathrm{Fix}_{\varepsilon_{min}}$ 区间非空良构 |
 | T-EXEC | 附录命题 5.6 | $\mathcal E^\Pi\le n\log|\mathcal A|$；无助签名：Π 收缩 ⇒ $\mathcal E^\Pi\to0$ 而 $\mathcal E^{env}$ 不变 |
 | T-EPI | input D-epi（E11；2026-10-15 精度化口径） | 信念全程钉到非真值桶 ⇒ $A_{epi}^{real}=0$；确定性 fixture 下精度 $=1-s$ 精确；real/rob 双轨输出分离 |
@@ -36,15 +36,15 @@
 | T-T1a | 附录 T1a | 随机配置扫描：$0\le A\le1$ 恒成立 |
 | T-T1d | 附录 T1d＋引理 2.4.1 | TV≤ε 扰动 ⇒ 检测功效 ≤α+ε 的数值验证 |
 | T-T6a | 附录定理 7.6.3 | 损伤动力学 $\dot D\le\delta-\kappa D$ 下 $\limsup D\le\delta/\kappa$；δ<δ* ⇒ $A\ge A_{min}$（显式公式逐run核对） |
-| T-T6b | 附录推论 7.6.6＋盲区预测 | θ/W≤κ ⇒ 全域有界；θ/W>κ 且 δ∈(κ,θ/W) ⇒ 俘获（盲区预言的正反两面） |
-| T-T6c | 附录命题 7.6.5 | 慢漂移检测时刻损伤随 δ→0 发散的数值趋势（log(1/α)/δ 标度） |
+| T-T6b | R13 条件设计规则与精确实现 | θ/W≤κ 时 M3 亚阈有界、M1 阈上注册；M1 非俘获需正常响应且逐周期损伤低于俘获阈，测试 <0.99 仅为注册网格实现。一般上比较的 band 仅使 M3-only 证书失效；精确饱和俘获另列，零轨迹反例由 T-R13-T6 钉住 |
+| T-T6c | R12 Gaussian 检测描述臂 | 固定 $\alpha=10^{-3}$ 的特定 iid Gaussian CUSUM 随 δ 减小的数值趋势；不当作固定 $\delta$、$\alpha\downarrow0$ 定理的直接检验，更不支持固定 $\alpha$ 弱漂移全称命题 |
 | T-T7 | 附录定理 7.7.1/7.7.2 | H1' 下 $A_{org}=(1-m)A_{org}^{self}$ 精确；非 H1' 夹逼界成立 |
-| T-T8 | 附录定理 7.8 | β_G/δ 强制 ⇒ $A$ 严格降；σ ⇒ $\delta^*$ 与 $A_{min}$ 不降 |
+| T-T8 | 附录定理 7.8（R12） | 在 $A^0>0$ 且其他条件不变时，β_G 相对基线增大 off-Fix 距离或 δ 严格降 empowerment ⇒ $A$ 严格降；仅注册的 $\kappa$-improvement 臂断言 $\delta^*$ 与 $A_{min}$ 不降，$\theta/r$ 方向另由 T-R12-T8 钉住 |
 | T-C1 | 附录命题 8.2.1 | fold 平衡点公式 $D_\pm=(1\pm\sqrt{1-4\delta/\varepsilon v})/2$ 数值核对；$T_{rec}$ 标度律 |
 | T-C2 | 附录命题 8.3.1 | 双稳区间、$\delta_{down}$ 与 $s_c$ 独立为正（回环不闭合） |
-| T-C0 | 附录命题 8.1.2 | 注入 vs 同文指令：行为分布 TV≈0 而 $A_{epi}^{real}$、Λ 可区分 |
+| T-C0 | 历史 C0-DEMO 与 R13 边界 | 注入 vs 同文指令：行为分布 TV≈0 且 $A_{epi}^{real}$ 可区分；Λ 仅为 $1-s(\gamma)$ 历史标记，不验证当前非退化反事实 TV=1 解析证人 |
 | T-BB | 附录命题 10.4 | 内生背书与植入背书两构造给出相同 $(O^T,A^T)$ 分布（不可辨识性回归锚） |
-| T-BB2 | 附录 §10.2/§10.3 | 黑盒区间界包含真值；$A_{exec}^{obs}\ge A_{exec}$ 单侧方向 |
+| T-BB2 | R11 黑盒降级 | A_org 条件上界；独立探针执行方向；ENV-0 被动方向仅实例观察，一般方向未识别 |
 | T-EST-ORG | SPEC_estimators E14.1（§13 记录：A_org） | 探针流采样插件 ≈ 真值（容差内）；A_org 区间含真值 |
 | T-EST-VIA | E14.2（§13 记录：A_via） | Z 高位占时采样 ≈ 真值边缘（块标准误带内） |
 | T-EST-GOAL | E14.3（§13 记录：A_goal 输入） | G 边缘均值采样 ≈ 真值 $U_{eff}$ |
@@ -52,7 +52,32 @@
 | T-EST-EXEC | E14.5（§13 记录：A_exec 黑盒观察量） | $I(A_t;O_{t+1})$ 采样插件 ≈ obs 协议真值 |
 | T-AVIA-ENV | SPEC_estimators §7（v0.5 扩展闸门） | 默认配置 m=1 ⇒ $A_{via}$ 逐点等于资源型旧式（回归锚）；κ_eff→0 或 R_eff→0 ⇒ $A_{via}=0$；min 结构（单因子绑定即生效）；clip 上界（κ_eff/κ_req>1 ⇒ m=1） |
 | T-OBS-N4 | SPEC_platform P9.1（v0.2 n_O 泛化） | n_O=4 构建合法（张量归一/字母表闭合/$I(O;E)>0$）；默认 n_O=2 的 obs/belief 与 v1 公式逐点一致（后退兼容锚） |
-| T-DEL1-F | SPEC_experiments DEL-1⑤⑥（v0.5） | f>0 臂：$f:=F_{ext}^{truth}-mC_{del}T>0$ 严格；实测 $A_{org}^{truth}$ 严格低于 H1' 线性律；φ-松弛双侧夹逼（ρ∈[0.9,1.1]、φ≤ln2/C_self）含实测值；ρ=1.5 臂夹逼含真值且线性律越容差 |
+| T-DEL1-F | SPEC_experiments DEL-1⑤⑥（v0.7） | 直接流与线性拟合失效的描述保留；双误差区间在 ENV-0 退化为 [0,1] 时 verdict=INCONCLUSIVE；旧单-φ端点反例入 T-R11-T7 |
+| T-R11-REP | R11 表示定理反例 | $\tfrac12\sqrt{xy}$ 证明归一化不可省；$(x+y)/4$ 证明连续/单调/可分不推出幂等性 |
+| T-R11-EPI | R11 贝叶斯与 Aepi 反例 | 支撑覆盖下后验真实质量 0.5→0.1；局部似然一致恢复 Cauchy–Schwarz；非点信念用真实桶质量 |
+| T-R11-DET | R11 检测分布反例 | 均匀平移下首次越界规则 $\delta EDD=1$，不得套高斯发散式 |
+| T-R11-EXEC | R11 被动执行反例 | $S\oplus N$ 构造 $I(A;O)=0<I(A;O|S)=H(N)$；$\log Vol<0$ 不作 MI 上界 |
+| T-R11-T7 | R11 双误差 bracket | $m=0.1,u=-0.25,v=+0.25$ 复现旧端点失效；新端点 $L=0.574917,U=1$；零松弛还原旧式 |
+| T-R12-DET | R12 检测量词反例 | 固定 $\alpha$ 时 $T\equiv\lceil1/\alpha\rceil$ 满足 ARL 约束且 $\delta EDD\to0$；观测依赖变体延迟有界；新定理只取固定 $\delta$、$\alpha\downarrow0$ |
+| T-R12-T8 | R12 防御单调性反例 | $\theta:0.8\to0.4$ 使 $\delta^*:0.8\to0.4$ 而 $A_{min}$ 上升；$r:1\to2$ 使 $\delta^*:1\to2$ 而 $A_{min}$ 从 $0.9^2$ 降至 $0.9\cdot0.8$；注册 $\kappa$ 臂仍可同升；另有零基线 $A^0=A^1=0$ 反例，故严格下降须显式 $A^0>0$ |
+| T-R12-T7 | R12 T7(iv) 诚实前提 | 透明/可逆/可背书均为真且 $q=1$ 时，虚假 $\alpha$ 内容仍可使真实桶质量 $1\to0$；结构中介不推出全复合无损失 |
+| T-R12-EPI | R12 Bayesian 严格性边界 | $B(k)=0$ 且 $q_e\ne p$ 时后验真实质量不严格增加；严格结论必须要求 $0<B(k)<1$ |
+| T-R12-COPULA | R12 Jensen 下端 | 选 $A_1\in\{1,2\}$、$A_2\in\{1,3\}$ 双非退化均匀边际，四个联合乘积 $1,2,3,6$ 全不同，故恒定对数和要求单格 support、与边际矛盾；comonotone 均值严格大于 Jensen 下端。旧 $A_2=1/A_1$ 对称例可达等号，明确排除作为反例 |
+| T-R13-T6 | R13 上比较反模型与保持前提 | 在 $\kappa<\delta<\theta/W$ 内 $D\equiv0$ 满足上比较、M1 不触发且不俘获，故只能得 certificate-failure band；pointwise floor 必须含 $A_{via}^{min}$，$A_j^{base}=0$ 使正性失效；M1 注册但 $\theta+\ell\delta>1$ 时不给非俘获结论 |
+| T-R13-C0 | R13 外部映射与 L1 证人 | $A_{epi}$ 下降且 $A_{ref}>0$ 不变会改变 Dung acting-for-reasons；$\Lambda$ 经 $A_{ref}$ 下降会改变严格 KG aggregate，故完整画像相等不成立。非退化 L1 证人仅以 $A_{epi}:1\to0.5$ 改变复合，$\Lambda$ 另作 composite-silent 审计证据 |
+| T-R13-DOMAIN | R13 注册域方向 | 提高 $\theta$ 使 $\{\delta:\delta\ge\theta/W\}$ 严格缩小（网格 witness），不得写 registration coverage 增加 |
+| T-R13-EPI | R13 D1 归属边界 | 仅扰动与 $\kappa(E)$ 正交的资源坐标时注册桶精度仍为 1；ENV-0 $A_{epi}=0.811$ 是校准事实，不是 execution 侧 D1 的直接实例 |
+| T-R14-T1B | R14 T1b 边界 | $f_1,f_2>0$ 且 $\Lambda_{ref}=0$ 时 $A_{ref}=A=0$；修正命题显式纳入 L2 $\Lambda_{ref}>0$ |
+| T-R14-ORG | R14 T2/T3 单调性 | $(0.1,1)\to(1,0.1)$ 给 $1/11\to10/11$；仅外内比严格上升且 $A^0>0$ 才支持严格下降 |
+| T-R14-GOAL | R14 $\beta_G$ 反例 | $d:0.8\to0.1$ 给 $A_{goal}:0.2\to0.9$；“离开 Fix”及非空手术史均不推出下降 |
+| T-R14-LINF | R14 线性—分数攻击 | 集中目标 $-\ln2/2<-0.287682072$；顶点闭式、二维网格与符号 Hessian/KKT 边界证书一致 |
+| T-R14-REF | R14 离散系综边界 | 连续高斯 $I/h>1$ 被排除；有限离散联合表 fidelity∈[0,1]，零 $\Lambda_{ref}$ 边界正确；wiring 不把退化区间上端冒充点值 |
+| T-R14-SCALE | R14 AX6a 规范性 | $d/d_c$ 尺度不变不推出 $A_{goal}$ 比例尺度；幂重参数化排序翻转被报告 |
+| T-R14-PROOF | R14 其他证明修补 | 条件 MI 可增加；T4(ii) funded/unfunded/ties；T5 完整状态与独立噪声；Via-Ind 不决定门或聚合 |
+| T-R14-LAMBDA | R14 SCM 与 X5-c | abduction 精确还原 $U$；共享噪声 action/prediction；$\mathcal H^{surg}=1$ 可伴 $\Lambda=1$；高斯/logistic graded 与 XOR 0/1 边界及独立路径一致 |
+| T-R14-CLIP | R14 统一数值边界 | $-4.49\times10^{-17}$ 等小于 $10^{-9}$ 的残差归位并记录；超容差/NaN/Inf fail-closed |
+| T-R14-ART | R14 证据包与只读重放 | X5-c 24 行（2 噪声×4 臂×3 时点）、$D_{noise}>0.01\Rightarrow$ MODEL_SENSITIVE、C0-CF 同环境全 $(E,O,A)$、失败目录保留、R11 哈希与旧 X5 状态不变 |
+| T-R14-REPORT | R14 报告生成器 | 历史 verdict 与当前状态分列；T3b 为描述、X5-c 模型敏感、C0-CF 同环境、无旧正性/排序夸大，历史 report 写保护 |
 
 ## 3. L2 场景冒烟测试（每场景一测，短视界单种子）
 
@@ -60,12 +85,12 @@
 |---|---|---|
 | X-ENV0 | SPEC_platform §9（7a 子步） | ENV-0 构建合法且决定性（config_hash 稳定）；S 语义往返；基线分量束锚（$A_{org}=A_{goal}=\Lambda=1$、$A_{epi}$=实测精度锚<1（观测噪声，特性非 bug，2026-10-15 精度化口径）、$A\in[0,1]$、AI≈0）；β_G 接线（$F_{ext}\equiv0$ 盲、Λ=1−η、G 移位、行为变）；γ 接线（$A_{epi}$ 低于基线精度、Â_phen 不降 ⇒ AI>0 幻觉签名） |
 | X-ATK1 … X-ATK6 | SPEC_experiments §1 code 1–6 | 场景可运行、判据函数产出合法 verdict、方向正确（如无防御臂损伤 > 全防御臂） |
-| X-DEL1 | code 7 | λ/q 网格可运行；q=1 臂 $F_{ext}$ 容差内为 0 |
+| X-DEL1 | code 7 | λ/q 网格可运行；q=1 臂 $F_{ext}$ 容差内为 0；v0.7 下⑤⑥ INCONCLUSIVE、overall INCONCLUSIVE，其余实现判据 CONFIRMED |
 | X-C0 | code 8 | 两臂行为 TV 检验通过且 A 分量可区分 |
 | X-LH1 | code 9（可选） | 无助签名双指标方向正确 |
 | X-RES1 | code 10 | $A_{via}=0$ ⇒ $A=0$ 独立于其余通道；σ⁺ 恢复 ⇒ $A$ 恢复 |
-| X-FORCE1 | code 11 | β_G/δ 臂 $A$ 严格降；σ 臂 $\delta^*$/$A_{min}$ 不降且即期 $A$ 不降 |
-| X-BB1 | code 12 | 黑盒区间含白盒真值；命题 10.4 两构造黑盒不可区分；$A_{exec}^{obs}\ge A_{exec}$ |
+| X-FORCE1 | code 11 | β_G/δ 臂 $A$ 严格降；仅注册 $\kappa$-improvement 臂 $\delta^*$/$A_{min}$ 不降且即期 $A$ 不降；不得外推为 $\theta/r$ 联合同升 |
+| X-BB1 | code 12 | A_org 条件上界与 Λ 不可辨识构造；被动执行方向仅 ENV-0 实例，独立探针方向单独核验 |
 | X-C0CORR | code 13 | 维度标签操作化可运行；序一致性检验与投影方向核对产出合法统计量 |
 | X-EROSION | code 15（v0.5） | m=1 回归锚；κ/R 侵蚀严格单调与共模归零；五通道＋Λ 跨臂逐点不变（闸门必要性见证） |
 | X-EXEC1 | code 16（v0.5） | 富耦合基线 $A_{exec}$ 动态范围达标；δ 坍缩链严格（非移动支撑 ℰ^Π=0 精确） |

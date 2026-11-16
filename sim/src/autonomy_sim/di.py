@@ -25,6 +25,7 @@
 import numpy as np
 
 from .graph import CausalModel, kernel_fingerprint, model_content_hash
+from .numerics import clip_unit_value
 from .propagate import truth_step_joints
 
 # F_ext 调度（SPEC_estimators E2.5）：
@@ -274,11 +275,7 @@ def _truth_A_org_impl(model: CausalModel, T: int) -> float:
     if abs(denom) < 1e-12:
         raise ValueError("F_int+F_ext=0（0/0 病态）：违反 AX0（命题 5.2(i) 的前提）")
     a = f_int / denom
-    if a > 1.0 and a - 1.0 <= 1e-9:
-        return 1.0
-    if a < 0.0 and -a <= 1e-9:
-        return 0.0
-    return a
+    return clip_unit_value(a, label="A_org")
 
 
 # ---------------------------------------------------------------- 模型层：探针与中介见证

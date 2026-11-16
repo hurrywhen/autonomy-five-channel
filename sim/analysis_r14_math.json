@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "date": "2026-11-16",
+    "spec": "SPEC_experiments v1.0 §10.1–10.2",
+    "evidence_type": "deterministic algebraic witnesses; not independent data"
+  },
+  "t1b_zero_lambda_ref": {
+    "fidelity": 1.0,
+    "endorsement_consistency": 1.0,
+    "lambda_ref": 0.0,
+    "a_ref": 0.0,
+    "composite": 0.0
+  },
+  "org_counterexample": {
+    "before": {
+      "f_int": 0.1,
+      "f_ext": 1.0,
+      "a_org": 0.09090909090909091
+    },
+    "after": {
+      "f_int": 1.0,
+      "f_ext": 0.1,
+      "a_org": 0.9090909090909091
+    },
+    "correct_strict_loss_premise": "Fext_after/Fint_after > Fext_before/Fint_before"
+  },
+  "goal_counterexample": {
+    "dc": 1.0,
+    "d0": 0.8,
+    "d1": 0.1,
+    "a_goal0": 0.2,
+    "a_goal1": 0.9
+  },
+  "linear_fraction_attack": {
+    "parameters": {
+      "w": [
+        0.5,
+        0.5
+      ],
+      "c": [
+        1.0,
+        1.0
+      ],
+      "s": [
+        1.0,
+        1.0
+      ],
+      "B": 0.5
+    },
+    "concentrated": {
+      "x": [
+        0.5,
+        0.0
+      ],
+      "objective": -0.34657359027997264
+    },
+    "spread": {
+      "x": [
+        0.25,
+        0.25
+      ],
+      "objective": -0.2876820724517809
+    },
+    "exact": {
+      "x": [
+        0.5,
+        0.0
+      ],
+      "objective": -0.34657359027997264,
+      "optimal_channels": [
+        0,
+        1
+      ],
+      "proof": {
+        "decision": "minimize",
+        "gradient_i": "-w_i*s_i/(1-s_i*x_i)",
+        "hessian_ii": "-w_i*s_i**2/(1-s_i*x_i)**2",
+        "extreme_point_argument": "on the strictly positive-retention domain, strict concavity gives J(sum alpha*v)>sum alpha*J(v), hence an extreme minimizer; zero-retention is handled separately and can have non-extreme minima",
+        "vertex_objective_i": "w_i*log(max(0,1-s_i*B/c_i)); zero gives -infinity"
+      }
+    },
+    "grid": {
+      "x": [
+        0.0,
+        0.5
+      ],
+      "objective": -0.34657359027997264,
+      "n_per_axis": 201
+    },
+    "symbolic": {
+      "stationary_x": [
+        0.25,
+        0.25
+      ],
+      "gradient": [
+        -0.6666666666666666,
+        -0.6666666666666666
+      ],
+      "budget_multiplier": 0.6666666666666666,
+      "hessian_diagonal": [
+        -0.8888888888888888,
+        -0.8888888888888888
+      ],
+      "stationary_objective": -0.2876820724517809,
+      "stationary_is_local_maximum": true
+    }
+  },
+  "continuous_entropy_exclusion": {
+    "theta_variance": 100.0,
+    "noise_variance": 0.01,
+    "h_theta_nats": 3.721523626198718,
+    "I_M_theta_nats": 4.6052201834882585,
+    "ratio": 1.2374555816516946,
+    "conclusion": "finite discrete Shannon ensemble only; continuous I/h excluded"
+  },
+  "ratio_interpretation_counterexample": {
+    "x": [
+      0.9,
+      0.2
+    ],
+    "y": [
+      0.5,
+      0.6
+    ],
+    "baseline": {
+      "x": 0.42426406871192857,
+      "y": 0.5477225575051661
+    },
+    "power_reparameterization": "x1 -> x1**2, x2 -> x2",
+    "transformed": {
+      "x": 0.4024922359499622,
+      "y": 0.3872983346207417
+    },
+    "order_flip": true
+  },
+  "analysis_r14_math_py_sha256": "018b0c5ed2304f91c7b2cca826e144c339f6ef2d7da297208891f2085a26818f"
+}

@@ -1,36 +1,40 @@
 cff-version: 1.2.0
-message: "If you use this code or data, please cite the paper below."
+message: "If you use this code or data, please cite the paper below. The Zenodo identifier archives a historical release, not R14."
 type: software
-title: "autonomy-five-channel: simulation platform and campaign data for the Five-Channel autonomy audit framework"
+title: "autonomy-five-channel: simulation platform and evidence packages for the Five-Channel autonomy audit framework"
 authors:
   - family-names: "Hu"
     given-names: "Wen"
     email: "huwen@nuaa.edu.cn"
     affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
-version: "v1.0-r10"
-date-released: "2026-10-23"
+version: "r14-main-2026-11-17"
+date-released: "2026-11-17"
 license: "MIT"
 repository-code: "https://github.com/hurrywhen/autonomy-five-channel"
 url: "https://github.com/hurrywhen/autonomy-five-channel"
 identifiers:
   - type: doi
     value: 10.5281/zenodo.23608751
-    description: "Zenodo concept DOI (all versions; v1.0-r10 = 10.5281/zenodo.23608752, corrected re-release v1.0-r10.1 = see Zenodo record)"
+    description: "Historical Zenodo concept DOI; v1.0-r10 archive. No R14 version DOI has been created."
 keywords:
   - autonomy
   - agency-measurement
   - directed-information
   - empowerment
   - representation-theorem
-  - benchmark
+  - counterfactual-identifiability
   - ai-agents
 preferred-citation:
   type: article
-  title: "Autonomy as Determination by One's Own Normative Structure: A White-Box-First Five-Channel Audit Framework with Axioms, Theorems, and a Simulation Benchmark"
+  title: "Autonomy as Determination by One's Own Normative Structure: A White-Box-First Five-Channel Audit Framework with Axioms and Conditional Theorems"
   authors:
     - family-names: "Hu"
       given-names: "Wen"
       email: "huwen@nuaa.edu.cn"
       affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
+    - family-names: "Zhang"
+      given-names: "Gong"
+      email: "gzhang@nuaa.edu.cn"
+      affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
   year: 2026
-  notes: "Preprint, version v1.0-r10 (87 pages). arXiv number to be added after submission; journal version in preparation."
+  notes: "Author manuscript, R14 public source synchronization, 17 November 2026, 98 pages; no R14 version DOI; journal version in preparation."

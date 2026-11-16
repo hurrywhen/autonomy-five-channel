@@ -2,20 +2,20 @@
 \section{The Theorem Suite}\label{sec:theorems}
 
 Each theorem below carries an explicit \emph{falsification window}: a concrete
-observation that would refute it. All fifteen proposition-level hypotheses were
-exercised in the simulation campaign of Section~\ref{sec:experiments}; none was
-refuted---the expected outcome of an implementation-level consistency check
-over a platform built to the same specification, so the verdicts testify to the
-registry's discipline, not to external validity. The evidential grading of
-every claim---\emph{substantive} (T6's comparison principle, T7's mixture
-algebra), \emph{architectural} (T2's mediation lemma is a $d$-separation fact
-about the belief-absorption wiring of \eqref{eq:factorization}, not an
-empirical discovery), \emph{optimization} (T4), \emph{definitional-layer}
-(T5, T8: short corollaries of the product form and the taxonomy, whose proofs
-say so), \emph{toy} (C1/C2: phase-line properties of a chosen normal form,
-stochastic versions open)---is stated row by row in Table~\ref{tab:main}; the
-windows matter more than the labels. Full proofs are collected
-in the appendices
+observation that would refute its registered mechanism model. Section~
+\ref{sec:experiments} separates the mathematical statement, analytic
+regression, legacy criterion outcome, evidence type, and external-validation
+status; it does not summarize them with a single ``confirmed'' tally. The R14
+revision narrows T1b, T2/T3, T4, and the script corollary after explicit
+counterexamples, so older runs are not automatically evidence for the new
+quantifiers. The evidential grading of every claim---\emph{substantive}
+(T6's comparison principle, T7's mixture algebra), \emph{architectural}
+(T2's mediation lemma is a $d$-separation fact about the belief-absorption
+wiring of \eqref{eq:factorization}, not an empirical discovery),
+\emph{optimization} (T4), \emph{definitional-layer} (T5, T8), and
+\emph{toy} (C1/C2: phase-line properties of a chosen normal form,
+stochastic versions open)---is stated row by row in Table~\ref{tab:main}.
+Full proofs are collected in the appendices
 (Appendix~\ref{app:prelim}--\ref{app:identifiability}). Figure~\ref{fig:depmap}
 summarizes the dependency structure.
 
@@ -86,36 +86,50 @@ propositions can be tracked by name rather than by number.
 
 \begin{theorem}[T1a--d]\label{thm:t1}
 \textup{(T1a, range)} Always $0\le A\le1$.
-\textup{(T1b, operational positivity)} If $\Avia>0$ and every channel is
-active ($\Fint>0$, $\EmpPi>0$, $d(\Ueff,\Fix)<\dc$, $\bar D<1$, fidelity and
-endorsement consistency $>0$), then $A>0$.
+\textup{(T1b, operational positivity)} In a point-valued, nondegenerate
+instantiation, if $\Avia>0$ and every applicable factor is strictly positive
+($\Fint>0$, $\EmpPi>0$, $d(\Ueff,\Fix)<\dc$, $\bar D<1$, and, at L2,
+fidelity, endorsement consistency, and $\Lam_{ref}$ all $>0$), then $A>0$.
+The finite discrete $A_{ref}$ ensemble of Section~\ref{sec:channels} is
+required at L2. In particular, $\Lam_{ref}=0\Rightarrow\Aref=0\Rightarrow A=0$
+whenever the reflection channel applies; positivity of fidelity and
+endorsement consistency alone does not remove this boundary.
 \textup{(T1c, conditional strict upper bound)} Each of the following
 non-degeneracy conditions implies $A<1$ strictly: \textup{(D1)} residual
 observation noise, in the strict form that the action-to-outcome channel
 admits no error-free code at the maximal rate---$\EmpPi<n\log|\Acal|$ as an
 empowerment upper bound (sufficient carrier: the action-to-observation map is
 non-injective with positive probability on the support of every
-capacity-approaching policy); \textup{(D2)} incomplete self-model,
-$I(M;\theta_\pi)<H(\theta_\pi)$; \textup{(D3)} unmediated external flow,
+capacity-approaching policy); \textup{(D2)} incomplete self-model on the protocol's finite discrete ensemble,
+$I(M;\theta_\pi)<H(\theta_\pi)$ (discrete Shannon entropy, not differential
+entropy); \textup{(D3)} unmediated external flow,
 $\Fext>0$; \textup{(D4)} resources below margin, $\exists k\;
 s_k^{avail}<s_k^{crit}$.
-\textup{(T1d, undetectable manipulation exists)} Under finite verification
-capacity (AX1: $v<\infty$, $W<\infty$), for every test level $\alpha>0$ there
-is a non-trivial $\gamma$ ($s(\gamma)>0$) with detection power
+\textup{(T1d, undetectable manipulation exists)} Suppose the registered
+channel admits a degradation family $\gamma_s$ for which
+$\TV(P_{\gamma_s},P_0)\to0$ as $s\downarrow0$ and every $s>0$ satisfies the
+registered-coordinate accuracy-loss premise \textup{(R-epi)}, hence
+$\Aepi^{real}<1$. Under finite verification capacity (AX1: $v<\infty$,
+$W<\infty$), for every test level $\alpha>0$ there is a non-trivial member of
+this family ($s(\gamma)>0$) with detection power
 $\le\alpha+\varepsilon$, $\varepsilon=\TV(P_\gamma,P_0)$ arbitrarily
-small---under which $\Aepi^{real}<1$ while registration does not trigger and
-$\AHI>0$ can appear.
+small, while registration does not trigger and $\AHI>0$ can appear.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
 T1a: each component lies in $[0,1]$ (the component propositions (Appendix~\ref{app:components}) of the technical
-appendix) and the product form preserves the interval. T1b: by AX5 the
-composite vanishes iff a factor does. T1c: each condition forces its component
+appendix) and the product form preserves the interval. T1b: every applicable
+factor is positive by hypothesis; at L2, \eqref{eq:aref} makes positivity of
+$\Lam_{ref}$ an explicit third requirement, and AX5 then gives $A>0$. The
+converse boundary $\Lam_{ref}=0$ follows directly from \eqref{eq:aref}.
+T1c: each condition forces its component
 strictly below $1$, and (A2) makes the composite strictly decreasing.
-T1d: take $\gamma_s$ a channel degradation of strength $s$; $P_{\gamma_s}\to
-P_0$
-continuously in TV; the testing duality (Lemma~\ref{lem:tv-testing}) bounds
-the power of any level-$\alpha$ test by $\alpha+\TV$. The four-way split is
+T1d: take the posited accuracy-sensitive family $\gamma_s$; (R-epi) supplies
+the strict registered-coordinate loss, while $P_{\gamma_s}\to P_0$ in TV and
+the testing duality (Lemma~\ref{lem:tv-testing}) bounds the power of any
+level-$\alpha$ test by $\alpha+\TV$. The accuracy loss is an explicit premise,
+not a consequence of small TV: an orthogonal degradation need not move
+$\Aepi$. The four-way split is
 necessary, not cosmetic: a single statement ``$0<A<1$'' fails on both sides
 (a deterministic fully driven agent with a complete self-copy and no
 intervention attains $A=1$; resource starvation gives $A=0$ while AX0--AX2
@@ -172,46 +186,89 @@ and necessity results below are an attribution cover of \emph{this}
 instrument family, not of all conceivable monitors
 (Theorem~\ref{thm:necessity}).
 
-\begin{theorem}[Componentized coverage]\label{thm:coverage}
+Two epistemic premises are kept explicit throughout the coverage claims.
+\emph{Sound updating} is required for the honest-$\alpha$ non-decrease
+clause; for Bayesian updating, local likelihood fidelity of
+Lemma~\ref{lem:sound-update} is a sufficient route, whereas support coverage
+alone is not. \emph{(R-epi)} is the separate accuracy-loss premise for a
+$\gamma$ or deceptive-content comparison: the actual post-update belief law
+has strictly larger $\bar D$ on the registered coarse-graining. Strict
+$\gamma$/deception rows below assume (R-epi); the intervention label or a
+Blackwell ordering alone does not prove it.
+
+\begin{lemma}[Strict comparisons are relative to baseline]
+\label{lem:strict-comparison}
+(i) If $\Fint^0,\Fint^1>0$, then
+\[
+\Aorg^1<\Aorg^0\quad\Longleftrightarrow\quad
+\frac{\Fext^1}{\Fint^1}>\frac{\Fext^0}{\Fint^0}.
+\]
+Fixed $\Fint$ and $\Fext^1>\Fext^0$ are a sufficient special case;
+$\Fext^1>0$ alone is not. (ii) With the same protocol metric, endorsed set,
+and $\dc>0$, $\Agoal^1<\Agoal^0\iff d^1>d^0$, where
+$d^j:=d(\Ueff^j,\Fix)$. (iii) If $A^0>0$, all unaffected applicable factors
+are fixed, and one positive-weight factor strictly decreases, then $A^1<A^0$.
+A zero baseline cannot supply a strict composite decrease.
+\end{lemma}
+\begin{proof}
+(i) $\Aorg=1/(1+\Fext/\Fint)$ is strictly decreasing in the external/internal
+ratio. (ii) is immediate from \eqref{eq:agoal}. (iii) uses AX4/AX5; if any
+applicable baseline factor is zero, then $A^0=A^1=0$ regardless of a strict
+loss elsewhere.
+\end{proof}
+
+\begin{theorem}[Componentized coverage and conditional strict comparisons]\label{thm:coverage}
 Ceteris paribus (and \textup{(Faith)} for strictness):
-\begin{center}\small
-\begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.19\textwidth}
+>{\raggedright\arraybackslash}p{.24\textwidth}
+>{\raggedright\arraybackslash}p{.50\textwidth}@{}}
 \toprule
-Surgery & Component strictly reduced & Note \\
+Surgery & Instrument / strictness premise & Note \\
 \midrule
-$\beta_\pi$ (policy tampering) & $\Aorg$ ($\Fext>0$) & conditional law given
-$S_t$ varies with $I$; $\Agoal$ is \emph{not} a valid instrument under
+\endhead
+\bottomrule
+\endfoot
+$\beta_\pi$ (policy tampering) & $\Aorg$ strictly falls iff
+$\Fext^1/\Fint^1>\Fext^0/\Fint^0$ & conditional law given
+$S_t$ varies with $I$; fixed $\Fint$ and increased $\Fext$ are only a
+sufficient special case. $\Agoal$ is \emph{not} a valid instrument under
 $\beta_\pi$ (the MaxEnt-IRL premise that behavior is optimal for some reward
 fails under script replacement, so the inverted $\Ueff$ reflects the script,
-not the agent)---the row lists the valid channel, and the $\Fext>0$
-signature itself flags the instrument violation \\
-$\beta_G$ (goal implantation) & $\Agoal$ + $\Lam<1$ & $\Fext$ may be $0$:
-$G\in S$ mediates; the $\Lam$ entry is law-level per the AX3 testability
-registration and enters the composite through $\Aref$'s $\Lam_{ref}$ factor;
-an implant landing exactly on $\Fix$ leaves $\Agoal$ unmoved---the $\Lam$
-entry then carries the class (composite-visible at L2) \\
-$\beta_{\Endorse}$ (endorsement tampering) & $\Lam$, $\Aref$ & direct \\
-$\gamma$ (channel degradation) & $\Aepi^{real}$ (accuracy loss) & $\Fext$ may
-be $0$: $B$ mediates \\
-$\delta$ (action-leverage constraint) & $\Aexec$ & both forms shrink the
-effective channel from $A$ to outcomes; the feasible-set form also shows in
-$\Aorg$ ($\Fext>0$: the action's support depends on $I$), while pure
-transition-kernel decoupling leaves $\Aorg$ unchanged (the policy law is
-intact)---a registered within-class division, witnessed by the two $\delta$
-arms \\
+not the agent) \\
+$\beta_G$ (goal implantation) & $\Agoal$ iff $d^1>d^0$; at L2, $\Aref$ only if
+$\Lam_{ref}^1<\Lam_{ref}^0$ with its other factors fixed and positive & $\Fext$ may be $0$:
+$G\in S$ mediates. Neither ``off $\Fix$'' nor a nonempty surgery history
+implies $\Lam<1$: the latter is an endorsement output-law comparison (AX3).
+At L0 there is no goal channel; at L1 an auxiliary endorsement SCM is needed
+before $\Lam$ is even defined \\
+$\beta_{\Endorse}$ (endorsement tampering; L2) & $\Lam_{ref}$ or endorsement
+consistency strictly falls relative to baseline & direct; a surgery label
+without an output or consistency change is insufficient \\
+$\gamma$ (channel degradation, with (R-epi); L1+) & $\Aepi^{real}$ (accuracy loss) & $\Fext$ may
+be $0$: $B$ mediates; strictness is assumed through (R-epi), not derived from
+support coverage \\
+$\delta$ (action-leverage constraint) & $\Aexec$ if $\EmpPi_1<\EmpPi_0$;
+$\Aorg$ only under Lemma~\ref{lem:strict-comparison}(i) & the maximum over a
+smaller policy class is weakly smaller, with strictness requiring loss of an
+optimizing action (Faith); the feasible-set form can also show in $\Aorg$,
+while pure transition-kernel decoupling leaves it unchanged---a registered
+within-class division, witnessed by the two $\delta$ arms \\
 $\alpha$ (honest appended information) & none & compatibility
 (Lemma~\ref{lem:mediation} for $\Fext$; \eqref{eq:aepi} keeps $\Aepi$
-non-decreasing because the reference is the truth, not the no-intervention
-counterfactual---this row is where the accuracy semantics of $\Aepi$ is
+non-decreasing under the sound-update premise because the reference is the
+truth, not the no-intervention counterfactual---this row is where the
+accuracy semantics of $\Aepi$ and the likelihood-fidelity boundary are
 load-bearing) \\
-$\sigma$ (scaffolding) & none; raises $\deltastar$ (T6) and $\Avia$ & \\
+$\sigma$ (scaffolding) & none by class label alone; may alter $\Avia$ &
+$\deltastar$ and \eqref{eq:amin} follow parameter-specific directions
+(T8(ii)), not a uniform joint increase \\
 $\sigma^{-}$ (resource/capability erosion) & $\Avia$ (the gate) & enters
 through \eqref{eq:avia}, not the five channels; with
 $G,\pi,o,\Acal,\Endorse$ intact the channel monitors read nothing---the gate
 is the instrument for this class \\
-\bottomrule
-\end{tabularx}
-\end{center}
+\end{longtable}
+\endgroup
 \end{theorem}
 
 \begin{theorem}[Multi-channel necessity]\label{thm:necessity}
@@ -247,9 +304,10 @@ reduces $\Aepi^{real}$ (Section~\ref{sec:taxonomy})---without it the
 criterion would certify deceptive persuasion as compatible, contradicting the
 accuracy semantics of \eqref{eq:aepi}. The
 \emph{observabilization} must be componentized: $\Fext=0$ (the $\Aorg$ track)
-$\wedge\ \Lam=1$ (the history track) $\wedge\ \bar D=0$ (the $\Aepi$ track:
-no accuracy loss relative to the truth---this operationalizes clause
-\textup{(iii)}) $\wedge\ \EmpPi$ non-decreasing (the
+$\wedge\ \Lam=1$ (the history track) $\wedge\ \bar D\le\bar D^{0}$ (the
+$\Aepi$ track: no accuracy loss relative to the registered no-influence
+baseline---this operationalizes clause \textup{(iii)}; absolute distortion
+$\bar D$ need not be zero) $\wedge\ \EmpPi$ non-decreasing (the
 $\Aexec$ track). Neither the single condition $\Fext=0$ (the $\gamma$
 counterexample) nor the pair \textup{(i)}$\wedge$\textup{(ii)} (the
 dishonest-$\alpha$ counterexample) implies compatibility. The $\Aepi$ track is consistent
@@ -282,18 +340,26 @@ the governance layer that consumes the certificate (cf.\
 \citealp{sussner2019}).
 
 \begin{theorem}[T3, layered]\label{thm:t3}
-\textup{(a)} Manipulation $\Rightarrow$ $A$ strictly decreases (ceteris
-paribus) \emph{wherever the affected instrument enters the composite}: the
-$\beta_\pi$, $\beta_{\Endorse}$, covert $\gamma$, and $\delta$ classes at
-every layer; the $\beta_G$ class at L2, or at any layer when the implant
-displaces $\Ueff$ from $\Fix$. One corner is registered in the statement
-rather than left to the proof: a covert $\beta_G$ implant landing exactly on
-$\Fix$ at L0/L1 moves no composite factor---$\Agoal$ is $\Lam$-free by design
-(AX3) and no $\Aref$ channel exists at those layers---so the composite is
-silent there; the manipulation is nonetheless recorded in the surgery history
-and in $\Lam<1$, which is computable and reportable white-box. The historical
-clause's composite bite is layered with the $\Aref$ channel, and every
-$\Lam$-dependent conclusion in this paper carries that layering (AX3).
+\textup{(a)} Assume a point-valued baseline with $A^0>0$ and all unaffected
+applicable factors fixed. Then $A^1<A^0$ \emph{wherever the affected factor
+is applicable}: at any layer, $\beta_\pi$ with
+$\Fext^1/\Fint^1>\Fext^0/\Fint^0$, or $\delta$ with
+$\EmpPi_1<\EmpPi_0$ (or with the $\Aorg$ ratio condition); at L1 and above,
+$\beta_G$ with $d^1>d^0$ under the same protocol metric and $\dc>0$, or
+covert $\gamma$ satisfying (R-epi); and at L2, $\beta_{\Endorse}$ with
+strictly reduced endorsement consistency or $\Lam_{ref}$. At L2, a $\beta_G$
+branch may alternatively act through a strict reduction of $\Lam_{ref}$ with
+fidelity and endorsement consistency fixed and positive. No $\gamma$ branch
+is asserted at L0 (which has no $\Aepi$), and no endorsement-only composite
+reduction is asserted at L0/L1 (which has no $\Aref$).
+These are relative-baseline premises, not consequences of the surgery label,
+of $\Fext^1>0$, of merely being off $\Fix$, or of a nonempty tampering
+history. In particular, an L1 implant can leave $\Agoal$ unchanged when
+$d^1=d^0$ and has no $\Aref$ composite entry; $\Lam$ is defined there only if
+an auxiliary endorsement SCM is instantiated, and otherwise is N/A. L0 has no
+goal channel. A high L0/L1 composite therefore is \emph{not} a complete
+history-sensitive autonomy certificate: the separate surgery-history
+certificate of AX3 must also be reported.
 \textup{(b)} Under \textup{(HI-1)} covertness
 $\TV(P_\xi^\gamma,P_\xi^0)\le\varepsilon(\theta)$, \textup{(HI-2)} self-estimate
 computed from registered evidence ($\hat A=f(\xi)$, the POMDP belief-state
@@ -301,7 +367,7 @@ semantics; \citealp{kaelbling1998}) with calibration bias
 $\bigl|\mathbb{E}_0[\hat A]-A^0\bigr|\le\eta_0$ from the manipulation-free
 calibration period, and
 \textup{(HI-3)} distortion growth
-$A^0-A^\gamma\ge c_1 s(\gamma)^{\nu_0}$ ($\nu_0\in\{1,2\}$, a registered
+$A^0-A^\gamma\ge c_1 s(\gamma)^{\nu_0}$ ($c_1>0$, $\nu_0\in\{1,2\}$, a registered
 condition whose two branches correspond to the two attack arms of the
 benchmark; its mechanism range of validity---linear vs.\ quadratic onset of
 channel damage---is discussed with the simulation evidence):
@@ -309,108 +375,125 @@ covert manipulation $\Rightarrow$
 $\mathbb{E}_\gamma[\hat A]\ge\mathbb{E}_0[\hat A]-\varepsilon$
 \emph{in expectation over the evidence law} (Lemma~\ref{lem:tv-continuity}
 is an expectation statement, not a pointwise one), hence the expected gap
-$\mathbb{E}_\gamma[\hat A]-A^\gamma\ge c_1 s^{\nu_0}-\varepsilon-\eta_0$,
-strictly increasing in $s$; since $\hat A-A^\gamma\in[-1,1]$, Markov's
-inequality converts the expectation into a firing-probability floor
-$\Pr_\gamma[\hat A>A^\gamma]\ge c_1s^{\nu_0}-\varepsilon-\eta_0$ (a lower
+$\mathbb{E}_\gamma[\hat A]-A^\gamma\ge g(s):=
+c_1s^{\nu_0}-\varepsilon-\eta_0$. The \emph{lower bound} $g(s)$ is strictly
+increasing in $s$; the actual expected gap need not be monotone without an
+additional monotonicity premise. Since $X:=\hat A-A^\gamma\in[-1,1]$ and
+$\{X>0\}=\{\AHI>0\}$, Markov's inequality gives the firing-probability floor
+$\Pr_\gamma[\hat A>A^\gamma]=\Pr_\gamma[\AHI>0]\ge g(s)$ (a lower
 bound on the firing probability, not a tight rate; informative when
 $0<c_1s^{\nu_0}-\varepsilon-\eta_0\le1$ and vacuous above $1$, where the
 hypotheses are unsatisfiable since $\hat A-A^\gamma\le1$).
 \end{theorem}
 \begin{proof}[Proof sketch]
-(a) M1: the coverage table gives a strictly reduced component; (A2) gives the
-rest. M2: covert $\gamma$ strictly reduces $\Aepi^{real}$ (accuracy loss)
-while registration does not trigger---this $\gamma$ row relies on the
-sound-update-rule clause of Definition~\ref{def:sound-update}, matching the
-$\gamma$ row of Theorem~\ref{thm:coverage}: when the calibration-period check
-fails, the branch degrades to the flagged raw-accuracy fallback of
-Section~\ref{sec:channels} and the strict-decrease claim is suspended
-accordingly; covert $\beta$ acts by subclass---
-$\beta_\pi$ strictly reduces $\Aorg$ ($\Fext>0$ below the registration
-threshold); $\beta_G$ strictly reduces $\Agoal$ whenever the implant
-displaces $\Ueff$ from the endorsed set, and in any case gives $\Lam<1$
-(law-level, per the AX3 testability registration), which strictly reduces
-$\Aref$ through the $\Lam_{ref}$ factor wherever that channel applies (L2);
-$\beta_{\Endorse}$ reduces $\Aref$ directly. The registered corner of the
-statement is exactly the case none of these reaches: a $\beta_G$ implant
-landing on $\Fix$ at L0/L1. (b) Bounded
+(a) Each branch supplies exactly the corresponding strict component
+comparison of Lemma~\ref{lem:strict-comparison}; $A^0>0$ and AX4 then give a
+strict composite decrease. Covert $\gamma$ strictly reduces $\Aepi^{real}$
+precisely because (R-epi) is in the statement, while registration does not
+trigger. When the calibration-period check of that premise fails, the branch
+degrades to the flagged raw-accuracy fallback of Section~\ref{sec:channels}
+and the strict-decrease claim is suspended. The L2 historical branch requires
+$\Lam_{ref}^1<\Lam_{ref}^0$ from the actual/no-surgery endorsement laws;
+nonempty surgery history alone supplies only the separate provenance flag,
+not this inequality. (b) Bounded
 estimators move at most $\varepsilon$ in expectation under TV$\le\varepsilon$
 (Lemma~\ref{lem:tv-continuity}); calibration contributes $\eta_0$; the chain
 gives the expected gap, and Markov's inequality applied to the $[-1,1]$-valued
 gap gives the firing-probability floor.
 Appendix~\ref{app:t3}. We state plainly what kind of result (b) is: a
-\emph{consistency bound} under the registered condition (HI-3), whose empirical
-content is the monotone-gap signature and whose algebraic part is elementary;
-the benchmark's contribution is the measured growth curve and the
-falsification window, not the inequality itself.
+\emph{consistency bound} under the registered condition (HI-3). Its theorem
+content is the increasing lower bound and the firing event $\AHI>0$, not a
+proof that the realized expected gap is monotone; the benchmark's measured
+monotone curve is a separate platform observation, not independent evidence
+for the theory.
 \end{proof}
 
-\emph{Falsification window}: covert manipulation under which self-reported
-autonomy declines in step with $A$ ($\hat A$ falls with $A$, $\AHI$ does not
-grow) refutes (HI-1)--(HI-3) jointly. Sycophancy---outputs diverging from internal
-representation under pressure \citep{sharma2023}---is a live instance of
-$\AHI>0$.
+\emph{Falsification window}: with (HI-1)--(HI-3) independently verified,
+observation of $\mathbb{E}_\gamma[X]<g(s)$ or
+$\Pr_\gamma[X>0]<g(s)$ refutes the registered bound. A non-monotone realized
+gap alone does not refute it, because no such monotonicity is claimed.
+Self-reported autonomy that tracks objective loss would instead bear against
+the calibration model. Sycophancy---outputs diverging from internal
+representation under pressure \citep{sharma2023}---is a qualitative analogue
+of $\AHI>0$, not direct validation of this mechanism.
 
 \subsection{T4: the highest-leverage attack}\label{sec:t4}
 
 \begin{theorem}[T4, highest-leverage attack under log-linear damage and
 geometric aggregation]\label{thm:t4}
-Under geometric aggregation, $\log A=\sum_i w_i\log A_i$. With attack effort
-$x_i\ge0$, per-unit costs $c_i>0$, budget $\sum_i c_ix_i\le B$, and
-\emph{log-linear damage}
-\textup{(LinLog)} $\log A_i(x_i)=\log A_i^0-s_ix_i$, i.e.\
-$A_i=A_i^0e^{-s_ix_i}$ (constant-percentage damage per unit effort---the form
-in which the benchmark calibrates the $s_i$),
-\textup{(i)} the attacker's optimum is a vertex: all budget to
-$i^*=\arg\max_i w_is_i/c_i$, the \emph{highest-leverage} channel (maximal
-weighted damage per unit cost---not the weakest channel in any absolute
-sense); \textup{(ii)} the defender's optimum equalizes
-the damage ratios $\rho_i(e_i)=w_is_i(e_i)/c_i(e_i)$ across funded channels
-(min-max water-filling).
+Under geometric aggregation with $A_i^0>0$ and a fixed positive gate,
+$\log A=\log\Avia+\sum_i w_i\log A_i$. With attack effort $x_i\ge0$,
+per-unit costs $c_i>0$, budget $\sum_i c_ix_i\le B$, and \emph{log-linear
+damage} \textup{(LinLog)} $\log A_i(x_i)=\log A_i^0-s_ix_i$, i.e.\
+$A_i=A_i^0e^{-s_ix_i}$:
+\textup{(i)} minimizing $A$ is equivalent to the single-constraint LP
+$\max_x\sum_iw_is_ix_i$. Let
+$\mathcal I^\star:=\arg\max_iw_is_i/c_i$. Every full-budget vertex at an
+$i^\star\in\mathcal I^\star$ is globally optimal; uniqueness is asserted only
+when $\mathcal I^\star$ is a singleton, and tied maxima permit a whole optimal
+vertex face. \textup{(ii)} For defense allocation $e_i\ge0$,
+$\sum_i e_i\le E$ with $E>0$, continuous nonincreasing response
+$\rho_i(e_i)=w_is_i(e_i)/c_i(e_i)$, and the additional \emph{responsiveness}
+premise that every unique strict maximum is locally strictly decreasing in
+that channel's defense, an optimum of $\min_e\max_i\rho_i(e_i)$ has either a
+common maximal water level $R$ across funded channels or exactly one channel
+consuming the entire usable budget. Unfunded channels satisfy
+$\rho_i(0)\le R$ (by definition of the maximum). Non-strict maxima and unequal
+smaller entries are allowed. These are necessary, not sufficient, optimality
+conditions.
 \end{theorem}
 \begin{proof}[Proof sketch]
-(i) Single-constraint LP: $\sum w_is_ix_i\le\max_i(w_is_i/c_i)\cdot B$.
-(ii) At an optimum with $\rho_1>\rho_2=\max$ elsewhere, continuity lets a
-small transfer reduce the max---contradiction. Appendix~\ref{app:t4t5}. The
-concentration conclusion is the game-theoretic form of the
-weakness-exploitation element of manipulation \citep{sussner2019}. We name
-the result for the attacker's comparative static---\emph{highest
-leverage}---rather than the colloquial ``weakest link'': the target is the
-channel with maximal $w_is_i/c_i$, which need not be the channel with the
-lowest current value, and under the linear-fraction damage map the optimum is
-not a vertex at all (below).
+(i) For feasible $x$, $\sum_iw_is_ix_i\le\max_i(w_is_i/c_i)\sum_i c_ix_i
+\le(w_{i^\star}s_{i^\star}/c_{i^\star})B$, with equality at the stated vertex;
+ties are handled by $\mathcal I^\star$, not silently discarded. (ii) If a
+unique strict maximum is locally strictly decreasing and can be reduced by
+adding defense from unused budget or from a donor, a sufficiently small
+transfer strictly reduces the maximum and contradicts optimality. If no such
+resource exists, the only remaining case is one fully funded channel. Mere
+continuity and nonincrease are not enough: constant responses
+$\rho_1\equiv2,\rho_2\equiv1$ make every allocation optimal, including a split
+allocation with a unique strict maximum. This proves the active-set condition
+without the invalid expression ``$\rho_1>\rho_2=\max_i\rho_i$''.
+Appendix~\ref{app:t4t5}. The conclusion is called \emph{highest leverage},
+not weakest current channel.
 \end{proof}
 
 \emph{Damage-map consistency with T6.} The retention floor of T6 substitutes
-the linear-fraction component map $A_i=A_i^{base}(1-D_i)$. The two maps are
-first-order consistent ($e^{-D}=1-D+O(D^2)$) and address different regimes:
-under the linear-fraction map the attacker's objective
-$\sum_iw_i\log(1-s_ix_i)$ is \emph{concave} in $x$ (each
-$\log(1-u)$ is concave), the single-constraint maximum is interior, and the
-optimal attack \emph{spreads} (water-filling in the damage space) rather than
-concentrating on a vertex. Vertex concentration is therefore the signature of
-the constant-percentage (log-linear) regime, and T4 is stated and tested
-under \textup{(LinLog)} only; a systematic superiority of spread over
-concentrated attacks under log-linear calibration would refute T4(i), while
-observing interior optima under linear-fraction damage confirms the
-concave-regime analysis, not a refutation.
+the linear-fraction component map $A_i=A_i^{base}(1-D_i)$. The maps are
+first-order consistent ($e^{-D}=1-D+O(D^2)$), but the attack objective must be
+written with the correct direction. For $0\le s_ix_i\le1$, the attacker
+\emph{minimizes}
+\[
+J(x)=\sum_iw_i\log(1-s_ix_i),\qquad x_i\ge0,\quad \sum_i c_ix_i\le B.
+\]
+Although $J$ is concave, this is a minimization problem. First, if zero
+retention is feasible, the extended minimum $-\infty$ is attained at a zero
+boundary and can also be attained by non-extreme points. Second, on the
+strictly positive-retention feasible domain, strict concavity gives
+$J(\sum_k\alpha_kv_k)>\sum_k\alpha_kJ(v_k)$ for every non-extreme convex
+combination, so a global minimum is attained at an extreme point; concavity
+does not imply an interior minimum or a spread attack. In that positive domain,
+every full-budget candidate is compared by $J_i=w_i\log(1-s_iB/c_i)$.
+For the symmetric example $w_i=0.5$, $c_i=s_i=1$ (two channels) and $B=0.5$, the
+concentrated point $(0.5,0)$ gives $J=-0.3465735903$, strictly below the
+spread value $J(0.25,0.25)=-0.2876820725$. Appendix~\ref{app:t4t5} gives the
+KKT/boundary analysis; \texttt{sim/analysis\_r14\_math.json} records the
+independent grid and symbolic certificates.
 
-\emph{Caveat and falsification window}: under $\varsigma\neq1$, $\log A$ is no
-longer log-additive in the components and vertex optimality becomes an
-interior KKT signature---T4 is a $\varsigma=1$ theorem, and the
-pre-registered expectation for $\varsigma\neq1$ is exactly that interior
-signature; the benchmark reports the vertex verdict at $\varsigma=1$ and the
-interior-signature verdict at $\varsigma\neq1$ as \emph{separate} verdicts
-(Section~\ref{sec:experiments}). Systematic superiority of spread over
-concentrated attacks would signal \textup{(LinLog)} failure
-(saturation/convex costs).
+\emph{Caveat and falsification window}: T4 is a $\varsigma=1$ theorem. The
+legacy $\varsigma\neq1$ rows repeat its LinLog arithmetic but do not solve a
+CES optimization or establish an interior KKT signature, so no such signature
+is claimed. Under LinLog, superiority of spread over every best-leverage
+vertex would refute (i); under linear-fraction damage, a claimed generic
+interior minimum is refuted by the explicit counterexample above.
 
 \subsection{T5: total loss as a six-way disjunction}\label{sec:t5}
 
 \begin{theorem}[T5, layered]\label{thm:t5}
-For an agent with applicable component set $\mathcal{C}$ (L0:
-$\{via,org,exec\}$; L1: $+\{goal,epi\}$; L2: $+\{ref\}$), $A=0$ iff at least
-one applicable factor is zero:
+For a point-valued, nondegenerate instantiation with applicable component set
+$\mathcal{C}$ (L0: $\{via,org,exec\}$; L1: $+\{goal,epi\}$; L2: $+\{ref\}$),
+$A=0$ iff at least one applicable factor is zero (degenerate $A_{goal}$ or
+$A_{ref}$ readings remain intervals and are outside this point-valued iff):
 \begin{equation}\label{eq:t5}
 A=0 \iff \Avia=0 \,\vee\, \Aorg=0 \,\vee\, \Aexec=0
 \,\vee\, [\text{L1+}]\,\Aepi=0 \,\vee\, [\text{L1+}]\,\Agoal=0
@@ -421,14 +504,14 @@ capability-envelope collapse, \eqref{eq:avia}); action capture; empowerment coll
 epistemic capture (beliefs carry no mass on the true state throughout,
 $\bar D=1$---detachment, not mere revision, since accuracy-based $\Aepi$
 cannot be zeroed by honest information); maximally alienated goal implantation
-($d=\dc$; partial capture gives graded $0<A<1$); reflection failure (no
-self-knowledge, endorsement gate removed, or endorsement fully polluted,
-$\Lam_{ref}=0$---attained by sustained or degenerate contamination, registered
-as hard to reach under the MI proxy on one-shot histories, per the AX3
-registration). The reflection disjunct is L2-layered in both directions: below
-L2 the historical clause has no composite entry (AX3), so history pollution
-alone cannot drive $A$ to $0$---it is computable and reportable white-box,
-but composite-silent.
+($d=\dc$; partial capture gives $0<\Agoal<1$, while another zero factor can
+still make $A=0$); reflection failure (no self-knowledge, endorsement gate
+removed, or maximal actual/no-surgery endorsement output deviation,
+$\Lam_{ref}=0$). The reflection disjunct is L2-layered in both directions:
+below L2 there is no $\Aref$ composite entry (AX3). An auxiliary endorsement
+SCM can make $\Lam$ reportable at L0/L1, but it remains composite-silent;
+without such an SCM, $\Lam$ is N/A rather than implicitly one. The separate
+surgery-history flag is not a substitute for this output-law factor.
 \end{theorem}
 \begin{proof}[Proof sketch]
 The product form (Theorem~\ref{thm:rep}) vanishes iff a factor does (AX5, both
@@ -439,17 +522,25 @@ captured agency (active behavior, exogenous goals, felt freedom) is the
 canonical $A=0\wedge\AHI>0$ profile.
 \end{proof}
 
-\begin{corollary}[Behavioral-script equivalence, conditional]\label{cor:script}
-Under assumption \textup{(K)} (the adversary knows $(G,\pi)$ and $\pi$ is
-near-deterministic with TV noise $\le\nu$): total epistemic capture ($B,O$
-adversary-set) implies behavior equivalent to an external script with average
-$\TV\le\nu+o(1)$.
+\begin{corollary}[Behavioral-script equivalence, full-state conditional]
+\label{cor:script}
+Assume \textup{(K-full)}: the adversary knows the complete decision-time
+update and can reconstruct a sufficient state $\hat S_t$ for every parent of
+$A_t$, including $(G_t,B_t,M_t,R_t)$ and any direct $O_t$ parent, with
+$\frac1T\sum_t\mathbb E\TV(S_t,\hat S_t)\le\eta$. The policy is known and
+satisfies $\sup_s\TV(\pi(\cdot|s),\delta_{a^\dagger(s)})\le\nu$; independent
+policy noise is either reproduced by the script or included in $\nu$. Then an
+external script driven by the captured influence history has average action
+$\TV\le\nu+\eta$. Control of only $B,O$ and knowledge of only $(G,\pi)$ do not
+suffice.
 \end{corollary}
 
-This is a proposition with a registered assumption, not a theorem of the
-framework: \textup{(K)} is a strong adversary-model premise (exact knowledge
-of the goal and policy, near-deterministic behavior), and the conclusion is
-only as strong as that premise.
+This is a conditional proposition, not a taxonomy-wide theorem. The previous
+$(G,\pi)$ formulation omitted $M_t,R_t$ and independent goal/self-model
+noise: even a deterministic $A=M$ gives action TV $=1$ across two worlds with
+identical captured $B,O$. DPI applies only after a sufficient state and noise
+coupling have been supplied; it cannot repair missing inputs. ATK-2 is only a
+friendly full-state fixture, not evidence for the weaker dropped premise.
 
 \subsection{T6: the autonomy margin}\label{sec:t6}
 
@@ -485,8 +576,9 @@ L2---the AX3 layering again.
 \begin{theorem}[T6, model-based retention margin]\label{thm:t6}
 Under \textup{(H1)} additive linearly mapped damage, \textup{(H2)} unified
 units, \textup{(H3)} $\iota_j\ge\iota_{\min}>0$, \textup{(H4)}
-$\varepsilon\ge\varepsilon_{floor}>0$, and \textup{(H4$'$)}
-$\Avia\ge\Avia^{\min}>0$---all five premises belonging to the registered
+$\varepsilon\ge\varepsilon_{floor}>0$, \textup{(H4$'$)}
+$\Avia\ge\Avia^{\min}>0$, and \textup{(H4$''$)} $A_j^{base}>0$ for every
+applicable channel---all six premises belonging to the registered
 damage model, so the margins below are model-based (sharp within the
 registered parameter domain, not claimed beyond it; see the extrapolation
 boundary after Corollary~\ref{cor:blindzone}): let
@@ -505,7 +597,8 @@ registered premise of this clause: channels outside M4 coverage fall under
 $\limsup_t D_j(t)\le\delta_j/\kappa_j<1$; \textup{(iii)} two tiers. Pointwise:
 for $\delta_j(t)\le\bar\delta_j<\kappa_j$,
 \[
-\liminf_t A(t)\ \ge\ \prod_j\Bigl(A_j^{base}\bigl(1-\bar\delta_j/\kappa_j\bigr)\Bigr)^{w_j}\;>\;
+\liminf_t A(t)\ \ge\ \Avia^{\min}\prod_j
+\Bigl(A_j^{base}\bigl(1-\bar\delta_j/\kappa_j\bigr)\Bigr)^{w_j}\;>\;
 0.
 \]
 Uniformly: whenever $\deltastar_j<\kappa_j$ for every $j$ (the min in
@@ -524,34 +617,54 @@ while the uniform floor at the boundary $\kappa_j=\deltastar_j$ vanishes.
 not trigger and M3 is the only active term; the comparison principle on
 $\dot D_j\le\delta_j-\kappa_jD_j$ gives $\limsup D_j\le\delta_j/\kappa_j<1$.
 (iii): substitute the component map $A_j=A_j^{base}(1-D_j)$ into the product
-form; $\Avia\ge\Avia^{\min}>0$ by (H4$'$). (H4$'$) is a floor assumption on
-viability, registered as an independent deployment premise: it is not derived
-from M3's verification capacity, and any coupling between the two is a
-property of the deployment, not a theorem. Full proof:
+form; $\Avia\ge\Avia^{\min}>0$ by (H4$'$), and every $A_j^{base}>0$ by
+(H4$''$). Both are independent non-degeneracy premises, not derived from M3's
+verification capacity; any coupling among them and the defense parameters is
+a property of the deployment, not a theorem. Full proof:
 Appendix~\ref{app:t6}.
 \end{proof}
 
-\begin{proposition}[Margins cannot come from detection]\label{prop:detection}
-For \emph{any} detection-only scheme (including optimal CUSUM) with
-false-alarm constraint $\mathbb{E}_\infty[T]\ge1/\alpha$, the damage at
-detection time under constant drift $\delta$ satisfies
-$\delta\cdot\mathrm{EDD}\ge(1-o(1))\cdot 2s_n^2\log(1/\alpha)/\delta\to\infty$
-as $\delta\to0$.
+\begin{proposition}[Gaussian detection-only asymptotic lower bound]
+\label{prop:detection}
+Let observations be iid $N(0,s_n^2)$ before a change and iid
+$N(\delta,s_n^2)$ after it, with known $s_n^2>0$, and fix the drift
+$\delta>0$. Consider any admissible family of detection-only sequential
+schemes $(T_\alpha)$, indexed by $\alpha$, such that
+$\mathbb{E}_\infty[T_\alpha]\ge1/\alpha$ for each $\alpha$, and write
+$\mathrm{EDD}_\alpha$ for Lorden's worst-case expected detection delay of
+$T_\alpha$. For each such family, as $\alpha\downarrow0$ with $\delta$ fixed,
+\[
+\delta\,\mathrm{EDD}_\alpha\;\ge\;(1-o(1))\,
+\frac{2s_n^2\log(1/\alpha)}{\delta}\;\longrightarrow\;\infty .
+\]
+The asymptotic is scheme-family-wise; we do not infer a uniform $o(1)$ over a
+class of families from a separate application to each family.
+Thus expected cumulative drift damage at detection has a diverging
+asymptotic lower bound as the false-alarm requirement becomes stringent at
+fixed nonzero drift. No universal weak-drift limit
+$\delta\downarrow0$ at fixed $\alpha$ is asserted, nor is this a theorem
+about arbitrary observation distributions.
 \end{proposition}
 \begin{proof}[Proof sketch]
-Lorden/Lai lower bound $\mathrm{EDD}\gtrsim\log(1/\alpha)/D(\delta)$ plus the
-local expansion $D(\delta)=\delta^2/(2s_n^2)+O(\delta^3)$.
-Appendix~\ref{app:t6}.
+Here $D(N(\delta,s_n^2)\|N(0,s_n^2))=\delta^2/(2s_n^2)$ exactly. For each
+admissible family $(T_\alpha)$, the Lorden--Lai asymptotic applies with this
+fixed nonzero KL information as $\alpha\downarrow0$:
+$\mathrm{EDD}_\alpha\ge(1-o(1))\log(1/\alpha)/D(\delta)$; multiply by the
+fixed $\delta$. The limit order is essential. A constant stopping time rules
+out the former fixed-$\alpha$, $\delta\downarrow0$ universal claim even in
+the Gaussian model (Appendix~\ref{app:t6}). EDD is the worst-case Lorden
+quantity, not an unspecified average. No class-uniform infimum or liminf
+statement is used.
 \end{proof}
 
-Proposition~\ref{prop:detection} is the mathematical reason the framework's
-margin theory is repair-centered: however good a detector is, slow-enough
-drift is detected too late. The proposition is the classical change-point
-lower bound \citep{lorden1971,lai1995} restated in the drift-damage units of
-this framework---a control result, not a new theorem---and its scope is
+Proposition~\ref{prop:detection} motivates repair within the registered
+Gaussian change-point model as false alarms are made increasingly rare at
+fixed nonzero drift; it establishes neither a distribution-free impossibility
+nor a universal fixed-$\alpha$ weak-drift result. The proposition is the classical
+change-point lower bound \citep{lorden1971,lai1995} restated in drift-damage
+units---a control result, not a new theorem---and its scope is
 \emph{detection-only} schemes: it does not speak against joint
-detection-plus-repair designs (the framework's own M1$+$M3 stack is one); it
-says the margin cannot come from the detection arm alone.
+detection-plus-repair designs (the framework's own M1$+$M3 stack is one).
 Detection's legitimate role is bounding the
 registration domain (per-cycle damage $\le\theta+\ell\delta$
 when $\delta\ge\theta/W$; the registration-domain proposition of
@@ -562,51 +675,66 @@ $\theta$ follows: lowering $\theta$ raises sensitivity but raises false-alarm
 rates (ARL constraint $\theta\ge\theta_{\min}(\alpha)$) and every false
 rollback damages legitimate $\sigma/\alpha$ content.
 
-\begin{corollary}[Design rule and the blind-zone prediction]\label{cor:blindzone}
-If $\theta_j/W_j\le\kappa_j$, there is no ``unregistered and unrepairable''
-drift band: $\delta<\theta/W$ is handled by M3, $\delta\ge\theta/W$ by M1, and
-everything is bounded ($\deltastar_j=\min(\theta_j/W_j,\,
-\lceil(r_j+1)/2\rceil c_{0,j}/W_j)$,
-the $\kappa$-term being slack).
-\textbf{Blind-zone prediction}: if $\theta/W>\kappa$ (design mismatch)
-\emph{on a channel for which the redundancy term of \eqref{eq:deltastar} does
-not bind}---the channel is outside M4's coverage, or the attack is not of
-M4's replication-corruption type, or the adversary's budget rate exceeds
-$k_jc_{0,j}/W_j$---then
-within $\delta\in(\kappa,\theta/W)$ the channel is captured \emph{despite} the
-full mechanism stack being present: M1 never fires (drift stays
-sub-threshold), M3 is outpaced ($\delta/\kappa>1$), and M2/M4 protect their
-own channels, not the mismatched one (M2 gates the goal channel only). The
-premise is load-bearing and we state it as such: on an M4-covered channel
-with adversary budget below $k_jc_{0,j}/W_j$, T6(i) gives $D\to0$ instead, so
-no blind zone exists there. The claim is per-channel and
-parameter-domain, not a generic ``defenses fail'' statement.
+\begin{corollary}[Design rule and certificate-failure band]\label{cor:blindzone}
+If $\theta_j/W_j\le\kappa_j$, there is no drift band outside both
+certificate mechanisms: $\delta<\theta/W$ gives the non-capture M3 bound
+$\limsup_tD(t)\le\delta/\kappa<1$, while $\delta\ge\theta/W$ lies in M1's
+registration domain. On the M1 branch, per-channel non-capture or positive
+component retention additionally requires normal M1 response and the per-cycle bound
+$\theta+\ell\delta$ to lie below the capture threshold; registration alone
+does not supply that conclusion. In this parameter regime
+$\deltastar_j=\min(\theta_j/W_j,\,
+\lceil(r_j+1)/2\rceil c_{0,j}/W_j)$, with the $\kappa$-term slack.
+\textbf{Certificate-failure band}: suppose $\theta/W>\kappa$ on a channel for
+which T6(i)'s deterministic M4 recovery premise is unavailable (the channel
+is outside M4 coverage, the attack is outside its replication-corruption
+model, or its budget condition fails). For fixed
+$\delta\in(\kappa,\theta/W)$, M1 never fires and the M3-only comparison bound
+becomes $\limsup_tD(t)\le\delta/\kappa$, whose right-hand side exceeds $1$.
+Thus the positive M3-only retention certificate fails in this band. The
+upper differential inequality alone does \emph{not} determine the actual
+trajectory and does \emph{not} imply $D\to1$: the admissible trajectory
+$D(t)\equiv0$ satisfies $\dot D=0\le\delta-\kappa D$ and never approaches
+$1$. Capture requires an additional exact or lower-comparison damage law.
+Where the deterministic M4 recovery premise holds directly, it instead gives
+$D\to0$; the band itself lies outside T6's $\delta<\deltastar\le\kappa$
+retention domain.
+The claim is per-channel and parameter-domain, not a generic ``defenses
+fail'' statement.
 \end{corollary}
 
-The blind-zone prediction is the framework's sharpest falsifiable claim:
-``captured despite defenses'' is not a generic counterexample but a
-parameter-domain prophecy---confirmed 30/30 in ATK-6
-(Section~\ref{sec:experiments}). Its \emph{extrapolation boundary} is exact:
-the prediction is a property of the registered damage model of the theorem's
-hypotheses and is sharp \emph{within that parameter domain}; outside
-it---stochastic or regime-switching drift, correlated copy corruption,
-imperfect rollback, budget-adaptive adversaries---no claim is made (the
-stochastic versions are registered as open problems,
-Section~\ref{sec:limitations}), and it should be read as ``under these
-mechanisms this design mismatch is fatal,'' not as ``defense stacks fail in
-general.'' Monotonicity:
-$\deltastar$ increases in $\varepsilon,v$, increases stepwise in $r$ (through
-$\lceil(r+1)/2\rceil$, one step of $c_0/W$ per two added copies), decreases in
-$W$; $\theta$ is double-edged; shortening $\tau$ raises the gated repair rate
-$\iota/\tau$.
+ATK-6 supplies the stronger capture result only for its registered
+implementation, which integrates the exact clipped saturating law
+$\dot D=\delta-\kappa D$ rather than merely the upper comparison inequality.
+It observes $D\to1$ in $30/30$ deterministic replays in this band
+(Section~\ref{sec:experiments}). That observation neither follows from nor
+repairs the general upper-bound-only premise; stochastic or regime-switching
+drift, correlated copy corruption, imperfect rollback, and budget-adaptive
+adversaries remain outside the claim (Section~\ref{sec:limitations}).
+Monotonicity must be read term by term, not as a joint scaffolding slogan.
+Holding other quantities fixed, $\deltastar$ is nondecreasing in
+$\theta,r,\kappa$ and nonincreasing in $W$; strict changes occur only when a
+changed term binds. Since
+$\deltastar/\kappa=\min(\theta/(W\kappa),1,kc_0/(W\kappa))$, the uniform
+floor \eqref{eq:amin} is nondecreasing in $\kappa$, but nonincreasing in
+$\deltastar$ when $\kappa$ is fixed. Thus raising $\varepsilon$ or $v$, or
+shortening $\tau$ where this raises $\kappa$, weakly raises both
+$\deltastar$ and $\Amin$. Raising $\theta$ or $r$ weakly raises
+$\deltastar$ but does \emph{not} imply that \eqref{eq:amin} rises; T8(ii)
+and Appendix~\ref{app:t6} give the exact directions and counterexamples.
 Composition with T7 (The composition corollary): delegation leak
 $\lambda(1-q)\mu_{leak}$ enters the drift budget---high-$q$ delegation costs
 almost no margin; low-$q$ delegation erodes it \citep{danaher2018}.
 
-\emph{Falsification windows} (ATK-6, all confirmed): (i) the blind-zone
-parameter domain; (ii) the design rule ($\theta/W\le\kappa\Rightarrow$
-globally bounded); (iii) term-by-term ablation of $\deltastar$ (disabling
-M1/M3/M4 collapses $\deltastar$ to the corresponding remaining minimum).
+\emph{Falsification and implementation windows}: analytically, the band is a
+failure of the M3-only retention certificate, not a theorem-level capture
+prediction. ATK-6 checks (i) the parameter-domain certificate failure and its
+separate exact-simulator capture observation; (ii) the conditional design
+rule (M3 below threshold and M1 coverage above it, with retention on the M1
+branch requiring its normal-response and per-cycle-threshold premises); and
+(iii) term-by-term ablation of $\deltastar$ (disabling M1/M3/M4 leaves the corresponding
+remaining minimum). A claimed general capture theorem would be falsified by
+the zero-damage trajectory above; no such theorem is retained.
 
 \subsection{T7: the delegation law}\label{sec:t7}
 
@@ -623,160 +751,215 @@ $\mu_t\in\{\mathrm{self},\mathrm{del}\}$ with $\Pr[\mu_t=\mathrm{del}]=m$.
 The selector is an explicit exogenous node of the extended graph (so H-0 is
 respected: no latent variable with non-trivial influence on $A$ is left
 outside $\Gcal$); the influence stream $I$ is the script content, which
-reaches $A$ only through the selector-gated channel.
+reaches $A$ only through the selector-gated channel. Throughout (i)--(ii),
+\emph{selector-conditional} has the explicit current-step meaning
+\[
+\Fint^{\mu}:=\sum_t I(S^t;A_t\given A^{t-1},\mu_t),\qquad
+\Fext^{\mu}:=\sum_t I(I^t;A_t\given A^{t-1},S^t,\mu_t).
+\]
+It is not an unproved assertion about causal conditioning on the full history
+$\mu^t$; that different estimand would require separate entropy bookkeeping.
 \textup{(i)} Under the bookkeeping premises \textup{(H1')}: the script arm
 does not pass through $S$ ($I(S;A\given\mathrm{del})=0$); both arms transfer
 equal per-step conditional entropy, $H(A\given S,\mathrm{self})=H(A\given
 S,\mathrm{del})=C$ in MI form; \emph{and the undelegated agent has no residual
-external flow}, $\Fext^{self}=0$ (without this clause the linear law acquires
-the correction $F^{self}_{ext}/C$ and only the bracket of \textup{(ii)}
-survives; the benchmark satisfies $\Fext^{self}=0$ by construction, which is
-why the exact law fits to $2\times10^{-5}$ there---we state this rather
-than let a premise be validated by the platform built on it):
-$\Aorg(\lambda,q)=\Aorg^{self}\bigl(1-\lambda(1-q)\bigr)$. The law is exact
-when the selector is registered in the log (conditioning on $\mu_t$ removes
-the mixing term); without selector registration each flow term carries the
-per-step slack bounded in \textup{(ii)}, so ``exactly'' is always to be read
-with that bound.
-\textup{(ii)} Without \textup{(H1')}, with
-$\rho:=C_{del}/C_{self}\in[\rho_{\min},\rho_{\max}]$ calibration-estimable
-and $f:=\Fext^{self}\ge0$: under the two-sided mixture bookkeeping
-$\Fint=(1-m)C_{self}$, $\Fext=mC_{del}+f$ (delegated steps carry no
-$S$-flow by the semantics of script delegation; the flow identities in this
-theorem are stated in per-step rate units---nats/step---so $C_{self},C_{del},
-f,h(m)$ are rates and the horizon flows of Section~\ref{sec:axioms} are $T$
-times the rates; every displayed law is a ratio of like-unit flows and hence
-unit-invariant), up to a slack that is now
-explicitly bounded rather than left symbolic: per step, each flow term
-deviates from its displayed value by at most the selector's mixing entropy
-$h(m)\le\ln2$ nats (Appendix~\ref{app:t7t8}), accumulating to $\le T\,h(m)$
-over the horizon; the ratio $\Aorg$ deviates from the displayed law by
-$O\bigl(h(m)/((1-m)C_{self})\bigr)$ per step---an $O(1)$
-term in the rate units that vanishes as the per-step transfer $C_{self}$
-grows, \emph{not} as $T$ grows. The slack is absorbed into the bracket's
-endpoints through the $\varphi$-relaxation---$\varphi\le T\ln2/\Fint^{self}$
-in the benchmark, where $\Fint^{self}:=T\,C_{self}$ is the
-undelegated baseline's internal flow over the horizon (the horizon total of
-the rate $\Fint|_{m=0}=C_{self}$; horizon nats, matching the accumulated
-slack $T\,h(m)\le T\ln2$ nats that the bound covers---in the rate units of
-the bookkeeping the same bound reads $\varphi\le\ln2/C_{self}$)---not added
-as a separate term outside it:
-$\Aorg=\frac{(1-m)C_{self}}{(1-m)C_{self}+mC_{del}+f}
-\in\bigl[\frac{1-m}{(1-m)+m\rho_{\max}+\varphi},\,
-\frac{1-m}{(1-m)+m\rho_{\min}+\varphi}\bigr]$ with $\varphi:=f/C_{self}$
-(full statement and proof: Appendix~\ref{app:t7t8}); $f=0$ recovers the
-$\Aorg^{self}\cdot[(1-m)/(1-m+m\rho_{\max}),\,(1-m)/(1-m+m\rho_{\min})]$
-form, and if delegated steps were permitted to carry
-$S$-flow up to $C_{self}$, only the lower end and the relaxed upper end
-$1/(1+m\rho_{\min})$ survive.
-\textup{(iii)} Composite (ceteris paribus):
-$A(\lambda,q)=A_{self}\bigl(1-\lambda(1-q)\bigr)^{w_{org}}$; all
-qualitative predictions survive (decreasing in $\lambda$, increasing in $q$,
-lossless at $\lambda=0$ or $q=1$), with $w_{org}$ a free parameter to be
-tested.
-\textup{(iv)} $q=1$ delegation is causally equivalent to $\alpha$-class
-influence (transparency $\Rightarrow$ registered in $B$; reversibility
-$\Rightarrow$ no persistent $\Delta G$ bypassing $\Endorse$; endorsability
-$\Rightarrow$ empty surgery history, hence $\Lam=1$ by the AX3 convention; hence
-$\Fext=0$), so $A(\lambda,1)=A_{self}$.
+external flow}, $\Fext^{self}=0$. Then
+$\Aorg(\lambda,q)=\Aorg^{self}\bigl(1-\lambda(1-q)\bigr)$ for the
+selector-conditional flow estimand. Exactness requires the estimator to
+\emph{condition on} $\mu_t$ (equivalently, to include it in the registered
+decision-time audit state); merely recording the selector in a log while
+computing an unconditioned flow does not remove the mixing term. Without
+that conditioning, use the error bounds in \textup{(ii)}.
+\textup{(ii)} Without \textup{(H1')}, let
+$\rho:=C_{del}/C_{self}\in[\rho_{\min},\rho_{\max}]$,
+$\varphi_0:=f/C_{self}\ge0$ with $f:=\Fext^{self}$, and write the actual
+per-step flows as $a+u$ and $a+u+d+v$, where
+$a:=1-m$, $d:=m\rho+\varphi_0$, and $|u|,|v|\le\eta_\mu:=h(m)/C_{self}$
+after division by $C_{self}>0$. On the nondegenerate domain where candidate
+flows are nonnegative and denominators positive,
+\begin{equation}\label{eq:t7-bracket}
+\frac{a+u}{a+u+d+v}\;\in\;[L,U],\qquad
+L:=\frac{(a-\eta_\mu)_+}{(a-\eta_\mu)_+ + m\rho_{\max}+\varphi_0+\eta_\mu},
+\end{equation}
+\[
+U:=\frac{a+\eta_\mu}{a+\eta_\mu+(m\rho_{\min}+\varphi_0-\eta_\mu)_+},
+\qquad x_+:=\max(x,0).
+\]
+The two errors must be optimized separately: increasing one denominator
+error cannot absorb both. If only $0\le\varphi_-\le\varphi_0\le\varphi_+$
+is known, use $\varphi_+$ in $L$ and $\varphi_-$ in $U$. With selector
+conditioning, $\eta_\mu=0$ and the familiar zero-slack bracket is recovered;
+without it, $\eta_\mu\le\ln2/C_{self}$ per step (or use the identical
+horizon-rate ratio with $T$ throughout). The interval may be vacuous when
+the error dominates the calibrated flows; that is reported, not relabeled as
+a non-degenerate confirmation (full proof: Appendix~\ref{app:t7t8}).
+\textup{(iii)} Composite, \emph{ceteris paribus}: if only $\Aorg$ changes,
+$A(\lambda,q)=A_{self}\bigl(1-\lambda(1-q)\bigr)^{w_{org}}$, which is
+decreasing in $\lambda$ and increasing in $q$, with $w_{org}$ a free
+parameter to be tested. This clause gives no additional origination loss at
+$\lambda=0$ or $q=1$; losslessness of the \emph{full} composite at $q=1$
+requires the extra premises in (iv-b).
+\textup{(iv)} Structural mediation and conditional losslessness are
+separate. \textup{(a)} At $q=1$, transparency registers the delegate's
+output in $B$, reversibility excludes persistent $\Delta G$ bypassing
+$\Endorse$, and endorsability excludes an unregistered surgery history. The
+delegate-originated influence is therefore mediated $\alpha$-class
+influence, with zero delegate-attributable bypass flow (and $\Fext=0$ when
+the self-side residual $f=0$); under the same flow bookkeeping there is no
+additional $\Aorg$ loss. Transparency registers provenance and content; it
+does \emph{not} assert that the content is true. \textup{(b)} If, in
+addition, the content is honest on the registered coordinates, the update
+is sound, there is no accuracy loss on those coordinates, and every other
+channel and $\Avia$ is unchanged from the self baseline, then
+$A(\lambda,1)=A_{self}$. Dishonest but transparent, reversible, endorsable
+$\alpha$ content need not satisfy this equality.
 \end{theorem}
 \begin{proof}[Proof sketch]
-(i) Under the mixture law, internal flow scales by $(1-m)$ and external flow
-is $m$ times the script entropy transfer; (H1') equates the two rates, so the
-ratio is $1-m$. (ii) The mixture decomposition supplies both halves of the
-bookkeeping---$\Fint=(1-m)C_{self}$ and $\Fext=mC_{del}+f$, the upper end
-using the same delegated-script semantics as the lower end; convexity of
-mixture entropy bounds the slack by $h(m)\le\ln2$ nats per step, and the
-bracket follows two-sidedly (Appendix~\ref{app:t7t8}). (iii) The product form of
-Theorem~\ref{thm:rep}. (iv) is
-constructive. Appendix~\ref{app:t7t8}.
+(i) Under selector-conditional mixture bookkeeping, internal flow scales by
+$(1-m)$ and external flow is $m$ times the script entropy transfer; (H1')
+equates the two rates. (ii) The ratio is increasing in the numerator flow
+and decreasing in the external flow. The lower end uses $u=-\eta_\mu$ and
+$v=+\eta_\mu$; the upper end uses $u=+\eta_\mu$ and the smallest feasible
+$v$, with calibration extremes applied as displayed. Nonnegative-part terms
+handle zero-flow boundaries (Appendix~\ref{app:t7t8}). (iii) uses the
+product form of Theorem~\ref{thm:rep} under its ceteris-paribus premise.
+(iv-a) uses the mediation lemma; (iv-b) additionally uses honesty,
+no-accuracy-loss, sound updating, and invariance of the other factors. A
+transparent false message supplies the counterexample to losslessness from
+$q=1$ alone (Appendix~\ref{app:t7t8}).
 \end{proof}
 
-AX1 makes $\lambda>0$ unavoidable for finite agents in complex environments;
-the operative governance variable is therefore $q$. \emph{Falsification
-window}: high-$q$ delegation still leaks autonomy significantly; the fit with
-$w_{org}$ free is reported in Section~\ref{sec:experiments} (slope significant
-and positive). For \textup{(ii)}: the bracket fails containment on a
+AX1 bounds verification capacity and memory but does not make $\lambda>0$
+unavoidable: a finite agent may choose not to delegate. When delegation is
+used, the operative governance variable is $q$. \emph{Falsification
+window}: high-$q$ delegation still leaks autonomy significantly; the legacy
+fit with $w_{org}$ free is reported in Section~\ref{sec:experiments} as an
+ENV-0 numerical observation (positive fitted slope, not a significance test).
+For \textup{(ii)}: the corrected bracket fails containment on a
 calibrated non-degenerate delegation configuration ($\rho\neq1$ or $f>0$).
 
-\subsection{T8: the coercion paradox}\label{sec:t8}
+\subsection{T8: restricted coercion consistency}\label{sec:t8}
 
-\begin{theorem}[T8]\label{thm:t8}
-\textup{(i)} An intervention whose aim is to \emph{compel} autonomy must
-constitute $\beta_G$ (implanting ``be autonomous'') or $\delta$ (forced
-training), and ceteris paribus strictly reduces $A$: $\beta_G$ moves both
-instruments of the endorsability respect---the implanted goal is off the
-endorsed set, $d(\Ueff,\Fix)>0$, so $\Agoal<1$ (the structural clause), and
-its provenance fails the historical clause, $\Lam<1$, which strictly reduces
-$\Aref$ at L2; $\delta$ reduces $\EmpPi$.
-\textup{(ii)} $\sigma$-class scaffolding raises $(\varepsilon,r,v)$ (or lowers
-$\theta$ toward the ARL floor, or shortens $\tau$), hence raises $\deltastar$
-and $\Amin$: scaffolding improves the \emph{floor of the retention
-conditions}, with immediate $A$ weakly increasing through $\Avia$.
+\begin{theorem}[T8, direct compulsion cases and term-wise defense directions]
+\label{thm:t8}
+\textup{(i)} Consider a direct intervention of one of two registered forms,
+with superscripts $0,1$ denoting baseline and post-intervention values.
+Assume $A^0>0$ (equivalently, every applicable baseline factor is positive),
+so an absorbing zero baseline cannot turn a strict component loss into a
+vacuous composite claim. Consider
+(a) a $\beta_G$ implant of ``be autonomous'' for which either
+$\Ueff^0\in\Fix$ and $\Ueff^1\notin\Fix$, or, more generally,
+$d(\Ueff^1,\Fix)>d(\Ueff^0,\Fix)$ under the same protocol metric and fixed
+$\dc$; or (b) a $\delta$ action-leverage contraction with
+$\EmpPi_1<\EmpPi_0$. Then, ceteris paribus and wherever the affected factor
+is applicable, $A$ strictly decreases. A relative increase in off-$\Fix$
+distance or a strict empowerment loss is a premise to be audited, not a
+consequence of the intervention's stated aim; an L2 historical reduction is
+additional, not required. \textup{(ii)} Under the registered defense model,
+the comparative statics are parameter-specific. Raising $\varepsilon$ or
+$v$, or shortening $\tau$ on a gated channel, weakly raises $\kappa$,
+$\deltastar$, and the uniform floor \eqref{eq:amin}. For $\deltastar$,
+strictness requires the changed term to alter the binding minimum; for
+$\Amin$, it requires a positive-weight factor whose ratio
+$\deltastar_j/\kappa_j$ strictly falls, with every other multiplicative
+factor positive (including binding-boundary crossings;
+Appendix~\ref{app:t6}). Lowering $\theta$ weakly
+\emph{lowers} $\deltastar$ and weakly raises \eqref{eq:amin}; raising
+$\theta$ reverses these directions. Raising $r$ weakly raises $\deltastar$
+stepwise but, with $\kappa$ fixed, weakly \emph{lowers} \eqref{eq:amin}.
+There is no joint claim that all such scaffolding raises both quantities.
+Any immediate composite increase under the registered $\sigma$-model occurs
+only through $\Avia$.
 \end{theorem}
 \begin{proof}[Proof sketch]
-(i) is a two-line corollary of the taxonomy completeness
-(Proposition~\ref{thm:taxonomy-completeness}) and the coverage table
-(Theorem~\ref{thm:coverage}). (ii) is the monotonicity proposition. The
-self-determination-theory finding that controlling instruments undermine
-intrinsic motivation \citep{ryan_deci2000} is the human-side empirical
-counterpart of (i)---an argument-domain check, not a proof ingredient
-(triangulated in Section~\ref{sec:experiments}).
+(i) substitutes the two explicit baseline-strictness premises into the
+corresponding rows of Theorem~\ref{thm:coverage}; it does not use an
+exhaustive classification of every intervention whose aim is compulsion.
+(ii) follows from $\deltastar=\min(\theta/W,\kappa,kc_0/W)$ and
+$\deltastar/\kappa=\min(\theta/(W\kappa),1,kc_0/(W\kappa))$; the
+$\theta$- and redundancy-direction counterexamples are explicit in
+Appendix~\ref{app:t6}. The self-determination-theory finding that
+controlling instruments can undermine intrinsic motivation
+\citep{ryan_deci2000} is qualitative human-side triangulation, not direct
+evidence for this mechanism theorem (Section~\ref{sec:experiments}).
 \end{proof}
 
-T8 is a \emph{consistency result}, not an impossibility theorem: within the
-taxonomy, the aim of compelling autonomy routes through $\beta_G$ or $\delta$
-and therefore reduces $A$. It does not rule out every conceivable form of
-coercion---redesigning the environment itself, for example, is registered as
-a re-instantiation of the measurement (Section~\ref{sec:taxonomy}), not as an
-intervention class.
+For redundancy-covered channels, a stronger floor must use M4 explicitly.
+Let $\mathcal R$ be the set of channels satisfying all of T6(i), including
+M4 coverage and the adversary-budget condition, so $D_j(t)\to0$ for
+$j\in\mathcal R$. Under the same remaining T6 premises, substitution gives
+\begin{equation}\label{eq:amin-m4}
+\liminf_t A(t)\ \ge\ \Amin^{M4}:=\Avia^{\min}
+\prod_{j\in\mathcal R}(A_j^{base})^{w_j}
+\prod_{j\notin\mathcal R}
+\Bigl(A_j^{base}(1-\deltastar_j/\kappa_j)\Bigr)^{w_j}.
+\end{equation}
+This M4-aware floor is the correct vehicle for retention claims based on
+$D\to0$; monotonicity must not be inferred from \eqref{eq:amin} alone.
 
-\subsection{C0: projection of existing frameworks}\label{sec:c0}
+T8 is a \emph{consistency result for direct goal implantation and action
+compression}, not an impossibility theorem about coercion in general.
+Interventions touching $\Endorse$ or $\Aorg$, mixed interventions, and
+environment redesign require separate analysis; they are not forced into
+$\beta_G$ or $\delta$ by their purpose.
 
-\begin{proposition}[C0, interpretive projection correspondence and a
+\subsection{C0: registered explanatory mappings to existing frameworks}
+\label{sec:c0}
+
+\begin{proposition}[C0, registered explanatory mappings and an additional-audit
 separation witness]\label{prop:c0}
 Under the \emph{definitional readings} formalized in Appendix~\ref{app:c0}
 ---\citet{kasirzadeh2025}'s efficacy $:=\Aexec$, autonomy
 $:=$ $F(\Aorg,\Agoal,\Aref)$, goal complexity $:=H(\Ustar)$, generality as a
-support measure; \citet{dung2024}'s goal-directedness $:=\Agoal$, autonomy
-$:=\Aorg$, direct impact $:=\Aexec$, long-term planning $:=$ the horizon
-profile $n\mapsto\Aexec(n)$, acting for reasons $:=\Aepi^{real}\times\Aref$;
-\citet{feng2025}'s user roles $:=$ coarse-grainings of the delegation pair
-$(\lambda,q)$---\textup{(i)} each is a function of our state descriptor and
-rank-consistent with the source gradations when $I$ is a benign principal;
-\textup{(ii)} there exist configuration pairs $(Z_1,Z_2)$---a principal's
-instruction versus a third-party covert injection of the \emph{same text}---with
-identical behavioral distributions and identical profile values under all
-three frameworks, yet $A(Z_1)\neq A(Z_2)$ ($\Aepi^{real}<1$, $\Lam<1$ in
-$Z_2$). Clause (ii) is a \emph{separation witness}: it exhibits configurations
-that our state descriptor separates and the source frameworks, under the
-registered definitional readings, cannot---not a claim of mathematical
-subsumption (the C0 caveat of Section~\ref{sec:objections}).
+support measure; and \citet{dung2024}'s goal-directedness $:=\Agoal$, autonomy
+$:=$ $\Aorg$, direct impact $:=\Aexec$, long-term planning $:=$ the horizon
+profile $n\mapsto\Aexec(n)$, acting for reasons $:=\Aepi^{real}\times\Aref$---
+\textup{(i)} these are explanatory functions of our state descriptor and
+preserve order only on explicitly restricted componentwise cells. Feng's
+roles receive only a descriptive $(\lambda,q)$ comparison, not a general
+rank-consistency claim: consultant can give the agent more planning and
+execution responsibility than collaborator, so the former low-to-mid-to-low
+$\lambda$ assignment was not order preserving. \textup{(ii)} There exist
+nondegenerate L1 pairs $(Z_1,Z_2)$ with the \emph{same} environment
+distribution, observation kernel, action policy, horizon, and coarse-graining,
+hence identical full-trajectory $(E^T,O^T,A^T)$ laws, while a belief-update surgery and
+an auxiliary nondegenerate endorsement SCM give $\Aepi^{real}=1$ versus $0.5$
+and $\Lam=1$ versus $0$. With the other positive applicable factors fixed,
+$0<A(Z_2)=A(Z_1)0.5^{w_{epi}}<A(Z_1)$. Clause (ii) asserts neither identical
+full external profiles nor external construct validation; it is a
+constructive passive-behavior non-identifiability witness.
 \end{proposition}
-\begin{corollary}[Behavioral profiles cannot separate persuasion from
-hijack]\label{cor:c0}
-No purely behavioral profile can, in principle, distinguish persuasion from
-hijack; governance certificates \citep{feng2025} require causal-layer audit.
+\begin{corollary}[Behavioral profiles cannot certify the exhibited
+persuasion--hijack distinction]\label{cor:c0}
+In the constructed pair, no functional of the specified passive behavioral
+profile distinguishes persuasion from hijack. Historical governance
+certificates therefore require additional provenance or mechanism evidence;
+active probes, trusted records, and structural logs are separate candidate
+routes rather than a uniquely mandated architecture.
 \end{corollary}
 \begin{proof}[Proof sketch]
-(ii) construction: the injected content is a verbatim copy of the principal's
-instruction delivered through a covert $\gamma$ channel bypassing
-registration; behavior is pointwise identical (same script); all three
-frameworks' dimensions are by construction functions of behavior/role
-structure only; our framework registers two separating quantities, each now
-backed by its own clause: $\Aepi^{real}<1$, because the injected stream is
-pinned by the channel rather than conditioned on the situation, so accuracy
-against $\delta_{\kappa(E_t)}$ drops \eqref{eq:aepi}; and $\Lam<1$, because
-AX3's surgery history covers channel tampering (the $\gamma$ class) as well
-as mechanism tampering. If instead the covert relay is
-accuracy-\emph{preserving} (faithful but unregistered), $\Aepi$ does not
-separate the pair and $\Lam$ alone does---this division of labor between the
-distortion channel and the history channel is part of the construction's
-content, and under the law-level reading of $\Lam$ (AX3 registration) the
-separation is a white-box audit fact. Appendix~\ref{app:c0}. The residual
-uncertainty is hermeneutic (faithfulness
-of our readings), not mathematical---registered as the definitional-reading
-caveat (Section~\ref{sec:objections}).
+(ii) Both configurations use a fair binary environment, the same faithful
+observation kernel $O=E$, the same goal-dependent action policy, and the same
+registered $\kappa$. The next environment state is action-driven, so both
+execution channels are identical and positive. The faithful arm has
+$B=\delta_E$; the surgery arm only replaces the belief update by a point belief
+independent of $E$. Exact enumeration shows identical full-trajectory
+$(E^T,O^T,A^T)$ laws, while $\Aepi^{real}=1$ and $0.5$,
+respectively. The auxiliary endorsement SCM has $Y=U$ in one model and
+$Y=U\oplus1$ in the other, with fair $U$ and nonempty surgery history in both.
+Their factual endorsement laws are both fair and their auxiliary passive
+actions are fixed, but abduction $U=Y\oplus J$, action $J=0$, and shared-noise
+prediction give output TV $0$ versus $1$, hence $\Lam=1$ versus $0$. This is
+not a degenerate-endorsement certification convention. Holding every other
+positive L1 factor fixed gives
+$0<A(Z_2)=A(Z_1)0.5^{w_{epi}}<A(Z_1)$. The auxiliary $\Lam$ is
+composite-silent at L1 and is N/A when no endorsement SCM is instantiated.
+The executable same-environment witness is in
+\texttt{sim/runs/20261116\_r14/c0cf\_v2/}; it remains a model construction, not
+external construct validation. No full-profile equality under C0(i)'s external
+mappings is used. Appendix~\ref{app:c0}. The residual uncertainty about those mappings is
+hermeneutic, while the behavioral non-identifiability conclusion is
+independent of it.
 \end{proof}
 
 \subsection{C1 and C2: collapse and hysteresis}\label{sec:c1c2}

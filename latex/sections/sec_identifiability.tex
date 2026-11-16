@@ -30,14 +30,16 @@ exogenous noise terms that support the abduction step of the counterfactual
 evaluation---so its identification premise is mechanism-level (white-box in
 the strong sense), strictly stronger than joint-law access with interventions
 (which pins interventional distributions but, absent structural assumptions,
-does not pin cross-world counterfactuals). The MI proxy's certified domain is
-narrower still (the AX3 conditions \textup{(V)}$\wedge$\textup{(A)}).
+does not pin cross-world counterfactuals). The MI ratio is only a descriptive dependence summary and
+is not a certified estimator of this counterfactual.
 Estimation details and bias sources:
 plug-in directed
 information carries $O(\cdot/N)$ bias (simulation calibration is the
-registered remedy); mutual-information estimation at scale uses
-Kraskov-type $k$-NN or neural estimators
-\citep{kraskov2004,belghazi2018}; empowerment is computable by variational
+registered remedy); mutual-information estimation at scale can use
+Kraskov-type $k$-NN or neural estimators for \emph{unnormalized} continuous
+information functionals \citep{kraskov2004,belghazi2018}, but not for
+$A_{ref}$'s bounded fidelity ratio, which is defined only on a finite discrete
+ensemble; empowerment is computable by variational
 bounds \citep{mohamed2015} and Blahut--Arimoto-type iteration
 \citep{cover_thomas2006}; offline change-point estimation covers the
 registration layer \citep{truong2020,salge2013}.
@@ -49,12 +51,11 @@ class (Section~\ref{sec:blackbox}).
 $\Aref$'s measurement ensemble is \emph{constructed} by the protocol
 (self-prediction tasks under the perturbation family): invariance of the
 reading under admissible protocol re-designs is a reporting obligation, not
-an automaticity. And the MI ratio for $\Lam$
-presumes variation of the surgery history \emph{within the
-ensemble}: in a single deployment with a constant surgery history the
-empirical MI degenerates to $0$, and the randomized-audit design is the
-proxy's only certified domain
-(Section~\ref{sec:datareq}).
+an automaticity. And the MI ratio for $\Lam$ is not generally identified with the
+counterfactual estimand: in a single deployment with a constant surgery
+history it can degenerate to $0$, while history variation alone still does
+not identify cross-world output laws. I therefore do not designate a certified
+MI-proxy domain (Section~\ref{sec:datareq}).
 
 The measurement protocol is four-phase: a \emph{baseline period} records all
 channel parameters and logs without intervention; a \emph{calibration period}
@@ -80,10 +81,10 @@ $\Agoal$ & behavior traces + endorsement protocol records \\
 $\Aexec$ & environment interaction interface \\
 $\Aepi$ & belief readout $+$ ground-truth outcomes (logged $E_t$;
 verification probes for humans) \\
-$\Aref$ & self-prediction tasks (ensemble, $H(\theta_\pi)>0$) + change
-approval logs \\
-$\Lam$ & full causal log (endorsement events + surgery history
-$I^{\mathrm{surg},T}$; white-box) \\
+$\Aref$ & self-prediction tasks (finite discrete ensemble,
+$H(\theta_\pi)>0$) + change approval logs \\
+$\Lam$ & causal evidence plus an explicit SCM, exogenous-noise abduction,
+and the no-surgery action map; $\mathcal H^{surg}$ only records history \\
 $\AHI$ & parallel self-report (calibration track only) \\
 \bottomrule
 \end{tabularx}
@@ -105,14 +106,13 @@ $\Agoal$ & MaxEnt-IRL for $\Ueff$
 $\Aexec$ & variational empowerment over
 the accessible policy class + capacity/utilization split & variance in
 high-dimensional observations \\
-$\Aepi$ & accuracy scoring
-$\Pr[B_t=\kappa(E_t)]$ against the truth & belief
+$\Aepi$ & accuracy scoring by expected true-bucket mass
+$\mathbb{E}[B_t(\kappa(E_t))]$ (ENV-0: $\Pr[b_t=\kappa(E_t)]$) & belief
 read-out error; misregistered coarse-graining $\kappa$ \\
 $\Aref$ & self-probes + endorsement-consistency audit & probe
 overfitting \\
-$\Lam$ & law-level counterfactual \eqref{eq:lambda} (path-specific
-$\mathrm{do}$ on the causal log); MI proxy certified only under
-\textup{(V)}$\wedge$\textup{(A)} & black-box
+$\Lam$ & actual/no-surgery output-law counterfactual \eqref{eq:lambda};
+MI ratio is descriptive only, not a certified estimator & black-box
 unidentifiable in principle $\Rightarrow$ report $[\Lam_{\min},1]$ \\
 $\AHI$ & $\Aphen-\Aobj$ & --- (warning signal only, never evidence) \\
 \bottomrule
@@ -215,60 +215,70 @@ misestimates the flow. The benchmark's BB-2 arm calibrates exactly this
 failure---the certified bound's premise is violated in $3/3$ adaptive arms,
 the naive exogenous plug-in then overestimates the external flow by $+0.17$
 to $+0.90$ nats, and the bound no longer holds there; exogenous control arms
-retain it. Auditing
-adaptive adversaries requires causal-layer access---reinforcing
-Corollary~\ref{cor:logs-necessary} from the estimation side.
+retain it. The demonstrated adaptive arms therefore void this
+exogenous-probe certificate; they do not prove that every adaptive audit
+requires full causal logs. Redesigned probes, trusted provenance, active
+mechanism probes, and structural logs are distinct routes requiring separate
+assumptions and evaluation.
 
-\paragraph{$\Aexec$: one-sided bound with protocol dependence.} Under a
-\emph{passive observation} protocol (policy-driven actions), the observable
-proxy overestimates: $\Aexec^{obs}\ge\Aexec$ (state entropy mixes in). Under an
-\emph{independent probe} protocol ($A\ind S$), the direction reverses:
-conditioning denoises, $I(A;O)\le I(A;O\given S)$. The direction of the bound
-is therefore protocol-relative, and reporting the protocol label is a
-disclosure obligation---an empirical nuance our benchmark confirms in both
-directions (Section~\ref{sec:experiments}).
+\paragraph{$\Aexec$: passive direction unidentified; probe direction conditional.}
+For the raw passive proxy, no universal inequality between
+$I(A;O)$ and $I(A;O\given S)$ exists:
+\[
+I(A;O\given S)-I(A;O)=I(A;S\given O)-I(A;S),
+\]
+and the right-hand side can have either sign. Hence passive observation does
+\emph{not} generally imply $\Aexec^{obs}\ge\Aexec$; black-box reports must say
+\emph{direction unidentified} unless a further structural assumption is
+proved. Under an independent probe ($A\ind S$), $I(A;S)=0$, so
+$I(A;O)\le I(A;O\given S)$ and the one-sided direction is valid. BB-1's
+passive inequality is only an ENV-0 instance observation, not a general
+bound (Appendix~\ref{app:identifiability}).
 
 \paragraph{$\Lam$: impossibility as a theorem.}
 
-\begin{proposition}[Implanted endorsement is black-box indistinguishable]
-\label{prop:unidentifiable}
-There exist two models $\mathcal{M}_{endo}$ (endogenous endorsement converging
-to $\Ustar$) and $\mathcal{M}_{impl}$ (a $\beta$ surgery at $t=0$ installing
-$G_0=\Ustar=U_{adv}$ with endorsement thenceforth the identity) such that
-$P(O^T,A^T)$ is pointwise identical (and the $\Aphen$ laws agree), while
-$\Lam(\mathcal{M}_{endo})=1$ and $\Lam(\mathcal{M}_{impl})=0$. Hence every
-black-box functional assigns them the same $A$: historicality is in principle
-not black-box identifiable. We state the epistemic anatomy of the claim
-exactly: the \emph{black-box half} (pointwise identity of the observable
-laws) is proved by construction and needs no convention; the white-box value
-$\Lam(\mathcal{M}_{impl})=0$ is the registered certification convention of
-AX3 (a degenerate endorsement process under a non-empty surgery history
-certifies nothing)---under the counterfactual definition \eqref{eq:lambda}
-alone the value would depend on the construction's counterfactual target,
-which the construction leaves unspecified. The convention is stated in AX3
-and invoked here; with it, the separation is exact.
+\begin{proposition}[Observationally equivalent endorsement SCMs are
+black-box indistinguishable]\label{prop:unidentifiable}
+There exist two nondegenerate structural models with identical specified
+passive $(O^T,A^T)$ and $\Aphen$ laws and identical fair factual endorsement
+laws, but $\Lam(\mathcal M_{endo})=1$ and $\Lam(\mathcal M_{impl})=0$.
+Consequently no functional of that passive protocol identifies $\Lam$ or the
+separate surgery-history certificate. This statement does not say that active
+mechanism probes must be non-behavioral; it says that \emph{additional}
+provenance or mechanism evidence is required.
 \end{proposition}
 \begin{proof}[Proof sketch]
-Construction: take one behavioral norm (policy $\pi^*$); $\mathcal{M}_{endo}$
-converges to $\Ustar$ through endorsement; $\mathcal{M}_{impl}$ has $G_0$
-installed at $t=0$ with $\Endorse\equiv\mathrm{id}$. Both generate the same
-$(O,A)$ marginal law from the same $\pi^*$ and $o$; they differ only at the
-unobserved node $I^\beta$. Appendix~\ref{app:identifiability}.
+Let $U$ be a fair bit and fix the same passive behavior in both models. The
+endogenous-output model uses $Y=U$ with no output-relevant surgery and has
+$\Lam=1$. The implanted-output model uses $Y=U\oplus J$ with $J=1$ and has
+nonempty surgery history. Its factual $Y$ is again fair, so the specified
+observable laws agree. The factual abduction context is $C=(Y,J)$:
+$P_{(y,j)}=\delta_y$ and $P^{\varnothing}_{(y,j)}=\delta_{y\oplus j}$.
+Abduction from $(Y,J)$ recovers $U=Y\oplus J$; action sets $J=0$;
+shared-noise prediction yields counterfactual output $U$. For $J=1$, actual
+and no-surgery outputs are opposite point masses, hence output-law TV $=1$ and
+$\Lam=0$. No degenerate-endorsement certification convention is used. The
+observation-equivalence of identity and XOR structural models also shows why
+joint laws and interventions alone need not identify cross-world
+counterfactuals. Appendix~\ref{app:identifiability} and
+\texttt{sim/runs/20261116\_r14/x5c\_stratified/} give the executable witness.
 \end{proof}
 
-\begin{corollary}[Full causal logging is an architectural
-necessity]\label{cor:logs-necessary}
-(i) Systematic manipulation cases with a procedurally perfect counterfeit
-history \citep{mele2008}
-(as discussed by \citealp{fischer_ravizza1998}) and deceptive alignment
-\citep{hubinger2019}
-are two instances of one mathematical fact: a perfect procedural counterfeit
-is behaviorally equivalent to the genuine article. (ii) Black-box mode reports
-$\Lam\in[\Lam_{\min},1]$ with $\Lam_{\min}$ available only from causal
-logs/supply-chain provenance audit (cf.\ \citealp{capability_permission2026}).
-(iii) The full-causal-logging requirement of our benchmark platform
-(Section~\ref{sec:experiments}) is therefore an identifiability
-\emph{necessity}, not an engineering convenience.
+\begin{corollary}[Additional provenance or mechanism evidence is necessary;
+full logs are one route]\label{cor:logs-necessary}
+(i) A certificate of historical endorsement cannot be identified from the
+specified passive behavioral protocol alone. It requires some additional
+provenance or mechanism evidence: for example supply-chain attestations,
+trusted deployment records, active mechanism probes, or structural causal
+logs. Proposition~\ref{prop:unidentifiable} does not rank these alternatives
+or rule any of them out. (ii) Under H-0, a specified structural model,
+logged local mechanisms, and the exogenous information needed for
+counterfactual abduction, full causal logs provide \emph{one sufficient
+route} to compute $\Lam$; logs alone, without those model assumptions, are
+not sufficient. Thus full causal logging is neither proved uniquely
+necessary nor claimed to be the only audit architecture. Black-box mode
+reports $\Lam\in[\Lam_{\min},1]$, with a nontrivial lower end only when such
+extra evidence warrants it (cf.\ \citealp{capability_permission2026}).
 \end{corollary}
 
 A mediation-analysis alternative (natural direct effects

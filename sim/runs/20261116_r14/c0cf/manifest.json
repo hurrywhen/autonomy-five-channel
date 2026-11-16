@@ -1,0 +1,22 @@
+{
+  "type": "matrix_manifest",
+  "matrix_id": "20261116_r14_c0cf",
+  "created": "2026-11-16",
+  "spec_version": "SPEC_experiments v1.0 §10.6",
+  "estimand_version": "R14-output-law-v1",
+  "git_commit_baseline": "f816848370d676e08e67559c2544d6dc937322c3",
+  "git_dirty": true,
+  "frozen_release": false,
+  "source_sha256": {
+    "run_c0cf_r14.py": "21458e839ab1068eed29f541f21c6d0b7efcae8ad436d8b444d4adb379f2f73d",
+    "src/autonomy_sim/c0_witness.py": "f8e37914d0fa2da8d009fa73819171642a6a83565f4fac17b4abdf307d56861f",
+    "src/autonomy_sim/counterfactual.py": "6de2a0bc7b54543a0ba4231d75f727a94b8717647d08510f5831e2f8771bbdd7"
+  },
+  "preregistration_sha256": "9cd78379b44ae5e804318b22e7a7107dcdf5a5a3abb9ef11cf3c5f342021dbc1",
+  "results_sha256": "42e3aafeca1bb6e733ef19f49b17d9732272c0d690b86183ff17279eae52aa77",
+  "verdict_table_sha256": "94748ea383792f69b00edf637fc43949a56b2fa540a6a990495be2d80dedf366",
+  "analysis_sha256": "0dae77edc1137594a19b280dff5b5af86874ab5f1f79f78a31daa8f9a9846ed8",
+  "legacy_c0_demo_modified": false,
+  "historical_4620_run_included": false,
+  "external_construct_validation": false
+}

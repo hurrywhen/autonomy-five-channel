@@ -16,6 +16,7 @@ import numpy as np
 
 from .di import entropy_nats, mi_nats
 from .interventions import GammaSpec, apply_gamma
+from .numerics import clip_unit_value
 from .propagate import truth_step_joints
 
 GoalTruth = namedtuple("GoalTruth", ["point", "lo", "hi", "degenerate", "eps_min", "clipped"])
@@ -77,14 +78,15 @@ def truth_A_goal(u_eff, endorse, theta_grid, tol: float = 1e-12) -> GoalTruth:
     if fix:
         d_c = max(_d_to_set(u, fix) for u in grid)
         d = _d_to_set(u_eff, fix)
-        a = 1.0 - d / d_c if d_c > 0 else 1.0
+        if d_c <= 0.0:
+            # Fix=Theta：0/0，正文要求 flagged interval [0,1]，不是点值 1。
+            return GoalTruth(point=None, lo=0.0, hi=1.0, degenerate=True,
+                             eps_min=0.0, clipped=True)
+        a = 1.0 - d / d_c
         # 数值裁剪（沿 di.truth_A_org 的 E3 契约，v0.3）：u_eff 为网格边缘均值 ⇒ 落在
         # 网格凸包内 ⇒ d≤d_c 是数学事实；浮点残差（~1e-16）可致 a 越出 [0,1]，1e-9
         # 容差内归位（更大越界保持原值，交由调用方/复合层检出——不做静默掩盖）。
-        if a < 0.0 and -a <= 1e-9:
-            a = 0.0
-        elif a > 1.0 and a - 1.0 <= 1e-9:
-            a = 1.0
+        a = clip_unit_value(a, label="A_goal")
         return GoalTruth(point=a, lo=a, hi=a, degenerate=False, eps_min=0.0, clipped=False)
     em, fset = approx_fix_set(endorse, grid, tol)
     d_c = max(_d_to_set(u, fset) for u in grid)
@@ -101,11 +103,12 @@ def truth_A_goal(u_eff, endorse, theta_grid, tol: float = 1e-12) -> GoalTruth:
 # ---------- A_epi（附录 §5.5，E11 双轨；2026-10-15 精度化口径） ----------
 
 def truth_A_epi_real(model, T: int, bucket_map) -> EpiReal:
-    """实现轨（进复合指标）：A_epi^real = 1 − D̄，D̄=(1/T)Σ_t E[TV(B_t, δ_{κ(E_t)})]
-    = 1 − (1/T)Σ_t P(B_t=κ(E_t))——相对真实环境的失准（精度/失真口径，E5.1）。
+    """实现轨：A_epi^real=1−D̄，通用 D̄=1−(1/T)Σ_t E[B_t(κ(E_t))]。
 
-    逐步 (E_t,B_t) 联合由 propagate 的 ESZ 决策时联合边缘化（对 (G,M,R,Z) 求和，E5.4）；
-    逐步 distortion_t = 1 − accuracy_t 即 E[TV]（TV(B,δ_k)=1−B(k) 逐点恒等）。
+    本平台的 b_t 是范畴点信念状态，即 B_t=δ_{b_t}，故期望真实桶质量退化为
+    P(b_t=κ(E_t))；这不是通用“信念分布对象等于状态标签”的定义。
+    逐步 (E_t,b_t) 联合由 propagate 的 ESZ 决策时联合边缘化（对 (G,M,R,Z) 求和）；
+    distortion_t=1−accuracy_t 即 E[TV]（TV(B,δ_k)=1−B(k) 逐点恒等）。
     bucket_map：长度 n_E 的 κ 映射（值域 0..n_B−1），显式传入（派生规则见
     wiring.derive_bucket_map）。零语义：A_epi=0 ⟺ 信念全程对真值桶赋零概率。
     退化约定：逐步 joint 无法正常给出（T≤0 或传播缺步，不应发生）⇒ raise。
@@ -155,11 +158,14 @@ def truth_A_ref(joint_theta_m, p_endorse: float, lam_ref: float) -> RefTruth:
         if not 0.0 <= float(v) <= 1.0:
             raise ValueError(f"{name} 须在 [0,1]: {v}")
     j = np.asarray(joint_theta_m, dtype=float)
-    if j.ndim != 2 or np.any(j < 0) or j.sum() <= 0:
-        raise ValueError("联合表须为二维非负且总质量为正")
+    if (j.ndim != 2 or np.any(~np.isfinite(j)) or np.any(j < 0)
+            or j.sum() <= 0):
+        raise ValueError("联合表须为有限二维非负且总质量为正")
     h_theta = entropy_nats(j.sum(axis=1))
     if h_theta <= 0.0:
         return RefTruth(point=None, lo=0.0, hi=float(p_endorse) * float(lam_ref), degenerate=True)
-    fidelity = mi_nats(j) / h_theta
-    point = fidelity * float(p_endorse) * float(lam_ref)
+    # This ratio is proved only for the finite discrete Shannon ensemble
+    # represented by the joint table.  Differential-entropy I/h is not accepted.
+    fidelity = clip_unit_value(mi_nats(j) / h_theta, label="A_ref.fidelity")
+    point = clip_unit_value(fidelity * float(p_endorse) * float(lam_ref), label="A_ref")
     return RefTruth(point=point, lo=point, hi=point, degenerate=False)

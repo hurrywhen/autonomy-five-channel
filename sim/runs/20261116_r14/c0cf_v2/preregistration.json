@@ -1,0 +1,17 @@
+{
+  "type": "r14_c0cf_preregistration",
+  "date": "2026-11-17",
+  "spec": "SPEC_experiments v1.0 §10.7",
+  "spec_sha256": "17add289787eda383806620239e2c26eb0095650ebc23cd6cc1aa4fece8b638b",
+  "post_hoc_correction_after_math_review": true,
+  "reason": "initial c0cf violated AX0, zero empowerment, degenerate goal space, and per-time-only law check",
+  "scope": "nondegenerate same-environment full-trajectory constructive check; not legacy C0-DEMO and not external validation",
+  "criteria": [
+    "identical full (E,O,A) law",
+    "Aepi=1 vs 0.5",
+    "positive composite separation",
+    "observation-equivalent XOR Lambda=1 vs 0"
+  ],
+  "T": 3,
+  "w_epi": 0.2
+}

@@ -1,0 +1,31 @@
+{
+  "T": 3,
+  "w_epi": 0.2,
+  "behavior_equal_per_time_EOA": true,
+  "behavior_equal_full_trajectory_EOA": true,
+  "n_trajectories": 16,
+  "a_via": 1.0,
+  "a_org_z1": 1.0,
+  "a_org_z2": 1.0,
+  "a_goal": 0.4999999999999999,
+  "u_eff": 0.5000000000000001,
+  "a_exec_z1": 1.0,
+  "a_exec_z2": 0.9999999999999999,
+  "a_epi_z1": 1.0,
+  "a_epi_z2": 0.5,
+  "composite_z1": 0.8312378961427878,
+  "composite_z2": 0.723634618720189,
+  "xor_identity_lambda": 1.0,
+  "xor_implanted_lambda": 0.0,
+  "factual_p_y1_identity": 0.5,
+  "factual_p_y1_xor": 0.5,
+  "criteria": {
+    "C1_same_environment_per_time_and_full_trajectory_law": true,
+    "C2_nondegenerate_baseline_and_epistemic_values": true,
+    "C3_positive_composite_separation": true,
+    "C4_observationally_equivalent_xor_lambda": true
+  },
+  "overall_verdict": "CONFIRMED",
+  "evidence_type": "nondegenerate same-environment constructive implementation check; no external validation",
+  "lambda_layer": "L1 composite plus auxiliary nondegenerate endorsement SCM; composite-silent at L1"
+}

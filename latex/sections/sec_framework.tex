@@ -10,24 +10,29 @@ and a horizon $T$ is the degree to which its behavior is determined by its own
 normative structure $(G,B,M)$---goals, beliefs, self-model---in the following
 five respects:
 \begin{enumerate}
-\item \emph{origination}: the causal source of behavior is traceable to
-internal states rather than external bypass;
-\item \emph{informedness}: external influences are registered by the
-self-model;
+\item \emph{direct-bypass origination}: behavior is not driven by an external
+channel that bypasses the registered decision state (a narrower instrument than
+general behavioral or historical origination);
+\item \emph{informedness}: two distinct desiderata are registered---accuracy
+about the actual environment and identification/registration of influence
+sources and intervention mechanisms. They are not interchangeable;
 \item \emph{endorsability}: changes to the motivational structure undergo (or
-could undergo) second-order reflective confirmation that is not itself the
-product of $\beta$-class intervention (the historical clause);
+could undergo) second-order reflective confirmation. Historical tampering
+records and actual/no-surgery endorsement output deviation are separate audit
+objects, not a single estimand;
 \item \emph{executability}: intentions can predictably affect the situation,
 and exit options exist;
 \item \emph{viability}: the resource reproduction sustaining all of the above
 channels is not interrupted.
 \end{enumerate}
 The definition is relational, graded, multidimensional, and
-substrate-neutral. Its status is \emph{operational}: it is the audit schema
-this paper works with, not a claim that the five respects are the uniquely
-correct conceptual analysis of autonomy (the construct-validity question is
-treated in Section~\ref{sec:construct}, and its external half is left open
-deliberately). One commitment is stated at the outset: what is measured
+substrate-neutral. Its status is \emph{operational}: it is a layered procedural
+audit schema, not a claim that the five respects are the uniquely correct
+conceptual analysis of autonomy. In particular, $A_{org}$ is only a direct
+bypass share and $A_{epi}$ is only environment accuracy; a high scalar reading
+is not a complete history-sensitive or source-legitimacy certificate (the
+construct-validity question is treated in Section~\ref{sec:construct}, and its
+external half is left open deliberately). One commitment is stated at the outset: what is measured
 is an \emph{autonomy profile relative to an explicit instantiation}---the
 endorsement map, the self-boundary, the measurement protocol, and the horizon
 are inputs to the model $\Gcal$, and different instantiations of behaviorally
@@ -50,19 +55,20 @@ implicit:
 Respect (Definition~\ref{def:autonomy}) & Instrument(s) & What is certified
 & Residual gap (registered) \\
 \midrule
-origination & $\Aorg$ (directed-information share of internal states in
-behavior) & bypass resistance & blind to mediated manipulation by design;
-that influence is charged to $\Aepi$ (T2) \\
-informedness & $\Aepi$ (accuracy against the actual situation) $+$ the
-registration semantics of $\Aref$ & truth-anchored accuracy; registration of
-influences & scored on a protocol-chosen coarse-graining $\kappa$
-(sensitivity-reporting obligation) \\
-endorsability & $\Agoal$ (structural alignment of $\Ueff$ with the endorsed
-set) $+$ $\Lam$ (historical legitimacy, entering the composite through the
-$\Lam_{ref}$ factor of $\Aref$) & fixed-point alignment; tamper-free
-provenance & $\Lam$ moves the composite only where an $\Aref$ channel exists
-(L2); at L0/L1 the historical clause is computable and reported but
-composite-silent (Section~\ref{sec:axioms}) \\
+direct-bypass origination & $\Aorg$ (directed-information share of internal
+states in behavior) & direct/unmediated-bypass resistance & blind to mediated
+manipulation, source legitimacy, and history; strict loss requires an increased
+$\Fext/\Fint$ ratio relative to baseline \\
+informedness & $\Aepi$ (accuracy against the actual situation), plus separate
+source/mechanism audit records & truth-anchored accuracy only & accuracy does
+not identify provenance or intervention metacognition; coarse-graining $\kappa$
+and non-manipulative noise can also reduce accuracy \\
+endorsability & $\Agoal$ (fixed-point alignment), $\Lam$ (actual/no-surgery
+endorsement output deviation), and $\mathcal H^{surg}$ (history flag) &
+structural alignment, output-law deviation, and provenance separately &
+$\Lam$ enters the composite only at L2; at L0/L1 it requires an auxiliary SCM
+and is otherwise N/A; $\mathcal H^{surg}$ never substitutes for it
+(Section~\ref{sec:axioms}) \\
 executability & $\Aexec$ (repertoire-restricted empowerment) & predictable
 leverage with exit options & continuous-action normalization carries a
 reference-measure freedom \\
@@ -75,10 +81,10 @@ viability loss with zero autonomy (a registered philosophical choice) \\
 
 \noindent Two features of the table are load-bearing and we state them
 plainly. First, the mapping is not one-to-one: viability is served by a gate
-outside the five channels; informedness is served jointly by two instruments;
-and the reflection channel anchors to endorsability (its endorsement
-consistency) and to informedness turned inward (its fidelity factor), having
-no separate respect of its own. Second, this mapping is the framework's
+outside the five channels; informedness requires environment accuracy plus
+separate source/mechanism evidence rather than one score; and the reflection
+channel anchors to endorsability and inward self-model fidelity, having no
+separate respect of its own. Second, this mapping is the framework's
 operative \emph{design choice}, not a derived unique decomposition of the
 operational definition: the channels are instrumented sufficient indicators of
 the five respects. What \emph{is} proved is coverage at the instrument level:
@@ -113,9 +119,13 @@ applicable component set (equal weights on five channels become equal weights
 on three at L0---an explicit, declared discontinuity); composite values are
 therefore comparable \emph{within} a layer at a fixed instantiation, and
 cross-layer comparisons are reported as channel profiles, not as scalar
-$A$-rankings (cf.\ \S\ref{sec:objections}(viii)). The applicable component set
-determines both the measurement protocol and the disjunctive content of
-Theorem~T5.
+$A$-rankings (cf.\ \S\ref{sec:objections}(viii)). The applicable component set determines both the measurement protocol and the
+disjunctive content of Theorem~T5. L0 has no goal channel for a $\beta_G$
+implant. L0/L1 do not automatically possess an endorsement SCM: when an
+auxiliary one is added, $\Lam$ is reportable but composite-silent; otherwise
+it is N/A. Thus high L0/L1 scalar readings are explicitly weaker than a full
+history-sensitive autonomy certificate and must be accompanied by any available
+surgery-history and source-registration evidence.
 
 \subsection{System model}\label{sec:model}
 
@@ -142,7 +152,8 @@ fail; an exactly equivalent alternative keeps $A_t\sim\pi(\cdot\given S_t,O_t)$
 and conditions directed information on the decision-time state
 $\tilde S_t:=(S_t,O_t)$. All our results transfer verbatim. Second, the
 intervention classes act at distinct loci of \eqref{eq:factorization}, which is
-what makes the taxonomy exhaustive (Proposition~\ref{thm:taxonomy-completeness}).
+what gives the taxonomy its interface-relative primitive coverage
+(Proposition~\ref{thm:taxonomy-completeness}).
 
 \begin{assumption}[H-0, causal sufficiency]\label{ass:h0}
 Over the time scales under discussion, all variables with non-trivial influence
@@ -169,9 +180,10 @@ generalizing the do-operator \citep{peters2017}. Five classes:
 \toprule
 Class & Name & Locus of action & Autonomy effect \\
 \midrule
-$\sigma$ & scaffolding & improves $\varepsilon,r,v$, channel fidelity; lowers
-$\theta,\tau$; never touches $G,\pi,o,\Acal,\Endorse$ & raises retention floor
-($\deltastar$, $\Amin$; T6) \\
+$\sigma$ & scaffolding & modifies registered defense parameters (e.g.\
+$\varepsilon,r,v,\theta,\tau$) or channel fidelity without surgery on
+$G,\pi,o,\Acal,\Endorse$ & parameter-specific effects on $\deltastar$,
+$\Amin$, or $\Avia$; no uniform joint increase (T6/T8) \\
 $\sigma^{-}$ & capability/resource erosion & drains $s_k$ below critical, or
 drives $(\kappa^{\mathrm{eff}},R^{\mathrm{eff}})$ below the registered
 envelope requirements of \eqref{eq:avia} & reduces $\Avia$ (gate,
@@ -220,11 +232,16 @@ normative content of ``honesty'' lives, and we flag it as such
 (Section~\ref{sec:objections}); the classification itself uses no semantic
 predicate.
 
-\begin{proposition}[Completeness of the taxonomy]\label{thm:taxonomy-completeness}
+\begin{proposition}[Primitive coverage of the taxonomy]
+\label{thm:taxonomy-completeness}
 Any single-point surgery on the agent--environment interface of $\Gcal$---
 modifying the local conditional law of one node of \eqref{eq:factorization},
-or adding/deleting an edge rooted at a new exogenous node---acts through
-exactly one of $\alpha,\beta,\gamma,\delta,\sigma^{\pm}$.
+or adding/deleting an edge rooted at a new exogenous node---can be assigned
+to one or more of the five intervention primitives above, or to the
+registered environment-reinstantiation boundary. A surgery that
+simultaneously changes action coupling and resource coupling is a composite
+$\delta+\sigma^{\pm}$ case. Coverage does not imply disjointness or a unique
+class label.
 \end{proposition}
 \begin{proof}[Proof]
 Exhaust the loci of \eqref{eq:factorization}. (i) \emph{Exogenous arrivals}: a
@@ -246,8 +263,11 @@ leverage on the environment---it is not informational ($o$ unchanged), not a
 mechanism replacement ($\pi$, $S$-updates unchanged), not a resource change
 ($Z$-law unchanged), and not scaffolding---and is classified $\delta$, the
 action-leverage locus; this is exactly the surgery that $\Aexec$'s
-channel-based measure registers. (v) \emph{The resource laws}: $Z$ dynamics
-and the capacity parameters are $\sigma^{\pm}$. (vi) \emph{The environment's
+channel-based measure registers. If one kernel modification changes both the
+$A_t$- and $Z_t$-dependence, the assignment is the composite
+$\delta+\sigma^{\pm}$, not an artificial unique class. (v) \emph{The resource
+laws}: $Z$ dynamics and the capacity parameters are $\sigma^{\pm}$.
+(vi) \emph{The environment's
 autonomous dynamics}: changing the $E$-inheritance part of $T$ (how $E$
 evolves given $E$, at fixed action and resource dependence) changes the
 reference environment itself, not an influence on the agent; since autonomy
@@ -259,8 +279,9 @@ individuation. The loci (i)--(vi) exhaust the nodes and admissible edge
 additions of \eqref{eq:factorization}. A full locus-by-locus enumeration is
 given in Appendix~\ref{app:taxonomy}.
 \end{proof}
-The completeness is relative to this interface: it enumerates single-point
-surgeries on the fixed graph \eqref{eq:factorization}. Changes of horizon
+The coverage is relative to this interface: it enumerates single-point
+surgeries on the fixed graph \eqref{eq:factorization}, with composite labels
+where a local change activates several primitives. Changes of horizon
 $T$, re-individuation of the agent boundary, multi-node composite campaigns,
 and interventions delivered through the measurement protocol itself are
 outside the enumerated class---they compose the five classes rather than

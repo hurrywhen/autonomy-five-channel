@@ -12,6 +12,8 @@ import math
 
 import numpy as np
 
+from .numerics import clip_unit_value
+
 
 def _check_channel(W) -> np.ndarray:
     W = np.asarray(W, dtype=float)
@@ -212,7 +214,8 @@ def a_exec(emp_nats: float, n: int, n_A: int) -> float:
     """A_exec = ℰ^Π/(n·log|𝒜|)（附录 §5.4 规范化；同底对数，AX6a）。"""
     if n < 1 or n_A < 2:
         raise ValueError(f"n≥1 且 |𝒜|≥2: n={n}, |𝒜|={n_A}")
-    return float(emp_nats) / (n * math.log(n_A))
+    raw = float(emp_nats) / (n * math.log(n_A))
+    return clip_unit_value(raw, label="A_exec")
 
 
 def step_channels_from_esz(model, esz):

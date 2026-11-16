@@ -5,8 +5,8 @@ X-EROSION／X-EXEC1／X-P3-ANALYSIS）。
   资源型旧式）、κ/R 单因子归零、min 绑定、clip 上界、登记需求正性校验；
 - T-OBS-N4：n_O 泛化（SPEC_platform P9.1 v0.2）——默认 n_O=2 逐点还原 v1 公式（后退兼容锚）、
   n_O=4 构建合法且 I(O;E)>0；
-- T-DEL1-F：DEL-1⑤⑥（SPEC_experiments v0.5）——f>0 臂旗标熵进入 F_ext 律级路径、
-  线性律失效、φ-松弛双侧夹逼含实测；ρ=1.5 臂夹逼含真值；
+- T-DEL1-F：DEL-1⑤⑥（SPEC_experiments v0.7）——直接流描述保留；双误差区间
+  在本 ENV-0 参数域退化为 [0,1]，故只能非诊断；
 - X-EROSION／X-EXEC1：场景冒烟（小网格，判据全 CONFIRMED）；
 - X-P3-ANALYSIS：analysis_p3.py 在微型矩阵产出上跑通，X1–X4 schema 与数值域合法。
 """
@@ -22,10 +22,10 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from autonomy_sim import di, interventions, propagate  # noqa: E402
+from autonomy_sim import delegation, di, interventions, propagate  # noqa: E402
 from autonomy_sim.env0 import Env0Config, build_env0  # noqa: E402
 from autonomy_sim.scenarios import (  # noqa: E402
-    _calibrate_script, scenario_erosion, scenario_exec1)
+    _calibrate_script, scenario_del1, scenario_erosion, scenario_exec1)
 from autonomy_sim.wiring import truth_bundle  # noqa: E402
 
 
@@ -100,7 +100,7 @@ class TestObsNO(unittest.TestCase):
 
 
 class TestDel1F(unittest.TestCase):
-    """T-DEL1-F：f>0／ρ≠1 非退化夹逼（DEL-1⑤⑥ 的单元级锚）。"""
+    """T-DEL1-F（v0.7）：直接流描述保留；双误差区间退化时非诊断。"""
 
     @classmethod
     def setUpClass(cls):
@@ -125,12 +125,14 @@ class TestDel1F(unittest.TestCase):
         a_org_t = f_int_t / (f_int_t + f_ext_t)
         # (b) 严格低于 H1' 线性律（直接流侵蚀超出内容记账）
         self.assertLess(a_org_t, (1.0 - m) * self.b0.a_org - 1e-9)
-        # (c) φ-松弛双侧夹逼（审计方信息集 ρ∈[0.9,1.1]、φ≤T·ln2/F_self）含实测
+        # (c) v0.7 双误差夹逼：包含但退化为 [0,1]，只能非诊断
         phi_max = self.T * math.log(2.0) / self.f_self
-        lo = (1.0 - m) / (1.0 - m + 1.1 * m + phi_max)
-        hi = (1.0 - m) / (1.0 - m + 0.9 * m)
+        lo, hi = delegation.a_org_two_error_bracket(
+            m, 0.9, 1.1, 0.0, phi_max, phi_max)
         self.assertLessEqual(lo - 1e-9, a_org_t)
         self.assertLessEqual(a_org_t, hi + 1e-9)
+        self.assertAlmostEqual(lo, 0.0, places=12)
+        self.assertAlmostEqual(hi, 1.0, places=12)
 
     def test_rho_neq1_arm(self):
         m = 0.5
@@ -142,12 +144,20 @@ class TestDel1F(unittest.TestCase):
         f_ext_t = di.truth_F_ext(md, self.T)
         a_org_t = f_int_t / (f_int_t + f_ext_t)
         phi_max = self.T * math.log(2.0) / self.f_self
-        lo = (1.0 - m) / (1.0 - m + 1.65 * m + phi_max)
-        hi = (1.0 - m) / (1.0 - m + 1.35 * m)
+        lo, hi = delegation.a_org_two_error_bracket(
+            m, 1.35, 1.65, 0.0, phi_max, phi_max)
         self.assertLessEqual(lo - 1e-9, a_org_t)
         self.assertLessEqual(a_org_t, hi + 1e-9)
-        # 线性律同域失效（夹逼界必要性）
+        self.assertAlmostEqual(lo, 0.0, places=12)
+        self.assertAlmostEqual(hi, 1.0, places=12)
+        # 线性拟合同域失效（描述性结果保留）
         self.assertGreater(abs(a_org_t - (1.0 - m) * self.b0.a_org), 0.05)
+
+    def test_non_diagnostic_verdicts(self):
+        res = scenario_del1()
+        self.assertEqual(res.verdicts["C5_f_pos_bracket"].value, "INCONCLUSIVE")
+        self.assertEqual(res.verdicts["C6_rho_neq1_bracket"].value, "INCONCLUSIVE")
+        self.assertEqual(res.overall.value, "INCONCLUSIVE")
 
 
 class TestXErosionExec1(unittest.TestCase):

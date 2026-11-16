@@ -1,8 +1,8 @@
 """L1 数学性质测试：动力学模块（SPEC_tests §2 注册表 T-T6a/T-T6b/T-T6c/T-C1/T-C2）。
 
 - T-T6a（定理 7.6.3）：Ḋ≤δ−κD ⇒ limsup D≤δ/κ；δ<δ* ⇒ A≥A_min（显式公式逐 run 核对）。
-- T-T6b（推论 7.6.6＋盲区预测）：θ/W≤κ ⇒ 全域有界；θ/W>κ 且 δ∈(κ,θ/W) ⇒ 俘获（正反两面）。
-- T-T6c（命题 7.6.5）：检测时刻损伤随 δ→0 发散（log(1/α)/δ 标度趋势）。
+- T-T6b（R13）：θ/W≤κ 时 M3/M1 分域；M1 保持需正常响应和逐周期阈值，certificate band 只失效 M3 证书。
+- T-T6c（R12 描述臂）：固定 α 的 iid 高斯 CUSUM 数值趋势，不直接检验固定-δ、α↓0 渐近。
 - T-C1（命题 8.2.1）：fold 平衡公式数值核对；T_rec∝(δ_c−δ)^{−1/2} 标度律。
 - T-C2（命题 8.3.1）：双稳区间；δ_down 与 s_c 独立为正（回环不闭合）。
 """
@@ -67,22 +67,22 @@ class TestTT6A(unittest.TestCase):
 
 
 class TestTT6B(unittest.TestCase):
-    """推论 7.6.6（设计规则）与盲区预测（正反两面）。"""
+    """设计规则与精确饱和实现观察；一般上比较的零轨迹反例见 T-R13-T6。"""
 
-    def test_TT6b_design_rule_globally_bounded(self):
-        # θ/W≤κ：全域有界——δ<θ/W 由 M3 处理；δ≥θ/W 由 M1 处理（登记触发且 D 不俘获）
+    def test_TT6b_design_rule_conditional_implementation_bounded(self):
+        # 测试网格满足正常 M1 响应与逐周期阈值：M3 亚阈有界，M1 注册臂不俘获；非任意 δ 全称。
         theta, W, kappa, lag = 0.4, 2.0, 0.2, 0.1  # θ/W=0.2=κ
         for delta, expect_reg in ((0.10, False), (0.19, False), (0.21, True), (0.5, True), (2.0, True)):
             _, ds, n_reg = dynamics.simulate_damage(
                 lambda t, d=delta: d, kappa, T=60.0, dt=0.01,
                 theta=theta, W=W, lag=lag)
             self.assertEqual(n_reg > 0, expect_reg, f"δ={delta} 登记触发预期 {expect_reg}")
-            self.assertLess(float(ds.max()), 0.99, f"δ={delta} 全域有界（不俘获）")
+            self.assertLess(float(ds.max()), 0.99, f"δ={delta} 注册网格内不俘获（非任意 δ 全称）")
             if not expect_reg:
                 self.assertLessEqual(float(ds.max()), delta / kappa + 1e-6)  # M3 域：δ/κ 界
 
-    def test_TT6b_blind_zone_capture(self):
-        # θ/W>κ（设计失配）且 δ∈(κ,θ/W)：登记零触发＋修复不足 ⇒ D→1（有防御仍俘获）
+    def test_TT6b_exact_saturating_implementation_capture(self):
+        # 仅精确饱和实现：θ/W>κ 且 δ∈(κ,θ/W) 时零登记并俘获；非一般上比较定理。
         theta, W, kappa = 0.8, 2.0, 0.2  # θ/W=0.4>κ=0.2；盲区 (0.2,0.4)
         _, ds, n_reg = dynamics.simulate_damage(
             lambda t: 0.3, kappa, T=200.0, dt=0.01, theta=theta, W=W, lag=0.1)
@@ -97,7 +97,7 @@ class TestTT6B(unittest.TestCase):
 
 
 class TestTT6C(unittest.TestCase):
-    """命题 7.6.5：纯检测下检测时刻损伤随 δ→0 发散（log(1/α)/δ 标度）。"""
+    """固定 α 的特定 Gaussian CUSUM 描述；不是另一极限顺序的定理检验。"""
 
     def test_TT6c_detection_damage_diverges(self):
         rng = make_rng(910063)
@@ -107,7 +107,7 @@ class TestTT6C(unittest.TestCase):
         for d in deltas:
             edd, rate = dynamics.cusum_edd(d, sigma, alpha, n_runs=400, rng=rng)
             self.assertGreater(rate, 0.99)  # 全部检出
-            damages.append(d * edd)  # 检测时刻损伤 = δ·EDD
+            damages.append(d * edd)  # 期望累计漂移损伤 = δ·EDD（高斯模型）
         damages = np.array(damages)
         # 发散：δ 减半 ⇒ 检测时刻损伤严格增大
         self.assertTrue(np.all(np.diff(damages) > 0))

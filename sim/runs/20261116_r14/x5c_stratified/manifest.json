@@ -1,0 +1,31 @@
+{
+  "type": "matrix_manifest",
+  "matrix_id": "20261116_r14_x5c_stratified",
+  "created": "2026-11-16",
+  "spec_version": "SPEC_experiments v1.0 §10.6",
+  "estimand_version": "R14-output-law-v1",
+  "audit_observation": "(X,Z,J)",
+  "T": 3,
+  "n_contexts_per_t_arm_noise": 20000,
+  "n_contexts_total": 480000,
+  "n_crosscheck_contexts": 8000,
+  "git_commit_baseline": "f816848370d676e08e67559c2544d6dc937322c3",
+  "git_dirty": true,
+  "frozen_release": false,
+  "source_sha256": {
+    "run_x5c_r14_stratified.py": "3b6c1d905c15705c0a8dbd94a7c9265627c298b0331e627066de2e9e65aa18dd",
+    "src/autonomy_sim/counterfactual.py": "6de2a0bc7b54543a0ba4231d75f727a94b8717647d08510f5831e2f8771bbdd7",
+    "src/autonomy_sim/rng.py": "0a9819406f0d8b92a03cc7cc11bbc7e78b2fc5cfaf16ea7a0624710f0a14ce51"
+  },
+  "preregistration_sha256": "0294ec11881bb0c7e0ec658621153468315b6aa003fbdfa8d14ad1e8639de331",
+  "results_sha256": "a65918e568142f8ac838326b0d323ebeaf39dadf188b0bc148fd5269b7514806",
+  "crosscheck_results_sha256": "dee5f874f400aa4d5560b4aa8d47dc5ae1e0006a5ede13d2674758962f1c9383",
+  "verdict_table_sha256": "f3867448e38b7597f768b6d58c7eaf8eb12ce5981b371b5360f8aae9e4d44d6a",
+  "analysis_sha256": "3899598c212e04863d0fae0aa9368125428b057b894ce3d27f0e53aecae299ff",
+  "surgery_map": "J=1 any registered surgery; action removes all J and preserves U,V",
+  "random_streams": "context U/X stream per t; independent downstream V stream seed+100",
+  "historical_4620_run_included": false,
+  "old_env0_upgraded": false,
+  "pooled_run_rewritten": false,
+  "external_construct_validation": false
+}

@@ -18,7 +18,7 @@ from .env0 import Env0Config, build_env0
 from .rng import derive_seed
 from .scenarios import SCENARIOS, Verdict
 
-SPEC_VERSION = "SPEC_experiments v0.3"
+SPEC_VERSION = "SPEC_experiments v1.0"
 
 # 冒烟缩网格（SPEC_tests §4：CI 用缩小版；批处理 grids=None ⇒ 注册表默认全网格）
 SMOKE_GRIDS = {

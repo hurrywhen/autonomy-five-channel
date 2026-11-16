@@ -141,7 +141,7 @@ class TestTRef(unittest.TestCase):
         # ⑦A_goal 数值裁剪契约（沿 di.truth_A_org 的 E3 约定）：u_eff 在网格凸包内
         # ⇒ d≤d_c 为数学事实；浮点残差（~1e-16）致 a_goal 越出 [0,1] 时 1e-9 容差内
         # 归位（细化档 η=1 实测触发：u_idx=12.000000000000005 → −6.7e-16）；
-        # 更大越界保持原值交由调用方检出（不静默掩盖）。
+        # R14 统一契约：更大越界直接 fail-closed（不静默掩盖）。
         from autonomy_sim.components import truth_A_goal
         etab = np.array([1, 1, 1, 2])
         endorse = lambda u: float(etab[int(round(u))])
@@ -153,9 +153,9 @@ class TestTRef(unittest.TestCase):
         g = truth_A_goal(1.0 - 5e-16, endorse, grid)
         self.assertGreaterEqual(g.point, 1.0 - 1e-9)
         self.assertLessEqual(g.point, 1.0)
-        # 超容差越界：保持原值（负点值——由调用方/复合层检出）
-        g = truth_A_goal(3.0 + 1e-7, endorse, grid)
-        self.assertLess(g.point, 0.0)
+        # 超容差越界：统一 fail-closed，不再把非法负点值交给调用方
+        with self.assertRaises(ValueError):
+            truth_A_goal(3.0 + 1e-7, endorse, grid)
         # 端到端：finest 档（n_θ=13）η=1.0 复合不再抛分量越界
         cfg = Env0Config(n_theta=13, theta_star=4,
                          theta_table=refined_theta_table(4))

@@ -36,16 +36,20 @@ $I_{t+1:T}$ is independent of $A^t$). Then
 $I(I^T;A^T)=I(I^T\!\to\!A^T)$.
 \end{lemma}
 \begin{proof}
-$\ge$: $I(I^T;A^T)=\sum_t I(I^T;A_t\given A^{t-1})\ge\sum_t
-I(I^t;A_t\given A^{t-1})=I(I^T\!\to\!A^T)$ since conditioning reduces MI and
-$I^t\subseteq I^T$. $\le$: it suffices that
-$I(I_{t+1:T};A_t\given I^t,A^{t-1})=0$: causality makes $A_t$'s generation
-independent of $I_{t+1:T}$, and randomization makes $I_{t+1:T}$ independent of
-$(A^t,A_t)$ given $I^t$. The $\le$ direction is the randomized-probe instance
-of Massey's no-feedback identity (mutual information equals directed
-information when the input process carries no feedback from the output):
-randomization supplies the no-feedback premise that the closed agent loop
-would otherwise violate.
+For each $t$, the mutual-information chain rule gives
+\[
+I(I^T;A_t\given A^{t-1})=I(I^t;A_t\given A^{t-1})
++I(I_{t+1:T};A_t\given I^t,A^{t-1}).
+\]
+No claim that ``conditioning reduces mutual information'' is used (and that
+claim is false in general). Non-anticipation makes $A_t$'s structural
+generation independent of future inputs $I_{t+1:T}$ given $(I^t,A^{t-1})$;
+exogenous randomization supplies the no-feedback condition, so the second
+term is zero. Hence
+$I(I^T;A_t\given A^{t-1})=I(I^t;A_t\given A^{t-1})$ term by term, and summing
+over $t$ proves equality with directed information. This is the
+randomized-probe instance of Massey's no-feedback identity; the closed agent
+loop would otherwise violate its premise.
 \end{proof}
 
 \begin{remark}[From the probe lemma to the certified bound: the bypass
@@ -102,75 +106,14 @@ transmission) via $T=\Endorse_{B,M}$.
 
 \section{The representation theorem: full proofs}\label{app:representation}
 
-Recall (A1)--(A6) from Definition~\ref{def:a16}.
+Recall (A0)--(A6) from Definition~\ref{def:a16}. We use only the
+scale-invariance proof below. Continuity, strict monotonicity, and
+biseparability alone do not imply idempotency and hence do not yield the
+quasi-arithmetic-mean representation previously invoked: for example,
+$F(x,y)=(x+y)/4$ has $F(x,x)=x/2\neq x$. Removing that route does not affect
+the main theorem, which does not use a separability representation.
 
-\begin{lemma}[Quasilinear representation, cited]\label{lem:quasilinear}
-\textup{(A1)}$+$\textup{(A2)}$+$\textup{(A3)} imply the existence of a
-continuous strictly increasing $\phi:(0,1]\to\mathbb{R}$ and $w_i>0$
-($\sum_iw_i=1$) with $F(x)=\phi^{-1}\bigl(\sum_iw_i\phi(x_i)\bigr)$.
-\begin{proof}[How the citation is used]
-\textup{(A3)} supplies, for \emph{every} non-trivial partition $\{K,L\}$,
-continuous increasing $F_K,F_L,G_{KL}$ with $F=G_{KL}(F_K(x_K),F_L(x_L))$; the
-cross-partition consistency of this family (the same $F$ through every
-grouping) is precisely the hypothesis of the overlapping-decomposition and
-separability theorems, which reduce coordinate-dependent scales to a single
-generator: Debreu's separability representation gives coordinate scales, and
-the reduction to a common generator with constant weights is the
-Acz\'el--Gorman step (\citealp{debreu1960}; \citealp{aczel1966}, Ch.~6;
-\citealp{aczel_dhombres1989}, Ch.~17; \citealp{gorman1968}; for $n=2$ the
-classical \citealp{nagumo1930,kolmogorov1930} result). The quantifier
-alignment matters and is satisfied by construction: \textup{(A3)} quantifies
-over all partitions of one fixed $F$, and the cited theorems return one
-generator $\phi$ common to all subgroups. Biseparability is exactly the
-needed weakening of associativity.
-\end{proof}
-\end{lemma}
-
-\begin{lemma}[AX5 $\iff$ $\phi(0^+)=-\infty$]\label{lem:phi0}
-\end{lemma}
-\begin{proof}
-($\Rightarrow$) Take $x_1\to0^+$ with other coordinates fixed: $F\to0$ by (A4)
-and continuity. Since $F=\phi^{-1}(w_1\phi(x_1)+C)$ with $C$ finite, if
-$\phi(0^+)>-\infty$ then $F\to\phi^{-1}(w_1\phi(0^+)+C)>0$, contradiction.
-($\Leftarrow$) A coordinate $\to0$ sends the sum to $-\infty$, whence
-$F\to\phi^{-1}(-infty):=0$; $\min>0$ keeps the sum finite, whence $F>0$.
-\end{proof}
-
-\begin{lemma}[Homogeneity $\Rightarrow$ power family]\label{lem:power}
-Under Lemmas~\ref{lem:quasilinear}--\ref{lem:phi0} plus \textup{(A5)}, there
-exists $p\le0$ with $F=M_p$ ($p=0$ the geometric mean; for $p<0$, $\phi$
-affinely equivalent to $(x^p-1)/p$).
-\end{lemma}
-\begin{proof}
-(1) Write $J:=\phi((0,1])$ (an interval with lower endpoint $-\infty$) and
-$h_t(u):=\phi(t\phi^{-1}(u))$. Applying $\phi$ to $F(tx)=tF(x)$ gives
-$\sum_iw_ih_t(\phi(x_i))=h_t(\sum_iw_i\phi(x_i))$: $h_t$ satisfies the
-weighted Jensen equation on $J$; continuity makes $h_t$ affine,
-$h_t(u)=a(t)u+b(t)$, $a(t)>0$.
-(2) Back in $x$: $\phi(tx)=a(t)\phi(x)+b(t)$. Set
-$\Phi(x):=\phi(x)-\phi(1)$ and $B(t):=b(t)+(a(t)-1)\phi(1)$; evaluating at
-$x=1$ gives $B(t)=\Phi(t)$, hence ($\star$) $\Phi(tx)=A(t)\Phi(x)+\Phi(t)$.
-(3) Symmetry $\Phi(tx)=\Phi(xt)$ with ($\star$) gives
-$\Phi(x)(A(t)-1)=\Phi(t)(A(x)-1)$; for $x,t\neq1$ divide by $\Phi(x)\Phi(t)$:
-$(A(x)-1)/\Phi(x)=:\kappa$ is constant; by continuity $A(x)=1+\kappa\Phi(x)$
-on all of $(0,1]$.
-(4) Substituting: $\Phi(tx)=\Phi(x)+\Phi(t)+\kappa\Phi(x)\Phi(t)$. With
-$\Psi:=1+\kappa\Phi$: $\Psi(tx)=\Psi(t)\Psi(x)$, continuous, $\Psi(1)=1$,
-$\Psi=A>0$; the multiplicative Cauchy equation gives $\Psi(x)=x^\rho$ for some
-$\rho\in\mathbb{R}$.
-(5) Case $\kappa=0$: $A\equiv1$, $\Phi(tx)=\Phi(x)+\Phi(t)$, so
-$\Phi=c\ln x$ ($c>0$ since $\Phi<0$ for $x<1$): the geometric branch $p=0$.
-Case $\kappa\neq0$: $\Phi(x)=(x^\rho-1)/\kappa$. Explicitly, $\phi(x)=\phi(1)+\Phi(x)$;
-applying the affine map $u\mapsto\kappa u-\kappa\phi(1)$ gives
-$\kappa\phi(x)-\kappa\phi(1)=x^\rho-1$, so $\phi$ is affinely equivalent to
-$(x^\rho-1)$ and hence to $(x^\rho-1)/\rho$ after the scale $\kappa/\rho$;
-monotonicity requires $\rho/\kappa>0$, and
-$\phi(0^+)=-\infty$ (Lemma~\ref{lem:phi0}) forces $\rho<0$ and $\kappa<0$
-($\rho>0$ gives finite $\phi(0^+)=-1/\kappa$, excluded). Hence $p:=\rho\le0$.
-(6) Conversely each $M_p$ ($p\le0$) satisfies (A1)(A2)(A4)(A5).
-\end{proof}
-
-\begin{lemma}[AX6b excludes $p<0$]\label{lem:ax6b}
+\begin{lemma}[AX6b excludes $p<0$ within the power-mean family]\label{lem:ax6b}
 \end{lemma}
 \begin{proof}
 The geometric mean satisfies (A6) exactly:
@@ -182,17 +125,6 @@ $x=(a,1)$, $y=(b,b)$, $\lambda=(1,\mu)\in(0,1]^2$. Then
 $\Psi(x)=(3.5+1)/2=2.25>\Psi(y)=2$, so $M_p(x)<M_p(y)$ ($y\succ x$); but
 $\Psi(\lambda\odot x)=(3.5+4)/2=3.75<\Psi(\lambda\odot y)=(2+8)/2=5$, so
 $M_p(\lambda\odot x)>M_p(\lambda\odot y)$: the order flips, violating (A6).
-\end{proof}
-
-\begin{theorem}[route A]
-\textup{(A1)}--\textup{(A6)} imply $F(x)=\prod_ix_i^{w_i}$, $w_i>0$,
-$\sum_iw_i=1$, uniquely via $w_i=\partial\log F/\partial\log x_i$.
-\end{theorem}
-\begin{proof}
-Lemma~\ref{lem:quasilinear} $\to$ Lemma~\ref{lem:phi0} $\to$
-Lemma~\ref{lem:power} ($F=M_p$, $p\le0$; $p=-\infty$ ($\min$) already excluded
-by (A2)) $\to$ Lemma~\ref{lem:ax6b} ($p=0$). Uniqueness: evaluate the
-elasticity at any point.
 \end{proof}
 
 \begin{lemma}[Homogeneous extension from the bounded cube]\label{lem:homog-ext}
@@ -213,8 +145,12 @@ $\tilde F(tx)=F(stx)/s=t\,\tilde F(x)$. Monotonicity and continuity are
 inherited from $F$ on a neighborhood. Scale invariance of the induced order:
 $F(x)\ge F(y)\iff F(\lambda\odot x)\ge F(\lambda\odot y)$ for
 $\lambda\in(0,1]^n$ extends to $\tilde F$ and arbitrary
-$\lambda\in\mathbb{R}_{++}^n$ by scaling $x,y,\lambda\odot x,\lambda\odot y$
-into the cube by a common $s$ and using homogeneity on both sides.
+$\lambda\in\mathbb{R}_{++}^n$ as follows. Choose $c>0$ with
+$c\lambda\in(0,1]^n$ (for example, $c=(2\max_i\lambda_i)^{-1}$), and then
+choose $s>0$ small enough that $sx,sy,sc\lambda\odot x,sc\lambda\odot y$
+all lie in the cube. Homogeneity reduces the desired equivalence to the
+comparison of $sx$ with $sy$ under the admissible multiplier $c\lambda$;
+(A6) applies on the cube, and homogeneity on both sides removes $s$ and $c$.
 \end{proof}
 
 \begin{theorem}[route B: scale invariance + homogeneity suffice]
@@ -252,8 +188,11 @@ $\lambda d_1+(1-\lambda)d_2\in D$ by additivity.
 $\bar D$ is a proper closed convex cone with $\bar D\cup(-\bar D)=V$. If
 $\dim V\ge2$, intersect with a 2-plane: a proper closed convex cone covering a
 plane must equal a half-plane, but then $\bar D\cap(-\bar D)$ contains a line
-$\neq\{0\}$, contradicting properness. Hence $\dim V=1$: some
-$w\in\mathbb{R}^n\setminus\{0\}$ has $D=\{d:w\cdot d\ge0\}$.
+$\neq\{0\}$, contradicting properness. Strict coordinatewise monotonicity
+excludes $\dim V=0$: otherwise $W=\mathbb{R}^n$, making $g$ constant along
+every translation and hence making $F$ constant on $\mathbb{R}_{++}^n$.
+Therefore $\dim V=1$: some $w\in\mathbb{R}^n\setminus\{0\}$ has
+$D=\{d:w\cdot d\ge0\}$.
 (5) Therefore $g(x+d)\ge g(x)\iff w\cdot d\ge0$: level sets of $g$ are the
 hyperplanes $\{w\cdot x=\mathrm{const}\}$, so $g=\varphi(w\cdot x)$ with
 $\varphi$ continuous increasing; strict increase of $F$ gives $w\gg0$.
@@ -263,28 +202,23 @@ linearity $\varphi(z)=z+\varphi(0)$, and $F(1)=1$ gives $\varphi(0)=0$. Hence
 $g(u)=w\cdot u$, i.e.\ $F(x)=\exp(\sum_iw_i\log x_i)=\prod_ix_i^{w_i}$.
 \end{proof}
 
-\begin{remark}[Minimality of the invariance trio; zero annihilation and
+\begin{remark}[Minimality with calibration; zero annihilation and
 biseparability as consequences]\label{rem:routeb-minimal}
-Route B needs \emph{no} separability axiom: continuity, strict monotonicity,
-coordinatewise scale invariance, and homogeneity already suffice.
-Consequently, zero annihilation (A4)$=$(AX5) and biseparability
-(A3)$=$(AX7) are \emph{consequences} of this minimal trio, not independent
-commitments: the product form returned by the theorem extends continuously
-to $[0,1]^n$ with $F(x)=0\iff\min_ix_i=0$, and it separates over every
-non-trivial partition of the coordinates. The trio is minimal in the strong
-sense that each proper two-element subset admits non-product aggregators:
-sub-support products $\prod_{i\in J}x_i^{w_i}$ (with $\sum_Jw_i=1$) satisfy
-scale invariance and homogeneity but are not strictly increasing outside
-$J$---and fail zero annihilation, so within the invariance class AX5 is the
-strictness of (A2) restated; the harmonic family violates scale invariance
-(Proposition~\ref{prop:harmonic}); level-dependent weightings violate
-homogeneity. The framework's load-bearing normative commitments are
-therefore the invariance trio---in particular coordinatewise scale
-invariance (A6)$=$(AX6b) and homogeneity (A5)$=$(AX8)---defended in
-Section~\ref{sec:objections} (and contextualized against the
-multidimensional-welfare measurement literature, \S\ref{rw:composite}). The
-two derivations share these axioms but use independent toolchains, which is
-why their convergence supports the product form.
+The proof needs \emph{no} separability axiom: calibration (A0), continuity,
+strict monotonicity, coordinatewise scale invariance, and homogeneity
+suffice. Consequently, zero annihilation (A4)$=$(AX5) and biseparability
+(A3)$=$(AX7) are consequences of this calibrated invariance set, not
+independent commitments: the product extends continuously to $[0,1]^n$ with
+$F(x)=0\iff\min_ix_i=0$ and separates over every non-trivial partition.
+Each condition has a distinct counterexample. Dropping (A0) permits
+$c\prod_ix_i^{w_i}$, including $\tfrac12\sqrt{xy}$. Dropping strict
+monotonicity permits sub-support products. Dropping (A6) admits the harmonic
+family (Proposition~\ref{prop:harmonic}). Dropping homogeneity permits
+$F(x)=(1+\prod_ix_i^{w_i})/2$, which satisfies calibration, continuity,
+strict monotonicity, and order invariance but is not a weighted geometric
+mean. The load-bearing mathematical premises are therefore
+$\{\textup{(A0)},\textup{AX4},\textup{AX6b},\textup{AX8}\}$; their
+normative defenses are registered separately in Section~\ref{sec:objections}.
 \end{remark}
 
 \paragraph{The harmonic counterexample (Proposition~\ref{prop:harmonic}; Appendix~\ref{app:representation}).}
@@ -297,18 +231,20 @@ construction with arbitrary $(2,3.5,4)$ power-family witnesses is used in
 Lemma~\ref{lem:ax6b}.
 
 \paragraph{CES correspondence.} $F_\varsigma\leftrightarrow$ power mean
-$p=(\varsigma-1)/\varsigma$, $\varsigma=1/(1-p)$; the full axiom set admits
-$\varsigma=1$ only, while \textup{(A1)}--\textup{(A5)} alone admit
-$\varsigma\in(0,1]$ (Corollary~\ref{cor:sigma-band}); $\varsigma=2\Rightarrow
-p=1/2>0$ violates
-zero-annihilation (numerically witnessed in the simulation as the
-stress-test arm; Section~\ref{sec:experiments}).
+$p=(\varsigma-1)/\varsigma$, $\varsigma=1/(1-p)$. Within this preregistered
+family, the full conditions admit $\varsigma=1$ only; $\varsigma=2\Rightarrow
+p=1/2>0$ violates zero annihilation (Corollary~\ref{cor:sigma-band}). This
+family restriction is not used as a derivation of quasi-arithmetic means
+from (A1)--(A5).
 
 \section{Component well-definedness}\label{app:components}
 
-For each channel measure of Section~\ref{sec:channels} we show: range
-$[0,1]$; the stated zero semantics; and ratio scalability of the normalized
-indicator (AX6a). $T<\infty$ and AX1 are standing.
+For each channel measure of Section~\ref{sec:channels} we show only:
+range $[0,1]$, the stated zero semantics, and invariance under the explicitly
+registered transformations. These facts do not prove a measurement-theoretic
+ratio scale or substantive meaningfulness of channel ratios; AX6a records
+that further normative interpretation separately. $T<\infty$ and AX1 are
+standing.
 
 \begin{proposition}[$\Avia$]\label{prop:wd-via}
 $\Avia=\min(1,\min_k s_k^{\mathrm{avail}}/s_k^{\mathrm{crit}},\min_j
@@ -326,8 +262,9 @@ Under AX0, $\Fint\ge I(S_1;A_1)>0$ (Lemma~\ref{lem:ax0}), so the denominator
 of \eqref{eq:aorg} is positive and the $0/0$ pathology is excluded by the
 agency axiom itself; $\Aorg\in[0,1]$ since $\Fint,\Fext\ge0$; $\Aorg=0\iff
 \Fint=0$ (remote control) and $\Aorg=1\iff\Fext=0$; the ratio of two
-directed informations (same unit, same horizon) is invariant under any
-reparameterization of the alphabets.
+directed informations (same unit, same horizon) is invariant under
+bijective, time-structure-preserving relabelings of the alphabets. General
+coarse-grainings are not admitted: they can change every information term.
 \end{proposition}
 
 \begin{proposition}[$\Agoal$]\label{prop:wd-goal}
@@ -340,12 +277,13 @@ around the non-empty $\varepsilon_{\min}$-approximate fixed-point set,
 clipped to $[0,1]$ and flagged; if $\Fix=\Theta$ (endorsement-blind,
 $\dc=0$), the flagged interval is $[0,1]$ and the historical clause is
 carried by $\Lam$ alone (the division of labor that keeps
-Proposition~\ref{prop:unidentifiable} coherent). The ratio uses one
-protocol-fixed metric $d$ in numerator and denominator, so it is invariant
-under rescaling of $d$; reparameterizations of $\Theta$ beyond scale
-(feature re-embeddings, anchor moves) change the ratio and are excluded by
-AX6a's canonical-parameterization clause---a registered boundary, not an
-oversight (Section~\ref{sec:objections}\textup{(viii)}).
+Proposition~\ref{prop:unidentifiable} coherent). The ratio uses one protocol-fixed metric $d$ in numerator and denominator, so
+$d/\dc$ is invariant under rescaling $d\mapsto ad$ and $\dc\mapsto a\dc$.
+That invariance does \emph{not} prove that $1-d/\dc$ is itself a ratio scale:
+$A_{goal}\mapsto aA_{goal}$ is not the transformation induced by the distance
+rescaling. Reparameterizations of $\Theta$ beyond scale can change the
+reading; the protocol restriction is a registered boundary, not a proof of
+ratio meaningfulness (Section~\ref{sec:objections}\textup{(viii)}).
 \end{proposition}
 
 \begin{proposition}[$\Aexec$]\label{prop:wd-exec}
@@ -357,23 +295,32 @@ the compact simplex) and computable by Blahut--Arimoto-type iteration
 $\Aexec=0$ iff no accessible policy transmits any information about the
 outcome (repertoire collapse---the helplessness signature); the normalizer is
 fixed at the pre-intervention alphabet, so $\delta$-contractions cannot raise
-the ratio. For continuous actions the normalizer is
-$\log\mathrm{Vol}(\Acal^n)$ under a registered reference measure.
+the ratio. This proof is finite-alphabet only. A continuous instantiation
+must use a registered finite quantization or a positive same-protocol
+channel-capacity normalizer; $\log\mathrm{Vol}(\Acal^n)$ is not a general MI
+upper bound and is excluded.
 \end{proposition}
 
 \begin{proposition}[$\Aepi$]\label{prop:wd-epi}
 $\bar D$ of \eqref{eq:aepi} is an expectation of TV distances against point
 masses, hence in $[0,1]$ with canonical upper bound $1$; $\Aepi^{real}\in[0,1]$.
-$\Aepi^{real}=0$ iff $\Pr[B_t=\kappa(E_t)]=0$ at every $t$: beliefs put no
-mass on the true state throughout (epistemic capture as complete detachment).
+$\Aepi^{real}=0$ iff $\mathbb{E}[B_t(\kappa(E_t))]=0$ at every $t$: beliefs
+put no mass on the true state throughout (epistemic capture as complete
+detachment). ENV-0's point-belief specialization replaces this expectation
+by $\Pr[b_t=\kappa(E_t)]$ without changing its numerical truth path.
 $\Aepi^{real}=1$ iff beliefs are perfectly accurate on the registered
-coarse-graining; residual observation noise makes $\Aepi^{real}<1$ at
-baseline, which is the D1 clause of Theorem~T1c, not a defect. Honest
+coarse-graining. The ENV-0 baseline value $\Aepi^{real}=0.811$ is a
+calibration fact, not an instance of T1c's D1 clause: D1 bounds execution
+empowerment, and observation noise confined to coordinates orthogonal to
+$\kappa(E)$ need not reduce $\Aepi^{real}$ at all. A general strict epistemic
+bound would require a separate registered-coordinate non-degeneracy premise.
+Honest
 information (the $\alpha$ class) moves beliefs toward the truth and cannot
 decrease $\Aepi^{real}$ when the agent's update rule is sound in the sense of
 Definition~\ref{def:sound-update} (the honesty
 sub-classification of Section~\ref{sec:taxonomy}); deceptive content and
-channel degradation decrease it.
+channel degradation decrease it only under the separately registered
+accuracy-loss premise (R-epi), not from those labels alone.
 \end{proposition}
 
 \begin{definition}[Sound update rule]\label{def:sound-update}
@@ -388,61 +335,72 @@ state $e$ and belief $B$,
 \mathbb{E}_{O\sim o(\cdot\given e)}\bigl[\TV\bigl(U(B,O),\,\delta_{\kappa(e)}\bigr)\bigr]
 \;\le\; \TV\bigl(B,\,\delta_{\kappa(e)}\bigr),
 \]
-with strict inequality iff the signal is \emph{locally informative}:
-$B(\kappa(e))<1$ and the channel law at $e$ differs from the agent's
-prediction of it, $o(\cdot\given e)\neq p(\cdot)$ (a channel can be
-non-trivial in general yet locally uninformative at $e$; the strictness
-condition is the local one, matching Lemma~\ref{lem:sound-update}).
-The property is a constraint on the update rule relative to the
+This weak inequality is the general definition; no strict-if-and-only-if
+claim is made for an arbitrary $U$, whose internal prediction need not be
+defined. A strictness characterization is proved separately for Bayesian
+updating under the likelihood-fidelity and support assumptions of
+Lemma~\ref{lem:sound-update}, where the agent predictive $p(o)$ is defined
+explicitly. The soundness property is a constraint on the update rule relative to the
 \emph{true} channel law; it is the epistemic-channel analogue of a
 regularity condition, and its failure modes (misspecified or coarse-grained
 update rules acting on off-coordinate honest content) are the registered
 boundary clause of Section~\ref{sec:channels}.
 \end{definition}
 
-\begin{lemma}[Bayesian conditioning is sound]\label{lem:sound-update}
-Let the observation be generated by a channel law $o(\cdot\given e)$ and let
-$B'$ be the Bayesian posterior of $B$ under the agent's predictive law $p$,
-where $p$'s support covers the true channel's ($p(o)=0\Rightarrow
-o(o\given e)=0$; no further correctness of the model is needed---the model
-need not contain the true channel as a hypothesis with positive weight in
-any stronger sense). Then
-$\mathbb{E}\bigl[B'\bigl(\kappa(e)\bigr)\bigm| E=e\bigr]\ge
-B\bigl(\kappa(e)\bigr)$, with strict inequality iff $B(\kappa(e))<1$ and
-$o(\cdot\given e)\neq p(\cdot)$; since $\TV(B,\delta_k)=1-B(k)$, the
-statement is exactly Definition~\ref{def:sound-update} with matching
-strictness.
+\begin{lemma}[Bayesian conditioning is sound under local likelihood fidelity]
+\label{lem:sound-update}
+Let $B$ be a prior over registered states and let the agent use likelihoods
+$p(o\given z)$ with predictive marginal $p(o)=\sum_zB(z)p(o\given z)$. For a
+true state $e$, write $k=\kappa(e)$ and assume
+\textup{(L)} \emph{local likelihood fidelity}: the actual observation law at
+$e$ is $q_e(\cdot)=p(\cdot\given k)$. Also assume support coverage,
+$p(o)=0\Rightarrow q_e(o)=0$. Then Bayesian updating satisfies
+$\mathbb{E}_{q_e}[B'(k)]\ge B(k)$, strictly when $0<B(k)<1$ and
+$q_e(\cdot)\neq p(\cdot)$. Since $\TV(B,\delta_k)=1-B(k)$, this is the
+soundness condition of Definition~\ref{def:sound-update}. Assumption (L) is
+local to the registered coordinate; it does not require a globally correct
+model. Support coverage without (L) is not sufficient.
 \end{lemma}
 \begin{proof}
-Write $k=\kappa(e)$. On the support of $p$ (which covers the support of
-$o(\cdot\given e)$ by hypothesis, so the posterior is defined a.s.\ under
-the true law),
+The posterior numerator is the agent's likelihood, not the true channel:
 \[
-\mathbb{E}\bigl[B'(k)\bigm| E=e\bigr]
-=\sum_o B(k)\,\frac{o(o\given e)}{p(o)}\,o(o\given e)
-=B(k)\sum_o\frac{o(o\given e)^2}{p(o)}
-\ge B(k)\Bigl(\sum_o o(o\given e)\Bigr)^2=B(k),
+B'(k)=B(k)p(o\given k)/p(o).
 \]
-where the inequality is Cauchy--Schwarz ($\sum_o o^2/p\cdot\sum_o p\ge(\sum_o
-o)^2$ over the common support). Equality in Cauchy--Schwarz holds iff
-$o(\cdot\given e)$ is proportional to $p(\cdot)$ on that support, and both
-normalize to $1$, so iff $o(\cdot\given e)=p(\cdot)$; if $B(k)=1$ the
-posterior equals the prior regardless. Hence strictness iff $B(k)<1$ and
-$o(\cdot\given e)\neq p(\cdot)$.
+Under (L), $q_e(o)=p(o\given k)$, hence
+\[
+\mathbb{E}_{q_e}[B'(k)]
+=B(k)\sum_o\frac{p(o\given k)^2}{p(o)}
+\ge B(k)\Bigl(\sum_op(o\given k)\Bigr)^2=B(k),
+\]
+by Cauchy--Schwarz and $\sum_op(o)=1$. Equality holds iff $p(\cdot\given
+k)=p(\cdot)$ on the support, or if $B(k)\in\{0,1\}$. To see why (L) cannot be dropped,
+let the true observation be $O=0$ almost surely, $B(k)=1/2$, and set
+$p(0\given k)=\varepsilon$, $p(0\given\neg k)=1-\varepsilon$ with
+$0<\varepsilon<1/2$. Support coverage holds, but $B'(k)=\varepsilon<B(k)$;
+at $\varepsilon=0.1$, TV to the true point mass rises from $0.5$ to $0.9$.
+Thus an alternative proof that merely replaces $p(o\given k)$ by the true
+channel in the posterior numerator would be invalid.
 \end{proof}
 
 \begin{proposition}[$\Aref$ and $\Lam$]\label{prop:wd-ref}
-$\Aref$ is a product of three $[0,1]$ factors
-(fidelity $=1-H(\theta_\pi\given M)/H(\theta_\pi)$, endorsement consistency,
-$\Lam$), hence in $[0,1]$; $H(\theta_\pi)=0$ degenerates the fidelity ratio
-and is reported as the interval $[0,f_2f_3]$, never a silent $0/0$.
-$\Lam\in[0,1]$ since every TV term of \eqref{eq:lambda} lies in $[0,1]$; the
-certification conventions (empty history; degenerate endorsement with surgery
-present) and the MI proxy's consistency conditions \textup{(V)}/\textup{(A)}
-are registered in Section~\ref{sec:axioms}.
+Let $\theta_\pi$ and $M$ range over the protocol-constructed \emph{finite
+discrete} ensemble (continuous variables must first undergo a registered
+finite quantization). Then discrete Shannon information gives
+$0\le I(M;\theta_\pi)\le H(\theta_\pi)$, so fidelity is in $[0,1]$ whenever
+$H(\theta_\pi)>0$. $\Aref$ is a product of this factor, endorsement
+consistency, and $\Lam_{ref}$, hence lies in $[0,1]$; $H(\theta_\pi)=0$ is
+reported as $[0,f_2f_3]$, never a silent $0/0$. Differential entropy supplies
+no such bound: for independent $\theta\sim N(0,100)$ and
+$\varepsilon\sim N(0,0.01)$ with $M=\theta+\varepsilon$,
+$h(\theta)=3.7215236262$ and $I(M;\theta)=4.6052201835$, so
+$I/h=1.2374555817>1$; smaller variances can also make $h<0$. Consequently
+the continuous $I/h$ expression and T1c(D2) are not defined here.
+$\Lam\in[0,1]$ because every output-law TV term of \eqref{eq:lambda} lies in
+$[0,1]$. Empty history gives $\Lam=1$; nonempty history need not give
+$\Lam<1$, and no degenerate-endorsement certification exception is used.
 \end{proposition}
 
-\section{Full enumeration for the taxonomy completeness proposition}
+\section{Full enumeration for taxonomy primitive coverage}
 \label{app:taxonomy}
 
 Proposition~\ref{thm:taxonomy-completeness} enumerates the single-point
@@ -472,7 +430,8 @@ $Z$ & $\delta$ \\
 transition kernel $T$ & attenuation of the $A_t$-dependence of
 $T(\cdot\given E_t,A_t,Z_t)$ (action leverage removed or reduced) & $\delta$ \\
 transition kernel $T$ & modification of the $Z_t$-dependence (resource
-coupling of dynamics) & $\sigma^{\pm}$ \\
+coupling of dynamics) & $\sigma^{\pm}$; if the same modification also
+attenuates $A_t$-dependence, use the composite $\delta+\sigma^{\pm}$ \\
 transition kernel $T$ & modification of the $E$-inheritance part at fixed
 action/resource dependence & re-instantiation of the reference environment
 (boundary of the interface, not a sixth class) \\
@@ -484,7 +443,8 @@ $\theta,\tau$ & $\sigma^{\pm}$ \\
 
 \noindent Each row's assignment is by the locus definitions of
 Section~\ref{sec:taxonomy}; the rows exhaust the nodes and admissible edge
-additions of the fixed graph \eqref{eq:factorization}. The only judgment
+additions of the fixed graph \eqref{eq:factorization} up to composite
+labels, not up to a unique class per surgery. The only judgment
 calls, both registered in the main text: the $\alpha/\gamma$ boundary is the
 structural intact-component criterion (decidable on the post-surgery law);
 and the $E$-inheritance row is excluded from the influence taxonomy because
@@ -529,16 +489,24 @@ See the table in Theorem~\ref{thm:coverage}.
 \end{theorem}
 \begin{proof}[Proof sketches by row]
 $\beta_\pi$: the conditional law of $A_t$ given $S_t$ varies with $I$, so
-$I(I_t;A_t\given A^{t-1},S^t)>0$ (Faith), i.e.\ $\Fext>0$, so $\Aorg$ strictly
-decreases. $\beta_G$: behavior-based IRL recovers $\Ueff\neq\Ustar$, so
-$d>0$ under (Faith); historicality is captured by $\Lam$ (AX3); $\Fext$ may
-vanish because $G\in S$ mediates (Lemma above). $\beta_{\Endorse}$: direct
-from \eqref{eq:lambda} and \eqref{eq:aref}. $\gamma$: the blocking argument
+Faith can give $\Fext>0$. The strict conclusion, however, is
+Lemma~\ref{lem:strict-comparison}(i):
+$\Aorg^1<\Aorg^0\iff\Fext^1/\Fint^1>\Fext^0/\Fint^0$. For example,
+$(\Fint,\Fext)=(0.1,1)\to(1,0.1)$ gives $\Aorg:1/11\to10/11$ despite positive
+post-intervention external flow. $\beta_G$: with fixed protocol,
+$\Agoal^1<\Agoal^0\iff d^1>d^0$; $d^0=0.8,d^1=0.1,\dc=1$ instead gives
+$0.2\to0.9$. A historical composite branch at L2 additionally requires
+$\Lam_{ref}^1<\Lam_{ref}^0$, not merely a surgery record; $\Fext$ may vanish
+because $G\in S$ mediates. $\beta_{\Endorse}$: strict reduction of
+endorsement consistency or $\Lam_{ref}$ is required by \eqref{eq:aref}.
+$\gamma$: the blocking argument
 applies verbatim (paths cross $B$), so $\Fext$ may be $0$; the accuracy loss
-is captured by $\Aepi^{real}$ \eqref{eq:aepi} (a Blackwell-degraded channel
-strictly lowers $\Pr[B_t=\kappa(E_t)]$ under (Faith), granted a sound update
-rule in the sense of Definition~\ref{def:sound-update}---the soundness clause
-the row relies on, made explicit). $\delta$: the max over a
+is captured by $\Aepi^{real}$ \eqref{eq:aepi} under the explicit (R-epi)
+accuracy-loss premise for the actual update rule. Neither Blackwell
+degradation nor support coverage alone proves strict loss; the honest
+$\alpha$ row separately uses sound updating, with local likelihood fidelity
+as the Bayesian sufficient condition of Lemma~\ref{lem:sound-update}.
+$\delta$: the max over a
 smaller policy class is $\le$; strictness follows when deleted actions lie in
 the support of the optimum (Faith); the feasible set's dependence on $I$
 enters the conditional law directly, so the feasible-set form also gives
@@ -546,8 +514,9 @@ $\Fext>0$. The transition-kernel form (attenuated $A\to E$ coupling) leaves
 $\pi$ intact and introduces no exogenous parent of $A_t$, so $\Fext=0$ and
 only $\Aexec$ registers it---the within-class division stated in the main
 text. $\alpha$:
-compatibility by the Lemma. $\sigma$: by definition it touches no
-surgery locus, and raises $\deltastar$ (Theorem~\ref{thm:t6}).
+compatibility by the Lemma. $\sigma$: by definition it touches no surgery
+locus. Its effect on $\deltastar$, \eqref{eq:amin}, and $\Avia$ is
+parameter-specific under T8(ii), not a class-wide uniform increase.
 \end{proof}
 
 \begin{theorem}[T2, multi-channel necessity --- restated]
@@ -560,8 +529,9 @@ exactly under $\beta_G$/$\gamma$ arms in Section~\ref{sec:experiments}); it is
 blind to the transition-kernel form of $\delta$ for the same reason ($\pi$
 intact, no exogenous parent of $A_t$).
 (ii) $\Aepi$ is blind to $\beta_\pi,\delta$: under surgeries leaving $o$
-untouched, belief trajectories are unchanged, hence so is the accuracy
-$\Pr[B_t=\kappa(E_t)]$. (iii) $\Agoal$ is blind to $\gamma,\delta$:
+untouched, belief trajectories are unchanged, hence so is the expected
+true-bucket mass $\mathbb{E}[B_t(\kappa(E_t))]$ (or its ENV-0 point-belief
+specialization). (iii) $\Agoal$ is blind to $\gamma,\delta$:
 belief distortion below $\dc$ leaves $\Agoal=1$; shrinking the action set does
 not move $\Ueff$; and under $\beta_\pi$ the IRL inversion premise fails, so
 $\Agoal$ is not a valid instrument there at all (Theorem~\ref{thm:coverage}).
@@ -572,7 +542,8 @@ Compatibility $\iff$ (no surgery) $\wedge$ (full mediation) $\wedge$
 (honesty: the $\alpha$-components' content induces no accuracy loss on the
 registered coarse-graining); the
 observabilization is the four-track conjunction $\Fext=0\wedge\Lam=1\wedge
-\bar D=0\wedge\EmpPi\text{ non-decreasing}$, in which $\bar D=0$
+\bar D\le\bar D^{0}\wedge\EmpPi\text{ non-decreasing}$, in which the baseline
+comparison, rather than the stronger absolute condition $\bar D=0$,
 operationalizes the honesty clause.
 \end{corollary}
 \begin{proof}
@@ -602,15 +573,16 @@ $|\int f\,dP_\gamma-\int f\,dP_0|\le\sup|f|\cdot\TV\le\TV$.
 Under \textup{(HI-1)} covertness $\TV(P_\xi^\gamma,P_\xi^0)\le\varepsilon(\theta)$,
 \textup{(HI-2)} $\hat A=f(\xi)$ with calibration bias
 $|\mathbb{E}_0[\hat A]-A^0|\le\eta_0$, \textup{(HI-3)} distortion growth
-$A^0-A^\gamma\ge c_1 s(\gamma)^{\nu_0}$ ($\nu_0\in\{1,2\}$): in expectation
+$A^0-A^\gamma\ge c_1 s(\gamma)^{\nu_0}$ ($c_1>0$, $\nu_0\in\{1,2\}$): in expectation
 over the evidence law,
 $\mathbb{E}_\gamma[\hat A]\ge\mathbb{E}_0[\hat A]-\varepsilon\ge
 A^0-\varepsilon-\eta_0> A^0-c_1s^{\nu_0}\ge A^\gamma$ whenever
-$c_1s^{\nu_0}>\varepsilon+\eta_0$, and the expected gap
-$\mathbb{E}_\gamma[\hat A]-A^\gamma\ge c_1s^{\nu_0}-\varepsilon-\eta_0$ is
-strictly increasing in $s$; with the gap bounded in $[-1,1]$, Markov's
-inequality gives the firing-probability floor
-$\Pr_\gamma[\hat A>A^\gamma]\ge c_1s^{\nu_0}-\varepsilon-\eta_0$
+$c_1s^{\nu_0}>\varepsilon+\eta_0$, and the expected gap obeys
+$\mathbb{E}_\gamma[\hat A]-A^\gamma\ge g(s):=
+c_1s^{\nu_0}-\varepsilon-\eta_0$, whose lower bound $g(s)$, not necessarily
+the actual expected gap, is strictly increasing in $s$. With
+$X:=\hat A-A^\gamma\in[-1,1]$, Markov's inequality gives
+$\Pr_\gamma[\hat A>A^\gamma]=\Pr_\gamma[\AHI>0]\ge g(s)$
 (vacuous when the right-hand side exceeds $1$; informative range $(0,1]$).
 \end{theorem}
 \begin{proof}
@@ -618,8 +590,10 @@ $\mathbb{E}_\gamma[\hat A]\ge\mathbb{E}_0[\hat A]-\varepsilon$ by
 Lemma~\ref{lem:tv-continuity} (an expectation statement, not pointwise);
 $\mathbb{E}_0[\hat A]\ge A^0-\eta_0$ by the calibration-period bias bound;
 (HI-3) gives $A^\gamma\le A^0-c_1s^{\nu_0}$; the chain and the expected-gap
-bound follow, with strict monotonicity because $c_1s^{\nu_0}$ is strictly
-increasing and $\varepsilon,\eta_0$ are $s$-independent. For the firing
+bound follow. Only the lower bound is strictly monotone, because
+$c_1s^{\nu_0}$ is strictly increasing and $\varepsilon,\eta_0$ are
+$s$-independent; no monotonicity claim for the actual expectation follows.
+For the firing
 floor, $X:=\hat A-A^\gamma\in[-1,1]$ with $\mathbb{E}[X]\ge g:=
 c_1s^{\nu_0}-\varepsilon-\eta_0>0$ gives
 $g\le\mathbb{E}[X]\le\Pr[X>0]\cdot1+\Pr[X\le0]\cdot0=\Pr[X>0]$; for $g>1$
@@ -627,43 +601,86 @@ the hypotheses are unsatisfiable ($\mathbb{E}[X]\le1$ always), so the floor
 is vacuous there and its informative range is $g\in(0,1]$. All constants
 are used as stated
 (no constant and its reciprocal are interchanged); the calibration step is an
-explicit error budget, not an approximate identity. T3(a)
-(manipulation $\Rightarrow$ strict decrease wherever the affected instrument
-enters the composite, with the registered L0/L1 $\beta_G$-on-$\Fix$ corner of
-Theorem~\ref{thm:t3}) is the row-wise coverage of
-Theorem~\ref{thm:coverage} composed with (A2), per the (M1)/(M2) case
-split in Definition~\ref{def:manip}.
+explicit error budget, not an approximate identity. T3(a) is the row-wise application of Lemma~\ref{lem:strict-comparison}
+composed with (A2) and the explicit $A^0>0$ premise. It is not a consequence
+of the manipulation label alone: the $\beta_\pi$ ratio, $\beta_G$ distance,
+$\gamma$ accuracy, $\delta$ empowerment, and L2 output-law conditions are all
+load-bearing. The $\gamma$ branch applies only at L1+ (where $\Aepi$ exists),
+and the $\beta_{\Endorse}$ historical branch only at L2 (where $\Aref$ enters
+the composite); no contrary composite claim is made at L0 or for an auxiliary
+L1 endorsement SCM.
 \end{proof}
 
 \section{Proofs for T4 and T5}\label{app:t4t5}
 
 \begin{proposition}[T4(i), highest-leverage concentration --- restated]
-Under geometric aggregation and \textup{(LinLog)}, with per-unit costs
-$c_i>0$, the attacker optimum is the
-vertex $i^*=\arg\max_iw_is_i/c_i$.
+Under geometric aggregation, $A_i^0>0$, fixed $\Avia>0$, and
+\textup{(LinLog)}, every full-budget vertex in
+$\mathcal I^\star=\arg\max_iw_is_i/c_i$ minimizes $A$; uniqueness holds only
+for a singleton $\mathcal I^\star$.
 \end{proposition}
 \begin{proof}
-The objective $\max\sum_iw_is_ix_i$ subject to $\sum_ic_ix_i\le B$ is a
-single-constraint LP: for feasible $x$,
+Minimizing $A$ is equivalent to maximizing $\sum_iw_is_ix_i$ subject to
+$\sum_ic_ix_i\le B$: for feasible $x$,
 \[
-\sum_iw_is_ix_i\le\max_i(w_is_i/c_i)\cdot\sum_ic_ix_i
+\sum_iw_is_ix_i\le\max_i(w_is_i/c_i)\sum_i c_ix_i
 \le (w_{i^*}s_{i^*}/c_{i^*})B,
 \]
-the vertex value. Strictly concave $g_i$ instead
-give interior KKT water-filling---the ``concentration'' conclusion is
-(LinLog)-dependent, and its failure mode (spread attacks superior) is the
-registered falsification signal.
+with equality at any registered best-leverage vertex. Ties belong to
+$\mathcal I^\star$ and may make a whole vertex face optimal.
 \end{proof}
 
 \begin{proposition}[T4(ii), defender equalizes --- restated]
-With defense $e$ and budget $\sum_ie_i\le E$, let
-$\rho_i(e_i)=w_is_i(e_i)/c_i(e_i)$, continuous and decreasing. The optimum
-of $\min_e\max_i\rho_i(e_i)$ equalizes $\rho_i$ over $\{i:e_i>0\}$.
+With defense $e$ and budget $\sum_ie_i\le E$, $E>0$, let
+$\rho_i(e_i)=w_is_i(e_i)/c_i(e_i)$ be continuous and nonincreasing, and assume
+that every unique strict maximum is locally strictly decreasing in its
+channel's defense. At an optimum of $\min_e\max_i\rho_i(e_i)$, either maximal
+funded channels have a common water level $R$ and unfunded channels have
+$\rho_i(0)\le R$, or exactly one channel consumes the entire usable budget.
+These are necessary, not sufficient, conditions.
 \end{proposition}
 \begin{proof}
-Existence by compactness and continuity. If at optimum
-$\rho_1>\rho_2=\max_i\rho_i$, continuity lets us move a small budget from
-channel 2 to channel 1 and reduce the maximum---contradiction.
+Existence follows by compactness and continuity. Suppose a unique strict
+maximum is locally strictly decreasing and can be reduced by allocating more
+defense to its channel using unused budget or a donor. Continuity permits a
+transfer small enough that every other ratio stays below the former maximum,
+while the maximal ratio strictly falls---a contradiction. If no such resource
+exists, exactly one channel is funded with the full usable budget, so equality
+over the funded set is vacuous. Otherwise the maximum is tied. An unfunded
+channel can enter the active set from zero; it need not equalize smaller
+entries. Constant responses $\rho_1\equiv2,\rho_2\equiv1$ show why the
+responsiveness premise cannot be dropped: every allocation, including a split
+allocation with a unique strict maximum, is then optimal. The condition
+$\rho_i(0)\le R$ is merely the maximum definition and is not a sufficiency
+claim.
+\end{proof}
+
+\begin{proposition}[Linear-fraction attack: correct boundary analysis]
+\label{prop:linear-fraction}
+For $w_i,c_i,s_i>0$, $B>0$, and $0\le s_ix_i\le1$, minimize
+$J(x)=\sum_iw_i\log(1-s_ix_i)$ over $x_i\ge0$ and $\sum_i c_ix_i\le B$.
+If zero retention is feasible, the extended minimum $-\infty$ is attained at
+a zero boundary, potentially also by non-extreme points. On the strictly
+positive-retention feasible domain, a global minimum is attained at an extreme
+point, with candidate values $J_i=w_i\log(1-s_iB/c_i)$. Interior KKT
+stationarity of the concave objective is not a generic minimum certificate.
+\end{proposition}
+\begin{proof}
+On the strictly positive-retention domain, each nonconstant term is strictly
+concave: $\partial_iJ=-w_is_i/(1-s_ix_i)$ and
+$\partial_{ii}J=-w_is_i^2/(1-s_ix_i)^2<0$. If $x=\sum_k\alpha_kv_k$ is a
+non-extreme convex combination there, then
+$J(x)>\sum_k\alpha_kJ(v_k)\ge\min_kJ(v_k)$, so an extreme minimizer exists.
+The zero-retention case is separate: for example, at $B=3$ with two unit-cost,
+unit-sensitivity channels, $(1,1/4)$ is non-extreme and also has $J=-\infty$,
+so no uniqueness or extreme-only claim is made there. Budget monotonicity
+reduces positive-retention candidates to the displayed full-budget vertices. For the two-channel symmetric example $w_i=0.5$,
+$c_i=s_i=1$, $B=0.5$, the interior point $(0.25,0.25)$ satisfies the
+equality-budget KKT condition with multiplier $2/3$ and Hessian $-(8/9)I$,
+hence is a local maximum of $J$, while $(0.5,0)$ or $(0,0.5)$ gives the
+smaller value $-\tfrac12\log2=-0.3465735903$ instead of $-0.2876820725$.
+The R14 grid and symbolic certificates are in
+\texttt{sim/analysis\_r14\_math.json}.
 \end{proof}
 
 \begin{theorem}[restated: T5]
@@ -677,39 +694,48 @@ the component propositions of Appendix~\ref{app:components}
 restricts the applicable disjuncts.
 \end{proof}
 
-\begin{corollary}[T5, script equivalence --- restated; skeleton with explicit assumption]
-Under \textup{(K)} (adversary knows $(G,\pi)$; $\pi$ near-deterministic with
-TV noise $\le\nu$), total epistemic capture implies behavior equivalent to an
-adversarial script driven by $I^{\gamma,T}$ with
-$\frac1T\sum_t\mathbb{E}\TV(P_{A_t},P_{\mathrm{script},t})\le\nu+o(1)$.
+\begin{corollary}[T5, full-state script equivalence --- restated]
+Under \textup{(K-full)} from Corollary~\ref{cor:script}, an external script
+driven by the captured influence history achieves average action
+$\TV\le\nu+\eta$.
 \end{corollary}
-\begin{proof}[Proof skeleton (explicit assumption flagged)]
-Under capture, the $(B,O)$ components of $S_t$ are functions of $I^\gamma$;
-$A_t=\pi(S_t)$ is computable by the adversary up to noise $\nu$ under (K);
-DPI guarantees further processing does not increase the TV.
+\begin{proof}
+By hypothesis, $\hat S_t$ is computable from the captured history and is a
+sufficient statistic for every parent of $A_t$. Couple the true and scripted
+states on the event on which they differ with probability at most $\eta$ in
+average TV. On their agreement event, the known deterministic component
+$a^\dagger(\hat S_t)$ is identical; the residual policy/noise term is at most
+$\nu$ by the uniform policy bound. Averaging gives $\nu+\eta$. Control of only
+$(B,O)$ is insufficient: with deterministic $A=M$ and independent unobserved
+$M$, two worlds can have identical $(G,B,O,R)$ and action TV $=1$ even when
+$\nu=0$. DPI is used only after the sufficient-state coupling is constructed.
 \end{proof}
 
 \section{Proofs for T6}\label{app:t6}
 
 Recall the dynamics and mechanisms M1--M4 from Section~\ref{sec:t6} and
-assumptions \textup{(H1)}--\textup{(H4$'$)} (additive linearly mapped damage;
+assumptions \textup{(H1)}--\textup{(H4$''$)} (additive linearly mapped damage;
 units unified by calibration into damage-nats/time, with $\chi_j$-estimation
 sensitivity as a reporting obligation; $\iota_j\ge\iota_{\min}>0$;
-$\varepsilon\ge\varepsilon_{floor}>0$; $\Avia\ge\Avia^{\min}>0$).
+$\varepsilon\ge\varepsilon_{floor}>0$; $\Avia\ge\Avia^{\min}>0$; and
+$A_j^{base}>0$ for every applicable channel, \textup{(H4$''$)}).
 
 \begin{theorem}[T6, main theorem --- restated]
 See Theorem~\ref{thm:t6}; the margin is two-tier: the pointwise floor
-$\prod_j(A_j^{base}(1-\bar\delta_j/\kappa_j))^{w_j}>0$ for
+$\Avia^{\min}\prod_j(A_j^{base}(1-\bar\delta_j/\kappa_j))^{w_j}>0$ for
 $\bar\delta_j<\kappa_j$, and the uniform floor \eqref{eq:amin}, positive iff
-no $\kappa_j$ binds.
+no $\kappa_j$ binds under the standing non-degenerate baseline premises.
 \end{theorem}
 \begin{proof}
-(i) M4 modeling assumption ($k$-of-$r$ majority of independent copies: a
-majority takeover requires corrupting $k_j=\lceil(r_j+1)/2\rceil$ copies,
-which at cost $c_{0,j}$ per copy per window $W_j$ requires budget rate
-$k_jc_{0,j}/W_j$; below that rate no majority is ever held, and the
-consensus state is recovered with probability $1-o(1)$ per window, whence
-$\delta_j^{eff}=0$).
+(i) M4 is a deterministic modeling premise, not a random asymptotic. For a
+$k$-of-$r$ majority of independent copies, a majority takeover requires
+corrupting $k_j=\lceil(r_j+1)/2\rceil$ copies, which at cost $c_{0,j}$ per
+copy per window $W_j$ requires budget rate $k_jc_{0,j}/W_j$. The registered
+M4 recovery premise stipulates that below that rate no majority is held and
+consensus restoration gives $\delta_j^{eff}=0$ in every window. With the
+upper comparison then reducing to $\dot D_j\le-\kappa_jD_j$, it follows that
+$D_j(t)\to0$ deterministically. No per-window probability, limit parameter,
+or stochastic conclusion is invoked.
 (ii) With $\delta_j<\theta_j/W_j$, M1 never triggers (window accumulation
 $W_j\delta_j<\theta_j$), so M3 is the only active term:
 $\dot D_j\le\delta_j-\kappa_jD_j$; the comparison principle (local Lipschitz
@@ -717,7 +743,10 @@ right-hand side) gives $\limsup_tD_j(t)\le\delta_j/\kappa_j$, and
 $\delta_j<\deltastar_j\le\kappa_j$ makes the bound $<1$.
 (iii) Substituting the component map $A_j=A_j^{base}(1-D_j)$ at
 $D_j=\bar\delta_j/\kappa_j$ into the product form of
-Theorem~\ref{thm:rep} gives the pointwise tier. For the uniform tier,
+Theorem~\ref{thm:rep}, together with $\Avia\ge\Avia^{\min}$, gives the
+pointwise tier. Its strict positivity uses both $\Avia^{\min}>0$ and
+$A_j^{base}>0$ for every applicable $j$; omitting either premise would permit
+a zero or an overestimated floor. For the uniform tier,
 $\deltastar_j<\kappa_j$ gives $1-\deltastar_j/\kappa_j>0$ in every factor,
 and $\Avia\ge\Avia^{\min}>0$ by (H4$'$); if $\kappa_j=\deltastar_j$ the
 $j$-th factor is $0$---the uniform floor degenerates continuously while the
@@ -727,61 +756,132 @@ $\bar\delta_j<\kappa_j$.
 
 \begin{proposition}[T6, registration domain --- restated]
 If $\delta_j\ge\theta_j/W_j$ (registerable) and M1 responds normally, damage
-per registration cycle is $\le\theta_j+\ell_j\delta_j$; after rollback the
-cycle repeats, and whenever $\theta_j+\ell_j\delta_j$ is below the capture
-threshold, $A$ has positive floor $A(\theta+\ell\delta)$.
+on channel $j$ per registration cycle is $\le\theta_j+\ell_j\delta_j$; after
+rollback the cycle repeats. Whenever this per-cycle damage is below the
+capture threshold, the registered component map gives the per-channel floor
+\[
+A_j\;\ge\;A_j^{base}(1-\theta_j-\ell_j\delta_j)\;>\;0,
+\]
+with positivity using \textup{(H4$''$)}. A positive floor for the full
+composite additionally requires positive retention lower bounds for every
+other applicable factor and $\Avia$; it does not follow from channel $j$
+alone.
 \end{proposition}
 \begin{proof}
 Accumulation at rate $\delta_j$ reaches $\theta_j$ within the window; the lag
-contributes at most $\ell_j\delta_j$; rollback resets.
+contributes at most $\ell_j\delta_j$; rollback resets. Substitution into
+$A_j=A_j^{base}(1-D_j)$ gives the displayed per-channel bound. No assertion
+about an unrelated factor is made.
 \end{proof}
 
-\begin{proposition}[T6, detection-alone impossibility --- restated]
-For any detection-only scheme with $\mathbb{E}_\infty[T]\ge1/\alpha$, damage
-at detection under constant drift $\delta$ is
-$\ge(1-o(1))\cdot 2s_n^2\log(1/\alpha)/\delta\to\infty$ as $\delta\to0$.
+\begin{proposition}[T6, Gaussian detection-only lower bound --- restated]
+For iid $N(0,s_n^2)\to N(\delta,s_n^2)$ observations, fixed drift
+$\delta>0$, and any admissible scheme family $(T_\alpha)$ satisfying
+$\mathbb{E}_\infty[T_\alpha]\ge1/\alpha$, let $\mathrm{EDD}_\alpha$ be
+Lorden's worst-case delay of $T_\alpha$. Then, family by family,
+$\delta\,\mathrm{EDD}_\alpha\ge(1-o(1))2s_n^2\log(1/\alpha)/\delta\to\infty$
+as $\alpha\downarrow0$. The conclusion concerns an asymptotic lower bound on
+expected cumulative drift damage at fixed nonzero drift, not pointwise
+damage at detection, a class-uniform $o(1)$, or a universal weak-drift
+asymptotic.
 \end{proposition}
 \begin{proof}
-Lorden's lower bound (with Lai's refinement) gives worst-case
-$\mathrm{EDD}\ge(1-o(1))\log(1/\alpha)/D(\delta)$ for any procedure with
-average run length $\ge1/\alpha$, where $D(\delta)$ is the per-sample KL
-between pre- and post-drift laws; the local expansion
-$D(\delta)=\delta^2/(2s_n^2)+O(\delta^3)$ for additive drift against
-noise variance $s_n^2$ yields
-$\delta\cdot\mathrm{EDD}\ge(1-o(1))\,2s_n^2\log(1/\alpha)/\delta$
-\citep{lorden1971,lai1995,tartakovsky2014}.
+For each admissible family, Lorden's lower bound (with Lai's refinement)
+gives worst-case $\mathrm{EDD}_\alpha\ge(1-o(1))\log(1/\alpha)/D(\delta)$
+as $\alpha\downarrow0$ at fixed $D(\delta)>0$. The Gaussian KL is exactly
+$D(\delta)=\delta^2/(2s_n^2)$, so no unjustified local expansion is needed
+\citep{lorden1971,lai1995,tartakovsky2014}. Multiplying by the fixed
+$\delta$ gives the scheme-family-wise claim. We do not turn the separate
+per-family $o(1)$ terms into a uniform bound over a class of schemes.
+
+The former quantifier order---fixed $\alpha$, then
+$\delta\downarrow0$---is false over all sequential rules, even after
+restricting to Gaussian observations. For any fixed $\alpha\in(0,1)$, the
+constant stopping time $T\equiv K$ with $K=\lceil1/\alpha\rceil$ is a legal
+rule, satisfies $\mathbb{E}_\infty[T]=K\ge1/\alpha$, and has Lorden delay at
+most $K$ independently of $\delta$. Hence $\delta\,\mathrm{EDD}\le\delta K
+\to0$ as $\delta\downarrow0$. Nontrivial observation dependence does not
+rescue the claim: $T=K+\mathbf 1\{X_1>0\}$ satisfies the same false-alarm
+constraint and has delay at most $K+1$. A weak-drift statement would
+therefore require a different class of procedures and additional
+nontrivial-power or consistency premises, with a separate joint-asymptotic
+proof; none is claimed here.
+
+The distribution restriction is also necessary. If $P_0=U[0,1]$ and
+$P_\delta=U[\delta,1+\delta]$, the variances agree but
+$D(P_\delta\|P_0)=\infty$ for every $\delta>0$. The rule that alarms on the
+first $X>1$ has zero pre-change false alarms and $\mathrm{EDD}=1/\delta$, so
+$\delta\,\mathrm{EDD}=1$ does not diverge. Hence ``additive drift plus a
+noise variance'' alone cannot support the proposition.
 \end{proof}
 
-\begin{corollary}[T6, design rule and blind zone --- restated]
-$\theta_j/W_j\le\kappa_j$ eliminates the ``unregistered and unrepairable''
-band ($\delta<\theta/W$ handled by M3; $\delta\ge\theta/W$ by M1), giving
-global boundedness with
+\begin{corollary}[T6, design rule and certificate-failure band --- restated]
+If $\theta_j/W_j\le\kappa_j$, every drift lies in a certificate domain:
+$\delta<\theta/W$ gives $\limsup_tD(t)\le\delta/\kappa<1$ through M3, and
+$\delta\ge\theta/W$ is registerable by M1. The M1 branch yields per-channel
+non-capture or positive component retention only when M1 responds normally and
+$\theta+\ell\delta$ is below the capture threshold, as in the registration
+proposition above. Also
 $\deltastar_j=\min(\theta_j/W_j,\,\lceil(r_j+1)/2\rceil c_{0,j}/W_j)$
-(the $\kappa$-term slack). If $\theta/W>\kappa$ \emph{on a channel where the
-redundancy term does not bind} (the channel is outside M4's coverage, the
-attack is outside M4's replication-corruption budget model, or the budget
-rate exceeds $k_jc_{0,j}/W_j$; on an M4-covered channel below that budget
-rate, T6(i) gives $D\to0$ instead), then for
-$\delta\in(\kappa,\theta/W)$: M1 never triggers and repair is outpaced
-($\delta/\kappa>1$), so $D\to1$ on that channel despite the full mechanism
-stack being present---the blind-zone prediction.
+(the $\kappa$-term slack). If $\theta/W>\kappa$ on a channel where the
+deterministic M4 recovery premise is unavailable, then for fixed
+$\delta\in(\kappa,\theta/W)$, M1 never triggers and the only M3-only upper
+bound is $\limsup_tD(t)\le\delta/\kappa$, with right-hand side greater than
+$1$. Hence no positive M3-only retention certificate survives in this band.
+This is a \emph{certificate-failure band}, not a capture theorem. Indeed,
+$D(t)\equiv0$ satisfies $\dot D=0\le\delta-\kappa D$, stays in $[0,1]$, never
+triggers M1 because $\delta<\theta/W$, and does not approach $1$. Therefore
+the upper comparison premise cannot imply capture. The registered ATK-6
+implementation additionally imposes the exact clipped saturating law
+$\dot D=\delta-\kappa D$; when $\delta>\kappa$ and M1 does not fire, the
+unclipped solution crosses $1$ in finite time, so the clipped trajectory
+reaches $1$ then. The resulting $30/30$ capture observation
+belongs to that implementation, not to the general corollary.
 \end{corollary}
 
-\begin{proposition}[T6, monotonicity --- restated]
-$\partial\deltastar/\partial\varepsilon=v\chi>0$;
-$\partial\deltastar/\partial v=\varepsilon\chi>0$; $\deltastar$ is
-nondecreasing in $r$ with step $c_0/W$ at each increment of
-$\lceil(r+1)/2\rceil$; $\partial\deltastar/\partial W<0$
-(where a windowed term binds); $\theta$ double-edged (coverage domain rises
-while the damage
-bound $\theta+\ell\delta$ rises and the ARL constraint imposes
-$\theta\ge\theta_{\min}(\alpha)$); shortening $\tau$ raises the gated repair
-rate $\iota/\tau$, hence the margin.
+\begin{proposition}[T6, term-wise monotonicity --- restated]
+Write $a=\theta/W$, $b=kc_0/W$, and
+$\deltastar=\min(a,\kappa,b)$. Holding all other arguments fixed:
+\textup{(i)} $\deltastar$ is nondecreasing in $\theta$, in $\kappa$, and
+stepwise nondecreasing in $r$ through $k=\lceil(r+1)/2\rceil$, and is
+nonincreasing in $W$; it is strictly increasing only when the changed term
+binds and actually changes the minimum. \textup{(ii)} The floor
+\eqref{eq:amin} is nonincreasing in $\deltastar$ for fixed $\kappa$.
+Because $\deltastar/\kappa=\min(a/\kappa,1,b/\kappa)$, it is nondecreasing
+in $\kappa$. Consequently, raising $\varepsilon$ or $v$, or shortening
+$\tau$ on a gated channel, weakly raises both $\deltastar$ and $\Amin$
+through $\kappa$. On a region with a unique minimizer, only that term has a
+nonzero local comparative static; ties can produce flat one-sided changes.
+On a non-degenerate product domain where $\Avia^{\min}$ and every other
+multiplicative factor are positive, the floor rises strictly with $\kappa$
+when a positive-weight channel with $A_j^{base}>0$ moves from
+$\deltastar_j=\kappa_j$ to $\deltastar_j<\kappa_j$, or when $a_j$ or $b_j$
+binds and $\kappa_j$ strictly decreases the ratio $\deltastar_j/\kappa_j$.
+Without that domain condition, another identically zero factor can make the
+strict claim vacuous.
+\textup{(iii)} Raising $\theta$ weakly raises $\deltastar$ but weakly lowers
+\eqref{eq:amin}; lowering $\theta$ reverses both directions. Raising $r$
+weakly raises $\deltastar$ but, with $\kappa$ fixed, weakly lowers
+\eqref{eq:amin}. Neither $\theta$ nor $r$ licenses a joint ``both margins
+increase'' claim. The threshold remains double-edged, but the directions
+must be stated correctly: raising $\theta$ weakly increases $\deltastar$,
+\emph{shrinks} the registerable drift domain $\{\delta:\delta\ge\theta/W\}$,
+worsens the per-cycle bound $\theta+\ell\delta$, and weakly lowers the
+uniform floor \eqref{eq:amin}. Lowering $\theta$ expands registration
+coverage but has the reverse effects on those three quantities; the ARL
+constraint imposes $\theta\ge\theta_{\min}(\alpha)$.
 \end{proposition}
 \begin{proof}
-Term-wise differentiation of the $\min$ form (the redundancy term is
-stepwise constant in $r$); the gated quantities' effective
-repair rate contains $\iota/\tau$.
+The claims follow from monotonicity of the minimum and of
+$1-\deltastar/\kappa$. Two numerical counterexamples fix the previously
+misstated directions. With $W=1$, $\kappa=2$, and a slack redundancy term,
+lowering $\theta:0.8\to0.4$ lowers $\deltastar:0.8\to0.4$; it cannot raise
+the margin. With $A^{base}=1$, $\kappa=10$, $c_0=W=1$, and
+$\theta/W\ge2$, raising $r:1\to2$ raises $\deltastar:1\to2$ while a channel
+factor of positive weight changes from $0.9^w$ to $0.8^w$, so
+\eqref{eq:amin} strictly decreases. For the M4-covered case, use the
+separate floor \eqref{eq:amin-m4} below rather than assigning that stronger
+mechanism to \eqref{eq:amin}.
 \end{proof}
 
 \begin{corollary}[T6$\times$T7, composition --- restated]
@@ -795,9 +895,13 @@ high-$q$ delegation consumes almost no margin, low-$q$ erodes it.
 \begin{theorem}[T7(i), component-level linear law --- restated]
 Under \textup{(H1')} (equal per-step conditional entropy transfer $C$ of both
 sources; the script arm bypasses $S$; and $\Fext^{self}=0$---the undelegated
-agent carries no residual external flow), $\Fint=(1-m)\tilde C$,
-$\Fext=m\tilde C$ (same $\tilde C$), hence
-$\Aorg(\lambda,q)=\Aorg^{self}(1-\lambda(1-q))$.
+agent carries no residual external flow), the selector-conditional flows
+satisfy $\Fint=(1-m)\tilde C$ and $\Fext=m\tilde C$ (same $\tilde C$), hence
+$\Aorg(\lambda,q)=\Aorg^{self}(1-\lambda(1-q))$ for that estimand.
+Here ``selector-conditional'' means the current-step flows
+$I(S^t;A_t\given A^{t-1},\mu_t)$ and
+$I(I^t;A_t\given A^{t-1},S^t,\mu_t)$, summed over $t$, not automatically
+causal conditioning on the full selector history $\mu^t$.
 \end{theorem}
 \begin{proof}
 Under the mixture law $(1-m)\pi_{self}+m\pi_{del}$ with the exogenous
@@ -810,177 +914,220 @@ C/(\tilde C+0)=1$-normalized, so the ratio is exactly $1-m$. With
 $\Fext^{self}=f>0$ the same bookkeeping gives
 $\Aorg=(1-m)\tilde C/((1-m)\tilde C+m\tilde C+f)$, a strict correction; the
 bracket below absorbs the uncalibrated case.
-\emph{The slack bound, explicitly.} When the selector is \emph{not} registered
-in the log, the per-step internal term satisfies, by the chain rule applied
-to $(S^t,\mu_t)$,
+\emph{The slack bound, explicitly.} For any $X,Y,Z,C$, two applications of
+the mutual-information chain rule give
+\begin{equation}\label{eq:selector-chain}
+I(X;Y\given Z,C)-I(X;Y\given C)
+=I(Z;Y\given X,C)-I(Z;Y\given C).
+\end{equation}
+Both terms on the right lie in $[0,H(Z\given C)]\subseteq[0,H(Z)]$, so the
+absolute difference is at most $H(Z)$. Taking $X=S^t$, $Y=A_t$, $Z=\mu_t$,
+and $C=A^{t-1}$ gives the internal-flow identity
 \[
-I(S^t;A_t\given A^{t-1})=(1-m)C_{self}+I(\mu_t;A_t\given A^{t-1})
--I(\mu_t;A_t\given A^{t-1},S^t),
+I(S^t;A_t\given A^{t-1},\mu_t)-I(S^t;A_t\given A^{t-1})
+=I(\mu_t;A_t\given A^{t-1},S^t)-I(\mu_t;A_t\given A^{t-1}),
 \]
-and both correction terms lie in $[0,h(m)]$ with $h(m)\le\ln2$ the selector
-entropy, so the per-step deviation from $(1-m)C_{self}$ is at most $h(m)$
-nats, accumulating to $\le T\,h(m)$ over the horizon (and likewise for the
-$\Fext$ term). The ratio $\Aorg$ therefore deviates from the displayed law
-by $O\bigl(h(m)/((1-m)C_{self})\bigr)$ per step: the slack is an $O(1)$ term
-in the rate units, vanishing as the per-step transfer $C_{self}$ grows, not
-as $T$ grows. When the selector \emph{is} registered (the benchmark's
-discipline), conditioning on $\mu_t$ removes both correction terms and the
-law is exact; the benchmark's $2\times10^{-5}$ maximal deviation is the
-residual grid-quantization error, and its $\varphi$-relaxed bracket
-($\varphi\le T\ln2/\Fint^{self}$ with $\Fint^{self}=T\,C_{self}$ the
-undelegated baseline's horizon internal flow; equivalently
-$\varphi\le\ln2/C_{self}$ in per-step rate units) is exactly the bound above.
+whose absolute value is at most $h(m)$. Taking instead $X=I^t$, $Y=A_t$,
+$Z=\mu_t$, and $C=(A^{t-1},S^t)$ gives the external-flow identity
+\[
+\begin{aligned}
+&I(I^t;A_t\given A^{t-1},S^t,\mu_t)-I(I^t;A_t\given A^{t-1},S^t)\\
+&\quad=I(\mu_t;A_t\given A^{t-1},S^t,I^t)
+-I(\mu_t;A_t\given A^{t-1},S^t),
+\end{aligned}
+\]
+with the same $h(m)$ bound. The selector-conditional internal rate is
+$(1-m)C_{self}$ under (H1'), so each unconditioned per-step flow deviates
+from its registered nominal term by at most $h(m)$ nats, accumulating to at
+most $T h(m)$ over the horizon. The ratio $\Aorg$ therefore deviates from
+the displayed law by $O\bigl(h(m)/((1-m)C_{self})\bigr)$ per step: the
+slack is an $O(1)$ term in rate units, vanishing as per-step transfer grows,
+not as $T$ grows. Exactness requires the estimator itself to condition on
+$\mu_t$; recording $\mu_t$ but computing the unconditioned left-hand side
+does not remove the corrections. The benchmark's legacy DEL-1 implementation
+uses unconditioned flows, so its near-linear fit is an ENV-0 numerical
+observation, not a verification of the selector-conditional exact law.
 \end{proof}
 
-\begin{proposition}[T7(ii), bracket bounds --- restated]\label{prop:bracket}
-Under the delegation semantics (exogenous selector with
-$\Pr[\mu_t=\mathrm{del}]=m$; delegated actions are generated by the script,
-so delegated steps carry no $S$-flow---the definiens of script delegation),
-let $\rho:=C_{del}/C_{self}\in[\rho_{\min},\rho_{\max}]$ and
-$f:=\Fext^{self}\ge0$. Then, up to the mixture-entropy slack---explicitly
-bounded by $h(m)\le\ln2$ nats per step in each flow term (the T7(i) proof),
-accumulating to $\le T\,h(m)$ over the horizon---in per-step rate units
-(horizon totals are $T$ times the rates; $\Aorg$, a ratio of like-unit
-flows, is unit-invariant):
-\[
-\Fint=(1-m)C_{self},\qquad \Fext=mC_{del}+f,
-\]
-and consequently
-\[
-\Aorg=\frac{(1-m)C_{self}}{(1-m)C_{self}+mC_{del}+f}
-\;\in\;\Bigl[\frac{1-m}{(1-m)+m\rho_{\max}+\varphi},\;
-\frac{1-m}{(1-m)+m\rho_{\min}+\varphi}\Bigr],
-\]
-with $\varphi:=f/C_{self}$; the bracket follows by dividing numerator and
-denominator by
-$C_{self}$. The slack is \emph{not} an extra additive term outside the
-bracket: it is absorbed into the endpoints through the same
-$\varphi$-relaxation---the benchmark instantiates it as
-$\varphi\le T\ln2/\Fint^{self}$ ($\Fint^{self}:=T\,C_{self}$, the horizon
-total of the undelegated baseline rate $\Fint|_{m=0}=C_{self}$; in the
-per-step rate units of the flow identities above the same bound reads
-$\varphi\le\ln2/C_{self}$), which covers the accumulated
-$T\,h(m)\le T\ln2$ nats (Section~\ref{sec:experiments}, DEL-1 direct-flow
-arm); when the selector is registered in the log the slack vanishes exactly
-and no relaxation is needed. With $f=0$ ($\varphi=0$) this reduces to
-$\Aorg^{self}\cdot[(1-m)/(1-m+m\rho_{\max}),\,(1-m)/(1-m+m\rho_{\min})]$
-(then $\Aorg^{self}=1$). The upper end uses the same two-sided bookkeeping as
-the lower end---$\Fint=(1-m)C_{self}$, i.e.\ the delegated share of internal
-flow is removed; if instead delegated steps were permitted to carry $S$-flow
-up to $C_{self}$, then $\Fint\le C_{self}$ and only the lower end and the
-relaxed upper end $1/(1+m\rho_{\min})$ survive.
+\begin{proposition}[T7(ii), two-error bracket --- restated]\label{prop:bracket}
+Use the normalized quantities $a=1-m$,
+$\rho=C_{del}/C_{self}\in[\rho_{\min},\rho_{\max}]$,
+$\varphi_0=f/C_{self}$, and $\eta_\mu=h(m)/C_{self}$. If the actual internal
+and external flows carry independent errors $u,v$ with
+$|u|,|v|\le\eta_\mu$, their ratio is $(a+u)/(a+u+m\rho+\varphi_0+v)$. On the
+nondegenerate domain of nonnegative flows and positive denominators, the
+sharp box-constrained bounds are $[L,U]$ in \eqref{eq:t7-bracket}: minimize
+the numerator and maximize the external flow for $L$, and do the reverse for
+$U$, finally optimizing $\rho$ over its calibration interval. If
+$\varphi_0\in[\varphi_-,\varphi_+]$ is also uncertain, use $\varphi_+$ in $L$
+and $\varphi_-$ in $U$. Selector-conditional estimation has $\eta_\mu=0$;
+unconditioned estimation has $\eta_\mu\le\ln2/C_{self}$ per step, with the
+same ratio valid in horizon units.
 \end{proposition}
 \begin{proof}
-Per step, with probability $1-m$ the action is generated by the self arm
-(internal transfer $C_{self}$), with probability $m$ by the script
-(no $S$-flow under the delegation semantics; external transfer $C_{del}$);
-summing over $t$ gives the two displays up to the mixture-entropy slack
-explicitly bounded above ($h(m)\le\ln2$ nats per step in each flow term;
-convexity of the mixture entropy). Substituting into
-$\Aorg=\Fint/(\Fint+\Fext)$ and using monotonicity in $\rho$ and $f$ gives
-the bracket. Relaxed upper end: if delegated steps may carry up to
-$C_{self}$ of $S$-flow, then $\Fint\le (1-m)C_{self}+mC_{self}=C_{self}$
-(the mixture cannot transport more internal transfer than the self arm's
-full rate), whence with $f=0$,
-$\Aorg\le C_{self}/(C_{self}+m\rho_{\min}C_{self})=1/(1+m\rho_{\min})$.
+For $N,D\ge0$ and $N+D>0$, $R=N/(N+D)$ increases in $N$ and decreases in $D$.
+Thus $N_{\min}=(a-\eta_\mu)_+$ and
+$D_{\max}=m\rho_{\max}+\varphi_0+\eta_\mu$ give $L$, while
+$N_{\max}=a+\eta_\mu$ and
+$D_{\min}=(m\rho_{\min}+\varphi_0-\eta_\mu)_+$ give $U$. The nonnegative
+parts are exactly the zero-flow boundary conditions. Unknown $\varphi_0$ is
+handled by its worst endpoint on each side. No identity permits a single
+$\varphi$ added only to the denominator to absorb both errors.
+
+For a numerical check of that last point, take $m=0.1$,
+$C_{self}=C_{del}=1$, $\varphi_0=0$, and
+$\eta_\mu=h(0.1)\approx0.325083$. The former relaxed lower end is
+$0.679203$, but $u=-0.25$ and $v=+0.25$ are feasible and yield
+$R=0.65/1=0.65$. The corrected endpoints are $L\approx0.574917$ and $U=1$.
+This algebraic example refutes the old derivation; by itself it does not
+assert that every delegation model realizes these errors jointly.
 \end{proof}
 
 \begin{corollary}[T7(iii), composite correction --- restated]
-Ceteris paribus under geometric aggregation,
-$A(\lambda,q)=A_{self}(1-\lambda(1-q))^{w_{org}}$.
+Ceteris paribus under geometric aggregation, if only $\Aorg$ moves then
+$A(\lambda,q)=A_{self}(1-\lambda(1-q))^{w_{org}}$. In particular, $q=1$
+gives no additional loss in the $\Aorg$ factor, but does not by itself
+prove full-composite losslessness.
 \end{corollary}
 \begin{proof}
-Only $\Aorg$ moves; the product form of Theorem~\ref{thm:rep} gives
-$A/A_{self}=(\Aorg/\Aorg^{self})^{w_{org}}$.
+Only $\Aorg$ moves by premise; the product form of Theorem~\ref{thm:rep}
+gives $A/A_{self}=(\Aorg/\Aorg^{self})^{w_{org}}$. Content-mediated changes
+in $\Aepi$ or any other factor are outside this ceteris-paribus clause.
 \end{proof}
 
-\begin{theorem}[T7(iv), $q=1$ $\equiv$ $\alpha$ --- restated]
-Delegation at full transparency, reversibility, and endorsability ($q=1$)
-is causally equivalent to
-$\alpha$-class influence, hence $\Fext=0$ and $A(\lambda,1)=A_{self}$.
+\begin{theorem}[T7(iv), structural mediation and conditional losslessness
+--- restated]
+At full transparency, reversibility, and endorsability ($q=1$):
+\textup{(a)} delegate-originated influence is mediated $\alpha$-class
+influence, so its bypass flow is zero (and total $\Fext=0$ if the self-side
+residual is zero), with no additional $\Aorg$ loss under the same
+bookkeeping; \textup{(b)} if, in addition, content is honest on the
+registered coordinates, updating is sound, there is no registered-coordinate
+accuracy loss, and all other channels and $\Avia$ are unchanged, then
+$A(\lambda,1)=A_{self}$. These are sufficient premises for the claimed
+no-loss guarantee, not necessary conditions for equality in every model.
 \end{theorem}
 \begin{proof}
-Constructive: transparency places the delegate's output into $B$ as registered
-honest information; reversibility means no persistent $\Delta G$ bypasses
-$\Endorse$; endorsability gives $\Lam=1$; Lemma~\ref{lem:mediation} then gives $\Fext=0$ and
-no component decreases.
+For (a), transparency places the delegate's output into $B$ as registered
+information, without presuming that it is honest; reversibility means no
+persistent $\Delta G$ bypasses $\Endorse$; endorsability gives the
+registered no-surgery premise. Lemma~\ref{lem:mediation} then removes the
+delegate-attributable residual flow. For (b), the additional premises give
+$\Aorg=\Aorg^{self}$ and leave every remaining factor equal to its self
+baseline, so the product is unchanged.
+
+The structural premises alone do not suffice for the no-loss guarantee. Let
+the true registered bucket be $1$,
+and let a delegate transparently and reversibly transmit the false but
+endorsable message ``the bucket is $0$.'' If the agent registers this false
+message as $B'=\delta_0$ rather than the self-baseline
+$B=\delta_1$, every path is visible and surgery-free, yet true-bucket mass
+falls from $1$ to $0$. This is dishonest $\alpha$ content with (R-epi), not
+a counterexample to mediation: $\Fext^{del}=0$ while $\Aepi$, and hence the
+composite, falls. Thus $q=1$ alone cannot imply full-composite
+losslessness.
 \end{proof}
 
-\begin{theorem}[T8, coercion paradox --- restated]
+\begin{theorem}[T8, restricted coercion consistency --- restated]
 See Theorem~\ref{thm:t8}.
 \end{theorem}
 \begin{proof}
-(i) Any intervention that ``rewrites the motivational structure to make it
-substantively autonomous'' touches $G$, $\Endorse$, or $\Acal$ by definition,
-i.e.\ is $\beta$/$\delta$ (Proposition~\ref{thm:taxonomy-completeness}); the
-coverage table (Theorem~\ref{thm:coverage}) gives strict decrease. (ii)
-the monotonicity proposition.
+The premise $A^0>0$ is load-bearing: if another applicable factor is zero at
+baseline, the composite can remain zero despite a strict component loss.
+(i) With $\dc$ and the protocol metric fixed, the strictly increased
+off-$\Fix$ distance gives a strict decrease in $\Agoal$ relative to
+baseline; the special case starts at $\Ueff^0\in\Fix$ and moves strictly off
+it. The strict $\delta$ premise gives a strict relative decrease in
+$\Aexec$. Strict monotonicity of the calibrated geometric aggregate yields
+the result wherever those factors apply; an L2 historical reduction is
+additional, not required. No appeal to taxonomy uniqueness or to the
+intervention's purpose is needed. (ii) follows term by term from the
+$\min$-form and the ratio $\deltastar/\kappa$, with the two counterexamples
+in the T6 monotonicity proof. In particular, lowering $\theta$ does not
+raise $\deltastar$, while raising $r$ can strictly lower
+\eqref{eq:amin}; hence the former joint ``both increase'' claim fails. For
+an M4-covered set
+$\mathcal R$, T6(i) instead substitutes $D_j\to0$ and yields the separate
+floor \eqref{eq:amin-m4}.
 \end{proof}
 
 \section{Proofs for C0}\label{app:c0}
 
-\begin{proposition}[C0(i), projection consistency --- restated]
-Under the definitional readings of Section~\ref{sec:c0}, each target dimension
-is a function of our state descriptor and is rank-consistent with the source
-gradations when $I$ is a benign principal (no adversarial surgery).
+\begin{proposition}[C0(i), restricted registered mappings --- restated]
+Under the definitional readings of Section~\ref{sec:c0}, the KG and Dung
+quantities are explanatory functions of our state descriptor. Their order is
+preserved only on restricted componentwise cells; no general rank consistency
+is asserted for Feng's source roles.
 \end{proposition}
-\begin{proof}[Construction, dimension by dimension]
-Write $Z$ for our state descriptor. Each target dimension is read as a
-function on $Z$ (the definitional readings of Section~\ref{sec:c0}); rank
-consistency is checked pairwise within each source framework.
-\begin{enumerate}
-\item \emph{Kasirzadeh--Gabriel.}
-(i) Efficacy $:=\Aexec$: identity, hence rank-preserving.
-(ii) Autonomy $:=F(\Aorg,\Agoal,\Aref)$: a continuous strictly increasing
-function of three arguments, so it preserves the source's weak order wherever
-that order is the componentwise one.
-(iii) Goal complexity $:=H(\Ustar)$: the entropy is monotone under refinement
-of the goal set, which is the order the source's gradation uses.
-(iv) Generality $:=$ the support measure
-$\Pr[E:A(E)\ge a_0]$: monotone in the set of environments the agent copes
-with, hence rank-preserving for inclusion.
-\item \emph{Dung.}
-(i) Goal-directedness $:=\Agoal$ (identity). (ii) Autonomy $:=\Aorg$
-(identity). (iii) Direct impact $:=\Aexec$ (identity). (iv) Long-term
-planning $:=$ the horizon profile $n\mapsto\Aexec(n)$; planning depth is the
-first saturating $n^*$, and a pointwise-dominating profile cannot saturate
-sooner, so the depth order is preserved. (v) Acting for reasons
-$:=\Aepi^{real}\times\Aref$: increasing in both factors, hence rank-preserving
-for the componentwise order.
-\item \emph{Feng roles.} The roles are cells of a coarse-graining of
-$(\lambda,q)$: operator $\lambda\approx0$; collaborator
-mid-$\lambda$/high-$q$; consultant low-$\lambda$; approver
-high-$\lambda$/high-$q$ (endorsement gate = human approval); observer
-$\lambda\approx1$. The cell map is monotone in each coordinate on the
-registered cells, so the source's role order (where defined) is preserved.
-\end{enumerate}
-All identities hold on the registered parameterization; the residual
-uncertainty is the faithfulness of the readings, not the rank arguments.
+\begin{proof}[Restricted mappings and a Feng counterexample]
+The KG efficacy reading is an identity. The Dung goal-directedness, autonomy,
+and direct-impact readings are also identities, so they preserve their
+stipulated orders. KG autonomy and Dung acting-for-reasons are strictly
+increasing functions of their registered components, so they preserve only
+componentwise orders, not arbitrary source orders. Generality is monotone under environment-set inclusion; goal-complexity
+and planning-depth claims are confined to their registered refinement and
+horizon definitions. None of these statements validates the interpretation as
+the source construct.
+
+For Feng, a former mapping assigned collaborator mid-$\lambda$ and consultant
+low-$\lambda$. But the source assigns more planning and execution
+responsibility to the agent at consultant than at collaborator. Hence the
+source's L2-to-L3 escalation would map to decreasing $\lambda$, contradicting
+monotonicity. Moreover $(\lambda,q)$ alone does not encode who initiates an
+intervention or the approval trigger. We therefore retain only descriptive
+comparisons of operator/collaborator/consultant/approver/observer and remove
+the former ``cell map is monotone, hence source rank preserved'' inference.
+C0-CORR contains no executable Feng mapping and is only a descriptive check
+of author-defined KG/Dung labels.
 \end{proof}
 
-\begin{proposition}[C0(ii), separation witness under registered readings ---
-restated]
-Configuration pairs $(Z_1,Z_2)$ exist with identical behavioral distributions
-and identical KG/Dung/Feng profile values, yet $A(Z_1)\neq A(Z_2)$
-($\Aepi^{real}<1$, $\Lam<1$ in $Z_2$). This is a witness that our state
-descriptor separates configurations the source frameworks cannot, under the
-registered definitional readings---not a claim of mathematical subsumption.
+\begin{proposition}[C0(ii), same-environment additional-audit witness --- restated]
+Nondegenerate L1 configuration pairs $(Z_1,Z_2)$ with $A(Z_1)>0$ exist with
+identical full-trajectory $(E^T,O^T,A^T)$ laws under the same environment distribution
+and protocol, while $\Aepi^{real}$ and an auxiliary $\Lam$ separate the pair
+and $0<A(Z_2)<A(Z_1)$. No external full-profile identity or external construct
+validation is asserted.
 \end{proposition}
 \begin{proof}
-Construction: let the injected content be a verbatim copy of the principal's
-instruction, delivered through a covert $\gamma$ channel that bypasses
-registration. The behavioral distribution is pointwise identical (same
-script); all three frameworks' dimensions are functions of behavior/role
-structure only, hence equal; our framework registers
-$\Aepi^{real}<1$ (the channel pins beliefs independently of the situation,
-driving accuracy against $\delta_{\kappa(E_t)}$ below one) and
-$\Lam<1$ (the surgery history $I^{\mathrm{surg},T}$ contains the covert
-$\gamma$; read law-level from the causal log).
+Both configurations use a fair binary environment, the same faithful
+observation kernel $O=E$, the same goal-dependent action policy, and the same
+registered $\kappa$. The next environment state is action-driven and
+independent of the current environment, so both empowerment channels are
+identical and positive. The faithful arm has $B=\delta_E$; the surgery arm only
+replaces the belief update by a point belief independent of $E$. Exact
+full-trajectory $(E^T,O^T,A^T)$ enumeration gives identical laws, while
+expected true-bucket mass is $1$ and $1/2$, so $\Aepi^{real}=1$ and $0.5$.
+This avoids both the older construction's environment confound and the first
+C0-CF fixture's zero internal flow, zero empowerment, and degenerate goal space.
+
+The auxiliary endorsement SCM uses $Y=U$ in one model and $Y=U\oplus1$ in the
+other, with fair $U$ and nonempty surgery history in both. Factual endorsement
+laws are both fair and auxiliary passive actions are fixed, but abduction
+$U=Y\oplus J$, action $J=0$, and prediction with the same noise give output TV
+$0$ versus $1$. Thus $\Lam=1$ versus $0$ by \eqref{eq:lambda}; no degenerate
+endorsement convention is invoked. The auxiliary SCM is an explicit L1
+attachment, not a process assumed to exist at every L0/L1 layer, and it is
+composite-silent there.
+
+Holding every other positive applicable factor fixed and $w_{epi}>0$ yields
+\[
+0<A(Z_2)=A(Z_1)\,0.5^{w_{epi}}<A(Z_1).
+\]
+The exact full-trajectory check gives identical $(E^T,O^T,A^T)$ laws and, for
+the registered protocol weights,
+\[
+A(Z_1)=0.8312378961,\qquad A(Z_2)=0.7236346187,\qquad w_{epi}=0.2 .
+\]
+See \texttt{sim/runs/20261116\_r14/c0cf\_v2/}; the failed initial
+serialization attempt is separately retained in
+\texttt{c0cf\_failed\_initial/}. Corollary~\ref{cor:c0} uses only behavioral
+identity, not equality of any external framework's full profile.
 \end{proof}
 
-\begin{corollary}[C0, persuasion--hijack inseparability --- restated]
-No purely behavioral governance grading can separate persuasion from hijack;
-certificates need causal-layer audit.
+\begin{corollary}[C0, persuasion--hijack certificate boundary --- restated]
+No functional of the specified passive behavioral profile separates the
+exhibited persuasion--hijack pair; a historical certificate needs additional
+provenance or mechanism evidence, with several candidate audit routes.
 \end{corollary}
 
 \section{Proofs for C1 and C2 (toy-model propositions)}\label{app:c1c2}
@@ -1059,7 +1206,7 @@ countermonotone copula. For $n\ge3$ the Fr\'echet--Hoeffding lower-bound
 form $\max(0,\sum_iF_i-(n-1))$ is \emph{not a copula} (it fails
 $n$-increasingness), so it is not attained by any joint distribution: the
 integral against it is only a relaxed, generally unattainable lower bound.
-An attainable dependence-free lower bound is available instead: since
+A valid, generally non-sharp lower bound is available instead: since
 $\log F=\sum_iw_i\log A_i$ is additive in the coordinates, Jensen's
 inequality for the convex exponential gives
 \[
@@ -1067,11 +1214,18 @@ inequality for the convex exponential gives
 \;=\;\prod_i \mathrm{G}(A_i)^{w_i},
 \]
 where $\mathrm{G}(A_i):=\exp\mathbb{E}[\log A_i]$ is the geometric mean of
-the marginal of $A_i$. Hence with marginals known and dependence unknown,
-$\mathbb{E}[F]$ has a computable interval---comonotone upper end,
-Jensen lower end (or the sharper countermonotone value when $n=2$)---the
-dependence-theoretic complement of the black-box rules. Nested CES within
-clusters is automatically axiom-compatible by (A3).
+the marginal of $A_i$. Jensen equality requires
+$\sum_iw_i\log A_i$ to be almost surely constant; with fixed nondegenerate
+marginals, generally no copula attains it. The lower end is therefore
+computable but generally not attained. With marginals known and dependence
+unknown, $\mathbb{E}[F]$ has computable valid bounds---a comonotone upper
+end and the generally non-sharp Jensen lower end (or the sharper
+countermonotone value when $n=2$)---the dependence-theoretic complement of
+the black-box rules. Nested CES within
+clusters is only a sensitivity candidate: the full nested map must separately
+satisfy calibration, monotonicity, homogeneity, and (A6); (A3) alone does not
+establish that compatibility. Nested geometric aggregation is a compatible
+special case.
 \end{proposition}
 
 \section{Identifiability}\label{app:identifiability}
@@ -1112,39 +1266,53 @@ direction. The adaptive-adversary failure mode is calibrated by the
 benchmark's BB-2 arm---see the scope paragraph in
 Section~\ref{sec:blackbox}.
 
-\paragraph{One-sided $\Aexec$ bounds, protocol-relative.}
-Probed mode (experimenter-forced $p(a^n)$ sequences): exactly computable
-(empowerment needs only the action--observation interface). Passive
-observation: $I(A^n;O_{n+1})$ without conditioning on $S$ is a proxy whose
-bias is state-entropy mixing, provably an overestimate in that protocol
-($\Aexec^{obs}\ge\Aexec$); with independent probes ($A\ind S$), conditioning
-denoises and the direction reverses ($\Aexec^{obs}\le\Aexec$). Protocol labels
-are a reporting obligation; both directions are numerically anchored in the
-benchmark (Section~\ref{sec:experiments}).
+\paragraph{$\Aexec$: no general passive one-sided bound.}
+Probed mode (experimenter-forced $p(a^n)$ sequences) needs only the
+action--observation interface. With independent probes ($A\ind S$),
+$I(A;O)\le I(A;O\given S)$. Passive policy-driven observation has no general
+direction, since
+\[
+I(A;O\given S)-I(A;O)=I(A;S\given O)-I(A;S).
+\]
+
+For a counterexample to the former passive claim, let $S$ be a fair bit and
+$N$ an independent biased bit, and let the certified passive policy be
+$A=S\oplus N$. Let the environment hold a legitimate copy $E=S$ and output
+$O=A$ when $S=0$ and $O=1-A$ when $S=1$. Then $O=N$. Marginally $A$ and $O$
+are independent, so $I(A;O)=0$, whereas $I(A;O\given S)=H(N)>0$. State
+conditioning therefore increases information. The ENV-0 passive inequality
+is retained only as an instance-level descriptive result; otherwise the
+black-box direction is unidentified.
 
 \begin{proposition}[$\Lam$ black-box unidentifiable --- restated]
 See Proposition~\ref{prop:unidentifiable}.
 \end{proposition}
 \begin{proof}
-Construction: fix a behavioral norm (policy $\pi^*$).
-$\mathcal{M}_{endo}$: $G_0=\Ustar$ with $\Endorse$ a map converging to
-$\Ustar$. $\mathcal{M}_{impl}$: a $\beta$ surgery at $t=0$ sets
-$G_0:=\Ustar=U_{adv}$ and $\Endorse\equiv\mathrm{id}$ thereafter. Both
-generate the $(O,A)$ marginal law from the same $\pi^*$ and the same $o$,
-pointwise equal; they differ only at the unobserved node $I^\beta$. Hence
-every functional of $(O^T,A^T)$ (and of $\Aphen$) agrees, while
-$\Lam$ differs---$\Lam(\mathcal{M}_{endo})=1$ by the empty-history convention
-and $\Lam(\mathcal{M}_{impl})=0$ by the degenerate-endorsement certification
-convention, both registered in AX3 and restated in the main-text proposition;
-the behavioral identity half of the separation is independent of either
-convention. Corollary~\ref{cor:logs-necessary} follows.
+Fix identical passive $(O^T,A^T)$ and $\Aphen$ laws. In the endogenous model,
+a fair exogenous bit $U$ gives endorsement $Y=U$ with no output-relevant
+surgery, so actual and no-surgery output laws agree and $\Lam=1$. In the
+implanted model, $Y=U\oplus J$ with $J=1$; factual $Y$ remains fair, hence all
+specified passive and factual endorsement laws are identical. From factual
+$(Y,J)$, the factual abduction context is $C=(Y,J)$, with
+$P_{(y,j)}=\delta_y$ and $P^{\varnothing}_{(y,j)}=\delta_{y\oplus j}$.
+Abduction recovers $U=Y\oplus J$. Action removes $J$, and prediction with the
+same abducted noise gives $Y^0=U$. For $J=1$, the actual output $1-U$ and
+counterfactual output $U$ are opposite point masses, so output-law TV $=1$
+and $\Lam=0$. Both endorsement processes are nondegenerate across contexts;
+no identity-endorsement certification convention is invoked. This also gives
+an observationally equivalent pair of SCMs whose counterfactual values differ.
+Corollary~\ref{cor:logs-necessary} follows only for the specified passive
+protocol: active behavioral probes remain a separate candidate evidence route.
 \end{proof}
 
 \section{Benchmark registry details: counting units and seeds}\label{app:counting}
 
-This appendix carries the full registry arithmetic summarized in
-Section~\ref{sec:experiments} (``Counting units''), so that every headline
-count in the paper can be recomposed from the run manifest.
+This appendix carries the historical registry arithmetic summarized in
+Section~\ref{sec:experiments} (``Counting units''), so that every historical
+$4{,}620$-run headline count can be recomposed from the historical run
+manifests. The separate R11 DEL-1 replay and the R13 CUSUM sensitivity
+recomputation are accounted separately below; neither rewrites or is counted
+as part of the $4{,}620$ execution records.
 
 \paragraph{Pool (i): arm bundles.} Row-level attack-strength records
 (including the zero-strength baseline that serves as the ceteris-paribus
@@ -1184,6 +1352,45 @@ total. Run-level verdicts of the main matrix: $2{,}520$
 \textsc{confirmed} $+360$ \textsc{inconclusive} (out-of-window defense cells,
 \textsc{inconclusive} rather than \textsc{refuted} by the verdict convention
 registered in Section~\ref{sec:experiments}) $=2{,}880$.
+
+\paragraph{Separate R11 DEL-1 replay ledger.}
+The 30-run replay at \texttt{sim/runs/20261102\_r11/del1} evaluates six
+criteria per run. DEL-1(i)--(iv) each yield $30$ CONFIRMED and zero
+INCONCLUSIVE evaluations; DEL-1(v)--(vi) each yield zero CONFIRMED and $30$
+INCONCLUSIVE evaluations because their corrected brackets are $[0,1]$. Hence
+$4\times30=120$ CONFIRMED plus $2\times30=60$ INCONCLUSIVE criterion
+evaluations. Every run contains the two non-diagnostic criteria and no
+REFUTED criterion, so the run-level aggregation rule makes all $30$ overall
+verdicts INCONCLUSIVE. This ledger comes from the separate replay's results
+and verdict table, not from the historical $4{,}620$-run manifests.
+
+\paragraph{R13 CUSUM seed-level ratios and small-sample sensitivity.}
+From the unchanged historical ATK-6 results at $\varsigma=1$ and defense
+configuration $0$, replication $r\in\{0,\ldots,29\}$ has seed $36000+r$ and
+ratio $R_r=(0.125\,\widehat{\mathrm{EDD}}_{0.125,r})/
+(0.25\,\widehat{\mathrm{EDD}}_{0.25,r})$. The 30 values are:
+\begin{center}\scriptsize
+\begin{tabular}{@{}cl@{}}
+\toprule
+Replications & Ratios $R_r$ in increasing replication order \\
+\midrule
+0--4 & 1.914768, 2.052149, 1.806649, 1.907885, 1.910880 \\
+5--9 & 2.031396, 2.164704, 1.962791, 1.947097, 2.006150 \\
+10--14 & 1.801260, 1.920035, 2.012303, 2.018778, 1.914941 \\
+15--19 & 2.132456, 1.808842, 1.794354, 1.923832, 2.018736 \\
+20--24 & 1.840318, 1.985309, 1.917116, 1.881833, 1.935584 \\
+25--29 & 1.954494, 2.092066, 1.897753, 2.019442, 1.961643 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Their mean is $1.95118556$ and sample standard deviation is $0.09365234$.
+The normal-approximation half-width is $1.96s_R/\sqrt{30}=0.03351306$,
+reported as $0.034$; the Student-$t$ sensitivity half-width is
+$t_{29,0.975}s_R/\sqrt{30}=0.03497036$, reported as $0.035$. These are two
+interval conventions for the same 30 ratios, not two independent samples or
+a power analysis. The machine-readable values, seeds, source path, and source
+hash are in \texttt{sim/analysis\_cusum\_sensitivity.json}, generated by
+\texttt{sim/analysis\_cusum\_sensitivity.py} without altering the archive.
 
 \paragraph{Seed protocol.} Seeds derive deterministically from
 (scenario, configuration, replication) coordinates:

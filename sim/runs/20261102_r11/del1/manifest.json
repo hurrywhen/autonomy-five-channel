@@ -1,0 +1,26 @@
+{
+  "created": "2026-11-02T14:10:10.332764+00:00",
+  "git_commit": "5d57b74",
+  "grid": {
+    "defenses": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "grids": "full",
+    "reps": 30,
+    "scenarios": [
+      7
+    ],
+    "sigmas": [
+      1.0
+    ]
+  },
+  "matrix_id": "del1",
+  "n_runs": 30,
+  "seed_rule": "P6.2",
+  "spec_version": "SPEC_experiments v0.7",
+  "type": "matrix_manifest"
+}

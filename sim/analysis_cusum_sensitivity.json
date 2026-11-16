@@ -1,0 +1,246 @@
+{
+  "analysis": "R13 CUSUM seed-ratio sensitivity; derived read-only recomputation, not a new run",
+  "source": "/home/worker06/20260930zizhuxingpaper/sim/runs/20261017_full/main/results.csv",
+  "source_sha256": "09e6ce8b660bb85f3cd6de9b51de638cf3a71deba1d616a24c977f791e9ccada",
+  "selection": {
+    "scenario_code": 6,
+    "config_code": 0,
+    "sigma": 1.0
+  },
+  "paths_per_drift_per_seed": 200,
+  "path_pairing": "sequential streams within each seed; not common-random-number pairs",
+  "n_seed_ratios": 30,
+  "records": [
+    {
+      "rep": 0,
+      "seed": 36000,
+      "damage_delta_0.25": 51.58,
+      "damage_delta_0.125": 98.76375,
+      "ratio": 1.9147683210546724
+    },
+    {
+      "rep": 1,
+      "seed": 36001,
+      "damage_delta_0.25": 49.665,
+      "damage_delta_0.125": 101.92,
+      "ratio": 2.05214940098661
+    },
+    {
+      "rep": 2,
+      "seed": 36002,
+      "damage_delta_0.25": 52.2075,
+      "damage_delta_0.125": 94.320625,
+      "ratio": 1.8066489489058086
+    },
+    {
+      "rep": 3,
+      "seed": 36003,
+      "damage_delta_0.25": 48.09875,
+      "damage_delta_0.125": 91.766875,
+      "ratio": 1.9078848202915875
+    },
+    {
+      "rep": 4,
+      "seed": 36004,
+      "damage_delta_0.25": 49.1825,
+      "damage_delta_0.125": 93.981875,
+      "ratio": 1.9108803944492454
+    },
+    {
+      "rep": 5,
+      "seed": 36005,
+      "damage_delta_0.25": 48.255,
+      "damage_delta_0.125": 98.025,
+      "ratio": 2.031395710289089
+    },
+    {
+      "rep": 6,
+      "seed": 36006,
+      "damage_delta_0.25": 46.38625,
+      "damage_delta_0.125": 100.4125,
+      "ratio": 2.1647039801665366
+    },
+    {
+      "rep": 7,
+      "seed": 36007,
+      "damage_delta_0.25": 49.24875,
+      "damage_delta_0.125": 96.665,
+      "ratio": 1.9627909337800453
+    },
+    {
+      "rep": 8,
+      "seed": 36008,
+      "damage_delta_0.25": 49.9975,
+      "damage_delta_0.125": 97.35,
+      "ratio": 1.9470973548677433
+    },
+    {
+      "rep": 9,
+      "seed": 36009,
+      "damage_delta_0.25": 50.8125,
+      "damage_delta_0.125": 101.9375,
+      "ratio": 2.006150061500615
+    },
+    {
+      "rep": 10,
+      "seed": 36010,
+      "damage_delta_0.25": 50.98375,
+      "damage_delta_0.125": 91.835,
+      "ratio": 1.8012602054576212
+    },
+    {
+      "rep": 11,
+      "seed": 36011,
+      "damage_delta_0.25": 48.92,
+      "damage_delta_0.125": 93.928125,
+      "ratio": 1.920035261651676
+    },
+    {
+      "rep": 12,
+      "seed": 36012,
+      "damage_delta_0.25": 48.7175,
+      "damage_delta_0.125": 98.034375,
+      "ratio": 2.0123030738441012
+    },
+    {
+      "rep": 13,
+      "seed": 36013,
+      "damage_delta_0.25": 47.9275,
+      "damage_delta_0.125": 96.755,
+      "ratio": 2.0187783631526783
+    },
+    {
+      "rep": 14,
+      "seed": 36014,
+      "damage_delta_0.25": 49.26,
+      "damage_delta_0.125": 94.33,
+      "ratio": 1.9149411287048315
+    },
+    {
+      "rep": 15,
+      "seed": 36015,
+      "damage_delta_0.25": 45.99625,
+      "damage_delta_0.125": 98.085,
+      "ratio": 2.1324564502540966
+    },
+    {
+      "rep": 16,
+      "seed": 36016,
+      "damage_delta_0.25": 52.08375,
+      "damage_delta_0.125": 94.21125,
+      "ratio": 1.808841529267766
+    },
+    {
+      "rep": 17,
+      "seed": 36017,
+      "damage_delta_0.25": 51.2775,
+      "damage_delta_0.125": 92.01,
+      "ratio": 1.7943542489395934
+    },
+    {
+      "rep": 18,
+      "seed": 36018,
+      "damage_delta_0.25": 51.3175,
+      "damage_delta_0.125": 98.72625,
+      "ratio": 1.92383202611195
+    },
+    {
+      "rep": 19,
+      "seed": 36019,
+      "damage_delta_0.25": 47.835,
+      "damage_delta_0.125": 96.56625,
+      "ratio": 2.01873628096582
+    },
+    {
+      "rep": 20,
+      "seed": 36020,
+      "damage_delta_0.25": 50.405,
+      "damage_delta_0.125": 92.76125,
+      "ratio": 1.8403184207915881
+    },
+    {
+      "rep": 21,
+      "seed": 36021,
+      "damage_delta_0.25": 49.3075,
+      "damage_delta_0.125": 97.890625,
+      "ratio": 1.98530903006642
+    },
+    {
+      "rep": 22,
+      "seed": 36022,
+      "damage_delta_0.25": 50.04,
+      "damage_delta_0.125": 95.9325,
+      "ratio": 1.9171163069544366
+    },
+    {
+      "rep": 23,
+      "seed": 36023,
+      "damage_delta_0.25": 47.81375,
+      "damage_delta_0.125": 89.9775,
+      "ratio": 1.8818331546887666
+    },
+    {
+      "rep": 24,
+      "seed": 36024,
+      "damage_delta_0.25": 50.1425,
+      "damage_delta_0.125": 97.055,
+      "ratio": 1.9355835867776838
+    },
+    {
+      "rep": 25,
+      "seed": 36025,
+      "damage_delta_0.25": 48.41375,
+      "damage_delta_0.125": 94.624375,
+      "ratio": 1.9544938163228422
+    },
+    {
+      "rep": 26,
+      "seed": 36026,
+      "damage_delta_0.25": 49.06125,
+      "damage_delta_0.125": 102.639375,
+      "ratio": 2.092066039899106
+    },
+    {
+      "rep": 27,
+      "seed": 36027,
+      "damage_delta_0.25": 51.67,
+      "damage_delta_0.125": 98.056875,
+      "ratio": 1.8977525643506872
+    },
+    {
+      "rep": 28,
+      "seed": 36028,
+      "damage_delta_0.25": 48.28375,
+      "damage_delta_0.125": 97.50625,
+      "ratio": 2.0194423589717037
+    },
+    {
+      "rep": 29,
+      "seed": 36029,
+      "damage_delta_0.25": 48.73625,
+      "damage_delta_0.125": 95.603125,
+      "ratio": 1.961643027520583
+    }
+  ],
+  "mean": 1.9511855600328636,
+  "sample_sd": 0.09365234338064152,
+  "standard_error": 0.017098500344265664,
+  "normal_95": {
+    "critical": 1.96,
+    "half_width": 0.0335130606747607,
+    "interval": [
+      1.917672499358103,
+      1.9846986207076243
+    ]
+  },
+  "student_t_95_sensitivity": {
+    "df": 29,
+    "critical": 2.045229642132703,
+    "half_width": 0.03497035974010836,
+    "interval": [
+      1.9162152002927553,
+      1.986155919772972
+    ]
+  },
+  "scope": "fixed-alpha ENV-0 description; not a test of the fixed-delta Lorden-Lai asymptotic"
+}

@@ -9,14 +9,16 @@ documentation (`README.md`, `RELEASE_NOTES.md`, `refs/manifest.md`,
 Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
 Human-readable summary: https://creativecommons.org/licenses/by/4.0/
 
-Suggested attribution:
+Suggested paper attribution:
 
-> Wen Hu, *Autonomy as Determination by One's Own Normative Structure: A
-> White-Box-First Five-Channel Audit Framework with Axioms, Theorems, and a
-> Simulation Benchmark*, version v1.0-r10, 2026.
+> Wen Hu and Gong Zhang, *Autonomy as Determination by One's Own Normative
+> Structure: A White-Box-First Five-Channel Audit Framework with Axioms and
+> Conditional Theorems*, R14 public source synchronization, 17 November 2026.
 
 Software (code under `sim/` and `tools/`) is licensed separately under the MIT
-License; see [LICENSE](LICENSE).
+License; see [LICENSE](LICENSE). Code/data-specific attribution follows the
+respective contributors listed in `CITATION.cff` and is not inferred from paper
+authorship alone.
 
 Third-party bibliographic PDFs consulted during the work are **not**
 redistributed; `refs/manifest.md` records the verification ledger with full

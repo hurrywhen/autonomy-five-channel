@@ -1,21 +1,16 @@
-\begin{thebibliography}{112}
+\begin{thebibliography}{110}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Acz{\'e}l(1966)]{aczel1966}
-J{\'a}nos Acz{\'e}l.
-\newblock \emph{Lectures on Functional Equations and Their Applications}.
-\newblock Academic Press, New York, 1966.
-
-\bibitem[Acz{\'e}l and Dhombres(1989)]{aczel_dhombres1989}
-J{\'a}nos Acz{\'e}l and Jean Dhombres.
-\newblock \emph{Functional Equations in Several Variables}, volume~31 of \emph{Encyclopedia of Mathematics and its Applications}.
-\newblock Cambridge University Press, Cambridge, 1989.
-\newblock ISBN 0521352762.
-\newblock \doi{10.1017/CBO9781139086578}.
+\bibitem[Abel et~al.(2025)Abel, Bowling, Barreto, Dabney, Dong, Hansen, Harutyunyan, Khetarpal, Lyle, Pascanu, Piliouras, Precup, Richens, Rowland, Schaul, and Singh]{abel2025plasticity}
+David Abel, Michael Bowling, Andre Barreto, Will Dabney, Shi Dong, Steven Hansen, Anna Harutyunyan, Khimya Khetarpal, Clare Lyle, Razvan Pascanu, Georgios Piliouras, Doina Precup, Jonathan Richens, Mark Rowland, Tom Schaul, and Satinder~P. Singh.
+\newblock Plasticity as the mirror of empowerment.
+\newblock In \emph{Advances in Neural Information Processing Systems 38 (NeurIPS 2025)}, 2025.
+\newblock \doi{10.52202/085713-5481}.
+\newblock arXiv:2505.10361.
 
 \bibitem[Alkire and Foster(2011)]{alkire2011}
 Sabina Alkire and James Foster.
@@ -116,6 +111,11 @@ John Christman.
 \newblock \emph{Philosophical Studies}, 117:\penalty0 143--164, 2004.
 \newblock \doi{10.1023/B:PHIL.0000014532.56866.5c}.
 
+\bibitem[Cihon et~al.(2025)Cihon, Stein, Bansal, Manning, and Xu]{cihon2025}
+Peter Cihon, Merlin Stein, Gagan Bansal, Sam Manning, and Kevin Xu.
+\newblock Measuring {AI} agent autonomy: Towards a scalable approach with code inspection, 2025.
+\newblock arXiv:2502.15212; NeurIPS 2024 SoLaR Workshop.
+
 \bibitem[Coeckelbergh(2023)]{coeckelbergh2023}
 Mark Coeckelbergh.
 \newblock Democracy, epistemic agency, and {AI}: Political epistemology in times of artificial intelligence.
@@ -139,11 +139,6 @@ John Danaher.
 \newblock Towards an ethics of {AI} assistants: An initial framework.
 \newblock \emph{Philosophy \& Technology}, 31:\penalty0 629--653, 2018.
 \newblock \doi{10.1007/s13347-018-0317-3}.
-
-\bibitem[Debreu(1960)]{debreu1960}
-Gerard Debreu.
-\newblock Topological methods in cardinal utility theory.
-\newblock In Kenneth~J. Arrow, Samuel Karlin, and Patrick Suppes, editors, \emph{Mathematical Models in the Social Sciences}, pages 16--26. Stanford University Press, Stanford, CA, 1960.
 
 \bibitem[Deci and Ryan(2000)]{ryan_deci2000}
 Edward~L. Deci and Richard~M. Ryan.
@@ -219,12 +214,6 @@ Iason Gabriel.
 \newblock \doi{10.1007/s11023-020-09539-2}.
 \newblock arXiv:2001.09768.
 
-\bibitem[Gorman(1968)]{gorman1968}
-W.~M. Gorman.
-\newblock The structure of utility functions.
-\newblock \emph{The Review of Economic Studies}, 35\penalty0 (4):\penalty0 367--390, 1968.
-\newblock \doi{10.2307/2296766}.
-
 \bibitem[Greshake et~al.(2023)Greshake, Abdelnabi, Mishra, Endres, Holz, and Fritz]{greshake2023}
 Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten Holz, and Mario Fritz.
 \newblock Not what you've signed up for: Compromising real-world {LLM}-integrated applications with indirect prompt injection.
@@ -282,11 +271,6 @@ Alexander~S. Klyubin, Daniel Polani, and Chrystopher~L. Nehaniv.
 \newblock In \emph{Proceedings of the 2005 IEEE Congress on Evolutionary Computation (CEC 2005)}, volume~1, pages 128--135. IEEE, 2005.
 \newblock \doi{10.1109/CEC.2005.1554676}.
 
-\bibitem[Kolmogorov(1930)]{kolmogorov1930}
-A.~N. Kolmogorov.
-\newblock Sur la notion de la moyenne.
-\newblock \emph{Giornale dell'Istituto Italiano degli Attuari}, 2:\penalty0 83--91, 1930.
-
 \bibitem[Krakauer et~al.(2020)Krakauer, Bertschinger, Olbrich, Flack, and Ay]{krakauer2020}
 David Krakauer, Nils Bertschinger, Eckehard Olbrich, Jessica~C. Flack, and Nihat Ay.
 \newblock The information theory of individuality.
@@ -322,12 +306,6 @@ Yuri~A. Kuznetsov.
 \newblock ISBN 9780387219066.
 \newblock \doi{10.1007/978-1-4757-3978-7}.
 
-\bibitem[Kwa et~al.(2025)Kwa, West, Becker, Deng, Garcia, Hasin, Jawhar, Kinniment, Rush, Von~Arx, Bloom, Broadley, Du, Goodrich, Jurkovic, Miles, Nix, Lin, Painter, Parikh, Rein, Sato, Wijk, Ziegler, Barnes, and Chan]{kwa2025}
-Thomas Kwa, Ben West, Joel Becker, Amy Deng, Katharyn Garcia, Max Hasin, Sami Jawhar, Megan Kinniment, Nate Rush, Sydney Von~Arx, Ryan Bloom, Thomas Broadley, Haoxing Du, Brian Goodrich, Nikola Jurkovic, Luke~Harold Miles, Seraphina Nix, Tao Lin, Chris Painter, Neev Parikh, David Rein, Lucas Jun~Koba Sato, Hjalmar Wijk, Daniel~M. Ziegler, Elizabeth Barnes, and Lawrence Chan.
-\newblock Measuring {AI} ability to complete long software tasks.
-\newblock In \emph{Advances in Neural Information Processing Systems 38 (NeurIPS)}, 2025.
-\newblock arXiv:2503.14499.
-
 \bibitem[Lade and Gross(2012)]{lade_gross2012}
 Steven~J. Lade and Thilo Gross.
 \newblock Early warning signals for critical transitions: A generalized modeling approach.
@@ -351,6 +329,11 @@ Lauro Langosco, Jack Koch, Lee~D. Sharkey, Jacob Pfau, Laurent Orseau, and David
 \newblock Goal misgeneralization in deep reinforcement learning.
 \newblock In \emph{International Conference on Learning Representations (ICLR)}, 2022.
 \newblock arXiv:2105.14111.
+
+\bibitem[Lassiter and Bent(2026)]{lassiter2026compendium}
+Mia Lassiter and Brinnae Bent.
+\newblock Defining {AI} agents: A compendium of criteria, metrics, and benchmarks, 2026.
+\newblock arXiv:2609.11018.
 
 \bibitem[Lavazza(2016)]{lavazza2016}
 Andrea Lavazza.
@@ -386,11 +369,6 @@ Steven~F. Maier and Martin E.~P. Seligman.
 \newblock \emph{Psychological Review}, 123\penalty0 (4):\penalty0 349--367, 2016.
 \newblock \doi{10.1037/rev0000033}.
 
-\bibitem[Manheim and Garrabrant(2019)]{manheim2019}
-David Manheim and Scott Garrabrant.
-\newblock Categorizing variants of {Goodhart's} law, 2019.
-\newblock arXiv:1803.04585.
-
 \bibitem[Massey(1990)]{massey1990}
 James~L. Massey.
 \newblock Causality, feedback and directed information.
@@ -408,11 +386,11 @@ Matteo Mazziotta and Adriano Pareto.
 \newblock \emph{Social Indicators Research}, 127\penalty0 (3):\penalty0 983--1003, 2016.
 \newblock \doi{10.1007/s11205-015-0998-2}.
 
-\bibitem[Mele(2008)]{mele2008}
-Alfred~R. Mele.
-\newblock Manipulation, compatibilism, and moral responsibility.
-\newblock \emph{The Journal of Ethics}, 12\penalty0 (3--4):\penalty0 263--286, 2008.
-\newblock \doi{10.1007/s10892-008-9035-x}.
+\bibitem[McCain et~al.(2026)McCain, Millar, Huang, Eaton, Handa, Stern, Tamkin, Kearney, Durmus, Shen, Hong, Calvert, Chan, Mosconi, Saunders, Neylon, Nicholas, Pollack, Clark, and Ganguli]{anthropic2026agents}
+Miles McCain, Thomas Millar, Saffron Huang, Jake Eaton, Kunal Handa, Michael Stern, Alex Tamkin, Matt Kearney, Esin Durmus, Judy Shen, Jerry Hong, Brian Calvert, Jun~Shern Chan, Francesco Mosconi, David Saunders, Tyler Neylon, Gabriel Nicholas, Sarah Pollack, Jack Clark, and Deep Ganguli.
+\newblock Measuring {AI} agent autonomy in practice, 2026.
+\newblock URL \url{https://www.anthropic.com/research/measuring-agent-autonomy}.
+\newblock Anthropic research report, 18 February 2026.
 
 \bibitem[Mohamed and Rezende(2015)]{mohamed2015}
 Shakir Mohamed and Danilo~J. Rezende.
@@ -431,15 +409,11 @@ Alfred M{\"u}ller and Dietrich Stoyan.
 \newblock Wiley Series in Probability and Statistics. Wiley, Chichester, 2002.
 \newblock ISBN 0471494461.
 
-\bibitem[Nagumo(1930)]{nagumo1930}
-Mitio Nagumo.
-\newblock {\"U}ber eine klasse der mittelwerte.
-\newblock \emph{Japanese Journal of Mathematics}, 7:\penalty0 71--79, 1930.
-
 \bibitem[{National Institute of Standards and Technology}(2023)]{nist2023}
 {National Institute of Standards and Technology}.
 \newblock Artificial intelligence risk management framework ({AI RMF} 1.0).
 \newblock Technical Report NIST AI 100-1, NIST, Gaithersburg, MD, 2023.
+\newblock Framework intended for voluntary use.
 
 \bibitem[Ng et~al.(1999)Ng, Harada, and Russell]{ng1999}
 Andrew~Y. Ng, Daishi Harada, and Stuart Russell.
@@ -451,6 +425,11 @@ Richard Ngo, Lawrence Chan, and S{\"o}ren Mindermann.
 \newblock The alignment problem from a deep learning perspective.
 \newblock In \emph{International Conference on Learning Representations (ICLR)}, 2024.
 \newblock arXiv:2209.00626.
+
+\bibitem[Nian et~al.(2026)Nian, Yuan, Zhang, Li, Li, Hu, Wei, Xiao, Xiao, and Zhao]{nian2026auditable}
+Yi~Nian, Aojie Yuan, Haiyue Zhang, Jiate Li, Li~Li, Xiyang Hu, Hua Wei, Xiongye Xiao, Chaowei Xiao, and Yue Zhao.
+\newblock Auditable agents, 2026.
+\newblock arXiv:2604.05485v4.
 
 \bibitem[Nouwens et~al.(2020)Nouwens, Liccardi, Veale, Karger, and Kagal]{nouwens2020}
 Midas Nouwens, Ilaria Liccardi, Michael Veale, David Karger, and Lalana Kagal.
@@ -536,6 +515,12 @@ Thomas Schreiber.
 \newblock \emph{Physical Review Letters}, 85\penalty0 (2):\penalty0 461--464, 2000.
 \newblock \doi{10.1103/PhysRevLett.85.461}.
 
+\bibitem[Seth(2010)]{seth2010}
+Anil~K. Seth.
+\newblock Measuring autonomy and emergence via {Granger} causality.
+\newblock \emph{Artificial Life}, 16\penalty0 (2):\penalty0 179--196, 2010.
+\newblock \doi{10.1162/artl.2010.16.2.16204}.
+
 \bibitem[Shah et~al.(2022)Shah, Varma, Kumar, Phuong, Krakovna, Uesato, and Kenton]{shah2022}
 Rohin Shah, Vikrant Varma, Ramana Kumar, Mary Phuong, Victoria Krakovna, Jonathan Uesato, and Zachary Kenton.
 \newblock Goal misgeneralization: Why correct specifications aren't enough for correct goals.
@@ -557,6 +542,11 @@ Thomas~B. Sheridan and William~L. Verplank.
 Nate Soares, Benja Fallenstein, and Eliezer Yudkowsky.
 \newblock Corrigibility.
 \newblock In \emph{Workshops at the Twenty-Ninth AAAI Conference on Artificial Intelligence (AAAI Spring Symposium)}, Austin, TX, 2015.
+
+\bibitem[Song et~al.(2026)Song, Gore, and Kleiman-Weiner]{song2026eelma}
+Jinyeop Song, Jeff Gore, and Max Kleiman-Weiner.
+\newblock Estimating the empowerment of language model agents, 2026.
+\newblock ICML 2026; arXiv:2509.22504v3.
 
 \bibitem[Su et~al.(2025)Su, Luo, Liu, Yang, Zhang, Dong, and Zhu]{su2025}
 Hang Su, Jun Luo, Chang Liu, Xiao Yang, Yichi Zhang, Yinpeng Dong, and Jun Zhu.

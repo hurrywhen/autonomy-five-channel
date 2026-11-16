@@ -83,8 +83,9 @@ def estimate_g_mean(trajs, alphabet) -> EstResult:
 def estimate_epi_accuracy(trajs, bucket_map) -> EstResult:
     """E14.4：A_epi^real 的日志直读精度（2026-10-15 精度化口径，取代原两臂 TV 估计器）。
 
-    逐轨迹命中率 (1/T)Σ_t 1[B_t=κ(E_t)] 的轨迹平均——E_t 与 S_t.B 由 P8.2 日志直读，
-    κ 与真值路径（components.truth_A_epi_real）同一映射。
+    本平台 B_t=δ_{b_t} 为点信念，故真实桶期望质量等于逐轨迹命中率
+    (1/T)Σ_t 1[b_t=κ(E_t)] 的平均；E_t 与 S_t.B 由日志直读，κ 同真值路径。
+    非点信念的一般实现须直接读取 belief_dist 并累计 B_t(κ(E_t))，不可用分布对象相等指示。
     """
     bmap = np.asarray(bucket_map, dtype=int)
     per_traj = np.array([

@@ -9,7 +9,7 @@
 - A_ref=E6.4 联合表（配置 ensemble_joint）×背书一致率×Λ；
 - A_via=min{1, z̄_high/s_crit, m}（**v0.2 扩展闸门**：m=clip(min(κ_eff/κ_req, R_eff/R_req),0,1)
   能力包络裕度——配置默认 m=1 逐点还原资源型旧式；θ 不入闸门）；
-- Λ=律级操作化（law_level_lambda）；Â_phen=登记史重建分量复合；AI=Â_phen−A_obj；
+- `lam` 槽=历史场景标记（legacy_marker_lambda），不是 R14 的反事实背书输出律；Â_phen=登记史重建分量复合；AI=Â_phen−A_obj；
 - u_bar=外部基线量（E7.1：逐步 (E_t,A_t) 联合下 U_θ* 期望，θ*=内生背书目标；
   非分量、不入复合——E2 外部效度分析数据源）。
 
@@ -34,8 +34,13 @@ Bundle = namedtuple("Bundle", [
 W5_DEFAULT = (0.2, 0.2, 0.2, 0.2, 0.2)
 
 
-def law_level_lambda(params: dict) -> float:
-    """Λ 律级操作化（P9.4）：β_G⇒1−η；β_π⇒flag 自方份额；隐蔽 γ⇒1−s(γ)；否则 1.0。"""
+def legacy_marker_lambda(params: dict) -> float:
+    """Legacy scenario label, not the R14 counterfactual endorsement estimand.
+
+    β_G⇒1−η；β_π⇒flag 自方份额；隐蔽 γ⇒1−s(γ)；否则 1.0。该函数没有
+    abduction/action/prediction，也没有计算实际/无手术背书输出律的 TV。
+    旧 ENV-0 场景中的 lam/a_ref 及其 CONFIRMED 只能按标签场景重放解释。
+    """
     if "beta_G" in params:
         return 1.0 - float(params["beta_G"]["eta"])
     if "beta_pi" in params:
@@ -43,6 +48,11 @@ def law_level_lambda(params: dict) -> float:
     if "gamma" in params:
         return 1.0 - float(params["gamma"]["s"])
     return 1.0
+
+
+def law_level_lambda(params: dict) -> float:
+    """Read-only historical API alias; see :func:`legacy_marker_lambda`."""
+    return legacy_marker_lambda(params)
 
 
 def _truth_a_exec(model, joints, n_A: int) -> float:
@@ -62,7 +72,10 @@ def _truth_a_ref(cfg: Env0Config, lam: float) -> float:
     """A_ref：E6.4 系综联合表 × 背书一致率 × Λ（lam 显式给定）。"""
     r_res = components.truth_A_ref(np.asarray(cfg.ensemble_joint, float),
                                    p_endorse=1.0, lam_ref=lam)
-    return r_res.point if not r_res.degenerate else r_res.hi
+    if r_res.degenerate:
+        raise ValueError("A_ref point is undefined for a degenerate ensemble; "
+                         "use truth_A_ref's interval API instead of its upper endpoint")
+    return r_res.point
 
 
 def derive_bucket_map(model) -> np.ndarray:
@@ -151,8 +164,8 @@ def _truth_components_impl(model, T: int, baseline) -> _Components:
     bmap = derive_bucket_map(model)
     a_epi = components.truth_A_epi_real(model, T, bmap).a_epi_real
 
-    # A_ref（反思）与 Λ（律级）
-    lam = law_level_lambda(model.params)
+    # A_ref（历史场景束）与 lam（legacy marker；非公式 (3) 的反事实计算）
+    lam = legacy_marker_lambda(model.params)
     a_ref = _truth_a_ref(cfg, lam)
 
     # A_via（可行性，v0.2 扩展闸门）：min{1, Z 高位占时/s_crit, 能力包络裕度 m}
