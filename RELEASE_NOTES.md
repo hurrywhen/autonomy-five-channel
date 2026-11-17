@@ -16,8 +16,8 @@ This synchronization publishes the R15 reviewer-counterexample revision, complet
 |---|---|
 | R15 final development-source commit | `0ebbae17dc8bceeb3dda4a9852fc7f0f355869ee` |
 | Preceding R15 content commit | `7095de389d9271fc1226d5a1701b91853afbef96` |
-| R15 public content commit used for clean validation | `f11491937a0dcf6d86069959ba078ffd206770ab` |
-| Validated public source tree | `a7351ec32aa236a3f162037e8ec897141799ef34` |
+| R15 public content commit used for clean validation | `0f789d7c419b6c57f32a431a96484d8367daf965` |
+| Validated public source tree | `bbe01f84d5cd9195fdc00f323e804db363b7bc80` |
 | R14 development-source commit | `6a6130869157a885a9bc44aba24ae60196927179` |
 | R14 public snapshot commit | `dbdf2f6f05c2f4d38b43bcc1d435a10ac0721b7f` |
 | Public repository relationship | Fresh-history public snapshot; public commit hashes differ from development hashes by design |

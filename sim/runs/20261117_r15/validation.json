@@ -1,7 +1,7 @@
 {
   "artifact_version": "R15-frozen-source-validation-v1",
-  "source_commit": "f11491937a0dcf6d86069959ba078ffd206770ab",
-  "source_tree": "a7351ec32aa236a3f162037e8ec897141799ef34",
+  "source_commit": "0f789d7c419b6c57f32a431a96484d8367daf965",
+  "source_tree": "bbe01f84d5cd9195fdc00f323e804db363b7bc80",
   "worktree_clean_before_and_after": true,
   "commands": [
     {
@@ -15,14 +15,14 @@
         "-q"
       ],
       "returncode": 0,
-      "seconds": 128.911,
+      "seconds": 118.809,
       "summary": [
         "/tmp/opencode/r15_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000005345 clipped to 1 within tol=1e-09",
         "  return clip_unit_value(a, label=\"A_org\")",
         "/tmp/opencode/r15_public_frozen/sim/tests/../src/autonomy_sim/empowerment.py:223: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
         "  return clip_unit_value(raw, label=\"A_exec\")",
         "----------------------------------------------------------------------",
-        "Ran 194 tests in 128.536s",
+        "Ran 194 tests in 118.447s",
         "",
         "OK"
       ]
@@ -36,7 +36,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.276,
+      "seconds": 0.242,
       "summary": [
         "X5-c read-only replay OK: 8 arms, overall=CONFIRMED"
       ]
@@ -50,7 +50,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.414,
+      "seconds": 0.355,
       "summary": [
         "X5-c stratified replay OK: 24 rows, CONFIRMED, MODEL_SENSITIVE, D=0.089800"
       ]
@@ -64,7 +64,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.23,
+      "seconds": 0.211,
       "summary": [
         "/tmp/opencode/r15_public_frozen/sim/src/autonomy_sim/empowerment.py:223: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
         "  return clip_unit_value(raw, label=\"A_exec\")",
@@ -78,7 +78,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 31.626,
+      "seconds": 31.532,
       "summary": [
         "R15 statistics read-only check OK: 5760 historical arms"
       ]
@@ -90,7 +90,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.189,
+      "seconds": 0.191,
       "summary": [
         "R15 paired X5-c check OK: 2 strata, POST_HOC_PASS"
       ]
@@ -112,8 +112,8 @@
     "latex/main.pdf": "64c2c856c9b530298b709a15f3fff79f057722d1e0cac4da08be86033222b417",
     "latex/main.bbl": "71d2cc42a041c8c3d6d883867a4ad6e78b27c6ac4f1dcd9884452b08c1a46b40",
     "latex/refs.bib": "230f00c863656be0170b179442b3fc2e472f479e7f07de68cb399f0bc9279876",
-    "sim/SPEC_estimators.md": "b849169d04593920266409495402afd85ee2768708eeaba836de6cd115d1c49c",
-    "sim/SPEC_experiments.md": "09e0c403003aba0a35294906c331a32e8368cc963effd58bc7b3b987ff65db3c",
+    "sim/SPEC_estimators.md": "df15f155ed87c2d8e8eb1de31e5cf4c15761e28e2573f814b2e158828dcee5c1",
+    "sim/SPEC_experiments.md": "b0b842f341181b720087649a90d1730fb5aa4c06e39b5dd1623fc8c624e1eb8e",
     "sim/SPEC_tests.md": "27fcb1421b20f3843bce03858447abd949269a8298a3fefc1b32f650722c7b8d",
     "sim/analysis_r15_statistics.py": "9db4da8b94543c32f7f215f725b211a20f07878f0241ed842f01fb206497cd5f",
     "sim/analysis_r15_statistics.json": "87287071f145a04e45ff034155a905c9957349b79c262e5b3726b4cfd3938ee2",
