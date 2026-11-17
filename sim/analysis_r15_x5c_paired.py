@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 import sys
 
@@ -53,6 +54,53 @@ def compute() -> dict:
     }
 
 
+def compare_replay_json(saved: object, computed: object, *, rel_tol: float = 1e-12,
+                        abs_tol: float = 1e-12) -> dict:
+    """Compare a deterministic replay without demanding bitwise float equality.
+
+    JSON types, object keys, list lengths, statuses, seeds, counts, and hashes
+    remain exact.  Only leaves already serialized as JSON floats use isclose;
+    non-finite floats and numeric type changes fail closed.
+    """
+    if not math.isfinite(rel_tol) or not math.isfinite(abs_tol) \
+            or rel_tol < 0.0 or abs_tol < 0.0:
+        raise ValueError("replay tolerances must be finite and non-negative")
+    differences = []
+
+    def visit(old: object, new: object, path: str) -> float:
+        if type(old) is not type(new):
+            differences.append(f"{path}: JSON type {type(old).__name__} != {type(new).__name__}")
+            return 0.0
+        if isinstance(old, float):
+            if not math.isfinite(old) or not math.isfinite(new):
+                differences.append(f"{path}: non-finite float")
+                return math.inf
+            delta = abs(old - new)
+            if not math.isclose(old, new, rel_tol=rel_tol, abs_tol=abs_tol):
+                differences.append(f"{path}: {old!r} != {new!r} (abs diff {delta:.3e})")
+            return delta
+        if isinstance(old, dict):
+            if old.keys() != new.keys():
+                differences.append(f"{path}: object keys differ")
+                return 0.0
+            return max((visit(old[key], new[key], f"{path}.{key}") for key in old),
+                       default=0.0)
+        if isinstance(old, list):
+            if len(old) != len(new):
+                differences.append(f"{path}: list lengths {len(old)} != {len(new)}")
+                return 0.0
+            return max((visit(a, b, f"{path}[{index}]")
+                        for index, (a, b) in enumerate(zip(old, new))), default=0.0)
+        if old != new:
+            differences.append(f"{path}: {old!r} != {new!r}")
+        return 0.0
+
+    max_abs = visit(saved, computed, "$")
+    return {"passed": not differences, "max_abs_float_difference": max_abs,
+            "float_rel_tol": rel_tol, "float_abs_tol": abs_tol,
+            "exact_non_float_leaves": True, "differences": differences}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default=str(HERE / "analysis_r15_x5c_paired.json"))
@@ -61,9 +109,13 @@ def main() -> int:
     result = compute()
     if args.check:
         saved = json.loads(Path(args.out).read_text(encoding="utf-8"))
-        if saved != result:
-            raise SystemExit("R15 paired X5-c check FAILED")
-        print(f"R15 paired X5-c check OK: {len(result['crosschecks'])} strata, {result['overall']}")
+        comparison = compare_replay_json(saved, result)
+        if not comparison["passed"]:
+            details = "; ".join(comparison["differences"][:8])
+            raise SystemExit("R15 paired X5-c check FAILED: " + details)
+        print(f"R15 paired X5-c check OK: {len(result['crosschecks'])} strata, "
+              f"{result['overall']}, max abs float diff="
+              f"{comparison['max_abs_float_difference']:.3e}")
         return 0
     Path(args.out).write_text(json.dumps(result, indent=2, allow_nan=False) + "\n",
                               encoding="utf-8")

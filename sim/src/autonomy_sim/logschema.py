@@ -5,7 +5,9 @@ P8.1 run 级 metadata、P8.2 步级记录（NDJSON）、P8.3 完整性校验。
 """
 import hashlib
 import json
+import math
 import os
+import re
 import subprocess
 
 from .graph import Alphabet, CausalModel, _json_fallback
@@ -124,62 +126,132 @@ def validate_log(meta: dict, records: list, alphabet: Alphabet) -> list:
     return errors
 
 
-R15_CERTIFICATE_FIELDS = (
-    "layer", "construct_scope", "state_autonomy", "viability_state",
-    "defense_readiness", "surgery_history", "Lambda", "lambda_status",
-    "source_registration", "evidence_ceiling",
+R16_CHANNEL_SCHEMA_VERSION = "R16_CHANNEL_SCHEMA_V1"
+R16_CERTIFICATE_FIELDS = (
+    "layer", "construct_scope", "channel_schema_version", "org_mode",
+    "goal_mode", "state_readiness_version", "model_hash", "evidence_hash",
+    "state_autonomy", "viability_state", "defense_readiness",
+    "surgery_history", "Lambda", "lambda_status", "source_registration",
+    "registration_completeness", "mechanism_evidence", "evidence_ceiling",
     "external_construct_validation", "integrity_certificate",
 )
+# Retain the old public symbol while making its contents the current R16 schema.
+R15_CERTIFICATE_FIELDS = R16_CERTIFICATE_FIELDS
+_REGISTRATION_VALUES = {"COMPLETE", "INCOMPLETE", "UNKNOWN"}
+_MECHANISM_VALUES = {"NONE", "SCM_AUDITED"}
+_GOAL_MODES = {"STRUCTURAL_POINT", "IRL_INTERVAL"}
+_LOWERCASE_SHA256 = re.compile(r"[0-9a-f]{64}\Z")
+
+
+def _is_finite_unit_number(value: object) -> bool:
+    return (not isinstance(value, bool) and isinstance(value, (int, float))
+            and 0.0 <= value <= 1.0 and math.isfinite(value))
+
+
+def _is_artifact_hash(value: object) -> bool:
+    return isinstance(value, str) and _LOWERCASE_SHA256.fullmatch(value) is not None
 
 
 def validate_r15_certificate(cert: dict) -> list[str]:
-    """Validate the actual R15 sidecar contract without altering legacy logs."""
+    """Validate the R16 sidecar under the compatibility-named R15 API.
+
+    This validator intentionally checks registration and mechanism evidence
+    independently.  Complete fields never imply an SCM audit.  Schema and mode
+    tags are checked exactly, and L1/L2 artifact hashes must be lowercase
+    64-hex strings.  Hashes bind registered artifacts only: their syntax does
+    not establish provenance, external truth, or construct validation.
+    Legacy logs and historical result bundles are not modified.
+    """
     errors = []
-    for field in R15_CERTIFICATE_FIELDS:
+    for field in R16_CERTIFICATE_FIELDS:
         if field not in cert:
-            errors.append(f"R15 certificate missing field: {field}")
+            errors.append(f"R16 certificate missing field: {field}")
     if errors:
         return errors
-    if cert["layer"] not in {"L0", "L1", "L2"}:
+
+    layer = cert["layer"]
+    if layer not in {"L0", "L1", "L2"}:
         errors.append("invalid layer")
-    expected_scope = "internal_causal_only" if cert["layer"] == "L0" else "normative_structure_required"
+    expected_scope = "internal_causal_only" if layer == "L0" else "normative_structure_required"
     if cert["construct_scope"] != expected_scope:
         errors.append("construct scope inconsistent with layer")
+    if cert["channel_schema_version"] != R16_CHANNEL_SCHEMA_VERSION:
+        errors.append(f"channel_schema_version must be {R16_CHANNEL_SCHEMA_VERSION}")
+    expected_org_mode = "L0_INTERNAL" if layer == "L0" else "L1_NORMATIVE_NR"
+    if cert["org_mode"] != expected_org_mode:
+        errors.append(f"org_mode must be {expected_org_mode} for {layer}")
+    if cert["goal_mode"] not in _GOAL_MODES:
+        errors.append("goal_mode must be STRUCTURAL_POINT or IRL_INTERVAL")
+    if cert["state_readiness_version"] != "R15_SPLIT":
+        errors.append("state_readiness_version must be R15_SPLIT")
+
+    model_hash_valid = _is_artifact_hash(cert["model_hash"])
+    evidence_hash_valid = _is_artifact_hash(cert["evidence_hash"])
+    for field, valid in (("model_hash", model_hash_valid),
+                         ("evidence_hash", evidence_hash_valid)):
+        if layer in {"L1", "L2"} and not valid:
+            errors.append(f"{field} must be a lowercase 64-hex string for L1/L2")
+        elif layer == "L0" and cert[field] is not None and not valid:
+            errors.append(f"{field} must be null or a lowercase 64-hex string for L0")
+
     for field in ("state_autonomy", "viability_state", "defense_readiness"):
-        value = cert[field]
-        if not isinstance(value, (int, float)) or not 0.0 <= value <= 1.0:
-            errors.append(f"{field} outside [0,1]")
+        if not _is_finite_unit_number(cert[field]):
+            errors.append(f"{field} must be a finite number in [0,1]")
     if cert["surgery_history"] not in {0, 1, None}:
         errors.append("surgery_history must be 0, 1, or null")
     if cert["lambda_status"] not in {"DEFINED", "NOT_APPLICABLE", "UNKNOWN"}:
         errors.append("invalid lambda_status")
     if cert["lambda_status"] == "DEFINED":
-        if not isinstance(cert["Lambda"], (int, float)) or not 0.0 <= cert["Lambda"] <= 1.0:
-            errors.append("DEFINED Lambda requires a value in [0,1]")
+        if not _is_finite_unit_number(cert["Lambda"]):
+            errors.append("DEFINED Lambda requires a finite value in [0,1]")
     elif cert["Lambda"] is not None:
         errors.append("N/A or UNKNOWN Lambda must be null")
-    if cert["layer"] == "L2" and cert["lambda_status"] == "NOT_APPLICABLE":
+    if layer == "L2" and cert["lambda_status"] == "NOT_APPLICABLE":
         errors.append("L2 Lambda cannot be NOT_APPLICABLE")
-    if cert["source_registration"] not in {"COMPLETE", "INCOMPLETE", "UNKNOWN"}:
+
+    if cert["source_registration"] not in _REGISTRATION_VALUES:
         errors.append("invalid source_registration")
-    unknown = (cert["surgery_history"] is None or cert["source_registration"] != "COMPLETE"
+    if cert["registration_completeness"] not in _REGISTRATION_VALUES:
+        errors.append("invalid registration_completeness")
+    if cert["source_registration"] != cert["registration_completeness"]:
+        errors.append("source_registration and registration_completeness must agree")
+    mechanism = cert["mechanism_evidence"]
+    if mechanism not in _MECHANISM_VALUES:
+        errors.append("mechanism_evidence must be NONE or SCM_AUDITED")
+    if mechanism == "SCM_AUDITED" and not (model_hash_valid and evidence_hash_valid):
+        errors.append("SCM_AUDITED requires valid model_hash and evidence_hash bindings")
+
+    unknown = (cert["surgery_history"] is None
+               or cert["source_registration"] != "COMPLETE"
+               or cert["registration_completeness"] != "COMPLETE"
                or cert["lambda_status"] == "UNKNOWN"
-               or (cert["layer"] == "L2" and cert["lambda_status"] != "DEFINED"))
-    expected_ceiling = "LIMITED" if unknown else "SCM_AUDITED"
-    if cert["evidence_ceiling"] != expected_ceiling:
-        errors.append(f"evidence_ceiling must be {expected_ceiling}")
+               or (layer == "L2" and cert["lambda_status"] != "DEFINED"))
+    if mechanism in _MECHANISM_VALUES:
+        if unknown:
+            expected_ceiling = "LIMITED"
+        elif mechanism == "SCM_AUDITED":
+            expected_ceiling = "SCM_AUDITED"
+        else:
+            expected_ceiling = "REGISTERED_COMPLETE"
+        if cert["evidence_ceiling"] != expected_ceiling:
+            errors.append(f"evidence_ceiling must be {expected_ceiling}")
     if cert["external_construct_validation"] is not False:
         errors.append("external construct validation cannot be asserted")
     if cert["integrity_certificate"] is not False:
-        errors.append("an R15 score is not an integrity certificate")
+        errors.append("an R16 score is not an integrity certificate")
     return errors
 
 
 def write_r15_certificate(path: str, cert: dict) -> None:
-    """Fail-closed production writer used by R15 certificate producers/tests."""
+    """Fail-closed R16 writer retaining the historical R15 function name."""
     errors = validate_r15_certificate(cert)
     if errors:
-        raise ValueError("invalid R15 certificate: " + "; ".join(errors))
+        raise ValueError("invalid R16 certificate: " + "; ".join(errors))
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(cert, handle, ensure_ascii=False, indent=2, allow_nan=False)
         handle.write("\n")
+
+
+# Current-schema names; historical R15 symbols remain compatibility aliases.
+validate_r16_certificate = validate_r15_certificate
+write_r16_certificate = write_r15_certificate

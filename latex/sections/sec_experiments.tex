@@ -11,30 +11,21 @@ the fourth. The scenario names below (\emph{prompt injection}, \emph{filter
 bubble}, \emph{learned helplessness}, \emph{sycophancy}) are toy analogues,
 not empirical tests of the named real-world phenomena.
 
-Verdicts are reported separately as \textsc{confirmed},
-\textsc{refuted}, \textsc{inconclusive}, \textsc{descriptive}, or
-\textsc{model-sensitive}, but these labels never collapse mathematical status,
-criterion outcome, evidence type, and external validation into one tally. The
-historical archive contains definition checks, implementation replays, and
-same-model demonstrations; it does not confirm theories or construct validity.
-R14/R15 change several definitions and quantifiers after explicit
-counterexamples, so legacy runs are evidence only for the narrower cases they
-actually evaluate. All $\Lambda$-dependent legacy values are scenario-marker
-results, not evaluations of \eqref{eq:lambda}. ENV-0 also predates the R15
-normative/noise source partition and state/defense split: its \texttt{a\_org}
-and \texttt{a\_via} are respectively internal-causal and combined-resilience
-markers, not silent identifications of \eqref{eq:aorgnorm} and present
-$\Astate$.
+Verdicts (\textsc{confirmed}, \textsc{refuted}, \textsc{inconclusive},
+\textsc{descriptive}, or \textsc{model-sensitive}) never collapse mathematical
+status, criterion outcome, evidence type, and external validation into one
+tally. Legacy runs support only the definitions and quantifiers they actually
+evaluated. Their $\Lambda$-dependent values are scenario markers, not
+evaluations of \eqref{eq:lambda}; ENV-0's \texttt{a\_org} and \texttt{a\_via}
+are likewise internal-causal and combined-resilience markers, not current
+$\Aorg^{RNI}$ or $\Astate$ readings.
 
-The original ATK-4 operation and E2-X1 criterion failed before their respective
-scene/post hoc repairs, and X5-a's absolute-reading falsifier fired; these are
-not hidden behind a zero-refutation headline. X5-c was unrun through R13. It is
-now executed on a new explicit SCM, first as a pooled implementation record
-and then as a canonical time-stratified supplement. The supplement's protocol
-clarification is explicitly post hoc relative to the pooled outcome. A separate
-same-environment C0-CF package and its failed initial serialization attempt
-are retained. Criterion replacements are versioned rather than silently
-rewritten (\texttt{sim/CRITERION\_VERSION\_MAP.md}).
+The original ATK-4 operation and E2-X1 criterion failed before scene/post hoc
+repairs, and X5-a's absolute-reading falsifier fired. X5-c was unrun through
+R13 and is now executed on an explicit SCM, first pooled and then in a
+time-stratified supplement whose clarification is post hoc. The same-environment
+C0-CF package and failed initial serialization are retained. Replacements remain
+versioned in \texttt{sim/CRITERION\_VERSION\_MAP.md}.
 
 \subsection{Platform and protocol}
 
@@ -56,7 +47,7 @@ the joint law) and a \emph{sample mode} (trajectory simulation). Full causal
 logs $(E,O,S,A,Z,I)$ per step are mandatory and schema-validated in ENV-0.
 The historical ENV-0 does not contain an abductable endorsement SCM or its
 exogenous-noise record: its ``truth mode'' is exact forward enumeration, not a
-counterfactual computation of $\Lam$. The separate R14 SCM supplies those
+counterfactual computation of $\Lam$. The separate explicit SCM supplies those
 missing objects. Full logs are only one possible provenance route
 (Corollary~\ref{cor:logs-necessary}).
 Seeds derive deterministically from (scenario, configuration, replication)
@@ -72,7 +63,7 @@ bubble/retrieval poisoning ($\gamma$; T3a/b, T4 both sides, T2 blindness
 witness, T1d sub-threshold arm, script corollary); \textbf{ATK-3} dependency
 injection/lock-in ($\delta$+time; C1, C2, T5-exec, EWS); \textbf{ATK-4} prompt
 injection reaching behavior ($\alpha$ masquerading as $\beta$; T2 attribution,
-retired four-track diagnostic bundle, not an R15 compatibility criterion); \textbf{ATK-5} urgency manipulation
+retired four-track diagnostic bundle, not a current compatibility criterion); \textbf{ATK-5} urgency manipulation
 ($\tau$-compression; T5-ref, T6 gate monotonicity); \textbf{ATK-6}
 sub-threshold slow drift ($\beta$; \textbf{T6 key experiment}: design rule,
 $\Amin$ per-run check, certificate-failure band, $\deltastar$ ablation, registration domain,
@@ -106,27 +97,17 @@ RAM). This is not 4{,}620 independent observations or distinct mechanisms:
 many truth-mode records are deterministic replays, records are nested within
 configurations, and ATK-3--6 defense coupling is only a placeholder.
 
-\paragraph{Counting units (two bundle registries, stated apart).}
-A \emph{run} is one (scenario, defense configuration, $\varsigma$, seed)
-execution; a \emph{cell} is the 30-run block at fixed (scenario, defense,
-$\varsigma$); a \emph{bundle} is a registered six-component record
-($\Aorg,\Agoal,\Aexec,\Aepi,\Aref,A_{via}^{R14}$) within a run's metrics;
-the first and last are legacy internal-causal/combined-resilience fields under
-R15. Because
-different analyses pool bundles differently, the two pools are registered
-apart---with the full per-scenario composition, the defense-direction count,
-and the seed-derivation formula in Appendix~\ref{app:counting}:
-(i) \emph{arm bundles} (the row-level attack-strength records of ATK-1/2/4,
-the only per-strength-bundle scenarios): $5{,}760$ main-matrix $+2{,}880$
-stress $=8{,}640$---the weight-sensitivity pool; (ii) the \emph{recursive
-registry} (every embedded six-component record, arm bundles plus non-row
-records): $7{,}290$ over the main matrix and EXEC-1---the T1a range
-meta-criterion pool---and $11{,}250$ across the full campaign (the X3
-alternative-aggregation pool); the exact $7{,}290-5{,}760=1{,}530$
-difference is decomposed in the appendix. A \emph{criterion
-count} ($N$ in Table~\ref{tab:main}) is per-falsification-window verdicts.
-Run-level verdicts:
-$2{,}520$ \textsc{confirmed} $+360$ \textsc{inconclusive} $=2{,}880$.
+\paragraph{Counting units.}
+A run is one (scenario, defense, $\varsigma$, seed) execution, a cell its
+30-run block, and a bundle a six-component record
+($\Aorg,\Agoal,\Aexec,\Aepi,\Aref,A_{via}^{R14}$); the first and last remain
+legacy markers. Two pools are distinct: 8,640 ATK-1/2/4 arm bundles
+($5{,}760$ main plus $2{,}880$ stress) for weight sensitivity, and the recursive
+registry of 7,290 bundles over the main matrix/EXEC-1 and 11,250 over the full
+campaign. Appendix~\ref{app:counting} decomposes their $1{,}530$-bundle
+difference and gives scenario and seed details. Table~\ref{tab:main}'s $N$
+counts criterion windows, not independent observations; main run-level verdicts
+are $2{,}520$ CONFIRMED and $360$ INCONCLUSIVE.
 
 \paragraph{Registered effect sizes (SESOI).}
 Sign-based criteria carry a registered smallest effect size of interest:
@@ -144,9 +125,21 @@ the T7 linear-law tolerance is $5\%$; ratio criteria are reported with
 $95\%$ seed CIs. Criteria are thus not bare sign tests; effect sizes are
 reported with the verdicts in the archived report.
 
-\paragraph{R15 deterministic negative controls.}
-The new R15 negative-control test module (listed in the submission manifest)
-contains 14 deterministic checks. It reproduces the old two-bit execution ratio
+\paragraph{Prospective independent-substrate protocol.}
+\texttt{AFC-EXT-001} now design-freezes a common,
+unexecuted comparison on Ingel's Gridworld/repeating-pattern RL systems and
+Albantakis's PathFollow automata. It compares RNI, NRI, and Shapley-style source
+attribution with Ingel's next-state PID (BROJA primary; SxPID sensitivity),
+Albantakis's candidate measures, empowerment, behavior-only/utility-only baselines, and
+reduced-channel models. Co-primary endpoints are balanced intervention
+attribution accuracy and held-out calibration; expert and downstream-validity
+analyses remain separate. External SESOI, error models, power, sampling counts,
+and an outcome-preregistration timestamp are still pending and must be fixed
+before unblinding. Freezing this design is not executing the comparison.
+
+\paragraph{Deterministic negative controls.}
+The deterministic test modules listed in the submission manifest reproduce
+the old two-bit execution ratio
 2 and verifies the corrected two-action ratio 1; constructs zero execution with
 full repertoire but no action--outcome coupling; shows that unchanged
 $\Lam=0.5$ can be compatible and that honest information can reduce goal
@@ -154,53 +147,56 @@ alignment by moving $\Fix$; gives action-independent blindness only as a
 witness; shows that a random L0 policy can score 1 on internal-causal L0 but
 scores 0 under the L1+ normative-source split; separates structural goal points
 from IRL intervals; checks the C2 $\delta+s_c$ threshold, the Route B slope,
-defense-zero/state-positive output, mandatory provenance fields, and
-$\tau_b$ ties. These are mathematical implementation guards, not new external
-experiments, Lean certification, or retroactive R14 verdict changes.
+defense-zero/state-positive output, interval order, non-finite fail-closed
+comparisons, schema-bound certificates, mandatory provenance fields, and
+$\tau_b$ ties. Additional exact enumerations cover the OR source-order
+counterexample and $T=2$ feedback, pure-source, mediation, and bypass models.
+These are mathematical implementation guards, not external experiments, Lean
+certification, or retroactive verdict changes.
 
 \subsection{Main results}\label{sec:exp-results}
 
 \begin{table}[htbp]
 \centering
-\caption{R15 evidence registry. ``Outcome'' is tied to the stated evidence
+\caption{Evidence registry. ``Outcome'' is tied to the stated evidence
 type, not to theory truth. ``External'' means independent-substrate construct
 validation; every such entry is negative. Legacy CONFIRMED fields remain only
 in their read-only archives.}
 \label{tab:main}
-\footnotesize
+\scriptsize
 \setlength{\tabcolsep}{3pt}
 \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X
 >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{.20\textwidth} l@{}}
 \toprule
 Claim & Current mathematical scope & Evidence type & Outcome & External \\
 \midrule
-T1a & range after exactly-$n$-action execution repair & proof + R15 two-bit
+T1a & range for the exactly-$n$-action execution channel & proof + two-bit
 negative control + legacy range scan & analytic pass & No \\
 T1b & applicable factors positive, including L2 $\Lam_{ref}>0$ &
-R14 boundary regression; RES-1 is not a full positivity test & analytic pass & No \\
+legacy boundary regression; RES-1 is not a full positivity test & analytic pass & No \\
 T1c/D & conditional upper bound and registered low-TV degradation family &
 proof + ATK-2 model replay & model check & No \\
 T2 & componentwise compatibility plus $\Foth/\Fsrc$ comparisons; no iff shortcut &
-R15 baseline-$\Lam$ and moving-$\Fix$ counterexamples & analytic pass; scoped & No \\
+baseline-$\Lam$, interval-order, and moving-$\Fix$ counterexamples & analytic pass; scoped & No \\
 Goal/source identification & structural goal point versus IRL interval; L0
-internal-causal versus L1+ norm/noise split & R15 random-agent and IRL-set
-negative controls & construct guard; external pending & No \\
+internal-causal versus L1+ ordered norm/noise split & random-agent, OR-order,
+closed-loop, and IRL-set controls & construct guard; external pending & No \\
 T3a & positive baseline and channel-specific strict premises &
-R14 counterexamples; legacy special-case demonstrations & analytic pass; scoped & No \\
+registered counterexamples; legacy special-case demonstrations & analytic pass; scoped & No \\
 T3b & expectation/firing bounds under HI-1--3 & proof; legacy AI curves only,
 not a test of the expectation or probability bounds & descriptive & No \\
 T4 & LinLog vertices, active-set defense, linear-fraction minimization &
 independent vertex/grid/symbolic certificates; legacy $\varsigma=1$ only & analytic pass & No \\
 T5 & point-valued zero disjunction; full-state script corollary &
-R14 positive/negative state controls and legacy zero-factor replay & analytic pass & No \\
+registered positive/negative state controls and legacy zero-factor replay & analytic pass & No \\
 T6-margin & registered retention and certificate-failure domains &
 ATK-6(i)--(v), ATK-5(ii); exact-saturating capture kept separate & model check (360 evaluations) & No \\
 T6-CUSUM & fixed-$\alpha$ descriptive CUSUM arm & seeded numerical description,
 not detection-asymptotic validation & descriptive (60; 30 seeds) & No \\
 T7 & selector law and two-error bracket & separate R11 DEL-1 replay;
 non-diagnostic brackets on (v)--(vi) & inconclusive ($120+60$) & No \\
-T8 & direct compulsion with $A^0>0$ and distance/empowerment premises &
-R14/R12 counterexamples and FORCE-1 special cases & analytic pass; scoped & No \\
+T8 & direct compulsion with baseline $A_{\mathrm{state}}^0>0$ and distance/empowerment premises &
+registered counterexamples and FORCE-1 special cases & analytic pass; scoped & No \\
 C0 & restricted mappings; same-environment separation witness &
 new C0-CF tensors and XOR SCM; C0-CORR descriptive only, no Feng rank & construction pass & No \\
 C1/C2 & chosen normal-form phase-line results & ATK-3 algebra/model checks & toy-model check & No \\
@@ -209,23 +205,16 @@ C1/C2 & chosen normal-form phase-line results & ATK-3 algebra/model checks & toy
 \end{table}
 
 \paragraph{How to read Table~\ref{tab:main}.}
-No aggregate ``confirmed theories'' count is reported. Historical execution
-counts are retained for audit rather than used as a headline: the main matrix
-recorded $2{,}520$ CONFIRMED $+360$ INCONCLUSIVE executions under its recorded
-criteria, with those 360 INCONCLUSIVE runs retaining their coordinates.
-These are nested/deterministic evaluations, not independent Bernoulli trials.
-The former T6 pool decomposes into 360 margin/implementation evaluations and
-60 descriptive CUSUM evaluations. A separate 30-run R11 DEL-1 replay gives 120
-CONFIRMED and 60 INCONCLUSIVE criterion evaluations (all 30 run-level totals
-INCONCLUSIVE); it does not overwrite the $4{,}620$-run archive. The corrected
-T1/T2/T3/T4/T5 statements are supported by their proofs and R14/R15 analytic
-regressions, while old scenario outputs cover only their special-case
-preconditions. Legacy $\Lambda$-dependent signatures and attribution shares
-are marker-derived and are not upgraded by the new SCM fixture. Historical
-composites also predate the R15 $N/R$ source split and state/defense split;
-they are not counted as independent validation of the revised constructs.
+There is no aggregate ``confirmed theories'' count. Historical counts are
+nested/deterministic evaluations, not Bernoulli trials: T6 separates 360
+margin/implementation checks from 60 descriptive CUSUM checks, and the separate
+30-run DEL-1 replay has 120 CONFIRMED plus 60 INCONCLUSIVE criterion evaluations
+and 30/30 run-level INCONCLUSIVE. T1--T5 rest on their conditional proofs and
+analytic regressions, not old scenario outputs outside their registered
+premises. Neither the explicit-SCM fixture nor new guards upgrade legacy
+$\Lambda$, $N/R$, or combined-gate markers into current-construct validation.
 
-\paragraph{R14 X5-c: executed implementation with model-sensitive readings.}
+\paragraph{X5-c: executed implementation with model-sensitive readings.}
 The pooled first run remains in \texttt{sim/runs/20261116\_r14/x5c/}. The
 canonical supplement (\texttt{x5c\_stratified/}) registers $T=3$ and 20,000
 base $(X,U)$ draws per noise$\times t$ cell. Four arms share those draws within
@@ -241,15 +230,15 @@ $\mathcal H^{surg}=1$ in the latter, demonstrating the history/output
 distinction. The pooled C1--C5 criteria pass; the stratified C1, C2, C5, and
 observation-equivalence C6 criteria also pass. Integrated and sampled
 cross-checks share $(X,Z,J)$; only downstream $V$ is independent. A
-\textbf{post hoc, superseded-reporting} R15 audit
+\textbf{post hoc, superseded-reporting} paired audit
 (\texttt{analysis\_r15\_x5c\_paired.json}) therefore computes the SE of
 per-context differences rather than adding two marginal SEs: absolute mean
 differences are $0.0077275$ (Gaussian) and $0.0003984$ (logistic), with paired
 SEs $0.0064779$ and $0.0056650$. Both pass the post hoc inherited
-$\max(4\mathrm{SE},0.02)$ rule, which is not a preregistered R15 criterion;
+$\max(4\mathrm{SE},0.02)$ rule, which is not a preregistered criterion;
 the overall label is \textsc{post\_hoc\_pass}, not an unqualified CONFIRMED.
 R14's saved unpaired \texttt{combined\_se} remains unchanged but is superseded
-for R15 inferential reporting.
+for current inferential reporting.
 
 Across $t$, weak-arm two-model bands are approximately $[0.905,0.943]$, and
 strong-arm bands are $[0.753,0.843]$. The maximum cross-noise point difference
@@ -345,69 +334,44 @@ ATK-6 implementation of Corollary~\ref{cor:blindzone}'s band & deterministic rep
 \end{table}
 
 \begin{itemize}
-\item \textbf{T6 (key experiment)}. The conditional design rule separates the
-M3 subthreshold bound from M1 registration; ATK-6's tested grid additionally
-satisfies normal rollback response and its registered per-cycle threshold,
-giving per-channel damage $<0.99$ in the implementation. This is not an unconditional
-all-$\delta$ retention guarantee. The $\Amin$ per-run check covers all runs.
-In the
-certificate-failure band of Corollary~\ref{cor:blindzone}
-(Figure~\ref{fig:blindzone}), the general upper comparison supplies no
-positive M3-only retention certificate and no capture conclusion. Separately,
-ATK-6's exact clipped saturating implementation has zero registrations and
-$D\to1$ when $\delta\in(\kappa,\theta/W)$: $30/30$ deterministic replays in
-both directions, with no binomial confidence interpretation and no inference
-back to the upper-bound-only model.
-$\deltastar$ ablation reproduces the exact $\min$-term structure (disabling
-M1/M3/M4 leaves the corresponding remaining minimum; all disabled
-$\Rightarrow$ $\deltastar=0$). The Gaussian LLR-CUSUM control arm
-is a fixed-$\alpha=10^{-3}$ ENV-0 observation, not evidence for a universal
-fixed-$\alpha$ weak-drift proposition and not a direct test of the different
-fixed-$\delta$, $\alpha\downarrow0$ limit in Proposition~\ref{prop:detection}.
-For each of 30 independent seeds, the script estimates EDD at
-$\delta=0.25$ and $\delta=0.125$ from 200 post-change simulated paths per
-drift, then forms the within-seed ratio
-$R_s=(0.125\,\widehat{\mathrm{EDD}}_{0.125,s})/
-(0.25\,\widehat{\mathrm{EDD}}_{0.25,s})$. The two path sets are generated
-sequentially from that seed's stream, not common-random-number path pairs.
-The normal-approximation 95\% interval is
-$\bar R\pm1.96s_R/\sqrt{30}=1.951\pm0.034$. As a small-sample sensitivity
-check, the Student-$t$ interval is
-$\bar R\pm t_{29,0.975}s_R/\sqrt{30}=1.951\pm0.035$. All $30$ seed-level
-ratios, seeds, and both intervals are serialized in
-\texttt{sim/analysis\_cusum\_sensitivity.json} and reproduced in
-Appendix~\ref{app:counting}; neither interval concerns individual paths.
+\item \textbf{T6 (key experiment)}. The design rule separates M3's
+subthreshold bound from M1 registration; ATK-6's grid also satisfies its
+rollback and per-cycle premises, so it is not an all-$\delta$ guarantee. In
+Corollary~\ref{cor:blindzone}'s certificate-failure band, the upper comparison
+gives neither M3-only retention nor capture. The separate clipped saturating
+implementation does give $D\to1$ with zero registrations on its registered
+interval: 30/30 deterministic replays, without binomial or upper-bound-only
+inference. The $\deltastar$ ablation reproduces its min terms.
+The Gaussian CUSUM arm is only a fixed-$\alpha=10^{-3}$ observation, not a test
+of Proposition~\ref{prop:detection}'s different fixed-$\delta$,
+$\alpha\downarrow0$ limit. Thirty seeds each simulate 200 post-change paths at
+$\delta=0.25$ and $0.125$, generated sequentially rather than as CRN pairs.
+Their within-seed scaled-EDD ratio has normal and Student-$t$ 95\% intervals
+$1.951\pm0.034$ and $1.951\pm0.035$, respectively. Seeds, ratios, and intervals
+are in \texttt{sim/analysis\_cusum\_sensitivity.json}; neither interval is over
+individual paths.
 \item \textbf{C1/C2}. The recovery-time scaling fits
 $\Trec\propto(\delta_c-\delta)^{-1/2}$ with slope $-0.504\pm0.000$
 (theory $-0.5$) and $R^2=1.0000$ over 30 seeds; the hysteresis loop stays open
 with independently positive thresholds $\delta_{down}=0.0701$,
 $s_c=0.2347$; the three early-warning indicators ($\Trec$, stationary
 variance, AR(1)) are all monotone approaching criticality.
-\item \textbf{T7 (re-evaluated)}. The exact linear law requires the flow
-estimator to condition on the selector. Legacy DEL-1 computes unconditioned
-flows, so its maximal deviation $2.0\times10^{-5}$ is only an ENV-0 numerical
-fit, not verification of the selector-conditional theorem. The composite
-identity is an algebraic recomputation conditional on the measured $\Aorg$,
-and the $q=1$ arm has $\Fext<10^{-12}$; neither supplies independent
-validation. The direct-flow measurements ($0.671/0.844/0.799$ nats at
-$m=0.3/0.5/0.7$) and realized $\Aorg$ ($0.0030/0.0017/0.0011$) remain valid
-descriptive values. However, the former one-$\varphi$ relaxation is invalid.
-Under Proposition~\ref{prop:bracket}, $\varphi_0$ and $\eta_\mu$ enter
-separately; here $\eta_\mu\le477.817$ dominates $a=1-m$ and the calibrated
-external-flow terms, so the corrected direct-flow and $\rho\neq1$ brackets
-degenerate to $[0,1]$ on the registered arms. Their containment is therefore
-non-diagnostic. A new 30-run R11 replay implements this corrected rule and
-returns 120 CONFIRMED plus 60 INCONCLUSIVE criterion evaluations (30/30
-run-level INCONCLUSIVE). We therefore withdraw ``bracket confirmed'' and keep
-T7 inconclusive pending a selector-conditional estimator and a non-vacuous
-preregistered bracket test.
-\item \textbf{Legacy resilience gate ($\sigma^-$-EROSION)}. R14's extended
-gate took the minimum of current resource ratios and defense margins $m_j$.
+\item \textbf{T7 (re-evaluated)}. Legacy DEL-1 uses unconditioned flows, so
+its $2.0\times10^{-5}$ fit deviation and measured-$\Aorg$ algebra do not verify
+the selector-conditional law. Direct flows ($0.671/0.844/0.799$ nats) and
+realized $\Aorg$ ($0.0030/0.0017/0.0011$) remain descriptive. The invalid
+one-$\varphi$ relaxation is superseded by Proposition~\ref{prop:bracket}'s
+separate $\varphi_0,\eta_\mu$ terms; with $\eta_\mu\le477.817$ dominating the
+registered arms, both corrected brackets are $[0,1]$ and non-diagnostic. The
+separate replay therefore leaves T7 INCONCLUSIVE pending a selector-conditional
+estimator and a non-vacuous preregistered test.
+\item \textbf{Legacy resilience gate ($\sigma^-$-EROSION)}. The historical
+combined gate took the minimum of current resource ratios and defense margins $m_j$.
 Across $\kappa_{eff}=(1-\varepsilon)\kappa_0$,
 $\varepsilon\in\{0,0.4,\ldots,1.0\}$, the margin region leaves it at 1, the
 binding region gives $(0.8,0.6,0.4,0.2)$, and full erosion or
 $R_{eff}=0$ drives the old gate and composite to zero. These results remain a
-valid demonstration of R14's $\Ares$-like resilience convention, not of R15
+valid demonstration of the legacy $\Ares$-like resilience convention, not of current
 present $\Astate$: under \eqref{eq:avia}--\eqref{eq:rdef}, defense erosion
 reduces $\Rdef$ but does not by itself zero current autonomy. All five
 channels and the legacy $\Lam$ marker are invariant ($\le10^{-12}$), so the
@@ -578,7 +542,7 @@ vectors (channel-heavy and extreme variants, e.g.\ $w_{goal}=0.45$) over the
 $8{,}640$ campaign arm bundles (pool (i) of Appendix~\ref{app:counting}):
 zero range violations;
 zero-annihilation preserved exactly ($120/120$ complete-capture arms stay
-$0$); T3a monotonicity unbroken ($0/960$ cells). A new R15 read-only audit
+$0$); T3a monotonicity unbroken ($0/960$ cells). A read-only audit
 (\texttt{analysis\_r15\_statistics.json}) uses Kendall $\tau_b$ with exact tie
 counts and a NaN/no-claim rule for zero denominators. Across $5{,}760$ main
 arms the overall range is $[0.9276,1]$, with $648{,}720$ jointly tied pairs
@@ -692,7 +656,7 @@ The campaign contains three negative-control constructs: the BB-2
 exogenous-probe control arms (the certified bound holds where its premises
 hold, $2/2$) against the adaptive arms ($3/3$ premise violations); the ATK-4
 single-track control (one-track monitoring is blind to the covert $\gamma$
-arm) against the retired four-track diagnostic bundle (not an R15 criterion); and the $\sigma^-$-EROSION
+arm) against the retired four-track diagnostic bundle (not a current criterion); and the $\sigma^-$-EROSION
 channel-invariance control (all five channels and the legacy $\Lam$ marker
 pointwise constant while the gate collapses; no counterfactual $\Lam$ is
 computed by this ENV-0 scenario). The two checks added at the last
@@ -742,7 +706,7 @@ direct behavioral injection (ATK-4) the scripted policy raises $\bar u$
 (iii)~\emph{Blind}: under pure $\sigma^-$ capability erosion,
 $\bar u$ is pointwise invariant (range $<10^{-9}$) while the R14
 resilience-gated $A$ traverses its whole range ($0.374\to0$); this is not a
-claim that R15 present $\Astate$ must fall. This registered ENV-0 endorsed-goal utility is
+claim that present $\Astate$ must fall. This registered ENV-0 endorsed-goal utility is
 therefore not a universal proxy for $A$: its correlation structure is
 regime-dependent. The experiment does not establish that an arbitrary
 scalar functional metric cannot proxy for $A$. Arm pairs with
@@ -864,7 +828,7 @@ an evaluation of \eqref{eq:lambda}.
 ($\kappa_{eff}=(1-\varepsilon)\kappa_0$), R14's combined gate
 $A_{via}^{R14}$ and resilience composite collapse monotonically to zero while
 all five channel components and the legacy $\Lam$ marker stay pointwise
-invariant. R15 reports this as $\Rdef$ erosion, not automatic present-state
+invariant. We report this as $\Rdef$ erosion, not automatic present-state
 annihilation (no current counterfactual $\Lam$ is computed; the
 $n=2$ state-resource analogue is RES-1). (b) EXEC-1: the execution
 channel's dynamic range, pinned near zero on the compact default instance,
@@ -1025,18 +989,23 @@ reported as bands. The observed $D_{noise}=0.089799622$ therefore yields
 strong/weak ordering is a CDF identity, while observationally equivalent
 identity/XOR models provide the substantive counterfactual non-identifiability
 witness. Neither result validates ENV-0 markers or external autonomy.
-(xi) \emph{External substrate, protocol outline only}: the decisive next
-experiment ports the surgery classes to an independent substrate (a
-MiniGrid-style environment with a learned tabular agent, or a simplified LLM
-tool-use harness with logged internals). Before viewing outcome data, the
-protocol must freeze the independent sampling unit, alternative effect,
-noise model, significance level, SESOI, and power calculation. It must
-compare the full five-channel profile against behavior-only, utility-only,
-and preregistered reduced-channel models on held-out scenarios, reporting
-calibration, intervals, and failure cases. External expert ratings of
-autonomy and accuracy in attributing interventions are separate endpoints
-with separate criteria. No external power analysis or validation result is
-claimed here; the present $n=30$ deterministic replay design is not a power
+(xi) \emph{External substrate, design-frozen but unexecuted protocol}:
+\texttt{AFC-EXT-001} requires both Ingel's RL
+environments and Albantakis's structurally diverse automata; MiniGrid and an
+LLM tool-use harness are optional transfer arms, not substitutes. It compares
+RNI/NRI/Shapley source attribution, Ingel's next-state PID (BROJA primary;
+SxPID sensitivity), Albantakis's candidate battery, the full profile,
+behavior-only/utility-only baselines, and reduced-channel
+models on held-out instances. Ground-truth intervention labels come from newly
+ported surgery operators, not published outcome tables; perturbation/taxonomy
+mappings and any auxiliary endorsement SCM are preregistered as new
+constructions. Intervention-attribution balanced accuracy and held-out
+calibration are co-primary; expert ratings and downstream outcomes are separate
+endpoints. Before outcome unblinding, the executor must still
+freeze numerical SESOI, alternative effects, external noise models,
+significance/multiplicity rules, independent-instance counts, and power. No
+external power analysis, outcome preregistration timestamp, or validation
+result is claimed; the historical $n=30$ replay design is not a power
 statement.
 
 \paragraph{What would falsify the framework itself?}

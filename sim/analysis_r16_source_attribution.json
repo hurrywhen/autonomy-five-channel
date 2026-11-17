@@ -1,0 +1,123 @@
+{
+  "artifact_version": "R16-source-attribution-v1",
+  "analysis_status": "EXACT_ANALYTIC_MODEL_GUARD",
+  "units": "bits",
+  "external_construct_validation": false,
+  "historical_results_modified": false,
+  "model_definitions": {
+    "OR": "independent fair R,N; A=R OR N; no I",
+    "closed_loop": "R1,R2,I1,I2 independent fair; N1=I1; N2=N1 XOR A1 XOR I2; A_t=R_t, N_t, or R_t XOR N_t",
+    "direct_bypass": "N1=0; N2=A1; A1=R1 XOR N1 XOR I1; A2=R2 XOR N2 XOR I2"
+  },
+  "OR_counterexample": {
+    "flows_bits": {
+      "RN": [
+        0.3112781244591329,
+        0.49999999999999994
+      ],
+      "NR": [
+        0.3112781244591329,
+        0.49999999999999994
+      ]
+    },
+    "joint_di_bits": 0.8112781244591328,
+    "normative_share_RNI": 0.6163114534036556,
+    "normative_share_NRI": 0.38368854659634444,
+    "order_averaged_flows_bits_I_last": {
+      "R": 0.4056390622295664,
+      "N": 0.4056390622295664
+    },
+    "normative_share_order_average": 0.5
+  },
+  "semantic_swap_note": "With RNI held fixed, swapping the N/R semantic labels in the symmetric OR model interchanges the two ordered normative shares; order averaging does not solve semantic relabeling.",
+  "closed_loop_T2": {
+    "pure_random": {
+      "positive_atoms": 16,
+      "atom_probability": 0.0625,
+      "flows_bits": {
+        "RNI": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "NRI": [
+          0.0,
+          2.0000000000000004,
+          0.0
+        ]
+      },
+      "joint_di_bits": 2.0,
+      "normative_share_RNI": 0.0,
+      "normative_share_NRI": 0.0,
+      "order_averaged_flows_bits_I_last": {
+        "R": 2.0,
+        "N": 0.0,
+        "I": 0.0
+      },
+      "normative_share_order_average": 0.0
+    },
+    "pure_normative": {
+      "positive_atoms": 16,
+      "atom_probability": 0.0625,
+      "flows_bits": {
+        "RNI": [
+          0.0,
+          2.0000000000000004,
+          0.0
+        ],
+        "NRI": [
+          2.0,
+          0.0,
+          0.0
+        ]
+      },
+      "joint_di_bits": 2.0,
+      "normative_share_RNI": 1.0,
+      "normative_share_NRI": 1.0,
+      "order_averaged_flows_bits_I_last": {
+        "R": 0.0,
+        "N": 2.0,
+        "I": 0.0
+      },
+      "normative_share_order_average": 1.0
+    },
+    "mixed_xor": {
+      "positive_atoms": 16,
+      "atom_probability": 0.0625,
+      "flows_bits": {
+        "RNI": [
+          0.0,
+          2.0000000000000004,
+          0.0
+        ],
+        "NRI": [
+          0.0,
+          2.0000000000000004,
+          0.0
+        ]
+      },
+      "joint_di_bits": 2.0,
+      "normative_share_RNI": 1.0,
+      "normative_share_NRI": 0.0,
+      "order_averaged_flows_bits_I_last": {
+        "R": 1.0000000000000002,
+        "N": 1.0000000000000002,
+        "I": 0.0
+      },
+      "normative_share_order_average": 0.5000000000000001
+    }
+  },
+  "mediated_external_witness": {
+    "external_only_di_bits": 2.0,
+    "residual_external_after_R_N_bits": 0.0
+  },
+  "direct_bypass_witness": {
+    "RNI_flows_bits": [
+      0.0,
+      0.0,
+      2.0000000000000004
+    ],
+    "joint_di_bits": 2.0
+  },
+  "interpretation": "Ordered residual attribution and the I-last two-order average are sensitivity descriptors, not unique causal or PID decompositions."
+}

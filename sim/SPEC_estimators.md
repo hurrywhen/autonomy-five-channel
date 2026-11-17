@@ -1,10 +1,11 @@
 # SPEC_estimators —— R3b 分量与复合指标估计规约
 
-**版本**: v1.1（2026-11-17：R15 定义、识别与输出契约修订）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**版本**: v1.2（2026-11-17：R16 有序归因、闭环与证书/复核契约）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**R16 附注**：RNI 只称有序残差归因，强制 NRI/Shapley 与语义敏感性；新增 OR 和 T=2 闭环独立枚举、Route B st' 缩放、IRL 端点序、NaN/Inf fail-closed、R16 schema/hash 和 REGISTERED_COMPLETE≠SCM_AUDITED。配对复核仅 float 叶子用容差，外部协议仅设计冻结。
 **R15 附注**：执行统一为 \(A_{t:t+n-1}\) 对 \(O_{t+n}\)，恰好 n 个行动；一般非紧策略类只写 sup，紧有限 DMC 才写 max/BA。L0 的 \(A_{org}\) 仅内部因果；L1+ 按 R→N→I 链分离 \(F_{rand},F_{norm},F_{ext}\)，旧 ENV-0 聚合 S 值不冒充新 estimand。T2 撤回兼容 iff/四轨充要，盲性改显式证人。\(A_{goal}\) 分结构读取点值与 IRL 集合/区间两种模式。当前 \(V_{state}\)、防御 \(R_{def}\)、\(A^{state}\)、\(A^{res}\) 分账；强制输出手术史、Lambda、来源注册及未知证据上限。新增 `r15_guards.py`、14 个 R15 反例和 tie-aware `analysis_r15_statistics.py`；旧 R14 manifest/results/verdict 不改写。
 **R14 附注**：\(A_{org}\) 仅称直接/未中介绕过抵抗，严格下降须 \(F_{ext}/F_{int}\) 相对基线上升；删除 \(A_{goal}^{hist}=\Lambda A_{goal}\)；\(A_{ref}\) 限有限离散系综；\(\Lambda\) 改唯一实际/无手术背书输出律 estimand，旧 marker 全面隔离；新增 X5-c 时分层和同环境 C0-CF；数值越界统一 fail-closed。
 **R13 附注（2026-11-03）**：E10.1/E12.1 的一般 T6 上比较只给 certificate-failure band；精确饱和模拟的俘获不反推一般定理。E12.2 增加 30 个种子比值公开与 Student-\(t_{29}\) 敏感性；E10.4 不再主张外部框架完整画像相等。
-**总原则**: 每个量有两条实现路径——**真值路径**（平台张量枚举，精确，用于标定与估计器验证）与**估计路径**（从日志轨迹的有限样本估计，用于测量期）；估计路径必须对照真值路径报告偏差/方差（input 风险 R2 的落地）。全部信息量以 nats 计（log 底 e）。
+**总原则**: 每个量有两条实现路径——**真值路径**（平台张量枚举，精确，用于标定与估计器验证）与**估计路径**（从日志轨迹的有限样本估计，用于测量期）；估计路径必须对照真值路径报告偏差/方差（input 风险 R2 的落地）。信息计算内部以 nats 计（log 底 e）；论文/审计若用 bit 必须显式标注并由 `nats_to_bits` 除以 ln2 转换，禁止混用单位。
 
 ---
 
@@ -16,8 +17,10 @@
 
 ## 2. A_org（来源）：DI 分解
 
-- **E2.1 定义（R15 分层）**：L0 保留 $F_{int}=I(S^T\!\to\!A^T)$、$F_{ext}=I(I^T\!\to\!A^T\,\|\,S^T)$ 与 $A_{org}^{(0)}=F_{int}/(F_{int}+F_{ext})$，但只称内部因果份额。L1+ 注册 $N=(G,B,M)$ 与外生创新 $R$，按 R→N→I 顺序计算 $F_{rand}=I(R^T\!\to\!A^T)$、$F_{norm}=I(N^T\!\to\!A^T\|R^T)$、$F_{ext}=I(I^T\!\to\!A^T\|N^T,R^T)$，$A_{org}^{(1+)}=F_{norm}/(F_{norm}+F_{rand}+F_{ext})$；全零分母 fail-closed。统一写 $F_{src},F_{oth}$ 后严格下降判据为 $F_{oth}^1/F_{src}^1>F_{oth}^0/F_{src}^0$。历史 ENV-0 没有 N/R 分割，旧 a_org 只保留 legacy internal-causal marker。
-- **E2.2 真值路径**：按定义逐项枚举（前缀缓存，规模约束 SPEC_platform §7）。
+- **E2.1 定义（R16 有序残差归因）**：L0 保留 $F_{int}=I(S^T\!\to\!A^T)$、$F_{ext}=I(I^T\!\to\!A^T\,\|\,S^T)$ 与 $A_{org}^{(0)}=F_{int}/(F_{int}+F_{ext})$，但只称内部因果份额。L1+ 注册 $N=(G,B,M)$ 与外生创新 $R$，主顺序 R→N→I 计算 $F_{rand}=I(R^T\!\to\!A^T)$、$F_{norm}=I(N^T\!\to\!A^T\|R^T)$、$F_{ext}=I(I^T\!\to\!A^T\|N^T,R^T)$，$A_{org}^{RNI}=F_{norm}/(F_{norm}+F_{rand}+F_{ext})$。这是独立的规范性强 attribution 选择，不是唯一因果分解：R 先扣除随机寄存器信息，N 其次获得规范状态中介影响，I 最后只计直接 bypass 残余。全零分母 fail-closed；统一写 $F_{src},F_{oth}$ 后严格下降判据为 $F_{oth}^1/F_{src}^1>F_{oth}^0/F_{src}^0$。历史 ENV-0 没有 N/R 分割，旧 a_org 只保留 legacy internal-causal marker。
+- **E2.1a 顺序与语义敏感性（强制）**：R/N 均非退化时必须并列输出 N→R→I 的 $A_{org}^{NRI}$ 和两玩家 Shapley-style 描述量：$F_{rand}^{Sh}=\{I(R^T\to A^T)+I(R^T\to A^T\|N^T)\}/2$，$F_{norm}^{Sh}=\{I(N^T\to A^T)+I(N^T\to A^T\|R^T)\}/2$，外源仍最后条件化，$A_{org}^{Sh}=F_{norm}^{Sh}/(F_{norm}^{Sh}+F_{rand}^{Sh}+F_{ext})$。Shapley 只消除两种顺序任意性，不冒充干预识别或 PID；PID 另作外部协议 comparator。N/R/I 角色按 SCM 更新所有权、外生寄存器和外部路径在看分前预注册；合理替代语义划分另报范围，禁止通过把噪声改名规范记忆或反向重分类择高分。
+- **E2.1b 非唯一性回归锚**：独立公平比特 $R,N$、$A=R\lor N$、无 I 时，以 bit 计 $I(R;A)=I(N;A)=0.311278124459$、$I(N;A|R)=I(R;A|N)=0.5$、联合 DI=$0.811278124459$；$A_{org}^{RNI}=0.616311...$、$A_{org}^{NRI}=0.383689...$、$A_{org}^{Sh}=0.5$。链式和相等不推出份额唯一。
+- **E2.2 真值路径**：按定义逐项枚举（前缀缓存，规模约束 SPEC_platform §7）。`source_attribution.py` 另提供有限二值序列联合表的独立精确枚举；至少验证一个 $T=2$ 行动反馈闭环，分别检查纯随机、纯规范、混合策略、N 中介影响与直接 bypass，以及任意 R/N 顺序下三项和等于联合 DI。一步联合表不能替代多时刻验证。
 - **E2.3 估计路径**：plug-in 估计＋偏差标注（DI 插件偏差 O(·/N)，input 风险 R2）；闭环下必须用因果条件化（禁止普通条件 MI 替代——Kramer Property 2 反例为回归测试 T-DI2）。
 - **E2.4 黑盒降级（R15 单侧证书）**：随机化探针下 $F_{ext}^{obs}=I(I^T;A^T)$（引理 2.3.1：外源随机化 ⇒ MI=DI，测试 T-DI1）。bypass 语义下它是因果 $F_{ext}$ 的**下估计**，结合 $F_{src}\le F_{src}^{base}(1+\eta)$ 只给**条件认证上端** $\min(1,F_{src}^{base}(1+\eta)/[F_{src}^{base}(1+\eta)+F_{ext}^{obs}])$；L1+ 因 $F_{rand}\ge0$，舍去该项仍保守。下端永远不是认证界：L0 的 $F_{src}^{base}(1-\eta)/[F_{src}^{base}(1-\eta)+F_{ext}^{obs}]$ 只作参考；L1+ 还必须注册 $r_{max}\ge F_{rand}$ 并用 $F_{src}^{base}(1-\eta)/[F_{src}^{base}(1-\eta)+r_{max}+F_{ext}^{obs}]$，否则不显示下端。mediation/adaptive probe 不适用该证书。
 - **E2.5 $F_{ext}$ 通用后验路径与调度**（第 5 步，T-COV）：按 params 调度——(i) **β_π**（旗标切换策略，SPEC_platform P4.5）：$F_{ext}=\sum_t\mathbb E_{S_t}\big[H(\bar\pi(\cdot\mid S_t))-\sum_i flag_i\,H(\pi_i(\cdot\mid S_t))\big]$（混合条件律的 Jensen 间隙；$\bar\pi=\sum_i flag_i\pi_i$，$\pi_i$ 由扁平策略张量与 flag 重建；$S_t$ 边缘精确）；(ii) **静态手术**（β_G/δ/β_Endorse，无外源 I 节点）⇒ $F_{ext}\equiv0$ 平凡成立（干预过程为空）；(iii) **α/σ/γ**：引理 7.2.1 双项零残余路径（既有）。β_π×α 复合暂不支持（显式报错；场景步按需扩展）。
@@ -37,6 +40,7 @@
 - **E4.1 不动点**：Banach 版迭代 $U_{k+1}=\mathrm{Endorse}(U_k)$ 至 $\|U_{k+1}-U_k\|<$tol；Fix 枚举（Θ 有限）；退化预案：$\mathrm{Fix}_{\varepsilon_{min}}$＋Hausdorff 区间（E9，input §3.3）。
 - **E4.2 距离与标尺**：$d$=Θ 上欧氏（canonical 参数化后）；$d_c=\max_{U\in\Theta}d(U,\mathrm{Fix})$；$A_{goal}=1-d(U_{eff},\mathrm{Fix})/d_c$。
 - **E4.3 $U_{eff}$ 两种识别模式**：结构读取模式直接读取白盒注册变量 $U_{eff}$，满足非空闭 Fix、度量和 $d_c>0$ 时给点值，不调用 IRL；行为反演模式用 MaxEnt-IRL——行为律 $p(\tau)\propto e^{U(\tau)}$ 下 $U=\log p+\log Z$ 精确到常数（命题 5.5(i)），特征线性族与势函数塑形一般只给等价集合，向 $A_{goal}$ 传播区间，温度 $\alpha_{temp}$ 协议固定。只有额外识别假设使集合成为单点时才输出点值；ENV-0 使用结构读取，未实现黑盒 IRL。
+- **E4.3a 区间兼容语义（R16）**：默认端点序 $[\ell_0,u_0]\preceq_{ep}[\ell_1,u_1]\iff\ell_1\ge\ell_0\land u_1\ge u_0$，由 `goal_interval_compatible` fail-closed 实现；区间须有限、含于 $[0,1]$ 且 $\ell\le u$。$[0.2,0.8]\to[0.3,0.7]$ 为反例，不能因下端上升就判兼容。端点序不是跨世界逐元素配对，也不是下端保证；若要求独立任取前后容许 reward 均非减，须另证 $\ell_1\ge u_0$，或预注册耦合 $\Pi$ 并要求 $\Pi$-a.e. 配对非减，禁止从端点序自动升级。
 - **E4.4 历史分账（R14 supersession）**：删除 $A_{goal}^{hist}=\Lambda A_{goal}$。$A_{goal}$ 仅表示当前固定点对齐，$\Lambda$ 只经 L2 的 $A_{ref}$ 进入复合；手术史 $\mathcal H^{surg}$ 另列，不与 $\Lambda$ 混用。
 - **E4.5 真值路径接口与退化区间约定**：真值函数输入 = $(U_{eff},\mathrm{Endorse},\Theta_{grid})$（$U_{eff}$ 容许网格外实向量，$d$ 为其到 Fix 的欧氏距离）；$U_{eff}$ 的 MaxEnt-IRL 恢复（E4.3）与 Endorse 的平台实例化（P3.2）属场景步接线。退化预案（E9）：$\mathrm{Fix}=\varnothing$ 时报 Hausdorff 区间 $\big[1-\frac{d_H+\varepsilon_{min}}{d_c},\ 1-\frac{\max(0,d_H-\varepsilon_{min})}{d_c}\big]$（$d_c$ 对 $\mathrm{Fix}_{\varepsilon_{min}}$ 重定义），区间与 $[0,1]$ 取交并在输出中标注裁剪；$d_c=0$（$\mathrm{Fix}_{\varepsilon_{min}}=\Theta$）时区间约定为 $[0,1]$（完全不定）。**数值裁剪契约（v0.6 补注，沿 E3 的 A_org 约定）**：$U_{eff}$ 为网格边缘均值 ⇒ 落在网格凸包内 ⇒ $d\le d_c$ 是数学事实；浮点残差（~1e-16，细化网格档 η=1 实测触发）致点值越出 $[0,1]$ 时，1e-9 容差内归位并记录 warning；更大越界、NaN、Inf 一律 fail-closed——测试 T-REF7/T-R14-CLIP。
 
@@ -56,7 +60,7 @@
 
 ## 7. A_via（可行性）
 
-**R15 当前存续/防御分账**：$V_{state}=\min\{1,\min_k s_k^{avail}/s_k^{crit}\}$，$A^{state}=V_{state}F_\varsigma(\text{channels})$；$m_j=\mathrm{clip}(\min(\kappa_j^{eff}/\kappa_j^{req},R_j^{eff}/R_j^{req}),0,1)$，$R_{def}=\min\{1,\min_jm_j\}$，可选韧性量 $A^{res}=R_{def}A^{state}$。$R_{def}=0$ 不再自动推出当前 $A^{state}=0$；当前关键资源耗尽仍使 $V_{state}=A^{state}=0$。T6 的 A(t) 指状态轨，若另注册 $R_{def}\ge r_{min}>0$，韧性下界再乘 $r_{min}$。历史 `a_via` 是资源+防御的 R14 combined-resilience marker，EROSION 旧复合只作韧性演示，不重标为 R15 当前状态分数。输出强制同时携带 $A^{state}$、$V_{state}$、$R_{def}$、手术史、Lambda/N/A/unknown、来源注册与证据上限（`r15_guards.py`）。
+**R16 当前存续/防御分账与证书绑定**：$V_{state}=\min\{1,\min_k s_k^{avail}/s_k^{crit}\}$，$A^{state}=V_{state}F_\varsigma(\text{channels})$；$m_j=\mathrm{clip}(\min(\kappa_j^{eff}/\kappa_j^{req},R_j^{eff}/R_j^{req}),0,1)$，$R_{def}=\min\{1,\min_jm_j\}$，可选韧性量 $A^{res}=R_{def}A^{state}$。$R_{def}=0$ 不自动推出 $A^{state}=0$；关键资源耗尽仍使 $V_{state}=A^{state}=0$。T6 的 A(t) 指状态轨，韧性下界另乘注册的 $R_{def}$ 下界。历史 `a_via` 仍是 R14 combined-resilience marker，不重标为当前状态分数。R16 输出强制携带 `channel_schema_version=R16_CHANNEL_SCHEMA_V1`、层级一致的 `org_mode`、`goal_mode`、`state_readiness_version=R15_SPLIT`、L1/L2 的 64 位小写 model/evidence hashes、$A^{state}/V_{state}/R_{def}$、手术史、Lambda 三态、registration_completeness、mechanism_evidence 和 evidence_ceiling。无 SCM 的完整注册仅为 REGISTERED_COMPLETE；只有显式 SCM_AUDITED 机制证据及哈希绑定才可给 SCM_AUDITED。UNKNOWN/字段不全 ⇒ LIMITED，L0/L1 的 N/A≠UNKNOWN。哈希只绑定声明工件，不验证外部真值；旧 Bundle 缺/错元数据一律拒绝。现行 API 为 `produce_r16_certificate`/`write_r16_certificate`，旧 R15 名仅兼容别名。
 
 ## 7.1 u_bar（外部基线量，v0.5 新增）
 

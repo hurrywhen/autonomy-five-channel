@@ -1,8 +1,8 @@
-# 参考文献总清单（R15 分级核验）
+# 参考文献总清单（R16 分级核验）
 
 **核验分级**：本清单不再声称每条 BibTeX 文献都有本地 PDF。下表 A–J 的 ✅/🟡/⚠️ 记录属于早期全文或预览核验；后续条目可以仅有出版社、DOI、官方摘要页或预印本页著录核验，必须逐项注明，不得由旧表头推出全文已读。
 **状态标记**：✅=全文脚本核验 PASS；🟡=PARTIAL（预览、图片标题页等，按注记人工目验）；⚠️=替代或特别版本说明；“网络核验”=仅著录/摘要与相关论点核对，不等于全文核验；❌=NOT_FOUND，不进入正式引用。
-**历史全文子集**：67 份 PDF（✅ 64，🟡 3），另有 7 条 ❌ 记录在 §J。R15 新增 Ingel、Albantakis、Jung 三条以 PMC/出版社/DOI 正式来源核验，相关实质比较见 `related_work.tex`；公开快照不转发第三方 PDF。
+**历史全文子集**：67 份 PDF（✅ 64，🟡 3），另有 7 条 ❌ 记录在 §J。R15 新增 Ingel、Albantakis、Jung 三条以 PMC/出版社/DOI 正式来源核验；R16 新增 Shapley 与 Williams–Beer 两条用于顺序敏感性/PID 概念边界，分别按 Princeton 著录链和 arXiv 官方页核验。相关实质比较见 `related_work.tex`；公开快照不转发第三方 PDF。
 
 ---
 
@@ -58,6 +58,8 @@
 | D11 | ingel2022quantifying | Ingel, A., Makkeh, A., Corcoll, O., & Vicente, R. (2022). Quantifying Reinforcement-Learning Agent's Autonomy, Reliance on Memory and Internalisation of the Environment. *Entropy*, 24(3), 401. DOI:10.3390/e24030401 | PMC 官方全文 https://pmc.ncbi.nlm.nih.gov/articles/PMC8947692/ | 不转发 | R15 网络全文核验：PID 的下一内部状态估计对象、RL/扰动基质 |
 | D12 | albantakis2021quantifying | Albantakis, L. (2021). Quantifying the Autonomy of Structurally Diverse Automata: A Comparison of Candidate Measures. *Entropy*, 23(11), 1415. DOI:10.3390/e23111415 | PMC 官方全文 https://pmc.ncbi.nlm.nih.gov/articles/PMC8624265/ | 不转发 | R15 网络全文核验：多候选度量、结构多样 Markov Brains |
 | D13 | jung2011continuous | Jung, T., Polani, D., & Stone, P. (2011). Empowerment for Continuous Agent--Environment Systems. *Adaptive Behavior*, 19(1), 16--39. DOI:10.1177/1059712310392389 | DOI/Crossref 与 Hertfordshire 著录；arXiv:1201.6583 | 不转发 | R15 著录与官方摘要核验：连续状态、离散行动，不冒称连续行动归一化 |
+| D14 | shapley1953value | Shapley, L. S. (1953). A Value for n-Person Games. In Kuhn & Tucker (eds.), *Contributions to the Theory of Games II*, Annals of Mathematics Studies 28, pp.307--317. Princeton University Press. | Princeton 著录链及出版社书目核验，例如 https://princeton.edu/~erp/ERParchives/archivepdfs/M61.pdf | 不转发 | R16 著录核验：两顺序平均的经典归因来源；不冒称本文顺序平均是因果识别 |
+| D15 | williams2010nonnegative | Williams, P. L., & Beer, R. D. (2010). Nonnegative Decomposition of Multivariate Information. arXiv:1004.2515. DOI:10.48550/arXiv.1004.2515 | arXiv 官方摘要/著录页 https://arxiv.org/abs/1004.2515 | 不转发 | R16 官方页核验：PID 的冗余/协同分解边界，不等同本文有向信息链 |
 
 ## E. 自由能原理、Markov 毯与意识科学（自我边界与现象学）
 

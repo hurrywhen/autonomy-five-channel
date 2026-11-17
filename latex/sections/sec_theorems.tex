@@ -5,10 +5,9 @@ Each theorem below carries an explicit \emph{falsification window}: a concrete
 observation that would refute its registered mechanism model. Section~
 \ref{sec:experiments} separates the mathematical statement, analytic
 regression, legacy criterion outcome, evidence type, and external-validation
-status; it does not summarize them with a single ``confirmed'' tally. The R14
-revision narrows T1b, T2/T3, T4, and the script corollary after explicit
-counterexamples, so older runs are not automatically evidence for the new
-quantifiers. The evidential grading of every claim---\emph{substantive}
+status; it does not summarize them with a single ``confirmed'' tally. Older
+runs are evidence only for the definitions and quantifiers they actually
+evaluated, not automatically for the present conditional statements. The evidential grading of every claim---\emph{substantive}
 (T6's comparison principle, T7's mixture algebra), \emph{architectural}
 (T2's mediation lemma is a $d$-separation fact about the belief-absorption
 wiring of \eqref{eq:factorization}, not an empirical discovery),
@@ -313,8 +312,26 @@ unchanged, so absolute $\Lam=1$ is not necessary. Conversely, honest mediated
 information can change $\Fix(\Endorse_{B,M})$ and reduce $\Agoal$ even when
 $\Fext=0$, $\bar D$ decreases, and execution is unchanged.
 
-A sufficient certificate requires a point-valued, nondegenerate before/after
-instantiation: every applicable component is defined and, for the source ratio,
+For behavior-inversion mode, write the finite identified goal intervals as
+$J^j=[\ell_j,u_j]\subseteq[0,1]$. Unless a stronger cross-world protocol is explicitly
+registered, ``non-decreasing interval'' means the \emph{endpoint order}
+\begin{equation}\label{eq:interval-order}
+J^0\preceq_{\mathrm{ep}}J^1
+\quad\Longleftrightarrow\quad
+\ell_1\ge\ell_0\ \text{and}\ u_1\ge u_0 .
+\end{equation}
+Thus $[0.2,0.8]\to[0.3,0.7]$ is not compatible under this order even though
+its lower endpoint rises. Endpoint order is neither an elementwise pairing of
+admissible rewards nor a lower-bound-only guarantee. A guarantee for every
+independently chosen pair of admissible before/after rewards instead requires
+the worst-case condition $\ell_1\ge u_0$. Alternatively, a registered coupling
+$\Pi$ of the two identified reward sets may require
+$\Agoal(U^1)\ge\Agoal(U^0)$ for $\Pi$-almost every paired $(U^0,U^1)$; neither
+stronger statement follows from \eqref{eq:interval-order}.
+
+A sufficient certificate requires a finite point-valued, nondegenerate
+before/after instantiation of every non-goal component: every applicable such component is
+defined and, for the source ratio,
 $\Fsrc^j+\Foth^j>0$ for $j\in\{0,1\}$. If either denominator is zero, the
 certificate returns ``undefined'', never ``compatible''. It then checks the
 following together:
@@ -322,8 +339,9 @@ following together:
 \textup{(ii)} $\Fsrc^1\ge\Fsrc^0$ and $\Foth^1\le\Foth^0$ (or direct
 non-decrease of $\Aorg$);
 \textup{(iii)} unchanged $\Ueff$, $\Fix$, protocol metric, and $\dc>0$ in
-structural-read goal mode, or a non-decreasing identified goal interval in
-behavior-inversion mode;
+structural-read goal mode, or endpoint non-decrease
+$J^0\preceq_{\mathrm{ep}}J^1$ in behavior-inversion mode (with a separately
+registered worst-case or coupled criterion if that stronger claim is intended);
 \textup{(iv)} unchanged accessible policy class, action--outcome channel, and
 normalizer;
 \textup{(v)} sound updating, giving $\bar D^1\le\bar D^0$;
@@ -881,18 +899,20 @@ calibrated non-degenerate delegation configuration ($\rho\neq1$ or $f>0$).
 \label{thm:t8}
 \textup{(i)} Consider a direct intervention of one of two registered forms,
 with superscripts $0,1$ denoting baseline and post-intervention values.
-Assume $A^0>0$ (equivalently, every applicable baseline factor is positive),
-so an absorbing zero baseline cannot turn a strict component loss into a
+Assume $A_{\mathrm{state}}^0>0$ (equivalently, every applicable baseline
+factor is positive), so an absorbing zero baseline cannot turn a strict component loss into a
 vacuous composite claim. Consider
 (a) a $\beta_G$ implant of ``be autonomous'' for which either
 $\Ueff^0\in\Fix$ and $\Ueff^1\notin\Fix$, or, more generally,
 $d(\Ueff^1,\Fix)>d(\Ueff^0,\Fix)$ under the same protocol metric and fixed
 $\dc$; or (b) a $\delta$ action-leverage contraction with
 $\EmpPi_1<\EmpPi_0$. Then, ceteris paribus and wherever the affected factor
-is applicable, $A$ strictly decreases. A relative increase in off-$\Fix$
+is applicable, $\Astate$ strictly decreases. A relative increase in off-$\Fix$
 distance or a strict empowerment loss is a premise to be audited, not a
 consequence of the intervention's stated aim; an L2 historical reduction is
-additional, not required. \textup{(ii)} Under the registered defense model,
+additional, not required. The strict decrease of $\Astate$ implies a strict
+decrease of $\Ares$ only when $\Rdef$ is fixed at a positive value; zero or
+varying readiness is reported separately. \textup{(ii)} Under the registered defense model,
 the comparative statics are parameter-specific. Raising $\varepsilon$ or
 $v$, or shortening $\tau$ on a gated channel, weakly raises $\kappa$,
 $\deltastar$, and the uniform floor \eqref{eq:amin}. For $\deltastar$,
@@ -905,8 +925,10 @@ Appendix~\ref{app:t6}). Lowering $\theta$ weakly
 $\theta$ reverses these directions. Raising $r$ weakly raises $\deltastar$
 stepwise but, with $\kappa$ fixed, weakly \emph{lowers} \eqref{eq:amin}.
 There is no joint claim that all such scaffolding raises both quantities.
-Any immediate composite increase under the registered $\sigma$-model occurs
-only through $\Avia$.
+For the present-state composite $\Astate$, any immediate increase under the
+registered $\sigma$-model occurs only through $\Avia$. Scaffolding may
+independently raise $\Rdef$ and hence the separate resilience descriptor
+$\Ares=\Rdef\Astate$, without increasing $\Astate$.
 \end{theorem}
 \begin{proof}[Proof sketch]
 (i) substitutes the two explicit baseline-strictness premises into the

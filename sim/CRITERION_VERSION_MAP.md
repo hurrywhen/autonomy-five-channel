@@ -1,11 +1,11 @@
-# 论文—规约—代码—运行归档版本映射（R11–R15，更新于 2026-11-17）
+# 论文—规约—代码—运行归档版本映射（R11–R16，更新于 2026-11-17）
 
 ## 1. 原则
 
 - 历史运行目录 `runs/20261017_full/` 是只读证据快照；不得回写其 manifest、结果或 verdict。
 - manifest 中的 `spec_version` 是运行写出器当时写入的元数据，不一定等于该 commit 实际实现的全部有效判据。必须同时记录代码 commit、SPEC 变更日志和场景内容。
 - R11/R12/R13 的数学复审属于**对历史结果的重评价**，不是一次新的 4,620-run 独立实验。R14 发布必须冻结开发源 commit 与公开快照源码；公开 main 同步不等于不可变 tag/version DOI，只有全部版本链实际形成后才可声称闭合。
-- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
+- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。R16 再撤回 RNI 份额的顺序无关/唯一因果分解解释、Route B 第 6 步未缩放的中间等式、自然语言“区间非减”、NaN fail-open、完整字段自动 SCM_AUDITED、legacy 数值仅凭通道数升级及浮点逐位复核。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
 
 ## 2. 历史归档 manifest 的共同事实
 
@@ -34,7 +34,8 @@
 | R12 量词、T7(iv)、T8(ii) 与统计披露修正 | 当前工作树；发布 commit/tag/version DOI 均未形成 | **v0.8** | 新增 `test_l1_r12_counterexamples.py`；不新增或改写 4,620-run。ATK-6 固定-\(\alpha\) CUSUM 仅描述；FORCE-1③仅注册 \(\kappa\) 臂；独立复核后另补 \(A^0>0\)、当前-\(\mu_t\) estimand、Jensen 测试换例及旧 \(\sigma\)/C0 口径清理；公开链仍待闭合 |
 | R13 T6/C0 核心命题收缩、账本与小样本敏感性 | R13 commit `f816848`；公开 tag/version DOI 未形成 | **v0.9** | 新增 `test_l1_r13_counterexamples.py`、`analysis_cusum_sensitivity.py/.json`；不改写历史 run。T6 主表拆 360 实现＋60 CUSUM 描述；DEL-1 六判据逐项 30-run 账本；C0(ii) 仅非退化 L1 额外审计分离；二次复核补 H4$''$/M1/T1d 前提及报告生成器 R11 合并与归档写保护；公开链仍待闭合 |
 | R14 反例、estimand、直接文献与证据重签 | R14 开发源 `6a613086...`；公开 main `dbdf2f6f...`；不可变 tag/version DOI 未形成 | **v1.0** | 新增 R14 反例/优化/SCM 测试、`analysis_r14_math.*`、`x5c`、`x5c_stratified`、`c0cf_v2` 与失败目录；旧 `law_level_lambda` 仅 marker，新反事实仅限显式 SCM。$D_{noise}=0.089799622$ 故 MODEL_SENSITIVE。历史归档不改写 |
-| R15 定义、构念、识别、证明与报告治理 | R15 开发源 commit 与公开快照对应见新 `RELEASE_NOTES.md`；不可变 R15 tag/version DOI 未形成 | **v1.1** | 新增 14 个确定性负控制、`r15_guards.py`、`stats.py`、`analysis_r15_statistics.*`、`analysis_r15_x5c_paired.*`。执行改 n 行动；T2 撤 iff；L1+ N/R/I 来源分割；A_goal 结构点/IRL 区间；V_state/R_def 分账；C2/Route B 修补；tau-b 总体与分场景。旧 a_org/a_via 只作 legacy marker，历史 manifest/results/verdict 不改写，外部验证仍未完成 |
+| R15 定义、构念、识别、证明与报告治理 | R15 开发源 `0ebbae17...`；公开 main `ec53f987...`；不可变 R15 tag/version DOI 未形成 | **v1.1** | 新增 14 个确定性负控制、`r15_guards.py`、`stats.py`、`analysis_r15_statistics.*`、`analysis_r15_x5c_paired.*`。执行改 n 行动；T2 撤 iff；L1+ N/R/I 来源分割；A_goal 结构点/IRL 区间；V_state/R_def 分账；C2/Route B 修补；tau-b 总体与分场景。旧 a_org/a_via 只作 legacy marker，历史 manifest/results/verdict 不改写，外部验证仍未完成 |
+| R16 有序归因、证明缩放、证书与复核边界 | R16 开发/公开 commit 见本轮发布说明；main 同步不替代不可变 tag/version DOI | **v1.2** | RNI/NRI/Shapley 与 N/R/I 语义敏感性；OR 和 T=2 闭环独立枚举；Route B st' 缩放；IRL 区间端点序与 NaN fail-closed；注册完整≠SCM 审计；R16 schema/org/goal/readiness/hashes；浮点容差复核；Ingel/Albantakis/PID 外部协议设计冻结但未执行。R15 及更早证据只读 |
 
 ## 4. 判据时间线（失败与替换不得擦除）
 
@@ -51,6 +52,7 @@
 | v0.9（2026-11-03） | T6 改 certificate-failure band；C0(ii) 删除完整外部画像相等；M4 确定性口径、注册域方向、D1 归属、可比性术语、T6/T7 账本及 CP 单位修正 | R13 数学复审＋反例回归；ATK-6 俘获仅精确实现，CUSUM 只描述并补 \(t_{29}\) 敏感性，历史归档不改写 |
 | v1.0（2026-11-16） | 修复 T1b/T2/T3/T4/T5、离散 $A_{ref}$、比例解释、Lemma 37、Via-Ind；$\Lambda$ 改输出律 estimand；X5-c 两噪声执行并补时分层；C0 改同环境证人；补直接文献对照；证据按类型重签 | R14 反例与 SCM 复审；历史 marker 与新反事实分账，点读数 MODEL_SENSITIVE，旧归档不改写 |
 | v1.1（2026-11-17） | 修复执行索引、T2 兼容过强、L0/L1 随机来源、A_goal 识别层级、C2 与 Route B；状态/防御和强制 provenance 输出分账；补三篇直接前驱与统计报告 | R15 审稿反例与构念复审；194 项目标测试和 tau-b 只读重算；旧数值不冒充新构念验证，tag/version DOI 与外部实验未完成 |
+| v1.2（2026-11-17） | RNI 改有序残差归因并强制 NRI/Shapley 与语义敏感性；OR 和 T=2 闭环精确验证；Route B 缩放、区间端点序、NaN fail-closed；证书双证据轴及 R16 schema/hash；浮点容差复核；外部协议设计冻结但未执行 | R16 复审闭合；新增 `analysis_r16_source_attribution.*`、R16 证书/闭环/复核测试。旧 R15 validation 与所有历史结果只读；不升级外部验证、tag、Release 或 version DOI |
 
 ## 5. R11→R13 重点判据与主张 supersession 明细
 
@@ -110,3 +112,14 @@
 | Route B | 半平面线矛盾误写 properness；权和归一跳步 | 改商锥 pointedness；显式 w/s、斜率 1/s，A0 只消截距 | T-R15-PROOF；条件性表征结论不变 |
 | 输出 | 高分与篡改史可共存但仅文字警告 | 强制 H_surg、Lambda、来源注册、V_state/R_def；unknown 限 LIMITED，永不称完整性证书 | T-R15-OUTPUT；不是外部验证 |
 | 统计/实验报告 | 480k 被称 main contexts、C0 权重不全、tau 变体/ties 不清、SESOI 与误差近等量 | 480k cell eval/120k base draws；全权重及等权敏感性；tau-b 总体和分场景；0.01/0.0096=1.0417 仅数值判据 | `analysis_r15_statistics.json` 只读新文件，旧 JSON/结果不改写；场景 4 org-heavy 最低 0.8667，不保留统一 0.93 底线 |
+
+## 9. R16 supersession 明细
+
+| 项目 | R15 残留缺陷 | R16 当前处理 | 回归与证据边界 |
+|---|---|---|---|
+| L1+ 来源份额 | Kramer 链式和被默认读成顺序无关的客观因果份额 | RNI 是独立的有序残差归因公理；非退化 R/N 强制并列 NRI 与 I-last Shapley-style；N/R/I 语义预注册，PID 仅 comparator | OR：0.616311↔0.383689，平均 0.5；T=2 混合 XOR：1↔0，平均 0.5。链式和仍等于联合 DI，但不识别唯一来源；`analysis_r16_source_attribution.json` |
+| Route B 第 6 步 | 由齐次性直接写 $\varphi(z+t')=\varphi(z)+t'/s$，漏掉 $w\cdot(t'\mathbf1)=st'$；旧测试只复述错误等式 | 改 $\varphi(z+st')=\varphi(z)+t'$，$q=st'$ 后得 $q/s$，再归一化 | 测试从 $g(u+t'\mathbf1)=g(u)+t'$ 数值推导并排除未缩放形式；最终表征不变 |
+| T2 区间与非有限值 | “区间非减”未定义；NaN 与任何值或自身比较可 fail-open | 默认上下端同时非减；独立跨世界保证需 $\ell_1\ge u_0$ 或注册耦合；所有值先验有限，NaN/Inf raise | 交叉区间、NaN→NaN、±Inf 负控制；端点序不冒充 reward 逐元素配对 |
+| 证书证据与 legacy 边界 | 完整字段但无 SCM 可给 SCM_AUDITED；旧 Bundle 数值可手工冒充 L1 N/R/I | registration completeness 与 mechanism evidence 分轴；无 SCM 仅 REGISTERED_COMPLETE；R16 schema/org/goal/readiness 和 L1/L2 双 hash 强制 | producer/writer 共合同，伪造字段/旧 schema/坏 hash 拒绝；hash 仅绑定工件，SCM_AUDITED 仍非外部验证 |
+| 配对与源归因复核 | 全部 JSON 叶子逐位相等，平台末位浮点差可假失败 | 状态/seed/count/hash/类型精确，float 用 $10^{-12}$ 双重容差并报最大差；源归因另有独立闭式锚 | 容差外、非有限和类型改变仍失败；X5-c 数值/verdict 不变，POST_HOC_PASS 不升级 |
+| 外部协议与写作 | Ingel/Albantakis/PID 计划散见 Related Work/Conclusion；正文修订史口吻、N/A 与 UNKNOWN 表述不一致 | `EXTERNAL_VALIDATION_PROTOCOL.md` 统一设计冻结；正文保留最终定义与证据边界，历史集中本账本；UNKNOWN 才触发 LIMITED，T8 明确 A_state | 协议仍 UNEXECUTED；外部 SESOI/power、时间戳、独立基质、version DOI 和不可变 release 未完成 |

@@ -57,7 +57,7 @@ enter the scalar composite.
 
 For the latter, instantiate a structural causal model with explicit exogenous
 noise and an audit time $t$. Abduction from factual observations determines a
-context $C_t=c$ (in the R14 threshold fixture, $(X_t,Z_t,J_t)$, without also
+context $C_t=c$ (in the threshold fixture, $(X_t,Z_t,J_t)$, without also
 conditioning on the endorsement decision). Action removes \emph{all}
 registered surgeries. Prediction evaluates the actual and no-surgery
 endorsement laws with the same abducted noise and the same remaining downstream
@@ -115,7 +115,7 @@ information can increase, so the earlier (V)/(A) ``certified proxy'' claim is
 withdrawn. The legacy ENV-0 \texttt{law\_level\_lambda} values ($1-\eta$,
 $1-s(\gamma)$, or a policy-flag share) are scenario markers, not evaluations
 of \eqref{eq:lambda}. They remain in read-only historical bundles but cannot
-validate AX3, ATK-1, $\beta_\pi$, $A_{ref}$, T2/T3, or C0. The separate R14
+validate AX3, ATK-1, $\beta_\pi$, $A_{ref}$, T2/T3, or C0. The separate
 SCM fixture implements abduction--action--prediction and two noise models;
 its evidence is restricted to that fixture and does not upgrade those legacy
 results.
@@ -230,7 +230,7 @@ normalizer (AX6a). Proofs of range, zero semantics, and restricted invariance
 are collected in Appendix~\ref{app:components}; they are not ratio-scale proofs.
 
 \paragraph{D-via (current viability and separate defense readiness).}
-R15 separates three questions that the R14 gate compressed into one number.
+We separate three questions that a combined gate would compress into one number.
 \emph{Current resource viability} is
 \begin{equation}\label{eq:avia}
 \Avia := \min\Bigl\{1,\ \min_{k\in K}\frac{s_k^{\mathrm{avail}}}
@@ -261,9 +261,9 @@ $\Avia$ rather than confounded with defense preparedness.
 The registration threshold $\theta$ is not an envelope dimension: raising it
 lifts $\deltastar$ but weakens the M1 tripwire (T6). The historical ENV-0
 \texttt{a\_via} combines resource and defense margins. Its extended-gate
-numbers and $\sigma^{-}$-EROSION composites are therefore retained only as R14
+numbers and $\sigma^{-}$-EROSION composites are therefore retained only as
 legacy resilience demonstrations; they are not silent recomputations of
-\eqref{eq:avia}--\eqref{eq:rdef}. R15 certificates output all three of
+\eqref{eq:avia}--\eqref{eq:rdef}. Current certificates output all three of
 $\Astate$, $\Avia$, and $\Rdef$ (Section~\ref{sec:framework}).
 
 \paragraph{D-org (layer-specific source attribution).}
@@ -285,34 +285,92 @@ or provenance. The L0 composite must carry the label \emph{internal-causal
 autonomy only}.
 
 At L1 and above, write $N_t:=(G_t,B_t,M_t)$ and let $R_t$ be the registered
-innovation-noise/register process, exogenous to $N$ and $I$ in the audit SCM.
-The chain order is $R$, then $N$, then $I$:
+innovation-noise/register process, generated exogenously in the audit SCM. The
+primary order is $R$, then $N$, then $I$:
 \begin{equation}\label{eq:aorgnorm}
 \begin{aligned}
 \Frand&:=I(R^T\!\to\!A^T),&
 \Fnorm&:=I(N^T\!\to\!A^T\|R^T),\\
 \Fext&:=I(I^T\!\to\!A^T\|N^T,R^T),&
-\Aorg^{(1+)}&:=\frac{\Fnorm}{\Fnorm+\Frand+\Fext}.
+\Aorg^{RNI}&:=\frac{\Fnorm}{\Fnorm+\Frand+\Fext}.
 \end{aligned}
 \end{equation}
-Kramer's chain rule makes both decompositions normalizations of directed-flow
-sums. At L1+, an action copied from an independent random register has
-$\Fnorm=0$, $\Frand>0$, and hence $\Aorg^{(1+)}=0$; a deterministic policy of
-$N$ with no bypass has $\Frand=\Fext=0$ and value 1. The $0/0$ case is flagged
-as nondegenerate-flow failure, never assigned 1. For layer-neutral statements,
-write $\Fsrc:=\Fint$ and $\Foth:=\Fext$ at L0, and $\Fsrc:=\Fnorm$ and
-$\Foth:=\Frand+\Fext$ at L1+. Then
-$\Aorg=\Fsrc/(\Fsrc+\Foth)$ and, for positive source flows,
+This is an \emph{ordered residual-attribution axiom}, not a uniquely identified
+causal decomposition. Putting $R$ first denies normative credit for information
+already available in an exogenous random register, which is what repairs the
+pure-random-agent reading. Putting $N$ second credits influence mediated by the
+registered normative state to that state; putting $I$ last reserves $\Fext$ for
+residual direct bypass after both internal sources are known. This is not
+uniformly conservative, because conditioning can increase mutual information.
+These are normative attribution choices: in redundant or synergistic models,
+the second position can also change the amount credited to $N$.
+
+Kramer's chain rule makes the three terms sum to joint directed information,
+but does not make their shares order-invariant. We therefore register the
+reverse reading
+\[
+\Aorg^{NRI}:=\frac{I(N^T\!\to\!A^T)}
+{I(N^T\!\to\!A^T)+I(R^T\!\to\!A^T\|N^T)+\Fext},
+\]
+and a two-player Shapley-style sensitivity descriptor
+\citep{shapley1953value}:
+\begin{equation}\label{eq:aorg-shapley}
+\begin{aligned}
+\Frand^{Sh}&:=\tfrac12\{I(R^T\!\to\!A^T)+I(R^T\!\to\!A^T\|N^T)\},\\
+\Fnorm^{Sh}&:=\tfrac12\{I(N^T\!\to\!A^T)+I(N^T\!\to\!A^T\|R^T)\},\\
+\Aorg^{Sh}&:=\frac{\Fnorm^{Sh}}
+{\Fnorm^{Sh}+\Frand^{Sh}+\Fext}.
+\end{aligned}
+\end{equation}
+The external term remains last in both orders to preserve the direct-bypass
+semantics. Whenever $R$ and $N$ are both nondegenerate, reports include
+$\Aorg^{RNI}$, $\Aorg^{NRI}$, and $\Aorg^{Sh}$; a lone RNI value is incomplete.
+The Shapley average removes this two-order arbitrariness only. It is not a
+causal-intervention identification or a partial information decomposition
+(PID). PID instead separates unique, redundant, and synergistic information
+under additional definitions \citep{williams2010nonnegative,ingel2022quantifying},
+and is a comparator in the prospective protocol, not a silently substituted
+estimand.
+
+For a one-step counterexample, let $R,N$ be independent fair bits, omit $I$,
+and set $A=R\lor N$. In bits,
+$I(R;A)=I(N;A)=0.311278$ and
+$I(N;A\mid R)=I(R;A\mid N)=0.5$, with joint directed information $0.811278$.
+Consequently,
+\[
+\Aorg^{RNI}=0.5/0.811278=0.616311,\qquad
+\Aorg^{NRI}=0.311278/0.811278=0.383689,\qquad
+\Aorg^{Sh}=0.5 .
+\]
+The formulas are consistent; the interpretation of a single ordered share as
+an objective, order-free causal fraction is not. The average $0.5$ uses this
+example's symmetry and is not a general constant.
+
+The $N/R/I$ semantic partition is preregistered from SCM roles, not chosen
+after seeing scores. $N$ contains goals, beliefs, self-models, and memories
+updated by the registered normative mechanism; $R$ contains exogenous
+innovation/randomization registers; $I$ contains registered external
+influences. Reasonable alternative partitions, including reclassifying a noisy
+memory, must be reported as a separate sensitivity range. Reversing the chain
+does not settle this ontological choice, and the Shapley average does not make
+relabeling harmless. At L1+, an action copied from an independent random
+register has $\Fnorm=0$, $\Frand>0$, and hence $\Aorg^{RNI}=0$; a deterministic
+policy of $N$ with no bypass has $\Frand=\Fext=0$ and value 1. The $0/0$ case is
+flagged as nondegenerate-flow failure, never assigned 1. For layer-neutral
+statements, write $\Fsrc:=\Fint$ and $\Foth:=\Fext$ at L0, and
+$\Fsrc:=\Fnorm$ and $\Foth:=\Frand+\Fext$ under a specified attribution order
+at L1+. Then $\Aorg=\Fsrc/(\Fsrc+\Foth)$ and, for positive source flows,
 $\Aorg^1<\Aorg^0\iff\Foth^1/\Fsrc^1>\Foth^0/\Fsrc^0$.
 
 Closed loop matters: plain mutual information can misattribute mediated
 influence (Appendix~\ref{app:prelim}). Moreover, $\gamma$-class surgery through
 $B$ can leave $\Fext=0$; that accuracy loss is not the source channel's
 estimand and belongs to $\Aepi$ (T2). Source-flow ratios themselves can still
-move, so zero residual flow alone is not a blindness proof. Even at L1+, $\Aorg$ is only the registered
-source-share instrument, not a complete theory of agency. Separating $R$ from
+move, so zero residual flow alone is not a blindness proof. Even at L1+,
+$\Aorg$ is an order- and partition-registered source-share instrument, not a
+complete theory of agency. Separating $R$ from
 $N$ requires structural access; historical ENV-0 bundles, which aggregate
-$S=(G,B,M,R)$ without this split, retain the R14 internal-causal marker and
+$S=(G,B,M,R)$ without this split, retain the legacy internal-causal marker and
 are not point readings of \eqref{eq:aorgnorm}.
 
 \paragraph{D-goal (goal).} Let $\Theta\subseteq\mathbb{R}^m$ be a compact

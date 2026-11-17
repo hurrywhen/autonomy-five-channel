@@ -20,14 +20,27 @@ from autonomy_sim.di import mi_nats
 from autonomy_sim.dynamics import c2_r, c2_roots
 from autonomy_sim.empowerment import a_exec, empowerment_support
 from autonomy_sim.logschema import validate_r15_certificate, write_r15_certificate
-from autonomy_sim.r15_guards import (c2_recovery_threshold,
+from autonomy_sim.r15_guards import (R16_CHANNEL_SCHEMA_VERSION,
+                                     c2_recovery_threshold,
                                      componentwise_compatible,
                                      goal_from_distance,
+                                     goal_interval_compatible,
                                      goal_interval_from_distances,
                                      internal_causal_org, make_audit_certificate,
                                      normative_org, produce_r15_certificate,
                                      state_defense_split)
 from autonomy_sim.stats import kendall_tau_b, paired_mean_se
+
+
+def _r16_metadata(org_mode="L1_NORMATIVE_NR"):
+    return {
+        "channel_schema_version": R16_CHANNEL_SCHEMA_VERSION,
+        "org_mode": org_mode,
+        "goal_mode": "STRUCTURAL_POINT",
+        "state_readiness_version": "R15_SPLIT",
+        "model_hash": "1" * 64,
+        "evidence_hash": "2" * 64,
+    }
 
 
 class R15ExecutionNormalization(unittest.TestCase):
@@ -153,6 +166,13 @@ class R15NormativeSourceAndGoalIdentification(unittest.TestCase):
         self.assertAlmostEqual(goal_from_distance(0.6, 0.7), 1.0 / 7.0)
         self.assertAlmostEqual(goal_from_distance(0.6, 0.8), 0.25)  # joint +0.1 translation
 
+    def test_T_R15_GOAL_interval_order_rejects_crossing_endpoints(self):
+        # The lower bound rises, but the upper bound falls: this is neither
+        # endpoint compatibility nor an elementwise cross-world improvement.
+        self.assertFalse(goal_interval_compatible((0.2, 0.8), (0.3, 0.7)))
+        self.assertFalse(goal_interval_compatible((0.2, 0.6), (0.1, 0.9)))
+        self.assertTrue(goal_interval_compatible((0.2, 0.6), (0.3, 0.7)))
+
     def test_T_R15_GOAL_fixed_point_theorem_premises_not_interchangeable(self):
         # Compact convex domain alone is insufficient without continuity:
         # f(0)=1 and f(x)=0 for x>0 has no fixed point on [0,1].
@@ -196,7 +216,8 @@ class R15ScopeAndProofGuards(unittest.TestCase):
         cert = make_audit_certificate(
             layer="L2", state_autonomy=0.95, viability_state=1.0,
             defense_readiness=0.2, surgery_history=None, lambda_value=1.0,
-            lambda_status="DEFINED", source_registration="UNKNOWN")
+            lambda_status="DEFINED", source_registration="UNKNOWN",
+            **_r16_metadata())
         for key in ("surgery_history", "Lambda", "lambda_status", "source_registration",
                     "defense_readiness", "evidence_ceiling"):
             self.assertIn(key, cert)
@@ -207,9 +228,12 @@ class R15ScopeAndProofGuards(unittest.TestCase):
             layer="L1", channels=(1.0, 0.8, 0.9, 0.7), weights=(0.25,) * 4,
             resource_ratios=(1.0,), defense_margins=(0.0,), surgery_history=0,
             lambda_value=None, lambda_status="NOT_APPLICABLE",
-            source_registration="COMPLETE")
+            source_registration="COMPLETE", mechanism_evidence="NONE",
+            **_r16_metadata())
         self.assertEqual(produced["lambda_status"], "NOT_APPLICABLE")
-        self.assertEqual(produced["evidence_ceiling"], "SCM_AUDITED")
+        self.assertEqual(produced["registration_completeness"], "COMPLETE")
+        self.assertEqual(produced["mechanism_evidence"], "NONE")
+        self.assertEqual(produced["evidence_ceiling"], "REGISTERED_COMPLETE")
         self.assertGreater(produced["state_autonomy"], 0.0)
         self.assertEqual(produced["defense_readiness"], 0.0)
         with tempfile.TemporaryDirectory() as tmp:
@@ -220,25 +244,42 @@ class R15ScopeAndProofGuards(unittest.TestCase):
         unknown = produce_r15_certificate(
             layer="L1", channels=(1.0, 0.8, 0.9, 0.7), weights=(0.25,) * 4,
             resource_ratios=(1.0,), defense_margins=(1.0,), surgery_history=0,
-            lambda_value=None, lambda_status="UNKNOWN", source_registration="COMPLETE")
+            lambda_value=None, lambda_status="UNKNOWN", source_registration="COMPLETE",
+            **_r16_metadata())
         self.assertIsNone(unknown["Lambda"])
         self.assertEqual(unknown["evidence_ceiling"], "LIMITED")
         self.assertNotEqual(unknown["lambda_status"], produced["lambda_status"])
 
     def test_T_R15_ROUTE_B_nontrivial_weight_sum_has_slope_reciprocal(self):
-        # If s=sum w_i, homogeneity gives phi(z+t)=phi(z)+t/s.  Normalizing
-        # w first is therefore a real proof step, not a removable aside.
+        # Start with the actual homogeneity statement in log coordinates:
+        # g(u+t'*1)=g(u)+t'.  Since g(u)=phi(w.u), the argument of phi moves
+        # by s*t', not t'.  Only after q=s*t' does the reciprocal slope appear.
         w = np.array([2.0, 3.0])
         s = float(w.sum())
         normalized = w / s
+        self.assertNotEqual(s, 1.0)
         self.assertAlmostEqual(float(normalized.sum()), 1.0)
         self.assertAlmostEqual(1.0 / s, 0.2)
-        z, t = 0.37, 0.19
+        u = np.array([0.31, -0.17])
+        z = float(w @ u)
+        t_prime = 0.19
         phi = lambda value: value / s
-        self.assertAlmostEqual(phi(z + t) - phi(z), t / s)
+        f = lambda value: float(np.prod(value ** normalized))
+        g = lambda value: math.log(f(np.exp(value)))
+        self.assertAlmostEqual(g(u), phi(z))
+        self.assertAlmostEqual(g(u + t_prime * np.ones(2)) - g(u), t_prime)
+        self.assertAlmostEqual(phi(z + s * t_prime) - phi(z), t_prime)
+        q = s * t_prime
+        self.assertAlmostEqual(q, 0.95)
+        self.assertAlmostEqual(phi(z + q) - phi(z), q / s)
+        self.assertNotAlmostEqual(phi(z + t_prime) - phi(z), t_prime)
+        # Reparameterizing by normalized weights restores unit additive slope.
+        tilde_phi = lambda value: phi(s * value)
+        tilde_z = float(normalized @ u)
+        self.assertAlmostEqual(tilde_phi(tilde_z + t_prime) - tilde_phi(tilde_z),
+                               t_prime)
         x = np.array([0.7, 0.9])
         scale = 2.3
-        f = lambda value: float(np.prod(value ** normalized))
         self.assertAlmostEqual(f(scale * x), scale * f(x))
         # For g(u)=w.u, W={d:w.d=0}; if both q(d) and -q(d)
         # lie in the quotient cone, then w.d=0 and q(d)=0 (pointedness).

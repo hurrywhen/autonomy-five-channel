@@ -75,8 +75,8 @@ executability & $\Aexec$ (repertoire-restricted empowerment) & predictable
 leverage with exit options & continuous-action normalization carries a
 reference-measure freedom \\
 viability & $\Avia$ (current resource gate), $\Rdef$ (separate defense
-readiness) & present operation and future preparedness separately & R14's
-combined extended gate is legacy; zero repair capacity does not by itself zero
+readiness) & present operation and future preparedness separately & A combined
+extended gate is legacy; zero repair capacity does not by itself zero
 current $\Astate$ \\
 \bottomrule
 \end{tabularx}
@@ -131,27 +131,33 @@ it is N/A. Thus high L0/L1 scalar readings are explicitly weaker than a full
 history-sensitive autonomy certificate and must be accompanied by any available
 surgery-history and source-registration evidence. The distinction is sharper
 than a provenance caveat. If $G,B,M$ are constant, $A_t=R_t$ for an independent
-fair bit, and the action--observation channel is noiseless, R14's L0 aggregate
-could equal 1. R15 accepts that value only as an \emph{internal-causal} L0
+fair bit, and the action--observation channel is noiseless, an internal-causal
+L0 aggregate could equal 1. We accept that value only as an
+\emph{internal-causal} L0
 reading. At L1+ the same construction has $\Fnorm=0$ and $\Frand>0$, hence
 $\Aorg=\Astate=0$ under \eqref{eq:aorgnorm}; it is a mandatory negative control,
 not evidence that normative autonomy is randomness.
 
 \paragraph{Mandatory audit output and evidence ceiling.}
 No deployment interface may emit only a scalar. Every certificate contains
-$\Astate$, $\Avia$, $\Rdef$, the layer and construct scope,
-$\mathcal H^{\mathrm{surg}}$, $\Lam$ (or N/A/unknown), and source-registration
-status. Unknown surgery history or incomplete source registration caps the
-evidence grade at \textsc{limited}; at L2 an unknown $\Lam$ imposes the same
-cap. $\Lam$ distinguishes \textsc{defined}, \textsc{not\_applicable} (no
-auxiliary SCM), and \textsc{unknown} (an SCM exists but its counterfactual is
-unavailable). Even with complete fields, the output is not an integrity
-certificate or external construct validation. The actual producer
-\texttt{produce\_r15\_certificate} computes the channel/state split, and the
-fail-closed \texttt{write\_r15\_certificate} sidecar writer in
-\texttt{logschema.py} enforces all required fields and the evidence cap.
-Legacy \texttt{Bundle} records are not R15 certificates and are never silently
-converted into L1+ normative-source reads.
+$\Astate$, $\Avia$, $\Rdef$, layer/construct scope, surgery history, $\Lam$ (or
+N/A/unknown), and separate registration-completeness and mechanism-evidence
+fields. Unknown history/source registration or unavailable required $\Lam$
+evidence caps the grade at \textsc{limited}; N/A at L0/L1 is not unknown.
+Complete registration without an SCM audit is \textsc{registered\_complete},
+not \textsc{scm\_audited}. The latter requires explicit audited-SCM evidence
+and model/evidence hash bindings, and still implies neither integrity nor
+external construct validation.
+
+Machine-checked \path{channel_schema_version}, \path{org_mode},
+\path{goal_mode}, and \path{state_readiness_version} fields prevent
+legacy numbers from being promoted merely by supplying plausible channels;
+L1/L2 certificates require artifact hashes. Hashes bind registered bytes but do
+not prove provenance or external truth. The producer
+\path{produce_r16_certificate} and fail-closed writer
+\path{write_r16_certificate} enforce this contract; historical R15-named
+API symbols remain only compatibility aliases. Legacy \texttt{Bundle} records
+are rejected rather than silently converted into L1+ normative-source reads.
 
 \subsection{System model}\label{sec:model}
 
@@ -174,8 +180,8 @@ For L1+ source attribution, the audit SCM additionally registers the
 factorization of $S_t$ into normative state $N_t=(G_t,B_t,M_t)$ and innovation
 noise $R_t$. ``Register'' alone is not automatically noise: if it encodes goals,
 beliefs, or self-model content it belongs to $N_t$; only an exogenous
-innovation source is placed in $R_t$. This semantic registration is required
-before \eqref{eq:aorgnorm} can be computed.
+innovation source is placed in $R_t$. This semantic registration and the
+conditioning order are required before \eqref{eq:aorgnorm} can be computed.
 
 Two features are essential. First, \emph{observations are absorbed into belief}
 before acting ($O_t$ enters $A_t$ only through $B_t\in S_t$): if $O_t$ were a

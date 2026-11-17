@@ -1,4 +1,4 @@
-# R15 complete LaTeX submission manifest
+# R16 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -18,8 +18,8 @@ uploading it alone cannot reproduce the paper.
 - `sections/sec_discussion.tex`
 - `sections/sec_conclusion.tex`
 - `appendix.tex`
-- `refs.bib` — complete bibliography, including R14 comparisons and R15 Ingel,
-  Albantakis, and Jung direct-precursor entries.
+- `refs.bib` — 115 cited entries, including the direct autonomy-measurement,
+  Shapley-attribution, and PID precursors used in the current text.
 - `glyphtounicode.tex` — Unicode mapping used by `\pdfgentounicode`.
 - `figures/fig_ews_c1.pdf`
 - `figures/fig_t6_blindzone.pdf`
@@ -61,10 +61,19 @@ known incomplete submission configuration and must fail review.
   reporting audit; historical analysis JSON files are not overwritten.
 - `sim/analysis_r15_x5c_paired.json` — paired per-context X5-c cross-check SEs;
   R14's saved unpaired `combined_se` is retained but superseded for R15 reporting.
-- `sim/runs/20261117_r15/` — clean-worktree validation provenance and the exact
+- `sim/src/autonomy_sim/source_attribution.py` and
+  `sim/analysis_r16_source_attribution.{py,json}` — exact ordered-DI, OR and T=2
+  closed-loop attribution guards with independent analytic anchors.
+- `sim/tests/test_r16_source_attribution.py`,
+  `sim/tests/test_r16_certificate_guards.py`, and
+  `sim/tests/test_r16_analysis_replay.py` — R16 mathematical and fail-closed controls.
+- `sim/EXTERNAL_VALIDATION_PROTOCOL.md` — design-frozen but unexecuted external
+  comparison protocol; external SESOI/power and outcome registration remain pending.
+- `sim/runs/20261117_r15/` — preserved R15 clean-worktree validation; not R16 validation.
+- `sim/runs/20261117_r16/` — current clean-worktree provenance and exact
   source-commit replay manifest; not a release tag or external validation.
-- `tools/make_r15_validation.py` — reproducible clean-worktree validator used to
-  create that manifest without modifying historical evidence.
+- `tools/make_r16_validation.py` — current clean-worktree validator; the historical
+  `tools/make_r15_validation.py` and its validation are retained unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -84,7 +93,7 @@ These evidence packages do not constitute external validation.
 `RELEASE_NOTES.md` identifies the development-source commit and, once actually
 created, the corresponding fresh-history public commit on the repository
 `main` branches. Historical `a_org` and combined-gate values are not
-silently re-signed as R15 normative-source or present-state values. An
-immutable R15 release tag/version DOI and the external-substrate
+silently re-signed as current normative-source or present-state values. An
+immutable tag/version DOI for this revision and the external-substrate
 power/validation program remain incomplete; the historical concept DOI does
 not cover them.

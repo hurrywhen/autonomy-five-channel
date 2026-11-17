@@ -76,6 +76,23 @@ violate it (BB-2). We register the boundary rather than extend the theorem
 over the mediation case, where no black-box direction is available.
 \end{remark}
 
+\paragraph{Exact closed-loop source-attribution guards.}\label{app:source-guards}
+The implementation also checks a two-step binary SCM with independent fair
+$R_1,R_2,I_1,I_2$, $N_1=I_1$, and
+$N_2=N_1\oplus A_1\oplus I_2$, so actions feed back into the normative state
+and $I_2$ is mediated by $N$. Enumerating all 16 exogenous trajectories gives,
+in bits and in RNI order, $(F_R,F_N,F_I)=(2,0,0)$ for $A_t=R_t$, $(0,2,0)$ for
+$A_t=N_t$, and $(0,2,0)$ for $A_t=R_t\oplus N_t$. Under NRI the corresponding
+rows are $(0,2,0)$, $(2,0,0)$, and $(0,2,0)$. Every row sums to the grouped
+joint directed information of 2 bits. Thus mixed XOR has normative share 1
+under RNI, 0 under NRI, and $0.5$ under the I-last two-order average. For
+$A_t=N_t$, external-only DI is 2 bits but residual $I$-flow after $(R,N)$ is
+zero. A direct-bypass control instead sets $N_1=0$, $N_2=A_1$, and
+$A_t=R_t\oplus N_t\oplus I_t$, yielding 2 bits of residual external flow.
+\texttt{analysis\_r16\_source\_attribution.json} stores these values; an
+independent atom-wise log-ratio oracle checks each conditional-DI term. These
+are exact model guards, not external validation or a PID identification.
+
 \begin{lemma}[Testing duality]\label{lem:tv-testing}
 For any test $\psi\in[0,1]$ (randomization allowed):
 $P_0(\psi=1)+P_\gamma(\psi=0)\ge 1-\TV(P_0,P_\gamma)$.
@@ -202,11 +219,16 @@ $D=\{d:w\cdot d\ge0\}$.
 (5) Therefore $g(x+d)\ge g(x)\iff w\cdot d\ge0$: level sets of $g$ are the
 hyperplanes $\{w\cdot x=\mathrm{const}\}$, so $g=\varphi(w\cdot x)$ with
 $\varphi$ continuous increasing; strict increase of $F$ gives $w\gg0$.
-(6) Let $s:=\sum_iw_i>0$. Homogeneity $F(tx)=tF(x)$ gives, for
-$t'=\log t$,
-$\varphi(z+t')=\varphi(z)+t'/s$; the slope is $1/s$, not $1$ before
-normalization. Define $\tilde w:=w/s$ and $\tilde\varphi(q):=\varphi(sq)$.
-Then $\tilde\varphi(q+t')=\tilde\varphi(q)+t'$. Continuous additivity gives
+(6) Let $s:=\sum_iw_i>0$. Homogeneity $F(tx)=tF(x)$ gives
+$g(u+t'\mathbf1)=g(u)+t'$ for $t'=\log t$. Substitution into
+$g(u)=\varphi(w\cdot u)$ therefore yields the scaled intermediate statement
+\[
+\varphi(z+st')=\varphi(z)+t',\qquad z=w\cdot u .
+\]
+Equivalently, for $q=st'$, $\varphi(z+q)=\varphi(z)+q/s$; the slope is $1/s$,
+not $1$ before normalization. Define $\tilde w:=w/s$ and
+$\tilde\varphi(q):=\varphi(sq)$. Then
+$\tilde\varphi(q+t')=\tilde\varphi(q)+t'$. Continuous additivity gives
 $\tilde\varphi(q)=q+\tilde\varphi(0)$, and $F(1)=1$ gives
 $\tilde\varphi(0)=0$. Hence $g(u)=\tilde w\cdot u$ with
 $\sum_i\tilde w_i=1$, i.e.\
@@ -264,7 +286,7 @@ respective resource and defense arguments. $\Avia=0$ iff a critical current
 resource is exhausted; $\Rdef=0$ iff a registered defense margin is zero.
 Consequently $0\le\Ares=\Rdef\Avia F_\varsigma\le\Astate=\Avia F_\varsigma
 \le1$. Zero defense readiness annihilates only the resilience-adjusted
-$\Ares$, not necessarily present $\Astate$. The R14 combined gate is a
+$\Ares$, not necessarily present $\Astate$. The historical combined gate is a
 legacy resilience index, not this proposition's current-state gate.
 \end{proposition}
 
@@ -306,9 +328,9 @@ ratio meaningfulness (Section~\ref{sec:objections}\textup{(viii)}).
 \begin{proposition}[$\Aexec$]\label{prop:wd-exec}
 There are exactly $n$ actions in $A_{t:t+n-1}$, hence
 $I(A_{t:t+n-1};O_{t+n}\given S_t)\le H(A_{t:t+n-1}\given S_t)
-\le n\log|\Acal|$, so $\Aexec\in[0,1]$. The R14 indexing
+\le n\log|\Acal|$, so $\Aexec\in[0,1]$. The earlier indexing
 $A_{t:t+n}$ with the same denominator was invalid: two independent uniform
-bits with $n=1$ and $|\Acal|=2$ give unnormalized ratio 2. R15's two-action
+bits with $n=1$ and $|\Acal|=2$ give unnormalized ratio 2. The correct two-action
 version uses $n=2$ and ratio 1; its regression fails closed on the old ratio.
 
 For attainment, assume the certified feasible input set is nonempty and
@@ -560,7 +582,7 @@ full source ratio is unchanged. For example, a fair goal bit with $A=G$ can be
 label-permuted by $\beta_G$ without changing directed source entropy while the
 registered goal distance changes; an action-independent belief-degradation
 channel can reduce accuracy without changing any action-source flow. Zero
-$\Fext$ alone would not prove blindness under the R15 $N/R/I$ decomposition.
+$\Fext$ alone would not prove blindness under the current $N/R/I$ decomposition.
 The legacy ENV-0 arms are special-case numerical witnesses, not a universal
 proof.
 (ii) \emph{Existence, not universality.} For $\Aepi$ blindness to
@@ -592,9 +614,11 @@ need not be empty. Insufficiency is witnessed by honest mediated information
 that improves $\bar D$ but changes $\Fix(\Endorse_{B,M})$, increasing
 $d(\Ueff,\Fix)$ and decreasing $\Agoal$; the four tracks omit this factor and
 also omit fidelity, endorsement consistency, resources, and random/normative
-source flows. For the sufficient certificate, the standing point-valued premise requires
-$\Fsrc^j+\Foth^j>0$ at $j=0,1$; otherwise the source component is undefined
-and no compatibility verdict is issued. Clause (i) gives zero bypass; (ii)
+source flows. For the sufficient certificate, every applicable non-goal
+coordinate must be finite and point-valued, with $\Fsrc^j+\Foth^j>0$ at
+$j=0,1$; otherwise no compatibility verdict is issued. In IRL mode, clause
+(iii) uses the endpoint order \eqref{eq:interval-order}, not an implicit
+cross-world pairing. Clause (i) gives zero bypass; (ii)
 gives $\Aorg^1\ge\Aorg^0$ because $x/(x+y)$ increases when $x$ weakly rises
 and $y$ weakly falls on those positive denominators; (iii)--(vii) respectively fix or improve goal,
 execution, epistemic, reflection, and current-viability coordinates. The
@@ -1078,15 +1102,17 @@ losslessness.
 See Theorem~\ref{thm:t8}.
 \end{theorem}
 \begin{proof}
-The premise $A^0>0$ is load-bearing: if another applicable factor is zero at
-baseline, the composite can remain zero despite a strict component loss.
+The premise $A_{\mathrm{state}}^0>0$ is load-bearing: if another applicable
+factor is zero at baseline, the present-state composite can remain zero despite
+a strict component loss.
 (i) With $\dc$ and the protocol metric fixed, the strictly increased
 off-$\Fix$ distance gives a strict decrease in $\Agoal$ relative to
 baseline; the special case starts at $\Ueff^0\in\Fix$ and moves strictly off
 it. The strict $\delta$ premise gives a strict relative decrease in
-$\Aexec$. Strict monotonicity of the calibrated geometric aggregate yields
-the result wherever those factors apply; an L2 historical reduction is
-additional, not required. No appeal to taxonomy uniqueness or to the
+$\Aexec$. Strict monotonicity of the calibrated geometric aggregate yields the decrease
+of $\Astate$ wherever those factors apply; an L2 historical reduction is
+additional, not required. The corresponding $\Ares$ decrease additionally
+requires fixed positive $\Rdef$. No appeal to taxonomy uniqueness or to the
 intervention's purpose is needed. (ii) follows term by term from the
 $\min$-form and the ratio $\deltastar/\kappa$, with the two counterexamples
 in the T6 monotonicity proof. In particular, lowering $\theta$ does not
@@ -1295,7 +1321,7 @@ stated extra assumptions. \textup{(ii)} $\Aexec$ and $\Aref$ are identified
 only conditional on accessible-class and ensemble protocols and their
 regularity conditions. \textup{(iii)} $\Lam$ requires a structural model
 supporting abduction; interventions on the joint law alone do not identify
-cross-world output laws. Thus the R14 sentence ``every channel estimand is
+cross-world output laws. Thus the unrestricted sentence ``every channel estimand is
 point identified'' is withdrawn, not patched by silently inserting $\Agoal$
 into a law-functional tier.
 \end{proposition}

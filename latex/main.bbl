@@ -1,4 +1,4 @@
-\begin{thebibliography}{113}
+\begin{thebibliography}{115}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -548,6 +548,11 @@ Rohin Shah, Vikrant Varma, Ramana Kumar, Mary Phuong, Victoria Krakovna, Jonatha
 \newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2022.
 \newblock arXiv:2210.01790.
 
+\bibitem[Shapley(1953)]{shapley1953value}
+Lloyd~S. Shapley.
+\newblock A value for n-person games.
+\newblock In Harold~W. Kuhn and Albert~W. Tucker, editors, \emph{Contributions to the Theory of Games II}, volume~28 of \emph{Annals of Mathematics Studies}, pages 307--317. Princeton University Press, 1953.
+
 \bibitem[Sharma et~al.(2024)Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, Kravec, Maxwell, McCandlish, Ndousse, Rausch, Schiefer, Yan, Zhang, and Perez]{sharma2023}
 Mrinank Sharma, Meg Tong, Tomek Korbak, David Duvenaud, Amanda Askell, Samuel~R. Bowman, Newton Cheng, Esin Durmus, Zac Hatfield-Dodds, Scott~R. Johnston, Shauna Kravec, Timothy Maxwell, Sam McCandlish, Kamal Ndousse, Oliver Rausch, Nicholas Schiefer, Da~Yan, Miranda Zhang, and Ethan Perez.
 \newblock Towards understanding sycophancy in language models.
@@ -639,6 +644,11 @@ Andrea~C. Westlund.
 \newblock Rethinking relational autonomy.
 \newblock \emph{Hypatia}, 24\penalty0 (4):\penalty0 26--49, 2009.
 \newblock \doi{10.1111/j.1527-2001.2009.01056.x}.
+
+\bibitem[Williams and Beer(2010)]{williams2010nonnegative}
+Paul~L. Williams and Randall~D. Beer.
+\newblock Nonnegative decomposition of multivariate information, 2010.
+\newblock arXiv:1004.2515.
 
 \bibitem[Xi et~al.(2023)Xi, Chen, Guo, He, Ding, et~al.]{xi2023}
 Zhiheng Xi, Wenxiang Chen, Xin Guo, Wei He, Yiwen Ding, et~al.

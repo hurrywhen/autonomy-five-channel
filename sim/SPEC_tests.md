@@ -1,6 +1,7 @@
 # SPEC_tests —— R3 TDD 测试计划（L0–L3 注册表）
 
-**版本**: v0.1（2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
+**版本**: v1.2（2026-11-17；v0.1 初版 2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
+**R16 附注**：新增有序归因/闭环、证书与非有限值、数值容差复核条目；当前冻结目标 **228 项**，精确数量由 `runs/20261117_r16/validation.json` 复核，R15 的 194 项历史验收不改写。
 **TDD 纪律**: ①每个 SPEC 条目先有其测试（红）再写实现（绿）；②测试命名 `test_<条目号>_<短名>`（如 `test_P61_seed_determinism`）；③本注册表与测试文件同步增长——新测试先在此登记条目号；④L1 定理性质测试是理论回归防线，不许跳过（无 `skip` 除非登记理由）。
 
 ---
@@ -85,8 +86,13 @@
 | T-R15-C2 | R15 恢复阈值与相线 | 数值阈外，直接枚举 $\gamma=2$ 的 $(1/\gamma,1)$ 高损伤分支：$s>\delta+s_c$ 全程导数<0，$s=s_c$ 且 $\delta>0$ 在 $D_m$ 失败；并检查 SPEC_estimators 不再残留旧阈值 |
 | T-R15-VIA | R15 状态/防御拆分 | 通道复合 0.8、资源最小 0.9、修复裕度 0 时 $A^{state}=0.72>0$、$R_{def}=A^{res}=0$ |
 | T-R15-OUTPUT | R15 实际证书生产与 sidecar 校验 | `produce_r15_certificate` 计算状态/防御分账，`write_r15_certificate` 落盘并回读验证；手术史、Lambda 数值及 DEFINED/N/A/UNKNOWN、来源注册、readiness、证据上限为强制字段；N/A≠unknown，unknown ⇒ LIMITED，integrity/external validation 永不为真 |
-| T-R15-PROOF | R15 Route B 归一化与商锥 | $w=(2,3)$ 时斜率 $1/s=0.2$；直接验证 $F(tx)=tF(x)$、$\varphi(z+t)-\varphi(z)=t/s$ 和商锥双向成员推出零商；不以 properness 替代 pointedness |
+| T-R15-PROOF | Route B 归一化与商锥（R16 修正缩放回归） | $w=(2,3)$、$s=5$ 时从 $F(tx)=tF(x)$ 得 $g(u+t'\mathbf1)=g(u)+t'$，再核验 $\varphi(z+st')-\varphi(z)=t'$；令 $q=st'$ 才是 $\varphi(z+q)-\varphi(z)=q/s$，并显式排除把 $t'$ 直接当 $\varphi$ 增量的错误等式；商锥双向成员推出零商，不以 properness 替代 pointedness |
 | T-R15-STATS | R15 tie-aware 与配对描述统计 | 小例 tau-b 分别记录 x/y/joint ties；零分母返回 NaN/no-claim；历史 5,760 臂只读重算分场景；共享 X/Z/J 的 X5-c 用逐上下文差样本 SE，不将两边际 SE 当独立相加 |
+| T-R16-ORG-ORDER | R16 OR 有序残差归因反例 | 独立公平 R,N、A=R∨N 时以 bit 计 R/N 边际 DI=$0.311278124459$、条件 DI=$0.5$、联合 DI=$0.811278124459$；RNI 规范份额 0.616311、NRI 0.383689、顺序平均 0.5；独立 atom-wise log-ratio oracle 复核，链式和相等不冒充归因唯一 |
+| T-R16-CLOSED | R16 多时刻闭环与 bypass | 枚举 16 条外生轨迹的 $T=2$ SCM，N2 含 A1 反馈；纯随机/纯规范/混合 XOR 均逐项对照独立 oracle 且 RNI/NRI 三流和=联合 DI；混合 XOR 规范份额 1↔0、I-last 平均 0.5；N 中介外源 DI=2 bit 而残余 I=0，直接 bypass 残余 I=2 bit |
+| T-R16-T2 | R16 区间与非有限兼容性 | 端点序要求上下端同时非减，$[0.2,0.8]\to[0.3,0.7]$ 拒绝；非有序/越界/NaN/Inf 区间 fail-closed；`componentwise_compatible` 对 NaN→NaN、NaN/±Inf 任一方向均 raise，且先验完全部值再返回，N/A=None 与 NaN 不混用 |
+| T-R16-CERT | R16 证书 estimand/version 与证据轴 | 强制 R16_CHANNEL_SCHEMA_V1、org/goal/state-readiness modes、L1/L2 双 64-hex hashes；无 SCM 完整注册=REGISTERED_COMPLETE，显式 audited SCM 才到 SCM_AUDITED，UNKNOWN/不全仍 LIMITED，N/A≠UNKNOWN；旧 Bundle、伪 schema/org/hash、真 external/integrity flag 均拒绝；producer/writer 同一合同 |
+| T-R16-REPLAY | R16 数值容差复核 | JSON 类型、键、状态、种子、计数、哈希精确比较；仅 float 叶子用 rel/abs=$10^{-12}$ 的 isclose，报告最大绝对差，容差外/非有限/类型改变 fail-closed；`analysis_r16_source_attribution.py --check` 另执行独立闭式锚，不仅比较保存 JSON |
 
 ## 3. L2 场景冒烟测试（每场景一测，短视界单种子）
 
