@@ -1,0 +1,136 @@
+{
+  "artifact_version": "R15-frozen-source-validation-v1",
+  "source_commit": "f11491937a0dcf6d86069959ba078ffd206770ab",
+  "source_tree": "a7351ec32aa236a3f162037e8ec897141799ef34",
+  "worktree_clean_before_and_after": true,
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "seconds": 128.911,
+      "summary": [
+        "/tmp/opencode/r15_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000005345 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(a, label=\"A_org\")",
+        "/tmp/opencode/r15_public_frozen/sim/tests/../src/autonomy_sim/empowerment.py:223: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(raw, label=\"A_exec\")",
+        "----------------------------------------------------------------------",
+        "Ran 194 tests in 128.536s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_x5c_r14.py",
+        "--out",
+        "runs/20261116_r14/x5c",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.276,
+      "summary": [
+        "X5-c read-only replay OK: 8 arms, overall=CONFIRMED"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_x5c_r14_stratified.py",
+        "--out",
+        "runs/20261116_r14/x5c_stratified",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.414,
+      "summary": [
+        "X5-c stratified replay OK: 24 rows, CONFIRMED, MODEL_SENSITIVE, D=0.089800"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_c0cf_r14.py",
+        "--out",
+        "runs/20261116_r14/c0cf_v2",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.23,
+      "summary": [
+        "/tmp/opencode/r15_public_frozen/sim/src/autonomy_sim/empowerment.py:223: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(raw, label=\"A_exec\")",
+        "C0-CF read-only replay OK: CONFIRMED"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r15_statistics.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 31.626,
+      "summary": [
+        "R15 statistics read-only check OK: 5760 historical arms"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r15_x5c_paired.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.189,
+      "summary": [
+        "R15 paired X5-c check OK: 2 strata, POST_HOC_PASS"
+      ]
+    }
+  ],
+  "tests": {
+    "ran": 194,
+    "passed": 194
+  },
+  "paper": {
+    "pages": 104,
+    "clean_build_text_match": true,
+    "ghostscript_all_pages": true,
+    "bibliography_entries": 113,
+    "figures": 6
+  },
+  "sha256": {
+    "latex/main.tex": "17a22ced91d401321519ccc1dbe78c58834e4fb0b3fd28067232a9490ad3ef06",
+    "latex/main.pdf": "64c2c856c9b530298b709a15f3fff79f057722d1e0cac4da08be86033222b417",
+    "latex/main.bbl": "71d2cc42a041c8c3d6d883867a4ad6e78b27c6ac4f1dcd9884452b08c1a46b40",
+    "latex/refs.bib": "230f00c863656be0170b179442b3fc2e472f479e7f07de68cb399f0bc9279876",
+    "sim/SPEC_estimators.md": "b849169d04593920266409495402afd85ee2768708eeaba836de6cd115d1c49c",
+    "sim/SPEC_experiments.md": "09e0c403003aba0a35294906c331a32e8368cc963effd58bc7b3b987ff65db3c",
+    "sim/SPEC_tests.md": "27fcb1421b20f3843bce03858447abd949269a8298a3fefc1b32f650722c7b8d",
+    "sim/analysis_r15_statistics.py": "9db4da8b94543c32f7f215f725b211a20f07878f0241ed842f01fb206497cd5f",
+    "sim/analysis_r15_statistics.json": "87287071f145a04e45ff034155a905c9957349b79c262e5b3726b4cfd3938ee2",
+    "sim/analysis_r15_x5c_paired.py": "e26f47c55942145153bd77d4c7f6ec8cc5bffdecbb061bd158b22dd694cb106b",
+    "sim/analysis_r15_x5c_paired.json": "1a7dfaa44c62e2790f5de9fc943191fbda35d7721b4cd73671bf86d9cace1ddf",
+    "sim/src/autonomy_sim/r15_guards.py": "3e1ad71a823ed8611509ddb5bd1604b066b85ab18e01e884d848d7d2607bbaab",
+    "sim/src/autonomy_sim/stats.py": "eedffe1a9465178374ad596ca042189ef5bcc2e173cc6584fccb4b7cadd90b12",
+    "sim/tests/test_r15_reviewer_counterexamples.py": "9af0670ce03e30da32f688fcef048a78eaf2182c3105b8aecb2921ef52111046"
+  },
+  "scope": {
+    "current_source_commit_replay": true,
+    "historical_r14_files_modified": false,
+    "immutable_tag": false,
+    "formal_release": false,
+    "version_doi": false,
+    "external_construct_validation": false,
+    "old_spec_snapshots_recovered": false,
+    "legacy_org_via_upgraded": false
+  }
+}
