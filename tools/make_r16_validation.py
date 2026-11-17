@@ -17,7 +17,7 @@ import sys
 import tempfile
 import time
 
-EXPECTED_TESTS = 228
+EXPECTED_TESTS = 230
 EXPECTED_REFERENCES = 115
 EXPECTED_FIGURES = 6
 

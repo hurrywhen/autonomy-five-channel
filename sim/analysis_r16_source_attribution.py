@@ -47,6 +47,14 @@ def _action(policy, r, n):
     raise ValueError(policy)
 
 
+def _duplicate_register_law():
+    """N=R and A=R: RNI zero versus NRI one for the normative residual."""
+    joint = np.zeros((2, 2, 2))
+    for r in (0, 1):
+        joint[r, r, r] = 0.5
+    return joint
+
+
 def _closed_loop_law(policy):
     joint = np.zeros((2,) * 8)
     for r1, r2, i1, i2 in itertools.product((0, 1), repeat=4):
@@ -126,12 +134,17 @@ def compute() -> dict:
         "historical_results_modified": False,
         "model_definitions": {
             "OR": "independent fair R,N; A=R OR N; no I",
+            "duplicate_register": "fair R; N=R; A=R",
             "closed_loop": ("R1,R2,I1,I2 independent fair; N1=I1; "
                             "N2=N1 XOR A1 XOR I2; A_t=R_t, N_t, or R_t XOR N_t"),
             "direct_bypass": ("N1=0; N2=A1; A1=R1 XOR N1 XOR I1; "
                               "A2=R2 XOR N2 XOR I2"),
         },
         "OR_counterexample": or_report,
+        "RNI_specific_random_zero": {
+            "model": "fair R; N=R; A=R",
+            **_ordered_report(_duplicate_register_law(), 1, 2),
+        },
         "semantic_swap_note": ("With RNI held fixed, swapping the N/R semantic labels in the "
                                "symmetric OR model interchanges the two ordered normative shares; "
                                "order averaging does not solve semantic relabeling."),
@@ -160,6 +173,16 @@ def validate_result(result: dict) -> None:
     for key, expected in expected_or.items():
         if not math.isclose(or_result[key], expected, rel_tol=1e-12, abs_tol=1e-12):
             raise ValueError(f"OR analytic anchor failed: {key}")
+    duplicate = result["RNI_specific_random_zero"]
+    if not (math.isclose(duplicate["normative_share_RNI"], 0.0, abs_tol=2e-12)
+            and math.isclose(duplicate["normative_share_NRI"], 1.0, abs_tol=2e-12)):
+        raise ValueError("RNI-specific pure-random zero anchor failed")
+    try:
+        flow_share(1e-13, 1e-15)
+    except ValueError:
+        pass
+    else:
+        raise ValueError("near-degenerate flow share exceeded one without rejection")
     expected_flows = {
         "pure_random": ((2.0, 0.0, 0.0), (0.0, 2.0, 0.0)),
         "pure_normative": ((0.0, 2.0, 0.0), (2.0, 0.0, 0.0)),

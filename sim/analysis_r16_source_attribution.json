@@ -6,6 +6,7 @@
   "historical_results_modified": false,
   "model_definitions": {
     "OR": "independent fair R,N; A=R OR N; no I",
+    "duplicate_register": "fair R; N=R; A=R",
     "closed_loop": "R1,R2,I1,I2 independent fair; N1=I1; N2=N1 XOR A1 XOR I2; A_t=R_t, N_t, or R_t XOR N_t",
     "direct_bypass": "N1=0; N2=A1; A1=R1 XOR N1 XOR I1; A2=R2 XOR N2 XOR I2"
   },
@@ -26,6 +27,27 @@
     "order_averaged_flows_bits_I_last": {
       "R": 0.4056390622295664,
       "N": 0.4056390622295664
+    },
+    "normative_share_order_average": 0.5
+  },
+  "RNI_specific_random_zero": {
+    "model": "fair R; N=R; A=R",
+    "flows_bits": {
+      "RN": [
+        1.0,
+        0.0
+      ],
+      "NR": [
+        1.0,
+        0.0
+      ]
+    },
+    "joint_di_bits": 1.0,
+    "normative_share_RNI": 0.0,
+    "normative_share_NRI": 1.0,
+    "order_averaged_flows_bits_I_last": {
+      "R": 0.5,
+      "N": 0.5
     },
     "normative_share_order_average": 0.5
   },

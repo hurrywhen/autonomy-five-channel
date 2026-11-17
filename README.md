@@ -14,7 +14,7 @@ Wen Hu<sup>1,2</sup> and Gong Zhang<sup>1,2</sup> — <sup>1</sup>College of Ele
 
 R16 closes the R15 re-review without rewriting historical evidence.
 
-- **Ordered source attribution:** the L1+ \(R\to N\to I\) decomposition is explicitly an **ordered residual-attribution axiom**, not a unique causal decomposition. Reports require reverse NRI and an I-last two-order Shapley-style sensitivity descriptor when \(R,N\) are nondegenerate. The \(N/R/I\) semantic partition is registered before scoring; alternative partitions are sensitivity arms. PID remains a comparator, not a silent replacement estimand.
+- **Ordered source attribution:** the L1+ \(R\to N\to I\) decomposition is explicitly an **ordered residual-attribution axiom**, not a unique causal decomposition. Reports require reverse NRI and an I-last two-order Shapley-style sensitivity descriptor when \(R,N\) are nondegenerate. The \(N/R/I\) semantic partition is registered before scoring; alternative partitions are sensitivity arms. PID remains a comparator, not a silent replacement estimand. Pure-random zero claims are RNI-specific: with \(N=R\) and \(A=R\), the RNI normative share is 0 but NRI is 1.
 - **Executable order and closed-loop guards:** the one-step OR law gives normative shares `0.6163114534` (RNI), `0.3836885466` (NRI), and `0.5` (order average). Exact \(T=2\) enumeration covers pure-random, pure-normative, and mixed feedback policies, joint-DI chain identities, mediated external influence, and direct bypass. The mixed XOR model changes its ordered normative share from 1 to 0; the I-last average is 0.5.
 - **Route B scaling:** homogeneity now explicitly gives \(\varphi(z+st')=\varphi(z)+t'\) before \(q=st'\) yields \(\varphi(z+q)=\varphi(z)+q/s\). The regression derives this from the actual homogeneous function rather than restating the incorrect unscaled intermediate equation.
 - **T2 interval and finite-value discipline:** identified-goal intervals use endpoint order, \(l_1\ge l_0\) **and** \(u_1\ge u_0\). Stronger cross-world guarantees require \(\ell_1\ge u_0\) or a registered coupling. NaN and either infinity fail closed, including NaN→NaN.
@@ -29,8 +29,8 @@ The R15 execution-horizon, compatibility, goal-identification, state/readiness, 
 
 | Evidence package | Current interpretation |
 |---|---|
-| Mathematical and implementation guards | **228/228 tests pass**, including exact source-attribution, certificate, interval, non-finite, and replay controls; not external validation |
-| R16 source-attribution audit | OR plus three exact \(T=2\) policies, mediation and direct-bypass witnesses; independent closed-form and atom-wise log-ratio checks |
+| Mathematical and implementation guards | **230/230 tests pass**, including exact source-attribution, certificate, interval, non-finite, and replay controls; not external validation |
+| R16 source-attribution audit | OR, duplicate-register order control, three exact \(T=2\) policies, mediation and direct-bypass witnesses; independent closed-form and atom-wise log-ratio checks |
 | Historical 4,620-run ENV-0 archive | Read-only legacy implementation and same-model checks. Its `a_org` is internal-causal and combined `a_via` is a resilience marker; neither is silently re-signed as a current value |
 | R14 pooled/stratified X5-c | Current-source read-only replays pass; \(D_{noise}=0.089799622>0.01\), so point readings remain **MODEL_SENSITIVE** |
 | R15 X5-c paired cross-check | Shared \((X,Z,J)\) uses paired-difference SE; `POST_HOC_PASS`, not preregistered CONFIRMED. Replay comparison tolerates only floating-point round-off |
@@ -49,7 +49,7 @@ latex/                     complete paper source, 115-entry bibliography,
                            figures + 1 TikZ figure, built 104-page PDF
 sim/
   src/autonomy_sim/        ENV-0, estimators, SCMs, source/certificate guards
-  tests/                   228 unit/integration/regression tests
+  tests/                   230 unit/integration/regression tests
   analysis_r16_source_attribution.* exact OR and T=2 attribution audit
   analysis_r15_statistics.* Kendall tau-b, ties and scenario reporting audit
   analysis_r15_x5c_paired.* paired cross-check SEs and tolerant replay
@@ -74,7 +74,7 @@ tools/                     source-package and frozen-validation scripts
 ## Reproduction
 
 ```bash
-# 1. Run all 228 tests
+# 1. Run all 230 tests
 cd sim
 python3 -m unittest discover -s tests -q
 

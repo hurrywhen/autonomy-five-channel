@@ -245,6 +245,21 @@ class R16ClosedLoopEnumeration(unittest.TestCase):
         self.assertAlmostEqual(average_i, 0.0, places=12)
         self.assertAlmostEqual(flow_share(average_n, total), 0.5, places=12)
 
+    def test_T_R16_pure_random_zero_is_RNI_specific_not_order_free(self):
+        # N=R duplicates the register to make the semantic/order caveat explicit:
+        # RNI gives normative residual zero, whereas NRI gives it the full share.
+        joint = np.zeros((2, 2, 2))
+        for r in (0, 1):
+            joint[r, r, r] = 0.5
+        rn = _bits(ordered_attribution_nats(joint, horizon=1, order=(R, N), action=2))
+        nr = _bits(ordered_attribution_nats(joint, horizon=1, order=(N, R), action=2))
+        total = nats_to_bits(joint_directed_information_nats(
+            joint, horizon=1, sources=(R, N), action=2))
+        self.assertAlmostEqual(flow_share(rn[1], total), 0.0, places=12)
+        self.assertAlmostEqual(flow_share(nr[0], total), 1.0, places=12)
+        # This is why a pure-random zero is a statement about the primary RNI
+        # convention, not an order-free or semantic-relabeling-proof theorem.
+
 
 class R16MediationAndBypass(unittest.TestCase):
     def test_T_R16_mediated_external_input_has_flow_but_zero_residual(self):
@@ -325,7 +340,7 @@ class R16FailClosedValidation(unittest.TestCase):
             ordered_residual_di_nats(
                 joint, horizon=1, source=N, action=2, condition_on=(N,))
         for part, total in ((0.0, 0.0), (-1.0, 1.0), (2.0, 1.0),
-                            (math.nan, 1.0), (1.0, math.inf)):
+                            (1e-13, 1e-15), (math.nan, 1.0), (1.0, math.inf)):
             with self.subTest(part=part, total=total):
                 with self.assertRaises(ValueError):
                     flow_share(part, total)

@@ -1,6 +1,6 @@
 # 仿真与实验 · 总规约
 
-> **R16 当前注记（2026-11-17）**：权威口径为 `SPEC_estimators.md` v1.2、`SPEC_experiments.md` v1.2 和英文 `latex/`；下方 R3 路线只作建设史。R16 新增有序残差归因与 NRI/Shapley 敏感性、OR/T=2 闭环精确审计、R16 schema/hash 证书、非有限值 fail-closed 与容差复核。运行全套 **228 项**测试：`python3 -m unittest discover -s tests -q`；R15 两项统计和 `analysis_r16_source_attribution.py --check` 均只读复核。`EXTERNAL_VALIDATION_PROTOCOL.md` 仅设计冻结，未执行外部实验。历史 R11–R15 manifest/results/verdict/validation 不改写，旧 a_org/a_via/Bundle 不冒充当前构念。
+> **R16 当前注记（2026-11-17）**：权威口径为 `SPEC_estimators.md` v1.2、`SPEC_experiments.md` v1.2 和英文 `latex/`；下方 R3 路线只作建设史。R16 新增有序残差归因与 NRI/Shapley 敏感性、OR/T=2 闭环精确审计、R16 schema/hash 证书、非有限值 fail-closed 与容差复核。运行全套 **230 项**测试：`python3 -m unittest discover -s tests -q`；R15 两项统计和 `analysis_r16_source_attribution.py --check` 均只读复核。`EXTERNAL_VALIDATION_PROTOCOL.md` 仅设计冻结，未执行外部实验。历史 R11–R15 manifest/results/verdict/validation 不改写，旧 a_org/a_via/Bundle 不冒充当前构念。
 
 **历史版本**: v0.1（规约先行版，2026-10-04）
 **定位**: 路线图 R3 阶段工作区。产出目标（input §9）：实验报告＋`autonomy-bench`。本目录任何实现代码之前，必须先有对应 SPEC 条目并通过评审；实现严格遵循 TDD（SPEC_tests.md）。

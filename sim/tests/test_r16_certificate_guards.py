@@ -156,6 +156,27 @@ class R16CertificateEvidenceGuards(unittest.TestCase):
             write_r15_certificate(str(path), cert)
             self.assertEqual(validate_r15_certificate(json.loads(path.read_text())), [])
 
+    def test_state_cannot_exceed_viability_or_claim_audited_ceiling(self):
+        kwargs = certificate_kwargs("L2")
+        with self.assertRaises(ValueError):
+            make_audit_certificate(
+                layer="L2", state_autonomy=1.0, viability_state=0.0,
+                defense_readiness=0.7, surgery_history=0, lambda_value=0.8,
+                lambda_status="DEFINED", source_registration="COMPLETE",
+                registration_completeness="COMPLETE", mechanism_evidence="SCM_AUDITED",
+                channel_schema_version=kwargs["channel_schema_version"],
+                org_mode=kwargs["org_mode"], goal_mode=kwargs["goal_mode"],
+                state_readiness_version=kwargs["state_readiness_version"],
+                model_hash=kwargs["model_hash"], evidence_hash=kwargs["evidence_hash"])
+        forged = dict(produce_certificate(layer="L2", mechanism_evidence="SCM_AUDITED"),
+                      state_autonomy=1.0, viability_state=0.0)
+        self.assert_writer_rejects(forged)
+        zero = produce_certificate(layer="L2", mechanism_evidence="SCM_AUDITED",
+                                   resource_ratios=(0.0,))
+        self.assertEqual(zero["state_autonomy"], 0.0)
+        self.assertEqual(zero["viability_state"], 0.0)
+        self.assertEqual(validate_r15_certificate(zero), [])
+
     def test_unknown_or_incomplete_fields_cap_even_explicit_scm_evidence(self):
         variants = (
             {"surgery_history": None},

@@ -354,8 +354,10 @@ influences. Reasonable alternative partitions, including reclassifying a noisy
 memory, must be reported as a separate sensitivity range. Reversing the chain
 does not settle this ontological choice, and the Shapley average does not make
 relabeling harmless. At L1+, an action copied from an independent random
-register has $\Fnorm=0$, $\Frand>0$, and hence $\Aorg^{RNI}=0$; a deterministic
-policy of $N$ with no bypass has $\Frand=\Fext=0$ and value 1. The $0/0$ case is
+register has $\Fnorm=0$, $\Frand>0$, and hence $\Aorg^{RNI}=0$. This zero is
+order-specific: with $N=R$ and $A=R$, RNI gives 0 but NRI gives 1, so semantic
+relabeling and order sensitivity cannot be omitted. A deterministic policy of
+$N$ with no bypass has $\Frand=\Fext=0$ and value 1 under RNI. The $0/0$ case is
 flagged as nondegenerate-flow failure, never assigned 1. For layer-neutral
 statements, write $\Fsrc:=\Fint$ and $\Foth:=\Fext$ at L0, and
 $\Fsrc:=\Fnorm$ and $\Foth:=\Frand+\Fext$ under a specified attribution order

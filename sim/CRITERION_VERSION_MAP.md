@@ -117,9 +117,10 @@
 
 | 项目 | R15 残留缺陷 | R16 当前处理 | 回归与证据边界 |
 |---|---|---|---|
-| L1+ 来源份额 | Kramer 链式和被默认读成顺序无关的客观因果份额 | RNI 是独立的有序残差归因公理；非退化 R/N 强制并列 NRI 与 I-last Shapley-style；N/R/I 语义预注册，PID 仅 comparator | OR：0.616311↔0.383689，平均 0.5；T=2 混合 XOR：1↔0，平均 0.5。链式和仍等于联合 DI，但不识别唯一来源；`analysis_r16_source_attribution.json` |
+| L1+ 来源份额 | Kramer 链式和被默认读成顺序无关的客观因果份额 | RNI 是独立的有序残差归因公理；非退化 R/N 强制并列 NRI 与 I-last Shapley-style；N/R/I 语义预注册，PID 仅 comparator | OR：0.616311↔0.383689，平均 0.5；T=2 混合 XOR：1↔0，平均 0.5；N=R,A=R 时 RNI=0、NRI=1，纯随机零值不写成顺序/语义不变。链式和仍等于联合 DI，但不识别唯一来源；`analysis_r16_source_attribution.json` |
 | Route B 第 6 步 | 由齐次性直接写 $\varphi(z+t')=\varphi(z)+t'/s$，漏掉 $w\cdot(t'\mathbf1)=st'$；旧测试只复述错误等式 | 改 $\varphi(z+st')=\varphi(z)+t'$，$q=st'$ 后得 $q/s$，再归一化 | 测试从 $g(u+t'\mathbf1)=g(u)+t'$ 数值推导并排除未缩放形式；最终表征不变 |
 | T2 区间与非有限值 | “区间非减”未定义；NaN 与任何值或自身比较可 fail-open | 默认上下端同时非减；独立跨世界保证需 $\ell_1\ge u_0$ 或注册耦合；所有值先验有限，NaN/Inf raise | 交叉区间、NaN→NaN、±Inf 负控制；端点序不冒充 reward 逐元素配对 |
 | 证书证据与 legacy 边界 | 完整字段但无 SCM 可给 SCM_AUDITED；旧 Bundle 数值可手工冒充 L1 N/R/I | registration completeness 与 mechanism evidence 分轴；无 SCM 仅 REGISTERED_COMPLETE；R16 schema/org/goal/readiness 和 L1/L2 双 hash 强制 | producer/writer 共合同，伪造字段/旧 schema/坏 hash 拒绝；hash 仅绑定工件，SCM_AUDITED 仍非外部验证 |
+| 数值/状态边界追加 guard | 近退化 part-total 绝对容差可让 flow share>1；state=1/viability=0 可获审计上限 | ratio 直接检查，1e-13/1e-15 拒绝；强制 $A^{state}\le V_{state}$，0/0 可登记但正状态禁配零存续 | 新负控制使总数 228→230；首次候选 7b74ec4 被 superseded，重新冻结验收 |
 | 配对与源归因复核 | 全部 JSON 叶子逐位相等，平台末位浮点差可假失败 | 状态/seed/count/hash/类型精确，float 用 $10^{-12}$ 双重容差并报最大差；源归因另有独立闭式锚 | 容差外、非有限和类型改变仍失败；X5-c 数值/verdict 不变，POST_HOC_PASS 不升级 |
 | 外部协议与写作 | Ingel/Albantakis/PID 计划散见 Related Work/Conclusion；正文修订史口吻、N/A 与 UNKNOWN 表述不一致 | `EXTERNAL_VALIDATION_PROTOCOL.md` 统一设计冻结；正文保留最终定义与证据边界，历史集中本账本；UNKNOWN 才触发 LIMITED，T8 明确 A_state | 协议仍 UNEXECUTED；外部 SESOI/power、时间戳、独立基质、version DOI 和不可变 release 未完成 |

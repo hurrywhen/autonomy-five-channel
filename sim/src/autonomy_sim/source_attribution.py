@@ -326,10 +326,13 @@ def flow_share(part: float, total: float) -> float:
         raise ValueError("part and total must be finite")
     if part < 0.0 or total <= 0.0:
         raise ValueError("part must be nonnegative and total must be positive")
-    if part > total + _ROUND_OFF_ATOL:
-        raise ValueError("part cannot exceed total in a source-flow share")
     ratio = part / total
-    if ratio > 1.0 and ratio <= 1.0 + _ROUND_OFF_ATOL:
+    # Compare the ratio itself.  An absolute part-minus-total tolerance is
+    # unsound for near-degenerate denominators: part=1e-13, total=1e-15 must
+    # not turn a tiny absolute excess into a share of 100.
+    if ratio > 1.0 + _ROUND_OFF_ATOL:
+        raise ValueError("part cannot exceed total in a source-flow share")
+    if ratio > 1.0:
         return 1.0
     return ratio
 

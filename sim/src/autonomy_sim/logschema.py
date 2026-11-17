@@ -197,6 +197,12 @@ def validate_r15_certificate(cert: dict) -> list[str]:
     for field in ("state_autonomy", "viability_state", "defense_readiness"):
         if not _is_finite_unit_number(cert[field]):
             errors.append(f"{field} must be a finite number in [0,1]")
+    # A_state = V_state * F with F in [0,1].  In particular, zero viability
+    # cannot coexist with positive present-state autonomy or an audited ceiling.
+    if (_is_finite_unit_number(cert["state_autonomy"])
+            and _is_finite_unit_number(cert["viability_state"])
+            and cert["state_autonomy"] > cert["viability_state"] + 1e-12):
+        errors.append("state_autonomy must not exceed viability_state")
     if cert["surgery_history"] not in {0, 1, None}:
         errors.append("surgery_history must be 0, 1, or null")
     if cert["lambda_status"] not in {"DEFINED", "NOT_APPLICABLE", "UNKNOWN"}:
