@@ -1,6 +1,8 @@
-# R3 仿真与实验 · 总规约
+# 仿真与实验 · 总规约
 
-**版本**: v0.1（规约先行版，2026-10-04）
+> **R15 当前注记（2026-11-17）**：权威数学与估计口径为 `SPEC_estimators.md` v1.1、`SPEC_experiments.md` v1.1 和英文 `latex/`；下方 R3 路线与 input 引用只作建设史。R15 新增 `r15_guards.py`、`stats.py`、14 个确定性负控制、`analysis_r15_statistics.*` 与 `analysis_r15_x5c_paired.*`。运行全套 194 项测试：`python3 -m unittest discover -s tests -q`；两个新分析均支持 `--check` 只读复核。历史 R11–R14 manifest/results/verdict 不改写，旧 a_org/a_via 不冒充 R15 新构念。
+
+**历史版本**: v0.1（规约先行版，2026-10-04）
 **定位**: 路线图 R3 阶段工作区。产出目标（input §9）：实验报告＋`autonomy-bench`。本目录任何实现代码之前，必须先有对应 SPEC 条目并通过评审；实现严格遵循 TDD（SPEC_tests.md）。
 
 ## 权威依据

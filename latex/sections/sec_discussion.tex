@@ -100,8 +100,10 @@ dynamics---restarts the audit (Section~\ref{sec:taxonomy}). (ii)
 \emph{Layer discipline}: readings are taken within a layer with its
 applicable channel set; cross-layer readings are profiles, not scalar
 rankings. (iii) \emph{Identification tiers}: each channel's premise is
-met---joint-law access for $\Aorg/\Aepi/\Avia$, the certified probe protocol
-for $\Aexec$, the constructed ensemble for $\Aref$, and structural
+met---joint-law access plus the L1+ $N/R$ partition for $\Aorg$, ground truth
+for $\Aepi$, current-resource records for $\Avia$, structural $\Ueff$ for a
+goal point or an IRL identified set for a goal interval, the certified probe
+protocol for $\Aexec$, the constructed ensemble for $\Aref$, and structural
 (abduction-level) access for $\Lam$; where a premise fails, the corresponding
 degradation rule of Section~\ref{sec:identifiability} applies, down to proved
 impossibility. (iv) \emph{Axiom commitments accepted, or relaxations
@@ -118,6 +120,37 @@ $\Lambda$ marker as a counterfactual and is not statistical convergence. No
 condition here makes the \emph{construct} converge to a mind-independent
 ``true autonomy.'' That residual remains a registered design choice exposed
 to the external falsifier of clause four.
+
+\begin{table}[htbp]
+\centering
+\caption{Central applicability and degradation rules. Repeated prose warnings
+elsewhere are subordinate to this table and the cited formal statements.}
+\label{tab:degradation}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.16\textwidth}
+>{\raggedright\arraybackslash}p{.35\textwidth}X@{}}
+\toprule
+Object & Required premises & Failure-time output \\
+\midrule
+$\Aexec$ & Exactly $n$ actions; fixed pre-intervention alphabet; compact
+certified input set for attained max; explicit DMC for BA & Supremum/bounds
+without attainment; quantization or same-channel capacity label \\
+$\Aorg$ & L0 $S/I$ split, or L1+ structural $N/R/I$ split and nondegenerate
+flows & L0 internal-causal label; otherwise unidentified, never default 1 \\
+$\Agoal$ & Structural $\Ueff$ and fixed-point/metric premises for a point;
+behavioral IRL singleton assumptions for inversion & Flagged structural
+fallback or IRL identified-set interval \\
+T2 compatibility & Every applicable component non-decreasing; sufficient
+structural clauses in Proposition~\ref{cor:t2} & No no-surgery/honesty/four-track
+iff; report the affected component \\
+$\Avia/\Rdef$ & Separate current-resource and defense inventories & $\Astate$
+and $\Ares$ reported separately; no defense-zero implies state-zero rule \\
+$\Lam$/history & SCM abduction plus output laws; separate provenance and
+source registration & Unknown/N/A fields with LIMITED evidence ceiling, never
+an integrity certificate \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{Objections and debates}\label{sec:objections}
 
@@ -141,7 +174,9 @@ protocol. It does not show that every active behavioral probe is
 non-behavioral or that full logs are uniquely necessary
 (Corollary~\ref{cor:logs-necessary}). At L0/L1 the scalar composite is weaker
 than a complete history-sensitive autonomy certificate and must be read with
-these auxiliary records.
+these auxiliary records. R15 makes the fields mandatory in the output object;
+unknown history/source registration caps the grade at \textsc{limited}, and no
+score may be exported as an integrity certificate.
 
 \paragraph{(ii) Phenomenological autonomy.} We neither enthrone nor
 dismiss: the phenomenal track is not a component of autonomy but supplies
@@ -192,6 +227,19 @@ directions are parameter-specific: repair-capacity increases can raise both
 $\deltastar$ and $\Amin$, whereas lower $\theta$ does not raise $\deltastar$
 and higher redundancy need not raise \eqref{eq:amin} without the separate
 M4 mechanism.
+
+\paragraph{(v-a) Present autonomy, survival, and preparedness.}
+The R14 extended gate made zero verification or repair capacity annihilate the
+same scalar used for present behavioral determination. R15 rejects that
+compression. $\Astate$ answers who determines current behavior under current
+resources, $\Avia$ answers whether the system can presently exist and act, and
+$\Rdef$ answers whether registered defenses can preserve or recover it under
+future attacks. A system with intact current behavior and zero repair budget
+can therefore have positive $\Astate$, zero $\Rdef$, and zero optional $\Ares$.
+This is not a claim that present death is irrelevant: exhausted critical
+resources still zero $\Avia$ and $\Astate$. It is a refusal to give future
+vulnerability the same semantics as present nonexistence. Historical EROSION
+numbers support only the old resilience convention.
 
 \paragraph{(vi) The measurement paradigm debate.} Level lists
 \citep{feng2025}, dimension profiles \citep{kasirzadeh2025,dung2024},

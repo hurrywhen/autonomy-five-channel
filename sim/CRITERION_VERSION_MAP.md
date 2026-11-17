@@ -1,11 +1,11 @@
-# 论文—规约—代码—运行归档版本映射（R11–R14，更新于 2026-11-17）
+# 论文—规约—代码—运行归档版本映射（R11–R15，更新于 2026-11-17）
 
 ## 1. 原则
 
 - 历史运行目录 `runs/20261017_full/` 是只读证据快照；不得回写其 manifest、结果或 verdict。
 - manifest 中的 `spec_version` 是运行写出器当时写入的元数据，不一定等于该 commit 实际实现的全部有效判据。必须同时记录代码 commit、SPEC 变更日志和场景内容。
 - R11/R12/R13 的数学复审属于**对历史结果的重评价**，不是一次新的 4,620-run 独立实验。R14 发布必须冻结开发源 commit 与公开快照源码；公开 main 同步不等于不可变 tag/version DOI，只有全部版本链实际形成后才可声称闭合。
-- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。保留的 CUSUM/FORCE-1/ATK-6 数值只按收窄后的特定实现解释，不回读为被撤回全称命题的证据。
+- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
 
 ## 2. 历史归档 manifest 的共同事实
 
@@ -33,7 +33,8 @@
 | R11 数学反例回归与 DEL-1 修正实现 | 当前工作树；发布 commit 待冻结 | **v0.7** | `runs/20261102_r11/del1`：30 run overall 全 INCONCLUSIVE；判据 120 CONFIRMED＋60 INCONCLUSIVE；manifest 写 v0.7 和基线 `5d57b74`，但工作树含 R11 未提交修改，故该哈希不是冻结版本；不覆盖 20261017 历史归档 |
 | R12 量词、T7(iv)、T8(ii) 与统计披露修正 | 当前工作树；发布 commit/tag/version DOI 均未形成 | **v0.8** | 新增 `test_l1_r12_counterexamples.py`；不新增或改写 4,620-run。ATK-6 固定-\(\alpha\) CUSUM 仅描述；FORCE-1③仅注册 \(\kappa\) 臂；独立复核后另补 \(A^0>0\)、当前-\(\mu_t\) estimand、Jensen 测试换例及旧 \(\sigma\)/C0 口径清理；公开链仍待闭合 |
 | R13 T6/C0 核心命题收缩、账本与小样本敏感性 | R13 commit `f816848`；公开 tag/version DOI 未形成 | **v0.9** | 新增 `test_l1_r13_counterexamples.py`、`analysis_cusum_sensitivity.py/.json`；不改写历史 run。T6 主表拆 360 实现＋60 CUSUM 描述；DEL-1 六判据逐项 30-run 账本；C0(ii) 仅非退化 L1 额外审计分离；二次复核补 H4$''$/M1/T1d 前提及报告生成器 R11 合并与归档写保护；公开链仍待闭合 |
-| R14 反例、estimand、直接文献与证据重签 | R13 基线 `f816848`＋R14 开发源 commit；公开 main 源同步的精确对应见 `RELEASE_NOTES.md`；不可变 tag/version DOI 未形成 | **v1.0** | 新增 R14 反例/优化/SCM 测试、`analysis_r14_math.*`、`x5c`、`x5c_stratified`、`c0cf_v2` 与失败目录；旧 `law_level_lambda` 仅 marker，新反事实仅限显式 SCM。首轮 X5-c pooled 后另作 post hoc 时分层和 SESOI 后果；$D_{noise}=0.089799622$ 故 MODEL_SENSITIVE。历史 4,620-run、R11 replay、R13 与旧 X5 文件不改写；公开链仍待闭合 |
+| R14 反例、estimand、直接文献与证据重签 | R14 开发源 `6a613086...`；公开 main `dbdf2f6f...`；不可变 tag/version DOI 未形成 | **v1.0** | 新增 R14 反例/优化/SCM 测试、`analysis_r14_math.*`、`x5c`、`x5c_stratified`、`c0cf_v2` 与失败目录；旧 `law_level_lambda` 仅 marker，新反事实仅限显式 SCM。$D_{noise}=0.089799622$ 故 MODEL_SENSITIVE。历史归档不改写 |
+| R15 定义、构念、识别、证明与报告治理 | R15 开发源 commit 与公开快照对应见新 `RELEASE_NOTES.md`；不可变 R15 tag/version DOI 未形成 | **v1.1** | 新增 14 个确定性负控制、`r15_guards.py`、`stats.py`、`analysis_r15_statistics.*`、`analysis_r15_x5c_paired.*`。执行改 n 行动；T2 撤 iff；L1+ N/R/I 来源分割；A_goal 结构点/IRL 区间；V_state/R_def 分账；C2/Route B 修补；tau-b 总体与分场景。旧 a_org/a_via 只作 legacy marker，历史 manifest/results/verdict 不改写，外部验证仍未完成 |
 
 ## 4. 判据时间线（失败与替换不得擦除）
 
@@ -49,6 +50,7 @@
 | v0.8（2026-11-03） | 检测改固定 \(\delta\)、\(\alpha\downarrow0\)；T7(iv) 加诚实/无精度损失前提；T8(ii) 改逐参数方向；表示证明、soundness、copula 和全文口径修补 | R12 数学复审＋反例回归；旧 CUSUM/FORCE 数值仅按收窄场景保留，公开版本链未闭合 |
 | v0.9（2026-11-03） | T6 改 certificate-failure band；C0(ii) 删除完整外部画像相等；M4 确定性口径、注册域方向、D1 归属、可比性术语、T6/T7 账本及 CP 单位修正 | R13 数学复审＋反例回归；ATK-6 俘获仅精确实现，CUSUM 只描述并补 \(t_{29}\) 敏感性，历史归档不改写 |
 | v1.0（2026-11-16） | 修复 T1b/T2/T3/T4/T5、离散 $A_{ref}$、比例解释、Lemma 37、Via-Ind；$\Lambda$ 改输出律 estimand；X5-c 两噪声执行并补时分层；C0 改同环境证人；补直接文献对照；证据按类型重签 | R14 反例与 SCM 复审；历史 marker 与新反事实分账，点读数 MODEL_SENSITIVE，旧归档不改写 |
+| v1.1（2026-11-17） | 修复执行索引、T2 兼容过强、L0/L1 随机来源、A_goal 识别层级、C2 与 Route B；状态/防御和强制 provenance 输出分账；补三篇直接前驱与统计报告 | R15 审稿反例与构念复审；194 项目标测试和 tau-b 只读重算；旧数值不冒充新构念验证，tag/version DOI 与外部实验未完成 |
 
 ## 5. R11→R13 重点判据与主张 supersession 明细
 
@@ -93,3 +95,18 @@
 | X5-c | R13 及旧 JSON 均 registered, not run；pooled 后 SPEC 又修改，历史 SPEC 快照不全 | R14 新 SCM 已执行；pooled preregistered＋post hoc 时分层与 SESOI=0.01 后果，点值 MODEL_SENSITIVE；common random numbers 与 arm evaluations 分账 | 旧 JSON 保持原状态；新目录独立，$D_{noise}=0.089799622$；`PROVENANCE.md` 记录缺快照、源码演进和当前 preservation copy；不是外部验证 |
 | 证据总表 | 14 CONFIRMED＋T7 INCONCLUSIVE、zero-refutation 宣传汇总 | 数学状态、criterion outcome、证据类型、外部验证分列，不再给“确认理论”总数 | 历史 CONFIRMED 字段原样保留；E2-X1、ATK-4、X5-a、post hoc 与 unrun 全披露 |
 | 数值边界 | 容差外负值原样返回，公开旧快照有边界失败报告 | 统一 1e-9 容差内 clipping＋warning，超容差/NaN/Inf fail-closed | T-R14-CLIP、T-REF7 更新；公开旧快照差异不冒充本工作树同一失败 |
+
+## 8. R15 supersession 明细
+
+| 项目 | R14 旧主张/缺陷 | R15 当前处理 | 回归与历史边界 |
+|---|---|---|---|
+| A_exec/T1a | $A_{t:t+n}$ 含 n+1 行动却除 n log|A|；两比特可得 2 | 改 $A_{t:t+n-1};O_{t+n}$；一般写 sup，紧有限 DMC 才 max/BA；零值含环境解耦 | T-R15-EXEC；代码 API 的 n 本来就是行动数，历史数值不回写 |
+| T2 兼容性 | no surgery+mediation+honesty iff；四轨含绝对 Lambda=1 | 撤回 iff；逐分量定义和七项结构充分条件；Lambda 相对基线，Fix/其他因子不可省 | T-R15-T2 两反例；旧 ATK-4 四轨仅 legacy marker |
+| T2 盲性 | o 未动即信念不变、Agoal 对 gamma/delta 普遍盲 | 行动无关环境的显式存在性证人；结构 Ueff/Fix 固定证人，IRL 不普遍盲 | 测试与附录同步，旧场景仅有利特例 |
+| 随机来源 | 独立 R 驱动可在 L0 得 A=1，却称 autonomy not randomness | L0 明确 internal-causal only；L1+ R→N→I 分解，纯随机得 0 | T-R15-RANDOM；旧 a_org 不冒充 R15 点值 |
+| A_goal 识别 | every channel point identified 但漏列 goal，IRL 又承认塑形自由度 | 结构读取点值与行为 IRL 集合/区间分模式；不动点定理各自前提完整 | T-R15-GOAL；ENV-0 只结构读取，未实现黑盒 IRL |
+| viability | m_j=0 即使当前行为完好也令当前 A=0 | V_state/A_state 与 R_def/A_res 分离；防御零不自动状态零 | T-R15-VIA；EROSION 仅 R14 resilience legacy |
+| C2 | 附录有 δ+|R|-s，主命题却只写 s>s_c | 持续攻击 s>δ+s_c；攻击移除 δ=0 才 s>s_c | T-R15-C2；历史 δ=0 数值不变 |
+| Route B | 半平面线矛盾误写 properness；权和归一跳步 | 改商锥 pointedness；显式 w/s、斜率 1/s，A0 只消截距 | T-R15-PROOF；条件性表征结论不变 |
+| 输出 | 高分与篡改史可共存但仅文字警告 | 强制 H_surg、Lambda、来源注册、V_state/R_def；unknown 限 LIMITED，永不称完整性证书 | T-R15-OUTPUT；不是外部验证 |
+| 统计/实验报告 | 480k 被称 main contexts、C0 权重不全、tau 变体/ties 不清、SESOI 与误差近等量 | 480k cell eval/120k base draws；全权重及等权敏感性；tau-b 总体和分场景；0.01/0.0096=1.0417 仅数值判据 | `analysis_r15_statistics.json` 只读新文件，旧 JSON/结果不改写；场景 4 org-heavy 最低 0.8667，不保留统一 0.93 底线 |

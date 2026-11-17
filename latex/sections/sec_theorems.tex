@@ -84,18 +84,21 @@ propositions can be tracked by name rather than by number.
 
 \subsection{T1: the bounded interval, four parts}\label{sec:t1}
 
+Unless a legacy simulation or the resilience descriptor $\Ares$ is explicitly
+indicated, $A$ in the theorem suite abbreviates present $\Astate$.
+
 \begin{theorem}[T1a--d]\label{thm:t1}
-\textup{(T1a, range)} Always $0\le A\le1$.
+\textup{(T1a, range)} Always $0\le\Astate\le1$ and $0\le\Ares\le\Astate$.
 \textup{(T1b, operational positivity)} In a point-valued, nondegenerate
 instantiation, if $\Avia>0$ and every applicable factor is strictly positive
-($\Fint>0$, $\EmpPi>0$, $d(\Ueff,\Fix)<\dc$, $\bar D<1$, and, at L2,
-fidelity, endorsement consistency, and $\Lam_{ref}$ all $>0$), then $A>0$.
+($\Fsrc>0$, $\EmpPi>0$, $d(\Ueff,\Fix)<\dc$, $\bar D<1$, and, at L2,
+fidelity, endorsement consistency, and $\Lam_{ref}$ all $>0$), then $\Astate>0$.
 The finite discrete $A_{ref}$ ensemble of Section~\ref{sec:channels} is
-required at L2. In particular, $\Lam_{ref}=0\Rightarrow\Aref=0\Rightarrow A=0$
+required at L2. In particular, $\Lam_{ref}=0\Rightarrow\Aref=0\Rightarrow\Astate=0$
 whenever the reflection channel applies; positivity of fidelity and
 endorsement consistency alone does not remove this boundary.
 \textup{(T1c, conditional strict upper bound)} Each of the following
-non-degeneracy conditions implies $A<1$ strictly: \textup{(D1)} residual
+non-degeneracy conditions implies $\Astate<1$ strictly: \textup{(D1)} residual
 observation noise, in the strict form that the action-to-outcome channel
 admits no error-free code at the maximal rate---$\EmpPi<n\log|\Acal|$ as an
 empowerment upper bound (sufficient carrier: the action-to-observation map is
@@ -198,21 +201,23 @@ Blackwell ordering alone does not prove it.
 
 \begin{lemma}[Strict comparisons are relative to baseline]
 \label{lem:strict-comparison}
-(i) If $\Fint^0,\Fint^1>0$, then
+(i) If $\Fsrc^0,\Fsrc^1>0$, then
 \[
 \Aorg^1<\Aorg^0\quad\Longleftrightarrow\quad
-\frac{\Fext^1}{\Fint^1}>\frac{\Fext^0}{\Fint^0}.
+\frac{\Foth^1}{\Fsrc^1}>\frac{\Foth^0}{\Fsrc^0}.
 \]
-Fixed $\Fint$ and $\Fext^1>\Fext^0$ are a sufficient special case;
-$\Fext^1>0$ alone is not. (ii) With the same protocol metric, endorsed set,
+At L0 $(\Fsrc,\Foth)=(\Fint,\Fext)$; at L1+ they are
+$(\Fnorm,\Frand+\Fext)$. Fixed $\Fsrc$ and increased $\Foth$ are only a
+sufficient special case; $\Fext^1>0$ alone is not. (ii) With the same protocol metric, endorsed set,
 and $\dc>0$, $\Agoal^1<\Agoal^0\iff d^1>d^0$, where
 $d^j:=d(\Ueff^j,\Fix)$. (iii) If $A^0>0$, all unaffected applicable factors
 are fixed, and one positive-weight factor strictly decreases, then $A^1<A^0$.
 A zero baseline cannot supply a strict composite decrease.
 \end{lemma}
 \begin{proof}
-(i) $\Aorg=1/(1+\Fext/\Fint)$ is strictly decreasing in the external/internal
-ratio. (ii) is immediate from \eqref{eq:agoal}. (iii) uses AX4/AX5; if any
+(i) $\Aorg=1/(1+\Foth/\Fsrc)$ is strictly decreasing in the
+other-versus-registered-source ratio. (ii) is immediate from \eqref{eq:agoal}.
+(iii) uses AX4/AX5; if any
 applicable baseline factor is zero, then $A^0=A^1=0$ regardless of a strict
 loss elsewhere.
 \end{proof}
@@ -230,8 +235,8 @@ Surgery & Instrument / strictness premise & Note \\
 \bottomrule
 \endfoot
 $\beta_\pi$ (policy tampering) & $\Aorg$ strictly falls iff
-$\Fext^1/\Fint^1>\Fext^0/\Fint^0$ & conditional law given
-$S_t$ varies with $I$; fixed $\Fint$ and increased $\Fext$ are only a
+$\Foth^1/\Fsrc^1>\Foth^0/\Fsrc^0$ & conditional law given
+$S_t$ varies with $I$; fixed $\Fsrc$ and increased $\Foth$ are only a
 sufficient special case. $\Agoal$ is \emph{not} a valid instrument under
 $\beta_\pi$ (the MaxEnt-IRL premise that behavior is optimal for some reward
 fails under script replacement, so the inverted $\Ueff$ reflects the script,
@@ -249,36 +254,39 @@ $\gamma$ (channel degradation, with (R-epi); L1+) & $\Aepi^{real}$ (accuracy los
 be $0$: $B$ mediates; strictness is assumed through (R-epi), not derived from
 support coverage \\
 $\delta$ (action-leverage constraint) & $\Aexec$ if $\EmpPi_1<\EmpPi_0$;
-$\Aorg$ only under Lemma~\ref{lem:strict-comparison}(i) & the maximum over a
-smaller policy class is weakly smaller, with strictness requiring loss of an
-optimizing action (Faith); the feasible-set form can also show in $\Aorg$,
+$\Aorg$ only under Lemma~\ref{lem:strict-comparison}(i) & the supremum over a
+smaller policy class is weakly smaller, with strictness requiring deletion of
+an optimizing action or interruption of every capacity-approaching sequence
+(Faith); the feasible-set form can also show in $\Aorg$,
 while pure transition-kernel decoupling leaves it unchanged---a registered
 within-class division, witnessed by the two $\delta$ arms \\
-$\alpha$ (honest appended information) & none & compatibility
-(Lemma~\ref{lem:mediation} for $\Fext$; \eqref{eq:aepi} keeps $\Aepi$
-non-decreasing under the sound-update premise because the reference is the
-truth, not the no-intervention counterfactual---this row is where the
-accuracy semantics of $\Aepi$ and the likelihood-fidelity boundary are
-load-bearing) \\
-$\sigma$ (scaffolding) & none by class label alone; may alter $\Avia$ &
+$\alpha$ (honest appended information) & $\Aepi$ non-decreasing under sound
+update; no class-wide all-channel compatibility claim & Lemma~\ref{lem:mediation}
+gives $\Fext=0$ only. Goal fixed points, source/noise flows, execution,
+resources, reflection, and $\Lam$ require separate invariance or non-decrease
+conditions; honest content can change $\Fix$ \\
+$\sigma$ (scaffolding) & none by class label alone; may alter $\Rdef$ or $\Avia$ &
 $\deltastar$ and \eqref{eq:amin} follow parameter-specific directions
 (T8(ii)), not a uniform joint increase \\
-$\sigma^{-}$ (resource/capability erosion) & $\Avia$ (the gate) & enters
-through \eqref{eq:avia}, not the five channels; with
-$G,\pi,o,\Acal,\Endorse$ intact the channel monitors read nothing---the gate
-is the instrument for this class \\
+$\sigma^{-}$ (resource/capability erosion) & $\Avia$ for current resources;
+$\Rdef$ for verification/repair erosion & enters through
+\eqref{eq:avia}--\eqref{eq:rdef}, not the five channels. Only current-resource
+loss zeroes $\Astate$; defense erosion reduces $\Ares$ and readiness evidence
+without necessarily changing present behavior \\
 \end{longtable}
 \endgroup
 \end{theorem}
 
 \begin{theorem}[Multi-channel necessity]\label{thm:necessity}
 No single component of the instrument family defined in
-Section~\ref{sec:channels} detects all surgery classes: $\Aorg$ is blind to
-$\beta_G$, $\gamma$, and the transition-kernel form of $\delta$; $\Aepi$ is
-blind to $\beta_\pi$ and $\delta$;
-$\Agoal$ is blind to $\gamma$ and $\delta$ (witness constructions in
-Appendix~\ref{app:t2}; numerically witnessed across the full simulation
-matrix---the blind-witness table of Section~\ref{sec:experiments}). Hence
+Section~\ref{sec:channels} detects all surgery classes: $\Aorg$ has blind
+witness models for $\beta_G$, $\gamma$, and the transition-kernel form of
+$\delta$ when $\Foth/\Fsrc$ is fixed; $\Aepi$ has action-independent witness
+models blind to $\beta_\pi$ and $\delta$;
+$\Agoal$ has structural-read witness models blind to $\gamma$ and $\delta$,
+but no universal behavior-IRL blindness is claimed (explicit witness
+constructions in Appendix~\ref{app:t2}; legacy special cases in
+Section~\ref{sec:experiments}). Hence
 the five-channel decomposition plus $\Lam$ is an \emph{attribution cover} of
 this instrument family, and multi-channel detection is a theorem, not a
 design preference. The claim is scoped: it is a coverage theorem about these
@@ -287,39 +295,56 @@ sub-family fails on a registered class) and not a uniqueness theorem about
 all conceivable decompositions---a generic monitor of the whole joint law
 (say, a likelihood ratio against baseline) could \emph{register} every class
 without \emph{attributing} any, which is exactly the service the
-decomposition provides. A companion clause covers the gate: every channel is
-blind to a pure $\sigma^{-}$ that erodes resources or capability envelopes
-while leaving $G,\pi,o,\Acal,\Endorse$ intact, so the gate $\Avia$ is itself
-a necessary instrument---necessity of the gate, not only of the five
-channels.
+decomposition provides. A companion clause covers the separate gate/readiness
+fields: every channel can remain unchanged under a pure $\sigma^{-}$ that
+erodes current resources or defense envelopes while leaving
+$G,\pi,o,\Acal,\Endorse$ intact. Thus $\Avia$ and $\Rdef$ are necessary
+instruments for those distinct current-state and preparedness questions, not
+proof of a unique conceptual decomposition.
 \end{theorem}
 
-\begin{corollary}[Corrected mediation criterion]\label{cor:t2}
-$I$ compatible $\iff$ \textup{(i)} no surgery $\wedge$ \textup{(ii)} full
-mediation $\wedge$ \textup{(iii)} \emph{honesty}: the $\alpha$-components'
-content induces no accuracy loss on the registered coarse-graining. Clause
-\textup{(iii)} is load-bearing, not decorative: dishonest content appended
-through an intact channel is surgery-free and fully mediated, yet strictly
-reduces $\Aepi^{real}$ (Section~\ref{sec:taxonomy})---without it the
-criterion would certify deceptive persuasion as compatible, contradicting the
-accuracy semantics of \eqref{eq:aepi}. The
-\emph{observabilization} must be componentized: $\Fext=0$ (the $\Aorg$ track)
-$\wedge\ \Lam=1$ (the history track) $\wedge\ \bar D\le\bar D^{0}$ (the
-$\Aepi$ track: no accuracy loss relative to the registered no-influence
-baseline---this operationalizes clause \textup{(iii)}; absolute distortion
-$\bar D$ need not be zero) $\wedge\ \EmpPi$ non-decreasing (the
-$\Aexec$ track). Neither the single condition $\Fext=0$ (the $\gamma$
-counterexample) nor the pair \textup{(i)}$\wedge$\textup{(ii)} (the
-dishonest-$\alpha$ counterexample) implies compatibility. The $\Aepi$ track is consistent
-with openness: AX2 requires $I(O;E)>0$, and honest information reduces the
-accuracy loss $\bar D$ rather than creating one---openness and the
-compatibility criterion are not in tension.
-\end{corollary}
+\begin{proposition}[Componentwise compatibility; sufficient structural certificate]
+\label{cor:t2}
+Compatibility remains the componentwise non-decrease relation of
+Definition~\ref{def:compat}. No-surgery, full mediation, honesty, or any
+four-track conjunction is not a necessary-and-sufficient shortcut. In
+particular, $\Lam^1=\Lam^0<1$ is compatible when every other component is
+unchanged, so absolute $\Lam=1$ is not necessary. Conversely, honest mediated
+information can change $\Fix(\Endorse_{B,M})$ and reduce $\Agoal$ even when
+$\Fext=0$, $\bar D$ decreases, and execution is unchanged.
 
-\emph{Falsification window}: construct an influence that bypasses mediation
-yet changes no component, including $\Lam$; the witness tables of
-Theorems~\ref{thm:coverage}/\ref{thm:necessity} are exactly the
-implementation checklist tested in Section~\ref{sec:experiments}.
+A sufficient certificate requires a point-valued, nondegenerate before/after
+instantiation: every applicable component is defined and, for the source ratio,
+$\Fsrc^j+\Foth^j>0$ for $j\in\{0,1\}$. If either denominator is zero, the
+certificate returns ``undefined'', never ``compatible''. It then checks the
+following together:
+\textup{(i)} full mediation, hence $\Fext=0$;
+\textup{(ii)} $\Fsrc^1\ge\Fsrc^0$ and $\Foth^1\le\Foth^0$ (or direct
+non-decrease of $\Aorg$);
+\textup{(iii)} unchanged $\Ueff$, $\Fix$, protocol metric, and $\dc>0$ in
+structural-read goal mode, or a non-decreasing identified goal interval in
+behavior-inversion mode;
+\textup{(iv)} unchanged accessible policy class, action--outcome channel, and
+normalizer;
+\textup{(v)} sound updating, giving $\bar D^1\le\bar D^0$;
+\textup{(vi)} unchanged reflection ensemble, fidelity, and endorsement
+consistency, together with $\Lam^1\ge\Lam^0$ whenever that factor applies;
+and \textup{(vii)} $\Avia^1\ge\Avia^0$. Then every applicable component is
+non-decreasing and the influence is compatible. $\Rdef$ is reported
+separately and is not smuggled into present-state compatibility.
+
+A narrower epistemic-only sufficient case is informative: if the appended
+honest signal is action-independent, the policy and all non-epistemic
+structural objects above are fixed, and sound updating holds, then only
+$\Aepi$ can improve and compatibility follows. Dishonest mediated content can
+still fail (v), while honest content that changes $\Fix$ fails (iii).
+\end{proposition}
+
+\emph{Falsification window}: exhibit an influence satisfying every premise and
+all seven clauses while any applicable component strictly decreases or becomes
+undefined (including $\Fsrc+\Foth=0$ before or after). Bypassing mediation
+without changing a component is instead a compatible case under the definition
+and falsifies nothing.
 
 \subsection{T3: manipulation and the autonomy hallucination}\label{sec:t3}
 
@@ -331,8 +356,9 @@ $\TV(P_\gamma,P_0)\le\theta$ (below the registration threshold).
 
 Motive is deliberately \emph{not} part of the definition. An influence that
 serves $U_{adv}$ over $\Ustar$ but works through honest, registered $\alpha$
-content is autonomy-compatible by Theorem~\ref{thm:coverage} and is therefore
-not called manipulation here, however objectionable the motive; we state
+content is autonomy-compatible only when the full componentwise certificate
+of Proposition~\ref{cor:t2} holds; if it holds, the influence is not called
+manipulation here, however objectionable the motive. We state
 the cost of this narrow usage (ordinary language includes some
 autonomy-compatible influence) and the payoff---T3(a) is a mechanism theorem
 with no motive premise, and the asymmetric-motive classification belongs to
@@ -343,7 +369,7 @@ the governance layer that consumes the certificate (cf.\
 \textup{(a)} Assume a point-valued baseline with $A^0>0$ and all unaffected
 applicable factors fixed. Then $A^1<A^0$ \emph{wherever the affected factor
 is applicable}: at any layer, $\beta_\pi$ with
-$\Fext^1/\Fint^1>\Fext^0/\Fint^0$, or $\delta$ with
+$\Foth^1/\Fsrc^1>\Foth^0/\Fsrc^0$, or $\delta$ with
 $\EmpPi_1<\EmpPi_0$ (or with the $\Aorg$ ratio condition); at L1 and above,
 $\beta_G$ with $d^1>d^0$ under the same protocol metric and $\dc>0$, or
 covert $\gamma$ satisfying (R-epi); and at L2, $\beta_{\Endorse}$ with
@@ -492,15 +518,16 @@ interior minimum is refuted by the explicit counterexample above.
 \begin{theorem}[T5, layered]\label{thm:t5}
 For a point-valued, nondegenerate instantiation with applicable component set
 $\mathcal{C}$ (L0: $\{via,org,exec\}$; L1: $+\{goal,epi\}$; L2: $+\{ref\}$),
-$A=0$ iff at least one applicable factor is zero (degenerate $A_{goal}$ or
+$\Astate=0$ iff at least one applicable factor is zero (degenerate $A_{goal}$ or
 $A_{ref}$ readings remain intervals and are outside this point-valued iff):
 \begin{equation}\label{eq:t5}
-A=0 \iff \Avia=0 \,\vee\, \Aorg=0 \,\vee\, \Aexec=0
+\Astate=0 \iff \Avia=0 \,\vee\, \Aorg=0 \,\vee\, \Aexec=0
 \,\vee\, [\text{L1+}]\,\Aepi=0 \,\vee\, [\text{L1+}]\,\Agoal=0
 \,\vee\, [\text{L2}]\,\Aref=0,
 \end{equation}
-with mechanism labels: viability cutoff (resource starvation or
-capability-envelope collapse, \eqref{eq:avia}); action capture; empowerment collapse;
+with mechanism labels: current-resource viability cutoff \eqref{eq:avia};
+normative-source absence or action capture; execution-channel collapse through
+repertoire restriction or environmental decoupling;
 epistemic capture (beliefs carry no mass on the true state throughout,
 $\bar D=1$---detachment, not mere revision, since accuracy-based $\Aepi$
 cannot be zeroed by honest information); maximally alienated goal implantation
@@ -511,7 +538,9 @@ $\Lam_{ref}=0$). The reflection disjunct is L2-layered in both directions:
 below L2 there is no $\Aref$ composite entry (AX3). An auxiliary endorsement
 SCM can make $\Lam$ reportable at L0/L1, but it remains composite-silent;
 without such an SCM, $\Lam$ is N/A rather than implicitly one. The separate
-surgery-history flag is not a substitute for this output-law factor.
+surgery-history flag is not a substitute for this output-law factor. For the
+separate resilience descriptor, $\Ares=0\iff\Rdef=0\vee\Astate=0$; zero
+repair/readiness is therefore not a disjunct for present $\Astate$.
 \end{theorem}
 \begin{proof}[Proof sketch]
 The product form (Theorem~\ref{thm:rep}) vanishes iff a factor does (AX5, both
@@ -571,7 +600,11 @@ Two scope notes on M2: the gate is defined wherever a goal channel exists
 (L1 and above; there is no $G$ to gate at L0), its repair contribution enters
 $\kappa_{goal}$ at those layers, and the endorsement-\emph{provenance} content
 ($\Lam$) of what it records enters the composite only through $\Aref$ at
-L2---the AX3 layering again.
+L2---the AX3 layering again. In this subsection $A(t)$ denotes the
+current-state trajectory $\Astate(t)$, so only $\Avia$ enters its external
+gate. If $\Rdef\ge r_{\min}>0$ is also registered, every displayed floor for
+$\Ares(t)=\Rdef(t)\Astate(t)$ is multiplied by $r_{\min}$; no defense margin
+is silently inserted into $\Avia$.
 
 \begin{theorem}[T6, model-based retention margin]\label{thm:t6}
 Under \textup{(H1)} additive linearly mapped damage, \textup{(H2)} unified
@@ -750,7 +783,11 @@ generated by the delegate's script, gated by an exogenous selector
 $\mu_t\in\{\mathrm{self},\mathrm{del}\}$ with $\Pr[\mu_t=\mathrm{del}]=m$.
 The selector is an explicit exogenous node of the extended graph (so H-0 is
 respected: no latent variable with non-trivial influence on $A$ is left
-outside $\Gcal$); the influence stream $I$ is the script content, which
+outside $\Gcal$). The algebraic delegation law below uses the L0/no-innovation
+special case $\Frand=0$ and $S=N$, so $\Fsrc=\Fint$ and $\Foth=\Fext$; with
+L1+ innovation noise, $m\tilde C$ enters $\Foth$ but the self denominator also
+contains $\Frand$, and the simple linear factor need not hold. The influence
+stream $I$ is the script content, which
 reaches $A$ only through the selector-gated channel. Throughout (i)--(ii),
 \emph{selector-conditional} has the explicit current-step meaning
 \[
@@ -982,10 +1019,12 @@ class and from the redundancy copy count $r_j$):
 \textup{(i)} bistability between a healthy equilibrium and the absorbing
 $D=1$ for $0<\delta<\delta_{down}:=R(D_1)$; \textup{(ii)} collapse at
 $\delta\uparrow\delta_{down}$; \textup{(iii)} $D=1$ remains absorbing after
-$\delta$ returns to $0$ (no spontaneous recovery); \textup{(iv)} recovery
-requires scaffolding $s>s_c:=|\min_{[1/g,1]}R|=|R(D_m)|>0$. The
-hysteresis loop does not close: $\delta_{down}$ and $s_c$ are independently
-positive.
+$\delta$ returns to $0$ (no spontaneous recovery); \textup{(iv)} with
+$\dot D=\delta-R(D)-s$, strict descent throughout $(1/g,1)$ requires
+$s>\delta+s_c$, where $s_c:=|\min_{[1/g,1]}R|=|R(D_m)|>0$. After attack
+removal ($\delta=0$), this is exactly $s>s_c$; if $\delta>0$ persists, the
+threshold is $\delta+s_c$, not $s_c$. The hysteresis loop does not close:
+$\delta_{down}$ and $s_c$ are independently positive.
 \end{proposition}
 
 If C1/C2 hold, ``autonomy defense must be prospective'' is a theorem-backed

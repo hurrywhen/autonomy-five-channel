@@ -19,16 +19,18 @@ say \emph{proved}.
 
 \subsection{Agent-level axioms}
 
-\begin{axiom}{AX0}[Agency]\label{ax:0}
+\begin{axiom}{AX0}[Layer-specific agency]\label{ax:0}
 There exist \emph{active edges}: the conditional laws $\pi_t(\cdot\given s)$
 differ pairwise in TV by $\ge\eta>0$ on a positive-measure set of states, and
-the prior on $S_t$ has full support. Under a full-support prior this is
-equivalent to $I(S;A)>0$ (Lemma~\ref{lem:ax0}); without full support the
-active-edge formulation is definitive. This is the definitional axiom of
-\emph{being an agent at all}. The uniform margin $\eta>0$ is a substantive
-non-degeneracy requirement---it excludes arbitrarily flat policy
-families---and it overlaps with the D1 clause of T1c; it is the premise that
-licenses strict comparisons.
+the prior on the registered decision state has full support. At L0 this yields
+$I(S;A)>0$ and licenses only internal-causal agency. At L1+ the corresponding
+requirement is active variation with the normative state $N=(G,B,M)$ after
+causal conditioning on registered innovation noise $R$, so a nondegenerate
+normative audit requires $\Fnorm>0$. Pure independent-register randomness can
+satisfy L0 AX0 but fails the L1+ normative-source requirement and receives
+zero, rather than one, in \eqref{eq:aorgnorm}. The uniform margin
+$\eta>0$ excludes arbitrarily flat policy families; active-edge formulations,
+rather than an unsupported full-support assumption, are definitive.
 \end{axiom}
 
 \begin{axiom}{AX1}[Boundedness]\label{ax:1}
@@ -144,7 +146,7 @@ than independent of them once the common-unit calibration (A0) is included
 \label{ax:6}
 Two parts. \emph{AX6a (component level)}: each channel is a bounded,
 protocol-normalized coordinate with an explicit zero and normalizer
-($\Fint+\Fext$, $n\log|\Acal|$, $\dc$, the TV upper bound $1$,
+($\Fsrc+\Foth$, $n\log|\Acal|$ for exactly $n$ actions, $\dc$, the TV upper bound $1$,
 $H(\theta_\pi)$ for a finite discrete ensemble, or a physical supply ratio).
 These facts define range and zero semantics and support calibration
 $F(1,\ldots,1)=1$ (A0). They do \emph{not} prove that each coordinate is a
@@ -227,77 +229,109 @@ of $\Gcal$, with an explicit zero carrying mechanism semantics and a registered
 normalizer (AX6a). Proofs of range, zero semantics, and restricted invariance
 are collected in Appendix~\ref{app:components}; they are not ratio-scale proofs.
 
-\paragraph{D-via (viability).}
-The gate reads two registered requirement inventories. (i) \emph{Resource}:
-the supply ratios $s_k^{\mathrm{avail}}/s_k^{\mathrm{crit}}$ over the
-critical resource set $K$ (energy, compute, health, livelihood).
-(ii) \emph{Capability}: each channel $j$ carries a registered \emph{envelope
-requirement} $(\kappa_j^{\mathrm{req}},R_j^{\mathrm{req}})$---the verification
-capacity and repair budget the deployment's threat model demands of the
-defense machinery (T6's M3/M1 stack; e.g.\ $\kappa_j^{\mathrm{req}}\ge$ the
-registered attack intensity, per T6's certificate-failure condition)---and the gate
-reads the capability margin
+\paragraph{D-via (current viability and separate defense readiness).}
+R15 separates three questions that the R14 gate compressed into one number.
+\emph{Current resource viability} is
 \begin{equation}\label{eq:avia}
+\Avia := \min\Bigl\{1,\ \min_{k\in K}\frac{s_k^{\mathrm{avail}}}
+{s_k^{\mathrm{crit}}}\Bigr\},\qquad
+\Astate:=\Avia F_\varsigma(\Aorg,\Agoal,\Aexec,\Aepi,\Aref).
+\end{equation}
+It gates the \emph{state-autonomy} score: if the agent cannot currently exist
+or act, there is no current behavior whose autonomy can be assessed. Each
+channel $j$ also carries a defense-envelope requirement
+$(\kappa_j^{\mathrm{req}},R_j^{\mathrm{req}})$ for verification and repair.
+These supply a distinct readiness field,
+\begin{equation}\label{eq:rdef}
 m_j := \mathrm{clip}\Bigl(\min\Bigl\{\frac{\kappa_j^{\mathrm{eff}}}
 {\kappa_j^{\mathrm{req}}},\,\frac{R_j^{\mathrm{eff}}}{R_j^{\mathrm{req}}}
 \Bigr\},0,1\Bigr),\qquad
-\Avia := \min\Bigl\{1,\ \min_{k\in K}\frac{s_k^{\mathrm{avail}}}
-{s_k^{\mathrm{crit}}},\ \min_{j}\,m_j\Bigr\}.
+\Rdef:=\min\Bigl\{1,\min_jm_j\Bigr\},\qquad
+\Ares:=\Rdef\Astate .
 \end{equation}
-The registration threshold $\theta$ is deliberately \emph{not} an envelope
-dimension: it is double-edged (raising $\theta$ lifts the retention floor
-$\deltastar$ but weakens the M1 tripwire, T6), so it is a governance dial,
-not a capability that can be eroded. The gate is multiplicative and carries
-common-mode failure: resource starvation or capability collapse kills all
-channels at once. It deliberately identifies ``death'' with ``zero autonomy''
-on the scale ($\Avia=0\Rightarrow A=0$); whether total viability loss should
-count as loss of autonomy rather than as cessation is a standing
-philosophical choice, registered here as such and orthogonal to the rest of
-the framework. The extended gate reduces to the resource-only form whenever
-every envelope requirement is met ($m_j=1$ for all $j$)---the registered
-case for the v1 benchmark matrix; the capability branch is exercised by the
-dedicated $\sigma^{-}$-EROSION arm of the extended campaign
-(Section~\ref{sec:experiments}).
+Here $\Astate$ describes present determination, $\Avia$ describes present
+survival/operation, and $\Rdef$ describes preparation for future attack and
+recovery. $\Ares$ is an optional resilience-adjusted descriptor, not a
+synonym for current autonomy. In particular, zero repair budget gives
+$\Rdef=\Ares=0$ but need not give $\Astate=0$ when current behavior and
+resources are intact. Whether even present death should count as zero autonomy
+rather than cessation remains a philosophical choice, now isolated in
+$\Avia$ rather than confounded with defense preparedness.
 
-\paragraph{D-org (direct-bypass resistance; legacy channel name ``origination'').}
-With directed information in the sense of
-Massey \citep{massey1990} and Kramer's causal conditioning
-\citep{kramer2003} ($I(X^T\!\to\!Y^T\|Z^T) := \sum_t I(X^t;Y_t\given
-Y^{t-1},Z^t)$),
+The registration threshold $\theta$ is not an envelope dimension: raising it
+lifts $\deltastar$ but weakens the M1 tripwire (T6). The historical ENV-0
+\texttt{a\_via} combines resource and defense margins. Its extended-gate
+numbers and $\sigma^{-}$-EROSION composites are therefore retained only as R14
+legacy resilience demonstrations; they are not silent recomputations of
+\eqref{eq:avia}--\eqref{eq:rdef}. R15 certificates output all three of
+$\Astate$, $\Avia$, and $\Rdef$ (Section~\ref{sec:framework}).
+
+\paragraph{D-org (layer-specific source attribution).}
+With directed information in the sense of Massey \citep{massey1990} and
+Kramer's causal conditioning \citep{kramer2003},
+\[
+I(X^T\!\to\!Y^T\|Z^T):=\sum_t I(X^t;Y_t\given Y^{t-1},Z^t),
+\]
+L0 retains only an \emph{internal-causal} decomposition:
 \begin{equation}\label{eq:aorg}
-\Fint := I(S^T\!\to\!A^T),\qquad
-\Fext := I(I^T\!\to\!A^T \,\|\, S^T),\qquad
-\Aorg := \frac{\Fint}{\Fint+\Fext}.
+\Fint:=I(S^T\!\to\!A^T),\qquad
+\Fext:=I(I^T\!\to\!A^T\|S^T),\qquad
+\Aorg^{(0)}:=\frac{\Fint}{\Fint+\Fext}.
 \end{equation}
-Under AX0 the denominator is non-degenerate: $\Fint>0$ (the first-term lemma;
-Lemma~\ref{lem:ax0}), so the $0/0$ pathology is excluded by the agency axiom
-itself. $\Aorg=0\iff\Fint=0$ (remote control/actuator override) and
-$\Aorg=1\iff\Fext=0$. A structural identity upgrades the definition: Kramer's
-chain rule gives $I(S^T I^T\!\to\!A^T)=\Fint+\Fext$, so $\Aorg$ is the
-normalization of a directed-information chain decomposition---a theorem, not a
-convention. Closed loop matters: with feedback, plain mutual information
-misattributes mediated influence (Massey's Theorem~1; Kramer's Property~2
-counterexample---see the footnote in Appendix~\ref{app:prelim} for the
-verified printing error). A division-of-labor note is essential: $\gamma$-class
-surgery acts \emph{through} $B$ and can leave $\Fext\equiv0$---$\Aorg$ is
-\emph{blind} to channel manipulation, which is charged to $\Aepi$ instead
-(Theorem~T2). $\Aorg$ thereby measures only \emph{direct/unmediated-bypass resistance}, not
-behavioral initiation, source legitimacy, or provenance: $\gamma$-mediated
-influence leaving $\Aorg=1$ is a registered blind spot, and an
-initiation-flavored reading belongs to the magnitude of $\Fint$, not to the
-ratio. Strict comparisons are relative to baseline:
-$\Aorg^1<\Aorg^0\iff\Fext^1/\Fint^1>\Fext^0/\Fint^0$ when both internal
-flows are positive, not merely whenever $\Fext^1>0$.
+L0 has no instantiated normative source distinction. A random internal
+register can therefore obtain $\Aorg^{(0)}=1$; this measures internal causal
+production, not normative autonomy, behavioral initiation, source legitimacy,
+or provenance. The L0 composite must carry the label \emph{internal-causal
+autonomy only}.
+
+At L1 and above, write $N_t:=(G_t,B_t,M_t)$ and let $R_t$ be the registered
+innovation-noise/register process, exogenous to $N$ and $I$ in the audit SCM.
+The chain order is $R$, then $N$, then $I$:
+\begin{equation}\label{eq:aorgnorm}
+\begin{aligned}
+\Frand&:=I(R^T\!\to\!A^T),&
+\Fnorm&:=I(N^T\!\to\!A^T\|R^T),\\
+\Fext&:=I(I^T\!\to\!A^T\|N^T,R^T),&
+\Aorg^{(1+)}&:=\frac{\Fnorm}{\Fnorm+\Frand+\Fext}.
+\end{aligned}
+\end{equation}
+Kramer's chain rule makes both decompositions normalizations of directed-flow
+sums. At L1+, an action copied from an independent random register has
+$\Fnorm=0$, $\Frand>0$, and hence $\Aorg^{(1+)}=0$; a deterministic policy of
+$N$ with no bypass has $\Frand=\Fext=0$ and value 1. The $0/0$ case is flagged
+as nondegenerate-flow failure, never assigned 1. For layer-neutral statements,
+write $\Fsrc:=\Fint$ and $\Foth:=\Fext$ at L0, and $\Fsrc:=\Fnorm$ and
+$\Foth:=\Frand+\Fext$ at L1+. Then
+$\Aorg=\Fsrc/(\Fsrc+\Foth)$ and, for positive source flows,
+$\Aorg^1<\Aorg^0\iff\Foth^1/\Fsrc^1>\Foth^0/\Fsrc^0$.
+
+Closed loop matters: plain mutual information can misattribute mediated
+influence (Appendix~\ref{app:prelim}). Moreover, $\gamma$-class surgery through
+$B$ can leave $\Fext=0$; that accuracy loss is not the source channel's
+estimand and belongs to $\Aepi$ (T2). Source-flow ratios themselves can still
+move, so zero residual flow alone is not a blindness proof. Even at L1+, $\Aorg$ is only the registered
+source-share instrument, not a complete theory of agency. Separating $R$ from
+$N$ requires structural access; historical ENV-0 bundles, which aggregate
+$S=(G,B,M,R)$ without this split, retain the R14 internal-causal marker and
+are not point readings of \eqref{eq:aorgnorm}.
 
 \paragraph{D-goal (goal).} Let $\Theta\subseteq\mathbb{R}^m$ be a compact
 convex parameter box of normalized utilities (canonical parameterization:
 $\sup$-norm $\le1$ and anchoring $U(x_0)=0$), and let
 $\Endorse_{B,M}:\Theta\to\Theta$ be the endorsement map under belief $B$ and
-self-model $M$. Fixed points exist under any of four sufficient conditions
-(Brouwer; Banach contraction with modulus $c<1$; Tarski on complete lattices;
-Kakutani--Fan--Glicksberg for set-valued endorsement), and a measurable
-selection of $\Fix(\Endorse_{B,M})$ exists by
-Kuratowski--Ryll-Nardzewski \citep{kuratowski_ryllnardzewski1965}. Then
+self-model $M$. Fixed-point existence is not obtained by listing theorem names. Brouwer
+requires a continuous self-map on the nonempty compact convex $\Theta$;
+Banach requires a contraction ($c<1$) on a nonempty closed subset of a complete
+metric space and yields uniqueness; Tarski requires an order-preserving map on
+a complete lattice. For set-valued endorsement, Kakutani--Fan--Glicksberg
+requires nonempty closed convex values and upper hemicontinuity (a closed graph
+on the compact domain) on a compact convex subset of a locally convex
+Hausdorff space. A measurable selection by Kuratowski--Ryll-Nardzewski
+additionally assumes a Polish target, nonempty closed values, and weak
+measurability of the correspondence \citep{kuratowski_ryllnardzewski1965}.
+Whenever \eqref{eq:agoal} is used as a point value, the invoked alternative
+and its hypotheses must be registered; $\Fix$ must be nonempty and closed for
+the distance and maximum below. Then
 \begin{equation}\label{eq:agoal}
 \Agoal := 1-\frac{d(\Ueff,\Fix)}{\dc},
 \end{equation}
@@ -305,26 +339,30 @@ where $d(U,\Fix):=\inf_{U'\in\Fix}d(U,U')$ and
 $\dc:=\max_{U\in\Theta}d(U,\Fix)$, with $d$ the protocol-fixed metric on
 $\Theta$ (the metric of the canonical parameterization unless the application
 layer registers another admissible choice; $\dc$ and $d(\cdot,\Fix)$ use the
-same $d$, so the ratio is scale-free). $\Ueff$ is recovered from behavior by MaxEnt-IRL, with the identifiability
-stated precisely rather than optimistically: the ``up to an additive
-constant'' claim of the exact case holds under known dynamics, a correct
-model class, and fixed endpoint potentials; in general, rewards are
-recoverable from behavior only up to potential-based shaping
-\citep{ng1999}---the anchored normalization $U(x_0)=0$ removes the additive
-constant but does \emph{not} remove the endpoint-shaping degrees of freedom,
-and the entropy-regularized identifiability results of
-\citet{cao2021} characterize exactly what further observation (e.g.\
-demonstrations at two discount factors) would pin the reward down. The
-framework's operational answer is unchanged: the temperature parameter is
-fixed by protocol, the residual shaping class is reported as an interval on
-$\Ueff$ (hence on $d(\Ueff,\Fix)$) rather than a point, and the interval is
-carried through to $\Agoal$ \citep{ziebart2008}. The invariance status is
-stated exactly: the $\dc$-normalized reading is invariant under the
-additive-constant freedom (a constant shift moves $\Ueff$ and $\Fix$
-together, and the anchored normalization quotients it out), but \emph{not}
-under general endpoint shaping---the residual shaping freedom is registered
-as a sensitivity dimension of $\Agoal$ readings, alongside the
-endorsement-quantization arm (Section~\ref{sec:threats}(x-a)). $\dc$ is the ``maximally alienated goal''
+same $d$, so the ratio is scale-free). There are two distinct estimation modes. In \emph{structural-read mode},
+$\Ueff$ is itself a registered white-box variable and \eqref{eq:agoal} is a
+point value when the fixed-point and metric premises hold; IRL is not part of
+the definition. In \emph{behavior-inversion mode}, MaxEnt-IRL supplies only an
+admissible reward set in general. The ``up to an additive constant'' exact
+case requires known dynamics, a correct model class, and fixed endpoint
+potentials; potential-based shaping remains \citep{ng1999}. Anchoring
+$U(x_0)=0$ removes an additive constant but not endpoint shaping, while the
+entropy-regularized results of \citet{cao2021} show what extra observations
+can restore point identification. Thus behavior-inversion mode reports the
+set $\mathcal U(P)$ and the induced interval
+$[1-\sup_{U\in\mathcal U(P)}d(U,\Fix)/\dc,\,
+ 1-\inf_{U\in\mathcal U(P)}d(U,\Fix)/\dc]$,
+clipped to $[0,1]$, unless further assumptions make the set a singleton
+\citep{ziebart2008}. Additive shifts are \emph{not} generally symmetries of
+\eqref{eq:agoal}. Shifting only $\Ueff$ changes its distance to $\Fix$;
+translating $\Fix$ while holding $\Theta$ fixed can change $\dc$. Invariance
+holds only for a registered joint translation of $\Ueff$, $\Fix$, and the
+domain $\Theta$, with translation-equivariant endorsement dynamics and the
+same translated metric, so both $d$ and $\dc$ are preserved. Otherwise the
+reading is a new instantiation and belongs in sensitivity analysis. General
+endpoint shaping is likewise non-invariant and is reported through the
+identified-set interval, alongside the endorsement-quantization arm
+(Section~\ref{sec:threats}(x-a)). $\dc$ is the ``maximally alienated goal''
 scale, the canonical normalizer of complete capture. $\Agoal\in[0,1]$, with
 $\Agoal=0$ iff $\Ueff$ is maximally alienated, and partial capture giving
 graded reduction ($0<\Agoal<1$). If $\Fix=\varnothing$ (failure of the
@@ -346,8 +384,8 @@ $\gamma\to\Agoal$ transmission bound used by Theorem~T6.
 policy class}---the set of policies it can \emph{behaviorally implement},
 operationalized by calibration probes---and
 \begin{equation}\label{eq:aexec}
-\mathcal{E}^{\Pi}_t := \max_{p(a_{t:t+n})\in\,\mathrm{conv}(\Pi_t)}
-I\bigl(A_{t:t+n};\,O_{t+n+1}\given S_t\bigr),\qquad
+\mathcal{E}^{\Pi}_t := \sup_{p(a_{t:t+n-1})\in\,\mathrm{conv}(\Pi_t)}
+I\bigl(A_{t:t+n-1};\,O_{t+n}\given S_t\bigr),\qquad
 \Aexec := \mathbb{E}_t\bigl[\mathcal{E}^{\Pi}_t\bigr]\big/\,(n\log|\Acal|).
 \end{equation}
 The convex hull is not a free addition: it is used exactly when the agent can
@@ -362,7 +400,16 @@ the \emph{pure-policy protocol} label, and cross-protocol comparisons are
 flagged. Including
 unimplementable mixtures would inflate the channel with physically
 unreachable policies; the certification step is what keeps the maximization
-honest.
+honest. The supremum becomes an attained maximum only under additional
+regularity: for the finite discrete memoryless channel used here, the feasible
+input set must be nonempty, closed, and bounded (hence compact), with a fixed
+conditional channel and continuous mutual information. A general closed-loop
+policy class is not assumed compact merely by being called $\Pi_t$.
+Blahut--Arimoto applies only after that class has been reduced to an explicit
+finite input distribution over a discrete memoryless channel; it is not a
+general solver for feedback-policy optimization. Variational bounds likewise
+report their own model and convergence premises.
+
 This is empowerment \citep{klyubin2005,salge2013} restricted to the accessible
 policy class. The normalizer $n\log|\Acal|$ fixes $|\Acal|$ at the
 \emph{pre-intervention} action alphabet: a $\delta$-class contraction shrinks
@@ -373,11 +420,15 @@ the collapse of the behavioral repertoire while environmental controllability
 persists \citep{maier_seligman2016}---a max over environmental capacity could
 never register it; restricted to $\Pi$, helplessness ($\Pi$ shrinking to
 near-constant policies) gives $\EmpPi\to0$, while satisfied inaction (desire
-absent, capability intact) leaves $\Aexec$ high. The
+absent, capability intact) leaves $\Aexec$ high. Zero execution can instead
+arise with a rich repertoire when no action influences the registered outcome;
+it means execution-channel collapse, with repertoire restriction and
+agent--environment decoupling as alternative causes. The
 capacity$\times$utilization decomposition outputs both $\Envenv$ (unrestricted
 environmental capacity) and $\EmpPi$: the signature $\Envenv$ intact with
-$\EmpPi\to0$ diagnoses helplessness, while joint decline diagnoses true
-capability collapse. Because empowerment is a joint agent--environment
+$\EmpPi\to0$ is consistent with repertoire collapse, while joint decline can
+indicate environmental decoupling; neither signature by itself identifies a
+unique psychological cause. Because empowerment is a joint agent--environment
 property, it absorbs the conversion-factor problem of resource-based measures
 automatically. The definition and its upper-bound proof are for finite
 alphabets. For continuous actions, one may either (i) register a finite
@@ -436,7 +487,7 @@ likelihood for the registered true coordinate to agree with the actual
 observation law. Misspecified updating can decrease the true-state mass.
 Soundness is checked, not assumed: the calibration period's known honest
 signals provide the test, and when the check fails the channel's
-$\alpha$-compatibility guarantee (Theorem~T2's $\alpha$ row) is suspended and
+$\alpha$-epistemic non-decrease guarantee (Theorem~T2's $\alpha$ row) is suspended and
 the reading is flagged \emph{update rule unsound}, the audit falling back to
 raw accuracy-drift reporting with the flag attached.
 Deceptive content or channel distortion (the $\gamma$ class,
@@ -570,8 +621,11 @@ endorsement-gated channels $\chi_j\varepsilon v_j+\iota_j/\tau_j$) \\
 $\nu_0$ & growth exponent in the T3b registered condition (HI-3) \\
 $w_i$ & aggregation weights (determination protocol:
 Section~\ref{sec:representation}) \\
-$\Fint,\Fext$ & internal / external directed information
-(\eqref{eq:aorg}) \\
+$\Fint,\Fnorm,\Frand,\Fext$ & L0 internal / L1+ normative / innovation /
+external directed information; $\Fsrc,\Foth$ are the layer-neutral source and
+other-flow aliases (\eqref{eq:aorg}--\eqref{eq:aorgnorm}) \\
+$\Avia,\Rdef$ & current resource viability / separate defense readiness;
+$\Astate=\Avia F_\varsigma$, $\Ares=\Rdef\Astate$ \\
 $\Endorse,\Fix,\dc$ & endorsement map / its fixed-point set /
 maximally-alienated scale (\eqref{eq:agoal}) \\
 $\Lam$ & actual/no-surgery endorsement output-law deviation
@@ -595,11 +649,15 @@ curvature $g$, distinct from the $\gamma$ class and the copy count $r_j$.
 \begin{lemma}[AX0 equivalence, conditional form]\label{lem:ax0}
 (i) $I(S_t;A_t)>0$ unconditionally implies the existence of distinct policy
 rows $\pi_t(\cdot\given s)\neq\pi_t(\cdot\given s')$. (ii) Conversely, active
-edges plus a full-support prior imply $I(S_t;A_t)>0$.
+edges plus a full-support prior imply $I(S_t;A_t)>0$. (iii) At L1+, the same
+argument conditional on $R_t$ applies to active normative rows and
+$I(N_t;A_t\given R_t)>0$, which is the first-term carrier of $\Fnorm>0$.
 \end{lemma}
 \begin{proof}
 (i) Contraposition: if $\pi(\cdot\given s)$ is a.s.\ identical then
 $A\ind S$. (ii) $I(S;A)=H(\mathbb{E}_s[\pi(\cdot\given S)]) -
 \mathbb{E}_s[H(\pi(\cdot\given S))]$; strict concavity of entropy gives
 strict positivity when the rows differ on a set of positive prior measure.
+(iii) Condition every distribution on $R_t=r$ and replace $S$ by $N$; strict
+positivity on positive-measure $r$ persists after expectation.
 \end{proof}

@@ -124,17 +124,27 @@ class ThresholdEndorsementSCM:
         z = self.a * x + self.b * j + u
         return x, z, j
 
-    def shared_noise_disagreement(self, x, z, j, *, seed: int) -> AuditEstimate:
-        """Independent finite-V Monte-Carlo cross-check of the CDF-integrated TV."""
+    def shared_noise_disagreement_per_context(self, x, z, j, *, seed: int) -> np.ndarray:
+        """Per-context |Y-Y^0| values for paired R15 cross-check analyses."""
         x, z, j = np.broadcast_arrays(np.asarray(x, float), np.asarray(z, float),
                                      np.asarray(j, float))
+        if x.size == 0:
+            raise ValueError("at least one audit context is required")
         rng = make_rng(seed)
         v = self.sample_score_noise(rng, x.size)
         u = self.abduct(x, z, j)
         z0 = self.action_remove_surgery(x, u)
         factual_y = (z + v >= 0.0).astype(float)
         cf_y = (z0 + v >= 0.0).astype(float)
-        disagreement = np.abs(factual_y - cf_y)
+        return np.abs(factual_y - cf_y)
+
+    def shared_noise_disagreement(self, x, z, j, *, seed: int) -> AuditEstimate:
+        """Independent downstream-V Monte-Carlo cross-check of integrated TV.
+
+        X,Z,J are shared with the integrated estimate; only V is independent.
+        R15 paired analyses use the per-context values above for their SE.
+        """
+        disagreement = self.shared_noise_disagreement_per_context(x, z, j, seed=seed)
         mean = float(disagreement.mean())
         se = float(disagreement.std(ddof=1) / math.sqrt(disagreement.size)) \
             if disagreement.size > 1 else 0.0

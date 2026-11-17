@@ -89,3 +89,14 @@ packages, and an immutable commit/tag/version DOI. All three missing run-time
 SPEC snapshots (spanning four evidence packages) and the invalid first C0
 fixture must remain disclosed. A clean release tag alone does not erase those
 provenance limitations.
+
+## 7. R15 supersession note (2026-11-17)
+
+The word “current” in §4 refers to the R14 sidecar's 2026-11-16 writing time,
+not to later R15 source. R15 adds a per-context disagreement accessor for the
+new paired-difference analysis, so the displayed R14-era runner/module hashes
+must not be reused as R15 source hashes. The historical hashes and all R14
+result/verdict bytes remain unchanged. Exact R15 source hashes are recorded in
+`sim/runs/20261117_r15/validation.json` once that clean public-snapshot
+validation is created. The R15 paired analysis is explicitly post hoc and does
+not repair the unavailable historical SPEC snapshots.

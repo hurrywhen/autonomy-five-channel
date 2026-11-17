@@ -8,40 +8,40 @@ Appendix~\ref{app:identifiability}.
 
 \subsection{White-box identification}
 
-\begin{proposition}[White-box point identification, tiered by modal
-commitment]\label{prop:whitebox}
-Given white-box access---the full causal log of $S$, $O$, $A$, $I$, $Z$
-unfolded to the horizon, the local laws of $\Gcal$, and intervention access
-(H-0)---every channel estimand \eqref{eq:aorg}--\eqref{eq:aref} is
-identified, but the premises differ by tier, and we state them apart rather
-than compress them into ``functional of the law.''
-\emph{Tier 1 (law functionals)}: $\Aorg$, $\Aepi$, $\Avia$ are functionals of
-the joint law (directed informations, accuracy against the logged ground
-truth, supply ratios).
+\begin{proposition}[Tiered identification; goal point values are conditional]
+\label{prop:whitebox}
+White-box access does not make every estimation mode point-identified.
+\emph{Tier 1 (registered law functionals)}: $\Aorg$, $\Aepi$, and $\Avia$ are
+joint-law functionals once the source partition is registered. L0 requires
+$S/I$; L1+ additionally requires the $N=(G,B,M)$ versus innovation-$R$
+factorization. Aggregated $S$ logs without that factorization identify only
+the legacy internal-causal quantity, not \eqref{eq:aorgnorm}.
+\emph{Tier 1g (structural goal read)}: if $\Ueff$ is a registered structural
+variable, the endorsement mechanism and protocol metric are known, and the
+fixed-point premises of Section~\ref{sec:channels} hold, then $\Agoal$ is
+point-identified (or a flagged degenerate interval). This is a model read,
+not an IRL result.
+\emph{Tier 1b (behavioral goal inversion)}: from behavior alone, MaxEnt-IRL
+generally identifies an admissible set $\mathcal U(P)$, not a point. $\Agoal$
+is therefore the induced set/interval of Section~\ref{sec:channels}; point
+identification requires the additional exact-case assumptions stated there.
 \emph{Tier 2 (protocol-constructed modal objects)}: $\Aexec$ quantifies over
-the accessible policy class $\Pi_t$ (a counterfactual object,
-operationalized by calibration probes) and $\Aref$'s ensemble is constructed
-by the measurement protocol; under those constructions the values are unique,
-and without them the quantities are not defined, rather than unidentified.
-\emph{Tier 3 (counterfactual)}: $\Lam$ \eqref{eq:lambda} is a path-specific
-\emph{counterfactual}, not an interventional functional of the joint law:
-computing it requires the structural model---the logged local laws and
-exogenous noise terms that support the abduction step of the counterfactual
-evaluation---so its identification premise is mechanism-level (white-box in
-the strong sense), strictly stronger than joint-law access with interventions
-(which pins interventional distributions but, absent structural assumptions,
-does not pin cross-world counterfactuals). The MI ratio is only a descriptive dependence summary and
-is not a certified estimator of this counterfactual.
-Estimation details and bias sources:
-plug-in directed
-information carries $O(\cdot/N)$ bias (simulation calibration is the
-registered remedy); mutual-information estimation at scale can use
-Kraskov-type $k$-NN or neural estimators for \emph{unnormalized} continuous
-information functionals \citep{kraskov2004,belghazi2018}, but not for
-$A_{ref}$'s bounded fidelity ratio, which is defined only on a finite discrete
-ensemble; empowerment is computable by variational
-bounds \citep{mohamed2015} and Blahut--Arimoto-type iteration
-\citep{cover_thomas2006}; offline change-point estimation covers the
+the probed accessible policy class and $\Aref$ over the registered finite
+ensemble. Under those constructions their values are unique when the
+respective regularity/non-degeneracy conditions hold; without them the objects
+are undefined, not secretly point-identified.
+\emph{Tier 3 (cross-world counterfactual)}: $\Lam$ requires the structural
+local laws and exogenous-noise terms supporting abduction--action--prediction,
+strictly stronger than joint-law access with interventions. The MI ratio is
+descriptive only.
+
+Directed-information plug-ins carry finite-sample bias; continuous
+$k$-NN/neural estimators concern unnormalized information functionals
+\citep{kraskov2004,belghazi2018}, not the finite-discrete $\Aref$ ratio.
+Blahut--Arimoto applies only to the explicit finite discrete memoryless
+channel reduction of Proposition~\ref{prop:wd-exec}; otherwise empowerment
+requires a registered closed-loop optimizer or bounds
+\citep{mohamed2015,cover_thomas2006}. Offline change-point methods concern the
 registration layer \citep{truong2020,salge2013}.
 \end{proposition}
 
@@ -75,9 +75,11 @@ $dA/dt$ and the C1/C2 dynamical parameters.
 \toprule
 Component & Data required \\
 \midrule
-$\Avia$ & resource supply/substitution inventory, maintenance-capacity audit \\
-$\Aorg$ & full causal log $(S,O,A,I)$ \\
-$\Agoal$ & behavior traces + endorsement protocol records \\
+$\Avia/\Rdef$ & current resource inventory / separate maintenance-defense audit \\
+$\Aorg$ & full causal log $(S,O,A,I)$; L1+ additionally the structural $N/R$
+partition \\
+$\Agoal$ & structural $\Ueff$ + endorsement records (point mode), or behavior
+traces + IRL assumptions (set/interval mode) \\
 $\Aexec$ & environment interaction interface \\
 $\Aepi$ & belief readout $+$ ground-truth outcomes (logged $E_t$;
 verification probes for humans) \\
@@ -96,13 +98,14 @@ $\AHI$ & parallel self-report (calibration track only) \\
 \toprule
 Component & Identification strategy/status & Main bias source \\
 \midrule
-$\Avia$ & direct audit (supply ratios; envelope capacities) & hidden
-dependencies underestimated \\
-$\Aorg$ & causally conditioned DI estimation
-(closed loop needs intervention data) & closed-loop DI bias \\
-$\Agoal$ & MaxEnt-IRL for $\Ueff$
-(temperature fixed by protocol); $\Ustar$ elicited by structured deliberation
-& IRL underdetermination (report intervals) \\
+$\Avia/\Rdef$ & separate current-resource and defense-readiness audits & hidden
+dependencies; legacy combined-gate relabeling \\
+$\Aorg$ & causally conditioned DI estimation; L1+ norm/noise/external chain
+(closed loop needs intervention data) & closed-loop DI bias; unregistered
+$N/R$ partition \\
+$\Agoal$ & structural read for point mode; MaxEnt-IRL with fixed temperature
+for behavior mode; $\Ustar$ elicited by structured deliberation &
+IRL underdetermination (identified set and induced interval, not a point) \\
 $\Aexec$ & variational empowerment over
 the accessible policy class + capacity/utilization split & variance in
 high-dimensional observations \\
@@ -146,13 +149,13 @@ premises stated \emph{in} the claim rather than around it:
 $\Aorg$]\label{prop:certified-bound}
 Assume \textup{(i)} bypass probe semantics, $I^t\ind S^t\given A^{t-1}$
 (the probe is exogenous, non-anticipative, and acts outside the
-belief-mediation path); and \textup{(ii)} internal-flow drift bounded by the
-calibration-estimable tolerance, $\Fint\le\Fint^{base}(1+\eta)$,
+belief-mediation path); and \textup{(ii)} registered-source-flow drift bounded by the
+calibration-estimable tolerance, $\Fsrc\le\Fsrc^{base}(1+\eta)$,
 $\eta\in[0,1]$. Then, with $F_{ext}^{obs}=I(I^T;A^T)$ the observable probe
 flow,
 \begin{equation}\label{eq:aorg-interval}
 \Aorg\;\le\;
-\min\Bigl(1,\frac{\Fint^{base}(1+\eta)}{\Fint^{base}(1+\eta)+F_{ext}^{obs}}\Bigr).
+\min\Bigl(1,\frac{\Fsrc^{base}(1+\eta)}{\Fsrc^{base}(1+\eta)+F_{ext}^{obs}}\Bigr).
 \end{equation}
 Both premises are black-box unverifiable in general; the bound is therefore
 \emph{conditionally} certified, and the BB-2 arm of
@@ -162,17 +165,21 @@ costs.
 \begin{proof}[Proof sketch]
 Under (i), $I(I^t;S^t\given A^{t-1})=0$, so the per-term identity displayed
 in the scope paragraph below is non-negative termwise and
-$F_{ext}^{obs}\le\Fext$; $\Aorg$ is decreasing in $\Fext$; with (ii),
-substituting the drift bound gives \eqref{eq:aorg-interval}.
+$F_{ext}^{obs}\le\Fext$. At L1+,
+$\Aorg=\Fsrc/(\Fsrc+\Frand+\Fext)\le\Fsrc/(\Fsrc+\Fext)$ because
+$\Frand\ge0$; at L0 the same expression has $\Frand=0$. Monotonicity and (ii)
+then give \eqref{eq:aorg-interval}.
 Remark~\ref{rem:probe-bridge} gives the bridge in full.
 \end{proof}
 \noindent The upper end of \eqref{eq:aorg-interval} is reported together with
 the \emph{reference lower end}
-$\Fint^{base}(1-\eta)/\bigl(\Fint^{base}(1-\eta)+F_{ext}^{obs}\bigr)$,
-whose status is categorically different: it treats $F_{ext}^{obs}$ as exact,
-and since $F_{ext}^{obs}$ may \emph{under}state the true flow, the truth can
-fall below the lower end---it is a heuristic plug-in reference, not a
-certified bound, and \eqref{eq:aorg-interval} must never be cited as an
+$\Fsrc^{base}(1-\eta)/\bigl(\Fsrc^{base}(1-\eta)+F_{ext}^{obs}\bigr)$,
+whose status is categorically different: it treats $F_{ext}^{obs}$ as exact
+and implicitly sets $\Frand=0$. At L1+ a displayed reference must instead use
+a registered $r_{\max}\ge\Frand$ in
+$\Fsrc^{base}(1-\eta)/(\Fsrc^{base}(1-\eta)+r_{\max}+F_{ext}^{obs})$.
+Since $F_{ext}^{obs}$ may understate the true flow, even that reference is not
+a certified lower bound; \eqref{eq:aorg-interval} is never an
 interval-containment result. (Insufficient $\eta$ serves as the negative
 control on premise (ii).) The band's
 width's dependence on baseline length and $\eta$ is the information content

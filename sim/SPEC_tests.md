@@ -78,6 +78,15 @@
 | T-R14-CLIP | R14 统一数值边界 | $-4.49\times10^{-17}$ 等小于 $10^{-9}$ 的残差归位并记录；超容差/NaN/Inf fail-closed |
 | T-R14-ART | R14 证据包与只读重放 | X5-c 24 行（2 噪声×4 臂×3 时点）、$D_{noise}>0.01\Rightarrow$ MODEL_SENSITIVE、C0-CF 同环境全 $(E,O,A)$、失败目录保留、R11 哈希与旧 X5 状态不变 |
 | T-R14-REPORT | R14 报告生成器 | 历史 verdict 与当前状态分列；T3b 为描述、X5-c 模型敏感、C0-CF 同环境、无旧正性/排序夸大，历史 report 写保护 |
+| T-R15-EXEC | R15 执行归一化与零语义 | 两独立比特若错除 $1\log2$ 得 2 且 fail-closed；正确 $n=2$ 得 1；全策略库但行动—观察解耦时 empowerment=0 |
+| T-R15-T2 | R15 兼容性、非退化边界与盲性反例 | 基线 $\Lambda^0=\Lambda^1=0.5$ 可兼容；诚实信息移动 Fix 则不兼容；充分证书要求前后 $\Fsrc+\Foth>0$，全零分母 fail-closed；实际执行两组行动序列核验行动无关证人，行动耦合环境反例与 $F_{ext}=0$ 但源流变化反例并列 |
+| T-R15-RANDOM | R15 来源构念负控制 | 显式 N,R,A 联合表计算一步 R→N 链：A=R 时 $F_{norm}=0,F_{rand}=\ln2\Rightarrow A_{org}=A^{state}=0$；A=N 且 N,R 独立时 $F_{rand}=0,F_{norm}=\ln2\Rightarrow1$；全零分母 fail-closed；L0 只称 internal-causal |
+| T-R15-GOAL | R15 目标识别与不动点 | 结构读取给点值；IRL 容许距离集合传播区间；紧凸域上的不连续无不动点映射说明 Brouwer 连续性不可省 |
+| T-R15-C2 | R15 恢复阈值与相线 | 数值阈外，直接枚举 $\gamma=2$ 的 $(1/\gamma,1)$ 高损伤分支：$s>\delta+s_c$ 全程导数<0，$s=s_c$ 且 $\delta>0$ 在 $D_m$ 失败；并检查 SPEC_estimators 不再残留旧阈值 |
+| T-R15-VIA | R15 状态/防御拆分 | 通道复合 0.8、资源最小 0.9、修复裕度 0 时 $A^{state}=0.72>0$、$R_{def}=A^{res}=0$ |
+| T-R15-OUTPUT | R15 实际证书生产与 sidecar 校验 | `produce_r15_certificate` 计算状态/防御分账，`write_r15_certificate` 落盘并回读验证；手术史、Lambda 数值及 DEFINED/N/A/UNKNOWN、来源注册、readiness、证据上限为强制字段；N/A≠unknown，unknown ⇒ LIMITED，integrity/external validation 永不为真 |
+| T-R15-PROOF | R15 Route B 归一化与商锥 | $w=(2,3)$ 时斜率 $1/s=0.2$；直接验证 $F(tx)=tF(x)$、$\varphi(z+t)-\varphi(z)=t/s$ 和商锥双向成员推出零商；不以 properness 替代 pointedness |
+| T-R15-STATS | R15 tie-aware 与配对描述统计 | 小例 tau-b 分别记录 x/y/joint ties；零分母返回 NaN/no-claim；历史 5,760 臂只读重算分场景；共享 X/Z/J 的 X5-c 用逐上下文差样本 SE，不将两边际 SE 当独立相加 |
 
 ## 3. L2 场景冒烟测试（每场景一测，短视界单种子）
 

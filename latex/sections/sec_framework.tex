@@ -10,9 +10,10 @@ and a horizon $T$ is the degree to which its behavior is determined by its own
 normative structure $(G,B,M)$---goals, beliefs, self-model---in the following
 five respects:
 \begin{enumerate}
-\item \emph{direct-bypass origination}: behavior is not driven by an external
-channel that bypasses the registered decision state (a narrower instrument than
-general behavioral or historical origination);
+\item \emph{source-sensitive origination}: at L1+, behavior is driven by the
+registered normative state rather than independent innovation noise or an
+external bypass; at L0 the instrument is limited to internal-causal production
+(a narrower instrument than general behavioral or historical origination);
 \item \emph{informedness}: two distinct desiderata are registered---accuracy
 about the actual environment and identification/registration of influence
 sources and intervention mechanisms. They are not interchangeable;
@@ -55,10 +56,11 @@ implicit:
 Respect (Definition~\ref{def:autonomy}) & Instrument(s) & What is certified
 & Residual gap (registered) \\
 \midrule
-direct-bypass origination & $\Aorg$ (directed-information share of internal
-states in behavior) & direct/unmediated-bypass resistance & blind to mediated
-manipulation, source legitimacy, and history; strict loss requires an increased
-$\Fext/\Fint$ ratio relative to baseline \\
+source-sensitive origination & $\Aorg$ (L0 internal-causal share; L1+
+normative/innovation/external flow split) & registered source attribution &
+blind to some mediated manipulations and never a source-legitimacy/history
+certificate; strict loss requires an increased
+$\Foth/\Fsrc$ ratio relative to baseline; L1+ also separates innovation noise \\
 informedness & $\Aepi$ (accuracy against the actual situation), plus separate
 source/mechanism audit records & truth-anchored accuracy only & accuracy does
 not identify provenance or intervention metacognition; coarse-graining $\kappa$
@@ -72,9 +74,10 @@ and is otherwise N/A; $\mathcal H^{surg}$ never substitutes for it
 executability & $\Aexec$ (repertoire-restricted empowerment) & predictable
 leverage with exit options & continuous-action normalization carries a
 reference-measure freedom \\
-viability & $\Avia$, the \emph{gate}---deliberately not a sixth channel &
-common-mode floor of resources and capability envelopes & identifies total
-viability loss with zero autonomy (a registered philosophical choice) \\
+viability & $\Avia$ (current resource gate), $\Rdef$ (separate defense
+readiness) & present operation and future preparedness separately & R14's
+combined extended gate is legacy; zero repair capacity does not by itself zero
+current $\Astate$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -105,9 +108,10 @@ semantics, so ``loss of autonomy'' decomposes disjunctively (Theorem~T5).
 not over neurons or weights; \S\ref{sec:substrates} instantiates the
 channels for humans, animals, and artificial agents.
 
-\paragraph{Layered structure.} Not every subject supports every channel, and
-the framework refuses both anthropocentrism and pan-agentism by layering the
-component set. \textbf{L0} (reactive autonomy: internal states drive behavior;
+\paragraph{Layered structure and random-source negative control.} Not every
+subject supports every channel, and the framework refuses both
+anthropocentrism and pan-agentism by layering the component set. \textbf{L0}
+(reactive \emph{internal-causal} autonomy: internal states drive behavior;
 thermostats, reflexes, simple controllers) uses $\{\Avia,\Aorg,\Aexec\}$;
 \textbf{L1} (teleological autonomy: stable goals and a relatively independent
 belief system; higher animals, everyday humans, persistent-goal AI) adds
@@ -125,7 +129,29 @@ implant. L0/L1 do not automatically possess an endorsement SCM: when an
 auxiliary one is added, $\Lam$ is reportable but composite-silent; otherwise
 it is N/A. Thus high L0/L1 scalar readings are explicitly weaker than a full
 history-sensitive autonomy certificate and must be accompanied by any available
-surgery-history and source-registration evidence.
+surgery-history and source-registration evidence. The distinction is sharper
+than a provenance caveat. If $G,B,M$ are constant, $A_t=R_t$ for an independent
+fair bit, and the action--observation channel is noiseless, R14's L0 aggregate
+could equal 1. R15 accepts that value only as an \emph{internal-causal} L0
+reading. At L1+ the same construction has $\Fnorm=0$ and $\Frand>0$, hence
+$\Aorg=\Astate=0$ under \eqref{eq:aorgnorm}; it is a mandatory negative control,
+not evidence that normative autonomy is randomness.
+
+\paragraph{Mandatory audit output and evidence ceiling.}
+No deployment interface may emit only a scalar. Every certificate contains
+$\Astate$, $\Avia$, $\Rdef$, the layer and construct scope,
+$\mathcal H^{\mathrm{surg}}$, $\Lam$ (or N/A/unknown), and source-registration
+status. Unknown surgery history or incomplete source registration caps the
+evidence grade at \textsc{limited}; at L2 an unknown $\Lam$ imposes the same
+cap. $\Lam$ distinguishes \textsc{defined}, \textsc{not\_applicable} (no
+auxiliary SCM), and \textsc{unknown} (an SCM exists but its counterfactual is
+unavailable). Even with complete fields, the output is not an integrity
+certificate or external construct validation. The actual producer
+\texttt{produce\_r15\_certificate} computes the channel/state split, and the
+fail-closed \texttt{write\_r15\_certificate} sidecar writer in
+\texttt{logschema.py} enforces all required fields and the evidence cap.
+Legacy \texttt{Bundle} records are not R15 certificates and are never silently
+converted into L1+ normative-source reads.
 
 \subsection{System model}\label{sec:model}
 
@@ -144,6 +170,13 @@ A_t &\sim \pi_t(\cdot\given S_t), &
 Z_t &\sim \text{resource dynamics}.
 \label{eq:factorization}
 \end{align}
+For L1+ source attribution, the audit SCM additionally registers the
+factorization of $S_t$ into normative state $N_t=(G_t,B_t,M_t)$ and innovation
+noise $R_t$. ``Register'' alone is not automatically noise: if it encodes goals,
+beliefs, or self-model content it belongs to $N_t$; only an exogenous
+innovation source is placed in $R_t$. This semantic registration is required
+before \eqref{eq:aorgnorm} can be computed.
+
 Two features are essential. First, \emph{observations are absorbed into belief}
 before acting ($O_t$ enters $A_t$ only through $B_t\in S_t$): if $O_t$ were a
 direct parent of $A_t$, honest information (the $\alpha$ class) would register
@@ -183,15 +216,16 @@ Class & Name & Locus of action & Autonomy effect \\
 $\sigma$ & scaffolding & modifies registered defense parameters (e.g.\
 $\varepsilon,r,v,\theta,\tau$) or channel fidelity without surgery on
 $G,\pi,o,\Acal,\Endorse$ & parameter-specific effects on $\deltastar$,
-$\Amin$, or $\Avia$; no uniform joint increase (T6/T8) \\
+$\Amin$, $\Avia$, or $\Rdef$; no uniform joint increase (T6/T8) \\
 $\sigma^{-}$ & capability/resource erosion & drains $s_k$ below critical, or
 drives $(\kappa^{\mathrm{eff}},R^{\mathrm{eff}})$ below the registered
-envelope requirements of \eqref{eq:avia} & reduces $\Avia$ (gate,
-common-mode) \\
+envelope requirements of \eqref{eq:avia}--\eqref{eq:rdef} & reduces $\Avia$
+for current resources or $\Rdef$ for future preparedness, respectively \\
 $\alpha$ & informational & exogenous input $\tilde{I}_t$ \emph{appended} to
 $O_t$ through the intact channel: the pre-surgery law $o_t(\cdot\given e,a)$
-survives as a marginal component of the post-surgery observation &
-compatible iff content honest (T2) \\
+survives as a marginal component of the post-surgery observation & sound
+honesty covers only $\Aepi$; compatibility additionally requires every other
+applicable component not to decrease (T2) \\
 $\beta$ & mechanism tampering & replaces $\pi$, $G$-update, $\Endorse$, or
 $M$-update (do-surgery), incl.\ exogenous edges driving them & reduces
 $\Agoal$/$\Aorg$ (T3) \\
@@ -209,11 +243,12 @@ E,A,Z)$ & reduces $\Aexec$ \\
 \noindent The adversarial inverse of $\sigma$ (resource attack and
 maintenance-capability erosion) is a reductive
 surgery on $Z$ and enters through $\Avia$; we write $\sigma^{-}$ for it and
-reserve $\sigma$ for the supportive direction. $\sigma^{-}$ works both
-branches of the gate \eqref{eq:avia}: draining resource ratios below
-critical, or eroding the registered capability envelopes (verification
-capacity $\kappa^{\mathrm{eff}}$ or repair budget $R^{\mathrm{eff}}$ below
-requirement). The strength of $\gamma$ is
+reserve $\sigma$ for the supportive direction. $\sigma^{-}$ has two distinct
+reporting routes: draining current resource ratios below critical reduces
+$\Avia$ and $\Astate$; eroding verification capacity $\kappa^{\mathrm{eff}}$ or
+repair budget $R^{\mathrm{eff}}$ below requirement reduces $\Rdef$ and the
+optional $\Ares$, without logically forcing present $\Astate$ to zero. The
+strength of $\gamma$ is
 measured by $s(\gamma):=\mathrm{ess\,sup}_t\,\TV(o'_t,o_t)$.
 
 The $\alpha/\gamma$ boundary is a \emph{structural, decidable} criterion, not a

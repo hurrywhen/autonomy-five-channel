@@ -1,8 +1,7 @@
 % =====================================================================
-% refs.bib — 已核验参考文献库（78 条；2026-10-13 增 11 条网络核验条目，无本地 PDF，
-% 核验渠道=出版社/检索页，见各条注释）
-% 与 refs/manifest.md 一一对应；每条注释标 [状态] 与本地 PDF 文件名。
-% 元数据来源：PDF 首页文本 + Crossref/OpenAlex 核验（refs/notes/crossref_doi_check.txt）。
+% refs.bib — R15 参考文献库（条目数与 PDF 引用数由构建脚本核验）
+% 与 refs/manifest.md 的核验分级配套；不是每条都有本地全文 PDF。
+% 元数据来源按条目分别为全文首页、出版社、Crossref/OpenAlex 或官方预印本页。
 % 规则：未经核验的 DOI 一律不写；arXiv 号均见于 PDF 首页水印或 arXiv 检索结果。
 % =====================================================================
 
@@ -787,47 +786,6 @@
   year      = {2021}
 }
 
-% [PASS: 经典章节，无 DOI]
-@incollection{debreu1960,
-  author    = {Debreu, Gerard},
-  title     = {Topological Methods in Cardinal Utility Theory},
-  booktitle = {Mathematical Models in the Social Sciences},
-  editor    = {Arrow, Kenneth J. and Karlin, Samuel and Suppes, Patrick},
-  publisher = {Stanford University Press},
-  address   = {Stanford, CA},
-  pages     = {16--26},
-  year      = {1960}
-}
-
-% [PASS: 经典专著，无 DOI]
-@book{aczel1966,
-  author    = {Acz{\'e}l, J{\'a}nos},
-  title     = {Lectures on Functional Equations and Their Applications},
-  publisher = {Academic Press},
-  address   = {New York},
-  year      = {1966}
-}
-
-% [PASS: 经典文献，无 DOI]
-@article{nagumo1930,
-  author  = {Nagumo, Mitio},
-  title   = {{\"U}ber eine Klasse der Mittelwerte},
-  journal = {Japanese Journal of Mathematics},
-  volume  = {7},
-  pages   = {71--79},
-  year    = {1930}
-}
-
-% [PASS: 经典文献，无 DOI]
-@article{kolmogorov1930,
-  author  = {Kolmogorov, A. N.},
-  title   = {Sur la Notion de la Moyenne},
-  journal = {Giornale dell'Istituto Italiano degli Attuari},
-  volume  = {2},
-  pages   = {83--91},
-  year    = {1930}
-}
-
 % [PASS: NIST AI 100-1（2023 年 1 月）；无本地 PDF]
 @techreport{nist2023,
   author      = {{National Institute of Standards and Technology}},
@@ -912,20 +870,6 @@
   isbn      = {9780387219066}
 }
 
-% [PASS] CrossRef(CUP 1989, DOI 10.1017/CBO9781139086578) + zbMATH(EoMA 31)
-% 与 aczel1966 为两部不同专著（1966 独著 / 1989 合著）——著者名统一全名格式，杜绝"重复条目"误读
-@book{aczel_dhombres1989,
-  author    = {Acz{\'e}l, J{\'a}nos and Dhombres, Jean},
-  title     = {Functional Equations in Several Variables},
-  series    = {Encyclopedia of Mathematics and its Applications},
-  volume    = {31},
-  publisher = {Cambridge University Press},
-  address   = {Cambridge},
-  year      = {1989},
-  doi       = {10.1017/CBO9781139086578},
-  isbn      = {0521352762}
-}
-
 % [PASS] Project Euclid + CrossRef: Ann. Probab. 8(4):814-827
 @article{tchen1980,
   author  = {Tchen, Andre H.},
@@ -960,30 +904,6 @@
 }
 
 % ---------- 哲学 / 经济 ----------
-
-% [PASS] CrossRef DOI 记录（与项目档案 10.1007/s10892-008-9035-x 一致）
-@article{mele2008,
-  author  = {Mele, Alfred R.},
-  title   = {Manipulation, Compatibilism, and Moral Responsibility},
-  journal = {The Journal of Ethics},
-  volume  = {12},
-  number  = {3--4},
-  pages   = {263--286},
-  year    = {2008},
-  doi     = {10.1007/s10892-008-9035-x}
-}
-
-% [PASS] CrossRef DOI + RePEc JSON-LD 页码 367-390
-@article{gorman1968,
-  author  = {Gorman, W. M.},
-  title   = {The Structure of Utility Functions},
-  journal = {The Review of Economic Studies},
-  volume  = {35},
-  number  = {4},
-  pages   = {367--390},
-  year    = {1968},
-  doi     = {10.2307/2296766}
-}
 
 % ---------- 因果 ----------
 
@@ -1063,14 +983,6 @@
   volume    = {80},
   pages     = {531--540},
   year      = {2018}
-}
-
-% [PASS] arXiv:1803.04585（v1 2018-03；v4 2019-02-24，按现行版本记 2019）；未见正式出版版
-@misc{manheim2019,
-  author = {Manheim, David and Garrabrant, Scott},
-  title  = {Categorizing Variants of {Goodhart's} Law},
-  year   = {2019},
-  note   = {arXiv:1803.04585}
 }
 
 % [PASS] arXiv:2208.08345（2022，全文仅此）；AAAI 2024 有一页摘要重印，见 verify md。注意实际年份为 2022
@@ -1213,15 +1125,6 @@
   doi     = {10.1111/j.1467-9833.1998.tb00098.x}
 }
 
-% [PASS: arXiv 官方页核验 2026-10-21] arXiv:2503.14499；NeurIPS 2025 正式发表（METR）
-@inproceedings{kwa2025,
-  author    = {Kwa, Thomas and West, Ben and Becker, Joel and Deng, Amy and Garcia, Katharyn and Hasin, Max and Jawhar, Sami and Kinniment, Megan and Rush, Nate and Von Arx, Sydney and Bloom, Ryan and Broadley, Thomas and Du, Haoxing and Goodrich, Brian and Jurkovic, Nikola and Miles, Luke Harold and Nix, Seraphina and Lin, Tao and Painter, Chris and Parikh, Neev and Rein, David and Sato, Lucas Jun Koba and Wijk, Hjalmar and Ziegler, Daniel M. and Barnes, Elizabeth and Chan, Lawrence},
-  title     = {Measuring {AI} Ability to Complete Long Software Tasks},
-  booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS)},
-  year      = {2025},
-  note      = {arXiv:2503.14499}
-}
-
 % [PASS: 经典会议文献（ICML 1999, Morgan Kaufmann, pp. 278-287）；CrossRef 无早期 ICML 收录，
 %  著录依出版记录；本地无 PDF，登记为经典条目]
 @inproceedings{ng1999,
@@ -1286,4 +1189,41 @@
   title  = {Auditable Agents},
   year   = {2026},
   note   = {arXiv:2604.05485v4}
+}
+
+% ---------- R15 direct autonomy-measurement precursors (official full text/metadata) ----------
+@article{ingel2022quantifying,
+  author  = {Ingel, Anti and Makkeh, Abdullah and Corcoll, Oriol and Vicente, Raul},
+  title   = {Quantifying Reinforcement-Learning Agent's Autonomy, Reliance on Memory and Internalisation of the Environment},
+  journal = {Entropy},
+  volume  = {24},
+  number  = {3},
+  pages   = {401},
+  year    = {2022},
+  doi     = {10.3390/e24030401},
+  url     = {https://pmc.ncbi.nlm.nih.gov/articles/PMC8947692/}
+}
+
+@article{albantakis2021quantifying,
+  author  = {Albantakis, Larissa},
+  title   = {Quantifying the Autonomy of Structurally Diverse Automata: A Comparison of Candidate Measures},
+  journal = {Entropy},
+  volume  = {23},
+  number  = {11},
+  pages   = {1415},
+  year    = {2021},
+  doi     = {10.3390/e23111415},
+  url     = {https://pmc.ncbi.nlm.nih.gov/articles/PMC8624265/}
+}
+
+@article{jung2011continuous,
+  author  = {Jung, Tobias and Polani, Daniel and Stone, Peter},
+  title   = {Empowerment for Continuous Agent--Environment Systems},
+  journal = {Adaptive Behavior},
+  volume  = {19},
+  number  = {1},
+  pages   = {16--39},
+  year    = {2011},
+  doi     = {10.1177/1059712310392389},
+  note    = {arXiv:1201.6583}
 }

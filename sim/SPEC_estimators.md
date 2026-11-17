@@ -1,6 +1,7 @@
 # SPEC_estimators —— R3b 分量与复合指标估计规约
 
-**版本**: v1.0（2026-11-16：R14 反例、estimand 与证据边界修订）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**版本**: v1.1（2026-11-17：R15 定义、识别与输出契约修订）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**R15 附注**：执行统一为 \(A_{t:t+n-1}\) 对 \(O_{t+n}\)，恰好 n 个行动；一般非紧策略类只写 sup，紧有限 DMC 才写 max/BA。L0 的 \(A_{org}\) 仅内部因果；L1+ 按 R→N→I 链分离 \(F_{rand},F_{norm},F_{ext}\)，旧 ENV-0 聚合 S 值不冒充新 estimand。T2 撤回兼容 iff/四轨充要，盲性改显式证人。\(A_{goal}\) 分结构读取点值与 IRL 集合/区间两种模式。当前 \(V_{state}\)、防御 \(R_{def}\)、\(A^{state}\)、\(A^{res}\) 分账；强制输出手术史、Lambda、来源注册及未知证据上限。新增 `r15_guards.py`、14 个 R15 反例和 tie-aware `analysis_r15_statistics.py`；旧 R14 manifest/results/verdict 不改写。
 **R14 附注**：\(A_{org}\) 仅称直接/未中介绕过抵抗，严格下降须 \(F_{ext}/F_{int}\) 相对基线上升；删除 \(A_{goal}^{hist}=\Lambda A_{goal}\)；\(A_{ref}\) 限有限离散系综；\(\Lambda\) 改唯一实际/无手术背书输出律 estimand，旧 marker 全面隔离；新增 X5-c 时分层和同环境 C0-CF；数值越界统一 fail-closed。
 **R13 附注（2026-11-03）**：E10.1/E12.1 的一般 T6 上比较只给 certificate-failure band；精确饱和模拟的俘获不反推一般定理。E12.2 增加 30 个种子比值公开与 Student-\(t_{29}\) 敏感性；E10.4 不再主张外部框架完整画像相等。
 **总原则**: 每个量有两条实现路径——**真值路径**（平台张量枚举，精确，用于标定与估计器验证）与**估计路径**（从日志轨迹的有限样本估计，用于测量期）；估计路径必须对照真值路径报告偏差/方差（input 风险 R2 的落地）。全部信息量以 nats 计（log 底 e）。
@@ -15,16 +16,15 @@
 
 ## 2. A_org（来源）：DI 分解
 
-- **E2.1 定义**：$F_{int}=I(S^T\!\to\!A^T)$（Massey，附录定义 2.3.A）；$F_{ext}=I(I^T\!\to\!A^T\,\|\,S^T)$（Kramer 因果条件化，定义 2.3.B）；$A_{org}=F_{int}/(F_{int}+F_{ext})$，仅作直接绕过份额。严格下降判据为 $F_{ext}^1/F_{int}^1>F_{ext}^0/F_{int}^0$（$F_{int}^0,F_{int}^1>0$），不能由术后 $F_{ext}>0$ 单独推出。
+- **E2.1 定义（R15 分层）**：L0 保留 $F_{int}=I(S^T\!\to\!A^T)$、$F_{ext}=I(I^T\!\to\!A^T\,\|\,S^T)$ 与 $A_{org}^{(0)}=F_{int}/(F_{int}+F_{ext})$，但只称内部因果份额。L1+ 注册 $N=(G,B,M)$ 与外生创新 $R$，按 R→N→I 顺序计算 $F_{rand}=I(R^T\!\to\!A^T)$、$F_{norm}=I(N^T\!\to\!A^T\|R^T)$、$F_{ext}=I(I^T\!\to\!A^T\|N^T,R^T)$，$A_{org}^{(1+)}=F_{norm}/(F_{norm}+F_{rand}+F_{ext})$；全零分母 fail-closed。统一写 $F_{src},F_{oth}$ 后严格下降判据为 $F_{oth}^1/F_{src}^1>F_{oth}^0/F_{src}^0$。历史 ENV-0 没有 N/R 分割，旧 a_org 只保留 legacy internal-causal marker。
 - **E2.2 真值路径**：按定义逐项枚举（前缀缓存，规模约束 SPEC_platform §7）。
 - **E2.3 估计路径**：plug-in 估计＋偏差标注（DI 插件偏差 O(·/N)，input 风险 R2）；闭环下必须用因果条件化（禁止普通条件 MI 替代——Kramer Property 2 反例为回归测试 T-DI2）。
-- **E2.4 黑盒降级**（附录 §10.2）：随机化探针下 $F_{ext}^{obs}=I(I^T;A^T)$（引理 2.3.1：外源随机化 ⇒ MI=DI，测试 T-DI1）；$A_{org}$ 报区间
-  $\big[\frac{F_{int}^{base}(1-\eta)}{F_{int}^{base}(1-\eta)+F_{ext}^{obs}},\ \min\big(1,\frac{F_{int}^{base}(1+\eta)}{F_{int}^{base}(1+\eta)+F_{ext}^{obs}}\big)\big]$。
+- **E2.4 黑盒降级（R15 单侧证书）**：随机化探针下 $F_{ext}^{obs}=I(I^T;A^T)$（引理 2.3.1：外源随机化 ⇒ MI=DI，测试 T-DI1）。bypass 语义下它是因果 $F_{ext}$ 的**下估计**，结合 $F_{src}\le F_{src}^{base}(1+\eta)$ 只给**条件认证上端** $\min(1,F_{src}^{base}(1+\eta)/[F_{src}^{base}(1+\eta)+F_{ext}^{obs}])$；L1+ 因 $F_{rand}\ge0$，舍去该项仍保守。下端永远不是认证界：L0 的 $F_{src}^{base}(1-\eta)/[F_{src}^{base}(1-\eta)+F_{ext}^{obs}]$ 只作参考；L1+ 还必须注册 $r_{max}\ge F_{rand}$ 并用 $F_{src}^{base}(1-\eta)/[F_{src}^{base}(1-\eta)+r_{max}+F_{ext}^{obs}]$，否则不显示下端。mediation/adaptive probe 不适用该证书。
 - **E2.5 $F_{ext}$ 通用后验路径与调度**（第 5 步，T-COV）：按 params 调度——(i) **β_π**（旗标切换策略，SPEC_platform P4.5）：$F_{ext}=\sum_t\mathbb E_{S_t}\big[H(\bar\pi(\cdot\mid S_t))-\sum_i flag_i\,H(\pi_i(\cdot\mid S_t))\big]$（混合条件律的 Jensen 间隙；$\bar\pi=\sum_i flag_i\pi_i$，$\pi_i$ 由扁平策略张量与 flag 重建；$S_t$ 边缘精确）；(ii) **静态手术**（β_G/δ/β_Endorse，无外源 I 节点）⇒ $F_{ext}\equiv0$ 平凡成立（干预过程为空）；(iii) **α/σ/γ**：引理 7.2.1 双项零残余路径（既有）。β_π×α 复合暂不支持（显式报错；场景步按需扩展）。
 
 ## 3. A_exec（执行）：策略类 empowerment
 
-- **E3.1 定义**：$\mathcal E_t^\Pi=\max_{p(a_{t:t+n})\in\mathrm{conv}(\Pi_t)} I(A_{t:t+n};O_{t+n+1}\mid S_t)$；$A_{exec}=\mathbb E_t[\mathcal E_t^\Pi]/(n\log|\mathcal A|)$。
+- **E3.1 定义（R15 恰好 n 行动）**：$\mathcal E_t^\Pi=\sup_{p(a_{t:t+n-1})\in\mathrm{conv}(\Pi_t)} I(A_{t:t+n-1};O_{t+n}\mid S_t)$；$A_{exec}=\mathbb E_t[\mathcal E_t^\Pi]/(n\log|\mathcal A|)$。只有非空紧的可行输入集与固定有限信道才将 sup 写 max；BA 仅限显式离散无记忆输入—输出信道，不能自动覆盖一般闭环策略类。零值=无可用行动—结果信息，可来自策略库坍缩或环境解耦。
 - **E3.2 真值路径**：表格信道容量——枚举（小字母表）或自实现 Blahut–Arimoto（不引 scipy；收敛容差入配置）。实现形态：BA 核心迭代（面内点信道）＋`channel_capacity` 循环顶点方向上升（I(q) 凹 ⇒ 坐标级精确线搜索收敛到全局最优），精度由 KKT 证书 gap=max_a D(W_a‖out)−I(q) 保证（边界最优信道不依赖迭代阈值）。
 - **E3.3 分解诊断（无助鉴别器）**：同时输出 $\mathcal E^{env}$（不限策略类）与 $\mathcal E^\Pi$；无助签名=$\mathcal E^{env}$ 完好而 $\mathcal E^\Pi\to0$；真能力坍缩=两者同降（附录 §5.4）。
 - **E3.4 黑盒（R11 识别边界）**：独立探针可算且 $A\perp S\Rightarrow I(A;O)\le I(A;O\mid S)$；一般被动观察方向未识别，ENV-0 的 obs>cond 仅实例描述，不作单侧界。连续动作用注册有限量化或同协议容量归一化，禁止通用 $\log Vol$ 归一化。
@@ -36,7 +36,7 @@
 
 - **E4.1 不动点**：Banach 版迭代 $U_{k+1}=\mathrm{Endorse}(U_k)$ 至 $\|U_{k+1}-U_k\|<$tol；Fix 枚举（Θ 有限）；退化预案：$\mathrm{Fix}_{\varepsilon_{min}}$＋Hausdorff 区间（E9，input §3.3）。
 - **E4.2 距离与标尺**：$d$=Θ 上欧氏（canonical 参数化后）；$d_c=\max_{U\in\Theta}d(U,\mathrm{Fix})$；$A_{goal}=1-d(U_{eff},\mathrm{Fix})/d_c$。
-- **E4.3 $U_{eff}$ 恢复**：表格 MaxEnt-IRL——行为律 $p(\tau)\propto e^{U(\tau)}$ 下 $U=\log p+\log Z$ 精确到常数（命题 5.5(i)）；特征线性族按 5.5(ii) 判等价类并报区间；温度 $\alpha_{temp}$ 协议固定（配置）。
+- **E4.3 $U_{eff}$ 两种识别模式**：结构读取模式直接读取白盒注册变量 $U_{eff}$，满足非空闭 Fix、度量和 $d_c>0$ 时给点值，不调用 IRL；行为反演模式用 MaxEnt-IRL——行为律 $p(\tau)\propto e^{U(\tau)}$ 下 $U=\log p+\log Z$ 精确到常数（命题 5.5(i)），特征线性族与势函数塑形一般只给等价集合，向 $A_{goal}$ 传播区间，温度 $\alpha_{temp}$ 协议固定。只有额外识别假设使集合成为单点时才输出点值；ENV-0 使用结构读取，未实现黑盒 IRL。
 - **E4.4 历史分账（R14 supersession）**：删除 $A_{goal}^{hist}=\Lambda A_{goal}$。$A_{goal}$ 仅表示当前固定点对齐，$\Lambda$ 只经 L2 的 $A_{ref}$ 进入复合；手术史 $\mathcal H^{surg}$ 另列，不与 $\Lambda$ 混用。
 - **E4.5 真值路径接口与退化区间约定**：真值函数输入 = $(U_{eff},\mathrm{Endorse},\Theta_{grid})$（$U_{eff}$ 容许网格外实向量，$d$ 为其到 Fix 的欧氏距离）；$U_{eff}$ 的 MaxEnt-IRL 恢复（E4.3）与 Endorse 的平台实例化（P3.2）属场景步接线。退化预案（E9）：$\mathrm{Fix}=\varnothing$ 时报 Hausdorff 区间 $\big[1-\frac{d_H+\varepsilon_{min}}{d_c},\ 1-\frac{\max(0,d_H-\varepsilon_{min})}{d_c}\big]$（$d_c$ 对 $\mathrm{Fix}_{\varepsilon_{min}}$ 重定义），区间与 $[0,1]$ 取交并在输出中标注裁剪；$d_c=0$（$\mathrm{Fix}_{\varepsilon_{min}}=\Theta$）时区间约定为 $[0,1]$（完全不定）。**数值裁剪契约（v0.6 补注，沿 E3 的 A_org 约定）**：$U_{eff}$ 为网格边缘均值 ⇒ 落在网格凸包内 ⇒ $d\le d_c$ 是数学事实；浮点残差（~1e-16，细化网格档 η=1 实测触发）致点值越出 $[0,1]$ 时，1e-9 容差内归位并记录 warning；更大越界、NaN、Inf 一律 fail-closed——测试 T-REF7/T-R14-CLIP。
 
@@ -56,7 +56,7 @@
 
 ## 7. A_via（可行性）
 
-**扩展闸门（v0.5，论文 D-via 修订落地）**：$A_{via}=\min\{1,\ \min_k s_k^{avail}/s_k^{crit},\ \min_j m_j\}$，$m_j=\mathrm{clip}(\min(\kappa_j^{eff}/\kappa_j^{req}, R_j^{eff}/R_j^{req}),0,1)$（能力包络裕度：验证-修复能力 κ 与修复预算 R 对登记需求的归一比；θ 不入闸门——双刃性）。v1 实例：单维护通道 j，κ/R 为 `Env0Config` 标量字段，默认 (1, 0.5, 1, 0.5) ⇒ m=1 ⇒ 逐点还原资源型旧式（v1 矩阵数值不变的构造性保证；回归测试 T-AVIA-ENV）。资源审计从 $Z_t$ 日志直读；κ/R 审计为白盒配置直读（黑盒降级规则不变——能力包络属 σ 类参数审计）；$A_{via}^{min}$ 随 run 记录（T6 的 $A_{min}$ 公式输入）。
+**R15 当前存续/防御分账**：$V_{state}=\min\{1,\min_k s_k^{avail}/s_k^{crit}\}$，$A^{state}=V_{state}F_\varsigma(\text{channels})$；$m_j=\mathrm{clip}(\min(\kappa_j^{eff}/\kappa_j^{req},R_j^{eff}/R_j^{req}),0,1)$，$R_{def}=\min\{1,\min_jm_j\}$，可选韧性量 $A^{res}=R_{def}A^{state}$。$R_{def}=0$ 不再自动推出当前 $A^{state}=0$；当前关键资源耗尽仍使 $V_{state}=A^{state}=0$。T6 的 A(t) 指状态轨，若另注册 $R_{def}\ge r_{min}>0$，韧性下界再乘 $r_{min}$。历史 `a_via` 是资源+防御的 R14 combined-resilience marker，EROSION 旧复合只作韧性演示，不重标为 R15 当前状态分数。输出强制同时携带 $A^{state}$、$V_{state}$、$R_{def}$、手术史、Lambda/N/A/unknown、来源注册与证据上限（`r15_guards.py`）。
 
 ## 7.1 u_bar（外部基线量，v0.5 新增）
 
@@ -68,7 +68,7 @@ $u_{bar}=\frac1T\sum_t \mathbb E[U_{\theta^*}(E_t,A_t)]$（真值路径：逐步
 
 ## 9. 复合指标与校准
 
-- **E9.1 复合**：$A=A_{via}\cdot F_\sigma(\cdot)$，$\sigma\in\{0.5,1\}$（公理内）＋$\{2\}$（AX5 松弛压力测试，显式标注）；权 $w_i$：标定期弹性回归（$w_i=\partial\log F/\partial\log x_i$，推论 6.8）或配置给定（矩阵内固定，入 metadata）。
+- **E9.1 复合（R15 分账与非循环权重）**：$A^{state}=V_{state}F_\varsigma(\cdot)$，可选 $A^{res}=R_{def}A^{state}$；$\varsigma=1$ 是全公理主case，$\varsigma<1$ 仅 AX6b 松弛敏感性，$\varsigma=2$ 仅 AX5 松弛压力测试，均不得写成公理内等价格式。权重只能来自等权默认、独立专家/利益相关者引出或受控单通道行为权衡协议；$w_i=\partial\log F/\partial\log x_i$ 是导出形式后的恒等式，禁止把需要预知 F/w 的弹性回归当非循环估计。历史矩阵权重/弹性重算仅属 legacy 敏感性。
 - **E9.2 H2 单位统一**：χ 把 $\varepsilon v$ 换算为损伤 nats/时间；θ/W、$\lceil(r+1)/2\rceil c_0/W$ 同样换算（附录 §7.6.1 H2）；换算常数由标定期拟合，入 metadata。
 - **E9.3 敏感性**：每个报告值带 σ 带（主带 [0.5,1] 两端+中点）；T4 只在 σ=1 下作 LinLog 定理与优化证书，σ≠1 的旧重复不算 CES 内点 KKT 验证。
 - **E9.4 幻觉指数**：$\mathrm{AI}_t=\hat A_{phen,t}-A_{obj,t}$；$\hat A_{phen}=f(\xi)$ 为登记证据的有界泛函（$f$ 形式入配置；T3b 假设 C2 的落地）。
@@ -89,7 +89,7 @@ DI 闭环偏差（真值标定）；empowerment 高维方差（本环境低维�
 - **E12.1 T6 动力学（R13）**：一般定理只有上比较 $\dot D\le\delta-\kappa D$；ENV-0 损伤模拟器额外采用精确饱和律 $\dot D=\delta-\kappa D$＋M1 窗登记（窗累计 ≥θ ⇒ 滞后 ℓ 复位 $D$ 与累计器）并截断到 $[0,1]$。$\delta^*:=\min\big(\theta/W,\ \chi\varepsilon v,\ \lceil(r+1)/2\rceil\,c_0/W\big)$（M4 项 2026-10-15 审稿修复：多数派接管 r 份独立副本只需腐化 $k=\lceil(r+1)/2\rceil$ 份，每窗成本 $k c_0$——原 $r c_0/W$ 高估安全边界）；$A_{min}=A_{via}^{min}\cdot\prod_j(A_j^{base}(1-\delta_j^*/\kappa_j))^{w_j}$（σ=1 几何，经 `aggregate.composite_A`）；pointwise 下界同样含 $A_{via}^{min}$，严格正性另需 H4$''$：所有适用 $A_j^{base}>0$。M1 注册域的非俘获/正保持另需正常响应且 $\theta+\ell\delta$ 低于俘获阈。在 $\theta/W>\kappa$、$\delta\in(\kappa,\theta/W)$，一般上比较只使 M3-only 正保持证书失效，$D\equiv0$ 反驳任何一般俘获结论；模拟器的零登记与 $D\to1$ 只确认精确实现。M4 使用确定性逐窗恢复前提，不写 $1-o(1)$ 概率口径；提高 $\theta$ 缩小注册域 $\{\delta:\delta\ge\theta/W\}$。显式公式逐 run 核对为 L1 义务（T-T6a），零轨迹反例见 T-R13-T6。
 - **E12.2 T6c（R12 量词修正与描述臂）**：定理为 iid $N(0,\sigma_n^2)\to N(\delta,\sigma_n^2)$ 下固定 $\delta>0$、$\alpha\downarrow0$ 的 Lorden–Lai 下界 $\delta EDD\ge(1-o(1))2\sigma_n^2\log(1/\alpha)/\delta$；固定 $\alpha$、$\delta\downarrow0$ 的全称版被常数停止规则否定。ENV-0 的 LLR-CUSUM（阈 $h\approx\log(1/\alpha)$）仅在 $\alpha=10^{-3}$ 比较 $\delta=0.25,0.125$，观测量 $\delta\cdot EDD$ 与标度 $2\sigma_n^2\log(1/\alpha)/\delta$ 属该方案的描述性对照，不直接检验上述另一极限；常数因子属 overshoot 域，不做精确等式。区间按 SPEC_experiments ATK-6⑥ 的同种子比均值正态近似口径报告，并以 Student-$t_{29}$ 半宽作小样本敏感性；30 个比值和种子由 `analysis_cusum_sensitivity.json` 公开列示。
 - **E12.3 T7 委托记账约定（R12 当前 selector/双误差边界）**：干预流 $I$ 为受托脚本内容；精确线性律的估计量显式定义为逐步当前 selector 条件化 $\sum_t I(S^t;A_t\mid A^{t-1},\mu_t)$ 与 $\sum_t I(I^t;A_t\mid A^{t-1},S^t,\mu_t)$，并满足等熵、脚本臂不经 $S$、$F_{ext}^{self}=0$；不得未加证明改读为完整历史 $\mu^t$ 条件化。legacy ENV-0 真值路径是未条件化流，近线性拟合只作实例描述。非 H1' 且有混合误差时用 $\varphi_0=f/C_{self}$、$\eta_\mu=h(m)/C_{self}$ 分离的双误差 bracket（DEL-1⑤⑥公式），不得把同一 $\varphi$ 只加分母吸收两类误差；退化区间报 INCONCLUSIVE。
-- **E12.4 C1/C2（附录 §8.2/§8.3）**：ODE 模拟器（Euler/RK4，$dt$ 入配置）；C1 平衡公式 $D_\pm=(1\pm\sqrt{1-4\delta/\varepsilon v})/2$ 与 $T_{rec}\propto(\delta_c-\delta)^{-1/2}$ 标度；C2 双稳/滞后：$\delta_{down}=r(D_1)$、$s_c=|r(D_m)|$（$D_1,D_m$ 为 $r'=0$ 两正根，$r(D)=\varepsilon_0v\,D(1-D)(1-\gamma D$)），恢复须 $s>s_c$（回环不闭合）。
+- **E12.4 C1/C2（附录 §8.2/§8.3）**：ODE 模拟器（Euler/RK4，$dt$ 入配置）；C1 平衡公式 $D_\pm=(1\pm\sqrt{1-4\delta/\varepsilon v})/2$ 与 $T_{rec}\propto(\delta_c-\delta)^{-1/2}$ 标度；C2 双稳/滞后：$\delta_{down}=r(D_1)$、$s_c=|r(D_m)|$（$D_1,D_m$ 为 $r'=0$ 两正根，$r(D)=\varepsilon_0v\,D(1-D)(1-\gamma D$)），持续攻击下恢复须 $s>\delta+s_c$；攻击移除 $\delta=0$ 时才为 $s>s_c$（回环不闭合）。
 - **E12.5 黑盒（附录 §10）**：10.2 探针 = 行动通道随机化脚本（β_π 编译，state-independent script，flag = 探针指示）；$F_{ext}^{obs}=I(\text{脚本}^T;A^T)$（引理 2.3.1：=DI，无需 S 可观测——真值路径由编译结构精确给出，采样插件路径对照）；区间包含真值的语义前提 = $F_{int}$ 漂移 ≤η（η 过小时不含，作反面控制）。10.3（R11）：一般策略驱动被动观察的方向未识别，因为 $I(A;O\mid S)-I(A;O)=I(A;S\mid O)-I(A;S)$ 可正可负；ENV-0 obs>cond 只作实例描述。独立探针 $A\perp S$ ⇒ $I(A;O)\le I(A;O\mid S)$ 保留为条件方向。
 - **E12.6 Λ 操作化（R14 分账）**：旧 `law_level_lambda`/`lambda_history` 与 ATK-1、β_π、T2/T3、X2 的 $\Lambda$ 相关值全部仅为 legacy marker，不能支持 AX3、$A_{ref}$ 或反事实 TV。新 `counterfactual.py` 在独立显式 SCM 上执行 abduction–action–prediction；`x5c_stratified` 每 noise×arm×t 记录 20,000 上下文，含 C1--C5、观测等价 identity/XOR 与独立共享噪声复核，$D_{noise}>0.01$ 时只报双模型带。`c0cf_v2` 记录非退化同环境、同全轨迹 $(E^T,O^T,A^T)$ 的构造证人。新证据不升级旧场景 verdict；旧 C0-DEMO 和历史 T-BB 不改写。
 
@@ -103,7 +103,7 @@ SPEC_tests.md §5 的 E 系列测试全绿；每个分量在至少一个合成�
 
 **E14.0 落地范围**。E0.1 接口二分在 v1 的落地：五个分量有采样估计器（`estimators.py`，输入=P8.2 步级日志 `trajs`，输出 `(point, half, diagnostics)`）；**A_ref 的采样载体（defense_events 背书事件日志）与 Λ 的事件级路径 v1 无日志承载——显式登记为报告局限节条目（非静默缺口）**；复合 A 由分量估计经 E9.1 复合。数值记录由 `sim/estimator_checks.py` 产出（`runs/<矩阵>/estimator_checks.json`）。
 
-- **E14.1** `estimate_probe_flow(trajs, n_I, n_A) -> (point, half, diag)`：10.2 探针流 $F_{ext}^{obs}=I(flag^T;A^T)$ 的采样插件估计——与真值闭式同构的插件式 $\hat f\cdot\hat H(\text{脚本})\cdot T$（$\hat f$=旗标率（`I_t["beta"]` 逐步读出）、$\hat H$=旗标步行动经验熵；state-independent 脚本约定）；真值对照 `blackbox.probe_flow_obs`（flag·H（脚本）·T 精确式）。A_org 区间由 `a_org_interval(F_int^base, η, 估计值)` 合成（η=标定期漂移容差，E0.3）；区间命中目标=$a_{true}=F_{int}^{true}/(F_{int}^{true}+F_{ext}^{obs})$（E2.4 可观测重建语义，BB-1 同式——探针流是外部流的**可观测上界代理**，非因果 F_ext 本身）。
+- **E14.1** `estimate_probe_flow(trajs, n_I, n_A) -> (point, half, diag)`：10.2 探针流 $F_{ext}^{obs}=I(flag^T;A^T)$ 的采样插件估计——与真值闭式同构的插件式 $\hat f\cdot\hat H(\text{脚本})\cdot T$（$\hat f$=旗标率（`I_t["beta"]` 逐步读出）、$\hat H$=旗标步行动经验熵；state-independent 脚本约定）；真值对照 `blackbox.probe_flow_obs`（flag·H（脚本）·T 精确式）。A_org 区间由 `a_org_interval(F_int^base, η, 估计值)` 合成（η=标定期漂移容差，E0.3）；区间命中目标=$a_{true}=F_{int}^{true}/(F_{int}^{true}+F_{ext}^{obs})$（E2.4 可观测重建语义，BB-1 同式——探针流在 bypass 语义下是因果 F_ext 的**可观测下估计**，不是因果 F_ext 本身；仅用于 E2.4 的条件认证上端，参考下端按 R15 不作包含性承诺，L1+ 另需 $r_{max}$）。
 - **E14.2** `estimate_z_high(trajs, n_Z)`：Z 高位占时逐轨迹均值（A_via 输入；真值对照 propagate Z 边缘占时）。
 - **E14.3** `estimate_g_mean(trajs, alphabet)`：S 日志 G 分量边缘均值（P9.4 $U_{eff}$ 均值读出的白盒采样对应物；E4.3 MaxEnt-IRL 黑盒恢复属报告附栏）。
 - **E14.4（R11 点信念边界）** `estimate_epi_accuracy(trajs, bucket_map)`：ENV-0 点信念 $B_t=\delta_{b_t}$ 下以逐轨迹命中率 $\frac1T\sum_t\mathbf 1[b_t=\kappa(E_t)]$ 估计真实桶期望质量；$E_t$ 与 $S_t.B$ 由日志直读，κ 同真值路径。若未来支持非点信念，接口必须改为读取 `belief_dist` 的真实桶质量，不得沿用分布对象相等指示。

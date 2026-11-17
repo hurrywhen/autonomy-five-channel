@@ -1,8 +1,8 @@
-# 参考文献总清单（已核验）
+# 参考文献总清单（R15 分级核验）
 
-**核验标准**：每条文献均已真实下载 PDF（存于 `refs/pdfs/`），并用 `pdftotext` 抽取文本核对标题/作者/关键词与声称内容一致（脚本 `refs/fetch_verify.py`，日志 `refs/notes/verify_log.md`）。
-**状态标记**：✅=脚本核验 PASS；🟡=PARTIAL（标题页为图片/预览版等原因，已人工目验内容一致）；⚠️=替代版本（原件无开放 PDF，用同主题 OA 文献替代）；❌=NOT_FOUND（无合法开放 PDF，不进入正式引用）。
-**总计**：67 份 PDF（✅ 64，🟡 3）。另有 7 条 ❌ 记录在 §J。
+**核验分级**：本清单不再声称每条 BibTeX 文献都有本地 PDF。下表 A–J 的 ✅/🟡/⚠️ 记录属于早期全文或预览核验；后续条目可以仅有出版社、DOI、官方摘要页或预印本页著录核验，必须逐项注明，不得由旧表头推出全文已读。
+**状态标记**：✅=全文脚本核验 PASS；🟡=PARTIAL（预览、图片标题页等，按注记人工目验）；⚠️=替代或特别版本说明；“网络核验”=仅著录/摘要与相关论点核对，不等于全文核验；❌=NOT_FOUND，不进入正式引用。
+**历史全文子集**：67 份 PDF（✅ 64，🟡 3），另有 7 条 ❌ 记录在 §J。R15 新增 Ingel、Albantakis、Jung 三条以 PMC/出版社/DOI 正式来源核验，相关实质比较见 `related_work.tex`；公开快照不转发第三方 PDF。
 
 ---
 
@@ -54,6 +54,10 @@
 | D8 | kaelbling1998 | Kaelbling, L. P., Littman, M. L., & Cassandra, A. R. (1998). Planning and Acting in Partially Observable Stochastic Domains. *Artificial Intelligence*, 101, 99–134. | 作者 MIT 主页 https://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf | kaelbling1998_pomdp.pdf | ✅ |
 | D9 | truong2020 | Truong, C., Oudre, L., & Vayatis, N. (2020). Selective Review of Offline Change Point Detection Methods. *Signal Processing*, 167, 107299.（arXiv:1801.00718） | arXiv https://arxiv.org/pdf/1801.00718 | truong2020_changepoint_review.pdf | ✅ |
 | D10 | kramer2003 | Kramer, G. (2003). Capacity Results for the Discrete Memoryless Network. *IEEE Trans. Inform. Theory*, 49(1), 4–21. DOI:10.1109/TIT.2002.806135 | **作者 Bell Labs 主页自存档副本**（Wayback 快照 20070417215043）：cm.bell-labs.com/cm/ms/who/gkr/Papers/dmnIT03.pdf | kramer2003_capacity_dmn.pdf | ✅（首页=IEEE TIT 正式刊头；§II-C Def.4 因果条件化 DI、附录 B Property 2/3（DI 界与链式法则）、§IV-E DI 速率域——T2 闭环推导所需，精读分析见 docs/R2_文献待查证事项.md §4） |
+
+| D11 | ingel2022quantifying | Ingel, A., Makkeh, A., Corcoll, O., & Vicente, R. (2022). Quantifying Reinforcement-Learning Agent's Autonomy, Reliance on Memory and Internalisation of the Environment. *Entropy*, 24(3), 401. DOI:10.3390/e24030401 | PMC 官方全文 https://pmc.ncbi.nlm.nih.gov/articles/PMC8947692/ | 不转发 | R15 网络全文核验：PID 的下一内部状态估计对象、RL/扰动基质 |
+| D12 | albantakis2021quantifying | Albantakis, L. (2021). Quantifying the Autonomy of Structurally Diverse Automata: A Comparison of Candidate Measures. *Entropy*, 23(11), 1415. DOI:10.3390/e23111415 | PMC 官方全文 https://pmc.ncbi.nlm.nih.gov/articles/PMC8624265/ | 不转发 | R15 网络全文核验：多候选度量、结构多样 Markov Brains |
+| D13 | jung2011continuous | Jung, T., Polani, D., & Stone, P. (2011). Empowerment for Continuous Agent--Environment Systems. *Adaptive Behavior*, 19(1), 16--39. DOI:10.1177/1059712310392389 | DOI/Crossref 与 Hertfordshire 著录；arXiv:1201.6583 | 不转发 | R15 著录与官方摘要核验：连续状态、离散行动，不冒称连续行动归一化 |
 
 ## E. 自由能原理、Markov 毯与意识科学（自我边界与现象学）
 

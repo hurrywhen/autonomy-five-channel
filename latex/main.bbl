@@ -1,4 +1,4 @@
-\begin{thebibliography}{110}
+\begin{thebibliography}{113}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,6 +11,13 @@ David Abel, Michael Bowling, Andre Barreto, Will Dabney, Shi Dong, Steven Hansen
 \newblock In \emph{Advances in Neural Information Processing Systems 38 (NeurIPS 2025)}, 2025.
 \newblock \doi{10.52202/085713-5481}.
 \newblock arXiv:2505.10361.
+
+\bibitem[Albantakis(2021)]{albantakis2021quantifying}
+Larissa Albantakis.
+\newblock Quantifying the autonomy of structurally diverse automata: A comparison of candidate measures.
+\newblock \emph{Entropy}, 23\penalty0 (11):\penalty0 1415, 2021.
+\newblock \doi{10.3390/e23111415}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8624265/}.
 
 \bibitem[Alkire and Foster(2011)]{alkire2011}
 Sabina Alkire and James Foster.
@@ -237,6 +244,20 @@ Erik~P. Hoel, Larissa Albantakis, and Giulio Tononi.
 Evan Hubinger, Chris van Merwijk, Vladimir Mikulik, Joar Skalse, and Scott Garrabrant.
 \newblock Risks from learned optimization in advanced machine learning systems, 2019.
 \newblock arXiv:1906.01820.
+
+\bibitem[Ingel et~al.(2022)Ingel, Makkeh, Corcoll, and Vicente]{ingel2022quantifying}
+Anti Ingel, Abdullah Makkeh, Oriol Corcoll, and Raul Vicente.
+\newblock Quantifying reinforcement-learning agent's autonomy, reliance on memory and internalisation of the environment.
+\newblock \emph{Entropy}, 24\penalty0 (3):\penalty0 401, 2022.
+\newblock \doi{10.3390/e24030401}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8947692/}.
+
+\bibitem[Jung et~al.(2011)Jung, Polani, and Stone]{jung2011continuous}
+Tobias Jung, Daniel Polani, and Peter Stone.
+\newblock Empowerment for continuous agent--environment systems.
+\newblock \emph{Adaptive Behavior}, 19\penalty0 (1):\penalty0 16--39, 2011.
+\newblock \doi{10.1177/1059712310392389}.
+\newblock arXiv:1201.6583.
 
 \bibitem[Kaelbling et~al.(1998)Kaelbling, Littman, and Cassandra]{kaelbling1998}
 Leslie~Pack Kaelbling, Michael~L. Littman, and Anthony~R. Cassandra.

@@ -1,0 +1,302 @@
+{
+ "artifact_version": "R15-statistics-v1",
+ "source_archive": "runs/20261017_full (read-only historical component bundles)",
+ "n_main_arms": 5760,
+ "statistic": "Kendall tau-b; exact ties in either coordinate; NaN for zero denominator",
+ "weights": {
+  "equal": {
+   "overall": {
+    "tau_b": 1.0,
+    "n": 5760,
+    "concordant": 15933600,
+    "discordant": 0,
+    "ties_x_only": 0,
+    "ties_y_only": 0,
+    "ties_both": 652320,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 1.0,
+     "n": 2400,
+     "concordant": 2728800,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 150000,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 1.0,
+     "n": 1440,
+     "concordant": 864000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  },
+  "org_heavy": {
+   "overall": {
+    "tau_b": 0.9436349320337335,
+    "n": 5760,
+    "concordant": 15483600,
+    "discordant": 446400,
+    "ties_x_only": 7200,
+    "ties_y_only": 3600,
+    "ties_both": 645120,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 0.9980226294964991,
+     "n": 2400,
+     "concordant": 2725200,
+     "discordant": 0,
+     "ties_x_only": 7200,
+     "ties_y_only": 3600,
+     "ties_both": 142800,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 0.8666666666666667,
+     "n": 1440,
+     "concordant": 806400,
+     "discordant": 57600,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  },
+  "goal_heavy": {
+   "overall": {
+    "tau_b": 0.946345877493251,
+    "n": 5760,
+    "concordant": 15505200,
+    "discordant": 424800,
+    "ties_x_only": 7200,
+    "ties_y_only": 3600,
+    "ties_both": 645120,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 0.9980226294964991,
+     "n": 2400,
+     "concordant": 2725200,
+     "discordant": 0,
+     "ties_x_only": 7200,
+     "ties_y_only": 3600,
+     "ties_both": 142800,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 1.0,
+     "n": 1440,
+     "concordant": 864000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  },
+  "exec_heavy": {
+   "overall": {
+    "tau_b": 0.9445385805202393,
+    "n": 5760,
+    "concordant": 15490800,
+    "discordant": 439200,
+    "ties_x_only": 7200,
+    "ties_y_only": 3600,
+    "ties_both": 645120,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 0.9980226294964991,
+     "n": 2400,
+     "concordant": 2725200,
+     "discordant": 0,
+     "ties_x_only": 7200,
+     "ties_y_only": 3600,
+     "ties_both": 142800,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 1.0,
+     "n": 1440,
+     "concordant": 864000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  },
+  "epi_heavy": {
+   "overall": {
+    "tau_b": 0.9599006047908387,
+    "n": 5760,
+    "concordant": 15613200,
+    "discordant": 316800,
+    "ties_x_only": 7200,
+    "ties_y_only": 3600,
+    "ties_both": 645120,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 0.9980226294964991,
+     "n": 2400,
+     "concordant": 2725200,
+     "discordant": 0,
+     "ties_x_only": 7200,
+     "ties_y_only": 3600,
+     "ties_both": 142800,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 1.0,
+     "n": 1440,
+     "concordant": 864000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  },
+  "goal_extreme": {
+   "overall": {
+    "tau_b": 0.9275951713982546,
+    "n": 5760,
+    "concordant": 15357600,
+    "discordant": 576000,
+    "ties_x_only": 3600,
+    "ties_y_only": 0,
+    "ties_both": 648720,
+    "pairs": 16585920,
+    "interpretation": "descriptive_tau_b"
+   },
+   "by_scenario": {
+    "1": {
+     "tau_b": 0.957152482185546,
+     "n": 2400,
+     "concordant": 2671200,
+     "discordant": 57600,
+     "ties_x_only": 3600,
+     "ties_y_only": 0,
+     "ties_both": 146400,
+     "pairs": 2878800,
+     "interpretation": "descriptive_tau_b"
+    },
+    "2": {
+     "tau_b": 1.0,
+     "n": 1920,
+     "concordant": 1656000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 186240,
+     "pairs": 1842240,
+     "interpretation": "descriptive_tau_b"
+    },
+    "4": {
+     "tau_b": 1.0,
+     "n": 1440,
+     "concordant": 864000,
+     "discordant": 0,
+     "ties_x_only": 0,
+     "ties_y_only": 0,
+     "ties_both": 172080,
+     "pairs": 1036080,
+     "interpretation": "descriptive_tau_b"
+    }
+   }
+  }
+ },
+ "sesoi_error_scale": {
+  "registered_numeric_sesoi": 0.01,
+  "largest_reported_sample_mode_absolute_error": 0.0096,
+  "ratio_sesoi_to_error": 1.0416666666666667,
+  "interpretation": "numeric decision threshold only; not an externally calibrated domain-important effect or an independent error distribution"
+ }
+}

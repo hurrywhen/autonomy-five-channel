@@ -1,0 +1,45 @@
+{
+  "artifact_version": "R15-x5c-paired-v1",
+  "analysis_status": "POST_HOC_SUPERSEDED_REPORTING_AUDIT",
+  "preregistered": false,
+  "source_protocol": "R14 x5c_stratified contexts and downstream seeds; current-source recomputation",
+  "context_relationship": "integrated and sampled estimates share X,Z,J; only downstream V is independent",
+  "se_method": "sample standard error of per-context integrated-TV minus sampled-|Y-Y0| differences",
+  "tolerance_status": "post hoc inherited 4*SE form and 0.02 floor after paired-SE correction; not a preregistered R15 criterion",
+  "historical_r14_files_modified": false,
+  "legacy_combined_se_status": "retained in R14 artifacts but superseded for R15 inferential reporting",
+  "external_construct_validation": false,
+  "crosschecks": [
+    {
+      "noise": "gaussian",
+      "n_contexts": 4000,
+      "context_seed": 910190,
+      "downstream_seed": 910290,
+      "integrated_lambda": 0.754272534977288,
+      "sampled_lambda": 0.762,
+      "n": 4000,
+      "mean_difference": 0.007727465022712071,
+      "abs_mean_difference": 0.007727465022712071,
+      "paired_se": 0.006477864010656579,
+      "normal_95_halfwidth": 0.012696613460886894,
+      "tolerance": 0.025911456042626315,
+      "passed": true
+    },
+    {
+      "noise": "logistic",
+      "n_contexts": 4000,
+      "context_seed": 910191,
+      "downstream_seed": 910291,
+      "integrated_lambda": 0.8401016447428206,
+      "sampled_lambda": 0.8405,
+      "n": 4000,
+      "mean_difference": 0.00039835525717941717,
+      "abs_mean_difference": 0.00039835525717941717,
+      "paired_se": 0.005665001867616479,
+      "normal_95_halfwidth": 0.011103403660528298,
+      "tolerance": 0.022660007470465916,
+      "passed": true
+    }
+  ],
+  "overall": "POST_HOC_PASS"
+}

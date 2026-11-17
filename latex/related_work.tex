@@ -1,7 +1,7 @@
 % =====================================================================
-% related_work.tex — Related Work section, R4 paper draft v0.1 (2026-10-04)
-% Distilled from docs/research_survey_v1_en.md (authoritative English edition); all \cite keys match latex/refs.bib
-% and refs/manifest.md, and every entry has a verified PDF (refs/pdfs/).
+% related_work.tex — Related Work section, R15 revision (2026-11-17)
+% Citation keys match latex/refs.bib and refs/manifest.md. Verification grades
+% distinguish full-text checks from bibliographic-only checks; no blanket local-PDF claim.
 %
 % Journal strategy (survey §7):
 %   - Minds and Machines: keep the conceptual-analysis detail of §RW.1/§RW.2/§RW.6 (philosophical controversies),
@@ -16,14 +16,12 @@
 
 \section{Related Work}\label{sec:related-work}
 
-Our framework sits at the intersection of seven literatures that have
-hitherto
+Our framework sits at the intersection of eight literatures that have
 developed largely in isolation: philosophical theories of autonomy, cybernetic
-and enactive accounts of agency, the empirical psychology of self-regulation,
-information-theoretic measures of control, the emerging science of AI agent
-characterization and governance, AI safety research on goal corruption, and
-the formal study of delegation and adversarial allocation (assistance games,
-contract theory, security games).
+and enactive accounts of agency, empirical psychology of self-regulation,
+information-theoretic measures of control, AI-agent characterization and
+governance, AI safety research on goal corruption, formal delegation and
+adversarial allocation, and composite-indicator/scale-consistent aggregation.
 This section surveys each, identifies the points of consensus and contention
 that structure the field (\S\ref{sec:related-work}.1--.8), and states the gaps
 our contribution fills (\S\ref{sec:related-work}.9). Throughout, we use the
@@ -53,8 +51,8 @@ condition---the mechanism issuing in action must be moderately
 reasons-responsive \emph{and} the agent must have taken responsibility for it,
 so that provenance, not merely present structure, matters. Whether history is
 genuinely required remains contested (Section~\ref{sec:objections}); we return
-to it in \S\ref{sec:axioms}, where it becomes Axiom~AX3 and, crucially, an
-separate provenance and counterfactual audit requirements (AX3 and Theorem~T3).
+to it in \S\ref{sec:axioms}, where it becomes Axiom~AX3 and, crucially, a
+separate provenance and counterfactual audit requirement (AX3 and Theorem~T3).
 
 A third strand, relational autonomy, rejects the atomistic picture shared by
 both sides. \citet{mackenzie_stoljar2000} argue that the capacities
@@ -148,7 +146,12 @@ foundations and estimation issues are reviewed in \citet{salge2013}, and
 maintains its own empowerment does not strip humans of control channels).
 Because empowerment is a joint agent--environment property, it absorbs the
 conversion-factor problem that defeats resource-based measures of execution
-capacity. For directed influence, directed information
+capacity. \citet{jung2011continuous} extend empowerment estimation to
+continuous vector-valued state spaces with Monte Carlo approximation and
+Gaussian-process dynamics. Their formal model uses a discrete action set; it
+is direct precedent for learned execution estimates, not a solution to R15's
+continuous-action normalization or feedback-policy compactness problem.
+For directed influence, directed information
 \citep{massey1990} and its causally conditioned extension to networks with
 feedback \citep{kramer2003}, together with transfer entropy
 \citep{schreiber2000}, provide the closed-loop machinery underlying
@@ -188,7 +191,40 @@ identical to causally conditioned directed information from a registered
 normative state, and it supplies neither the endorsement/history distinction
 nor the five-channel attribution cover. We therefore treat Seth's result as
 direct prior work on measuring autonomy, not as evidence for our specific
-mediation theorem. These approaches do not by themselves supply our
+mediation theorem.
+
+Two closer autonomy-measurement studies sharpen both the lineage and the
+remaining validation burden. \citet{ingel2022quantifying} apply partial
+information decomposition (PID) to the \emph{next internal state} $S_{t+1}$,
+with current internal and environment states as sources. Their conditional
+self-determination term combines unique internal information with
+internal--environment complementary information; this is not the same estimand
+as our behavior-directed chain $\Frand+\Fnorm+\Fext$. PID unique, shared, and
+complementary terms answer how internal and environmental sources jointly
+update memory, whereas R15 asks which registered normative, innovation, or
+bypass source produces actions. Their Gridworld and repeating-pattern RL
+experiments, including observation perturbations and LSTM training, also show
+that task performance and autonomy need not move together. Those experiments
+are direct precedent for perturbation audits and candidate external
+substrates, not validation of our channels; their finite histogram/PID and
+discretized-memory protocol is not our causal-DI estimator.
+
+\citet{albantakis2021quantifying} compare structural, information-theoretic,
+causal, and dynamical autonomy candidates on structurally diverse discrete
+Markov Brains performing PathFollow tasks, organizing them around
+self-determination, closure, and agency. The comparison finds implementation-
+and measure-dependent dissociations, including between observational and
+causal variants. This is strong precedent for multi-instrument profiles and
+for inspecting causal structure rather than inferring autonomy from successful
+behavior alone. It is not a one-to-one anticipation of our five channels and
+excludes constitutive self-maintenance, endorsement history, and our
+reflection estimand. Albantakis's automata and Ingel's RL environments are
+therefore registered as independent-validation substrates on which the full
+profile, ablations, behavior-only/utility-only baselines, PID candidates, and
+intervention-attribution accuracy should be compared prospectively; no such
+comparison has yet been run.
+
+These approaches do not by themselves supply our
 goal/execution/epistemic/reflection decomposition, intervention taxonomy,
 historical clause, and aggregation theory connecting parts to a whole. On the
 incentive side, power-seeking analysis shows that optimal policies in MDPs
@@ -217,9 +253,10 @@ information-theoretic cousin of our origination ratio: both ask where in the
 causal stack the effective source of behavior lives. And Bayesian persuasion
 \citep{kamenica2011} is the game-theoretic counterpart of our $\alpha$ class:
 a sender who commits to honest signal structures steers a receiver through
-the receiver's own intact channel---which is precisely why persuasion, as
-opposed to channel surgery, is autonomy-compatible here
-(Theorem~T2), and why its covert support-restriction analogue is not.
+the receiver's own intact channel. Mediation alone does not prove
+compatibility: R15 requires the full componentwise certificate of T2, including
+fixed or non-decreasing goal alignment, while covert support restriction is a
+different surgery class.
 The intervention semantics of our five-class taxonomy is that of do-calculus
 and independent causal mechanisms \citep{peters2017}. Belief-state POMDPs
 \citep{kaelbling1998} model the epistemic constraints under which a
@@ -372,7 +409,8 @@ Five ordinal autonomy levels & User-role rubric and proposed certificates; no
 channel estimator & Conceptual framework and examples &
 Design-time / role configuration, no WB & No \\
 Present framework: fixed agent--influence--environment instance &
-Retained determination by one's own $(G,B,M)$, behind a viability gate &
+Retained determination by one's own $(G,B,M)$, behind a current-resource gate
+with separate defense readiness &
 Five attributed channels and $\Lam$; channel estimators with conditional
 aggregation and black-box degradation & Registered probes, structural logs,
 traces, calibration self-report; implementation/model checks &
@@ -381,7 +419,7 @@ On/offline / WB for $\Lam$; degraded BB bounds & None yet \\
 \end{tabularx}
 \end{table}
 
-My increment relative to this direct literature is deliberately narrow.
+Our increment relative to this direct literature is deliberately narrow.
 Code inspection, deployment telemetry, empowerment estimation, evaluation
 catalogues, and audit evidence schemas already exist. What they do not jointly
 supply is my particular fixed-instantiation decomposition of direct-bypass,
@@ -396,6 +434,44 @@ $A_{epi}$ a source-recognition measure or $A_{org}$ a complete origin metric.
 The remaining validation burden is precisely external: independent substrates,
 expert and downstream criteria, and comparison against these established
 alternatives.
+
+\begin{table}[htbp]
+\centering
+\caption{Classical tools versus the scoped R15 increment. The table prevents
+the number of propositions from serving as a proxy for mathematical novelty.}
+\label{tab:rw-novelty}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.18\textwidth}
+>{\raggedright\arraybackslash}p{.36\textwidth}X@{}}
+\toprule
+Result / instrument & Classical or direct precursor & What this paper adds \\
+\midrule
+Geometric aggregation & Scale-invariant Cobb--Douglas characterizations
+\citep{ebert_welsch2004,oecd2008} & Explicit bounded-cube quantifiers,
+proof repair, calibration/invariance commitments, and sensitivity obligations \\
+T2 attribution cover & Causal mediation and directed information
+\citep{kramer2003,peters2017} & Interface-relative surgery loci and
+componentwise compatibility; no claim of conceptually necessary five dimensions \\
+T4 attack allocation & Linear resource allocation and log damage & Explicit
+attacker-minimization direction, tie/boundary certificates, and separation
+from linear-fraction damage \\
+T5 zero disjunction & Product zero-factor algebra & Layer-specific mechanism
+vocabulary and provenance/output requirements, not a new factorization theorem \\
+T6, C1/C2 & Comparison principles, sequential detection, normal forms
+\citep{lade_gross2012,kuznetsov2004} & Registered defense normal forms,
+certificate-failure domains, and implementation boundaries \\
+Identity/XOR SCMs & Cross-world counterfactual non-identifiability & An
+endorsement-specific, executable actual/no-surgery output-law audit example \\
+PID and candidate measures & Ingel's RL PID and Albantakis's candidate-measure
+comparison \citep{ingel2022quantifying,albantakis2021quantifying} & A proposed
+intervention-attribution protocol to compare against them; comparative
+accuracy and external validation remain unrun \\
+Evidence governance & Preregistration, replication, audit trails & Versioned
+criterion supersession, legacy markers, failure retention, model-sensitivity
+labels, and machine-readable provenance/evidence ceilings \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{AI safety as the study of autonomy loss}\label{rw:safety}
 

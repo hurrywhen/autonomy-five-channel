@@ -154,7 +154,12 @@ def _truth_components_impl(model, T: int, baseline) -> _Components:
     u_eff = float(np.dot(g_marg, np.arange(al.n_G)))
     endorse_fn = lambda u: float(etab[int(round(u))])
     g_res = components.truth_A_goal(u_eff, endorse_fn, [float(i) for i in range(al.n_G)])
-    a_goal = g_res.point if not g_res.degenerate else g_res.hi
+    if g_res.degenerate:
+        # R15: a flagged goal interval cannot be collapsed to its optimistic
+        # upper endpoint merely because Bundle stores a scalar.  Historical
+        # archives are untouched; new point-composite requests fail closed.
+        raise ValueError("A_goal degenerate: report GoalTruth interval, not a point composite")
+    a_goal = g_res.point
 
     # A_exec（执行，实轨）
     a_exec = _truth_a_exec(model, joints, al.n_A)

@@ -1,15 +1,18 @@
 % sec_representation.tex — the representation theorem
 \section{Aggregation: the Representation Theorem}\label{sec:representation}
 
-The composite indicator has the gated form
-\begin{equation}\label{eq:composite}
-A \;=\; \Avia\cdot F_\varsigma(\Aorg,\Agoal,\Aexec,\Aepi,\Aref),\qquad
-F_\varsigma(x) = \Bigl(\textstyle\sum_i w_i\,x_i^{(\varsigma-1)/\varsigma}\Bigr)^{\frac{\varsigma}{\varsigma-1}},
-\end{equation}
+The state and resilience descriptors have the gated forms
+\begin{align}\label{eq:composite}
+\Astate &= \Avia\cdot F_\varsigma(\Aorg,\Agoal,\Aexec,\Aepi,\Aref),\qquad
+\Ares=\Rdef\Astate,\notag\\
+F_\varsigma(x) &= \Bigl(\textstyle\sum_i w_i\,x_i^{(\varsigma-1)/\varsigma}\Bigr)^{\frac{\varsigma}{\varsigma-1}} .
+\end{align}
 where the CES family $F_\varsigma$ is parameterized by the elasticity
 $\varsigma$ (equivalently the power-mean exponent $p=(\varsigma-1)/\varsigma$;
 the elasticity symbol is $\varsigma$ throughout, to be distinguished from the
-scaffolding intervention class $\sigma$). This section
+scaffolding intervention class $\sigma$). The representation theorem applies
+only to $F_\varsigma$; both external gates are independent design choices, and
+$\Rdef$ is not a sixth current-autonomy channel. This section
 shows that the main case $\varsigma=1$---the weighted geometric mean
 $F(x)=\prod_i x_i^{w_i}$---is \emph{characterized} by the axioms, twice over:
 forced relative to the framework's stated normative commitments (which are
@@ -53,8 +56,8 @@ order; the set $D$ of order-preserving shifts is a closed convex cone with
 $D\cup(-D)=\mathbb{R}^n$. A half-space lemma on its quotient by the
 indifference subspace forces that quotient to be one-dimensional, so
 $g(u)=w\cdot u$ up to a continuous increasing reparameterization.
-Homogeneity makes that reparameterization affine, and the explicit
-calibration (A0) kills its intercept and gives $\sum_iw_i=1$. The full proof
+Homogeneity first normalizes the covector and fixes $\sum_iw_i=1$; the
+explicit calibration (A0) then kills the intercept. The full proof
 is in Appendix~\ref{app:representation}. This is the paper's sole proof of
 the main representation theorem. In particular, we do \emph{not} infer a
 quasi-arithmetic mean from (A1)--(A3): idempotency/internality would be an
@@ -80,8 +83,11 @@ annotation), registered as application-layer input; (c) \emph{behaviorally
 measured} weights, recovered from the agent's own trade-offs under controlled
 single-channel perturbations. Whichever protocol is used, reporting a
 weight-sensitivity band is an obligation: Section~\ref{sec:experiments}
-recomputes every campaign verdict under five alternative weight vectors
-(ordering Kendall $\tau\ge0.93$ against equal weights; zero verdict flips).
+recomputes every campaign verdict under five alternative weight vectors. The
+R15 read-only audit uses Kendall $\tau_b$, reports all tie counts and scenario
+strata, and finds whole-pool values $[0.9276,1]$; it does not claim a uniform
+$0.93$ scenario-level floor. Historical verdict-flip counts remain descriptive
+of the legacy aggregate, not R15 normative-source validation.
 
 The characterization, with its calibration and quantifiers made explicit,
 is our answer to the standing objection that composite aggregation is
@@ -251,9 +257,9 @@ hypotheses of Theorem~\ref{thm:rep}, defended by its semantics (a viability
 cut scales the whole once, independently of any proportional rescaling of the
 five channels) rather than absorbed into the theorem. \emph{Scope statement}:
 Theorem~\ref{thm:rep} applies to the five-channel aggregator $F_\varsigma$;
-the full index is the composite design
-$A=\Avia\cdot F_\varsigma$, and every ``forced'' claim in this paper is to be
-read with that scope.
+the full indices are the composite designs
+$\Astate=\Avia F_\varsigma$ and $\Ares=\Rdef\Astate$, and every ``forced''
+claim is read with that scope. Readiness is not derived from Via-Ind either.
 When (Via-Ind) fails---an attack striking channel clusters at once---nested
 CES may be used as a \emph{sensitivity model}, but it is not automatically
 axiom-compatible: calibration, strict monotonicity, homogeneity, and (A6)

@@ -211,7 +211,12 @@ def empowerment_support(W, support) -> float:
 
 
 def a_exec(emp_nats: float, n: int, n_A: int) -> float:
-    """A_exec = ℰ^Π/(n·log|𝒜|)（附录 §5.4 规范化；同底对数，AX6a）。"""
+    """A_exec = ℰ^Π/(n·log|𝒜|)，n 是实际行动数（R15）。
+
+    对应 I(A_{t:t+n-1};O_{t+n}|S_t)。R14 论文的 A_{t:t+n} 含
+    n+1 个行动，与同一分母不一致；超容差输入必须 fail-closed，不能靠
+    clipping 掩盖定义错位。
+    """
     if n < 1 or n_A < 2:
         raise ValueError(f"n≥1 且 |𝒜|≥2: n={n}, |𝒜|={n_A}")
     raw = float(emp_nats) / (n * math.log(n_A))

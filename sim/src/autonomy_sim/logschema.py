@@ -122,3 +122,64 @@ def validate_log(meta: dict, records: list, alphabet: Alphabet) -> list:
             elif abs(sum(bd) - 1.0) > 1e-6:
                 errors.append(f"record[{idx}].belief_dist 不归一: sum={sum(bd)}")
     return errors
+
+
+R15_CERTIFICATE_FIELDS = (
+    "layer", "construct_scope", "state_autonomy", "viability_state",
+    "defense_readiness", "surgery_history", "Lambda", "lambda_status",
+    "source_registration", "evidence_ceiling",
+    "external_construct_validation", "integrity_certificate",
+)
+
+
+def validate_r15_certificate(cert: dict) -> list[str]:
+    """Validate the actual R15 sidecar contract without altering legacy logs."""
+    errors = []
+    for field in R15_CERTIFICATE_FIELDS:
+        if field not in cert:
+            errors.append(f"R15 certificate missing field: {field}")
+    if errors:
+        return errors
+    if cert["layer"] not in {"L0", "L1", "L2"}:
+        errors.append("invalid layer")
+    expected_scope = "internal_causal_only" if cert["layer"] == "L0" else "normative_structure_required"
+    if cert["construct_scope"] != expected_scope:
+        errors.append("construct scope inconsistent with layer")
+    for field in ("state_autonomy", "viability_state", "defense_readiness"):
+        value = cert[field]
+        if not isinstance(value, (int, float)) or not 0.0 <= value <= 1.0:
+            errors.append(f"{field} outside [0,1]")
+    if cert["surgery_history"] not in {0, 1, None}:
+        errors.append("surgery_history must be 0, 1, or null")
+    if cert["lambda_status"] not in {"DEFINED", "NOT_APPLICABLE", "UNKNOWN"}:
+        errors.append("invalid lambda_status")
+    if cert["lambda_status"] == "DEFINED":
+        if not isinstance(cert["Lambda"], (int, float)) or not 0.0 <= cert["Lambda"] <= 1.0:
+            errors.append("DEFINED Lambda requires a value in [0,1]")
+    elif cert["Lambda"] is not None:
+        errors.append("N/A or UNKNOWN Lambda must be null")
+    if cert["layer"] == "L2" and cert["lambda_status"] == "NOT_APPLICABLE":
+        errors.append("L2 Lambda cannot be NOT_APPLICABLE")
+    if cert["source_registration"] not in {"COMPLETE", "INCOMPLETE", "UNKNOWN"}:
+        errors.append("invalid source_registration")
+    unknown = (cert["surgery_history"] is None or cert["source_registration"] != "COMPLETE"
+               or cert["lambda_status"] == "UNKNOWN"
+               or (cert["layer"] == "L2" and cert["lambda_status"] != "DEFINED"))
+    expected_ceiling = "LIMITED" if unknown else "SCM_AUDITED"
+    if cert["evidence_ceiling"] != expected_ceiling:
+        errors.append(f"evidence_ceiling must be {expected_ceiling}")
+    if cert["external_construct_validation"] is not False:
+        errors.append("external construct validation cannot be asserted")
+    if cert["integrity_certificate"] is not False:
+        errors.append("an R15 score is not an integrity certificate")
+    return errors
+
+
+def write_r15_certificate(path: str, cert: dict) -> None:
+    """Fail-closed production writer used by R15 certificate producers/tests."""
+    errors = validate_r15_certificate(cert)
+    if errors:
+        raise ValueError("invalid R15 certificate: " + "; ".join(errors))
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(cert, handle, ensure_ascii=False, indent=2, allow_nan=False)
+        handle.write("\n")
