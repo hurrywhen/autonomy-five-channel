@@ -14,7 +14,7 @@ This synchronization publishes the R15 reviewer-counterexample revision, complet
 
 | Item | Value |
 |---|---|
-| R15 final development-source commit | `56596e26f711b25f65626793a46f9fc2d88a2a6a` |
+| R15 final development-source commit | `0ebbae17dc8bceeb3dda4a9852fc7f0f355869ee` |
 | Preceding R15 content commit | `7095de389d9271fc1226d5a1701b91853afbef96` |
 | R15 public content commit used for clean validation | `f11491937a0dcf6d86069959ba078ffd206770ab` |
 | Validated public source tree | `a7351ec32aa236a3f162037e8ec897141799ef34` |

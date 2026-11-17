@@ -12,7 +12,7 @@
 
 - **E0.1 接口二分**：`truth_*(platform_tensors) -> exact value` 与 `estimate_*(trajectory_log) -> (point, interval, diagnostics)`。同名量的两路径签名一一对应。
 - **E0.2 不确定度**：估计路径输出 `(点估计, 区间)`；区间构造法逐量登记于下文；真值路径区间退化为点。
-- **E0.3 标定期先行**（input §5.2）：标定干预拟合响应函数，产出 H2 换算常数 χ、权 $w_i$（推论 6.8 回归）、策略漂移容差 η、强度比 ρ=C_del/C_self——全部为配置化参数，入日志 metadata。
+- **E0.3 标定期先行**（input §5.2）：标定干预拟合响应函数，产出 H2 换算常数 χ、策略漂移容差 η、强度比 ρ=C_del/C_self。权重 $w_i$ 只能取等权默认、独立专家/利益相关者引出或受控单通道行为权衡协议的注册值，禁止以需要预知 F/w 的“推论 6.8 回归”充当非循环估计；全部配置化参数入日志 metadata。
 
 ## 2. A_org（来源）：DI 分解
 
@@ -90,7 +90,7 @@ DI 闭环偏差（真值标定）；empowerment 高维方差（本环境低维�
 - **E12.2 T6c（R12 量词修正与描述臂）**：定理为 iid $N(0,\sigma_n^2)\to N(\delta,\sigma_n^2)$ 下固定 $\delta>0$、$\alpha\downarrow0$ 的 Lorden–Lai 下界 $\delta EDD\ge(1-o(1))2\sigma_n^2\log(1/\alpha)/\delta$；固定 $\alpha$、$\delta\downarrow0$ 的全称版被常数停止规则否定。ENV-0 的 LLR-CUSUM（阈 $h\approx\log(1/\alpha)$）仅在 $\alpha=10^{-3}$ 比较 $\delta=0.25,0.125$，观测量 $\delta\cdot EDD$ 与标度 $2\sigma_n^2\log(1/\alpha)/\delta$ 属该方案的描述性对照，不直接检验上述另一极限；常数因子属 overshoot 域，不做精确等式。区间按 SPEC_experiments ATK-6⑥ 的同种子比均值正态近似口径报告，并以 Student-$t_{29}$ 半宽作小样本敏感性；30 个比值和种子由 `analysis_cusum_sensitivity.json` 公开列示。
 - **E12.3 T7 委托记账约定（R12 当前 selector/双误差边界）**：干预流 $I$ 为受托脚本内容；精确线性律的估计量显式定义为逐步当前 selector 条件化 $\sum_t I(S^t;A_t\mid A^{t-1},\mu_t)$ 与 $\sum_t I(I^t;A_t\mid A^{t-1},S^t,\mu_t)$，并满足等熵、脚本臂不经 $S$、$F_{ext}^{self}=0$；不得未加证明改读为完整历史 $\mu^t$ 条件化。legacy ENV-0 真值路径是未条件化流，近线性拟合只作实例描述。非 H1' 且有混合误差时用 $\varphi_0=f/C_{self}$、$\eta_\mu=h(m)/C_{self}$ 分离的双误差 bracket（DEL-1⑤⑥公式），不得把同一 $\varphi$ 只加分母吸收两类误差；退化区间报 INCONCLUSIVE。
 - **E12.4 C1/C2（附录 §8.2/§8.3）**：ODE 模拟器（Euler/RK4，$dt$ 入配置）；C1 平衡公式 $D_\pm=(1\pm\sqrt{1-4\delta/\varepsilon v})/2$ 与 $T_{rec}\propto(\delta_c-\delta)^{-1/2}$ 标度；C2 双稳/滞后：$\delta_{down}=r(D_1)$、$s_c=|r(D_m)|$（$D_1,D_m$ 为 $r'=0$ 两正根，$r(D)=\varepsilon_0v\,D(1-D)(1-\gamma D$)），持续攻击下恢复须 $s>\delta+s_c$；攻击移除 $\delta=0$ 时才为 $s>s_c$（回环不闭合）。
-- **E12.5 黑盒（附录 §10）**：10.2 探针 = 行动通道随机化脚本（β_π 编译，state-independent script，flag = 探针指示）；$F_{ext}^{obs}=I(\text{脚本}^T;A^T)$（引理 2.3.1：=DI，无需 S 可观测——真值路径由编译结构精确给出，采样插件路径对照）；区间包含真值的语义前提 = $F_{int}$ 漂移 ≤η（η 过小时不含，作反面控制）。10.3（R11）：一般策略驱动被动观察的方向未识别，因为 $I(A;O\mid S)-I(A;O)=I(A;S\mid O)-I(A;S)$ 可正可负；ENV-0 obs>cond 只作实例描述。独立探针 $A\perp S$ ⇒ $I(A;O)\le I(A;O\mid S)$ 保留为条件方向。
+- **E12.5 黑盒（附录 §10）**：10.2 探针 = 行动通道随机化脚本（β_π 编译，state-independent script，flag = 探针指示）；$F_{ext}^{obs}=I(\text{脚本}^T;A^T)$（引理 2.3.1：=DI，无需 S 可观测——真值路径由编译结构精确给出，采样插件路径对照）；R15 只给 bypass 语义下的条件认证上端：$F_{ext}^{obs}\le F_{ext}$ 且 $F_{src}\le F_{src}^{base}(1+\eta)$，L1+ 舍去非负 $F_{rand}$ 仍保守；参考下端不作包含性认证，L1+ 必须另注册 $r_{max}\ge F_{rand}$，否则不得显示。历史 BB-1 的区间命中只作旧 fixture 重放，η 不足与 mediation/adaptive probe 作反面控制。10.3（R11）：一般策略驱动被动观察的方向未识别，因为 $I(A;O\mid S)-I(A;O)=I(A;S\mid O)-I(A;S)$ 可正可负；ENV-0 obs>cond 只作实例描述。独立探针 $A\perp S$ ⇒ $I(A;O)\le I(A;O\mid S)$ 保留为条件方向。
 - **E12.6 Λ 操作化（R14 分账）**：旧 `law_level_lambda`/`lambda_history` 与 ATK-1、β_π、T2/T3、X2 的 $\Lambda$ 相关值全部仅为 legacy marker，不能支持 AX3、$A_{ref}$ 或反事实 TV。新 `counterfactual.py` 在独立显式 SCM 上执行 abduction–action–prediction；`x5c_stratified` 每 noise×arm×t 记录 20,000 上下文，含 C1--C5、观测等价 identity/XOR 与独立共享噪声复核，$D_{noise}>0.01$ 时只报双模型带。`c0cf_v2` 记录非退化同环境、同全轨迹 $(E^T,O^T,A^T)$ 的构造证人。新证据不升级旧场景 verdict；旧 C0-DEMO 和历史 T-BB 不改写。
 
 ## 13. 验收标准（R3b done）
@@ -103,7 +103,7 @@ SPEC_tests.md §5 的 E 系列测试全绿；每个分量在至少一个合成�
 
 **E14.0 落地范围**。E0.1 接口二分在 v1 的落地：五个分量有采样估计器（`estimators.py`，输入=P8.2 步级日志 `trajs`，输出 `(point, half, diagnostics)`）；**A_ref 的采样载体（defense_events 背书事件日志）与 Λ 的事件级路径 v1 无日志承载——显式登记为报告局限节条目（非静默缺口）**；复合 A 由分量估计经 E9.1 复合。数值记录由 `sim/estimator_checks.py` 产出（`runs/<矩阵>/estimator_checks.json`）。
 
-- **E14.1** `estimate_probe_flow(trajs, n_I, n_A) -> (point, half, diag)`：10.2 探针流 $F_{ext}^{obs}=I(flag^T;A^T)$ 的采样插件估计——与真值闭式同构的插件式 $\hat f\cdot\hat H(\text{脚本})\cdot T$（$\hat f$=旗标率（`I_t["beta"]` 逐步读出）、$\hat H$=旗标步行动经验熵；state-independent 脚本约定）；真值对照 `blackbox.probe_flow_obs`（flag·H（脚本）·T 精确式）。A_org 区间由 `a_org_interval(F_int^base, η, 估计值)` 合成（η=标定期漂移容差，E0.3）；区间命中目标=$a_{true}=F_{int}^{true}/(F_{int}^{true}+F_{ext}^{obs})$（E2.4 可观测重建语义，BB-1 同式——探针流在 bypass 语义下是因果 F_ext 的**可观测下估计**，不是因果 F_ext 本身；仅用于 E2.4 的条件认证上端，参考下端按 R15 不作包含性承诺，L1+ 另需 $r_{max}$）。
+- **E14.1** `estimate_probe_flow(trajs, n_I, n_A) -> (point, half, diag)`：10.2 探针流 $F_{ext}^{obs}=I(flag^T;A^T)$ 的采样插件估计——与真值闭式同构的插件式 $\hat f\cdot\hat H(\text{脚本})\cdot T$（$\hat f$=旗标率（`I_t["beta"]` 逐步读出）、$\hat H$=旗标步行动经验熵；state-independent 脚本约定）；真值对照 `blackbox.probe_flow_obs`（flag·H（脚本）·T 精确式）。历史 BB-1 才由 `a_org_interval(F_int^base, η, 估计值)` 重放旧区间及 fixture 命中目标 $a_{true}=F_{int}^{true}/(F_{int}^{true}+F_{ext}^{obs})$；R15 新输出只按 E2.4/E12.5 给条件认证上端，参考下端不作包含性承诺，L1+ 另需 $r_{max}$。探针流在 bypass 语义下是因果 F_ext 的**可观测下估计**，不是因果 F_ext 本身。
 - **E14.2** `estimate_z_high(trajs, n_Z)`：Z 高位占时逐轨迹均值（A_via 输入；真值对照 propagate Z 边缘占时）。
 - **E14.3** `estimate_g_mean(trajs, alphabet)`：S 日志 G 分量边缘均值（P9.4 $U_{eff}$ 均值读出的白盒采样对应物；E4.3 MaxEnt-IRL 黑盒恢复属报告附栏）。
 - **E14.4（R11 点信念边界）** `estimate_epi_accuracy(trajs, bucket_map)`：ENV-0 点信念 $B_t=\delta_{b_t}$ 下以逐轨迹命中率 $\frac1T\sum_t\mathbf 1[b_t=\kappa(E_t)]$ 估计真实桶期望质量；$E_t$ 与 $S_t.B$ 由日志直读，κ 同真值路径。若未来支持非点信念，接口必须改为读取 `belief_dist` 的真实桶质量，不得沿用分布对象相等指示。
