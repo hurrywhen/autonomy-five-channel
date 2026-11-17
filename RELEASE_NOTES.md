@@ -12,8 +12,8 @@ R16 closes the R15 re-review: ordered source-attribution semantics, exact multi-
 | Item | Value |
 |---|---|
 | R16 development-source commit | `dea03f9d938150a53d9d9cfe9c0b4fef333bf862` |
-| R16 public content commit used for clean validation | `R16_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R16_VALIDATED_TREE` |
+| R16 public content commit used for clean validation | `3f1f8e6c1921a65301da94f1f41c8c57021976c5` |
+| Validated public source tree | `a91c712444c733c5bcf1a8704cd0ab9616c5ae64` |
 | R15 reviewed public baseline | `ec53f987a8348dbe374987178acad80c39b3e726` |
 | R15 validated content commit | `0f789d7c419b6c57f32a431a96484d8367daf965` |
 | `latex/main.tex` SHA-256 | `5c32611858a82624f087debec9029875b497cfb21d87e7b867bcbea39fd1427a` |
