@@ -12,9 +12,9 @@ R18 is a focused local revision addressing the R17 review (which confirmed the R
 | Item | Value |
 |---|---|
 | R18 development-source commit | `bc1c5380f440f6de9ccfb629ca9050d65a4ded48` |
-| R18 public content commit used for clean validation | `R18_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R18_VALIDATED_TREE` |
-| Final public synchronization commit (tag `v1.1-r18` target) | `R18_FINAL_COMMIT` |
+| R18 public content commit used for clean validation | `618704d612632297601a646b98392b31703b7b08` |
+| Validated public source tree | `05973c0711db3d2dc35a94fdc63b66b1e1218d7d` |
+| Final public synchronization commit (tag `v1.1-r18` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object itself and in the development repository's R18 release record |
 | R17 reviewed public baseline | `21c6016f1aa946d41ebe43355e899c1efda69d33` |
 | `latex/main.tex` SHA-256 | `d56a1893ef2a7545fe6521d86085a0bfdaac250153c203931a0f97921a57a39d` |
 | `latex/main.pdf` SHA-256 | `97caea96f32cb7d3be13be9f53db0a17857bf632aa7d02cc17322f8a1c2408a0` |
