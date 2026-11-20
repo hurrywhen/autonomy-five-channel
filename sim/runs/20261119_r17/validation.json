@@ -1,0 +1,271 @@
+{
+  "artifact_version": "R17-frozen-source-validation-v1",
+  "source_commit": "b0edb7694d9f769b31f800f9ff5ebeb929247e2c",
+  "source_tree": "6413a515fd47566e2ac43d2d1f5151656aa192b2",
+  "worktree_clean_before_and_after_commands": true,
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "seconds": 130.377,
+      "summary": [
+        "/tmp/opencode/r17_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000002054 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(a, label=\"A_org\")",
+        "/tmp/opencode/r17_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000005345 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(a, label=\"A_org\")",
+        "/tmp/opencode/r17_public_frozen/sim/tests/../src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(raw, label=\"A_exec\")",
+        "----------------------------------------------------------------------",
+        "Ran 251 tests in 129.968s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_x5c_r14.py",
+        "--out",
+        "runs/20261116_r14/x5c",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.24,
+      "summary": [
+        "X5-c read-only replay OK: 8 arms, overall=CONFIRMED"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_x5c_r14_stratified.py",
+        "--out",
+        "runs/20261116_r14/x5c_stratified",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.359,
+      "summary": [
+        "X5-c stratified replay OK: 24 rows, CONFIRMED, MODEL_SENSITIVE, D=0.089800"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "run_c0cf_r14.py",
+        "--out",
+        "runs/20261116_r14/c0cf_v2",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.222,
+      "summary": [
+        "/tmp/opencode/r17_public_frozen/sim/src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+        "  return clip_unit_value(raw, label=\"A_exec\")",
+        "C0-CF read-only replay OK: CONFIRMED"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r15_statistics.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 31.02,
+      "summary": [
+        "R15 statistics read-only check OK: 5760 historical arms"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r15_x5c_paired.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.192,
+      "summary": [
+        "R15 paired X5-c check OK: 2 strata, POST_HOC_PASS, max abs float diff=0.000e+00"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r16_source_attribution.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.227,
+      "summary": [
+        "R16 source-attribution check OK: OR + three T=2 policies + mediation/bypass; max abs float diff=0.000e+00"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r17_native_benchmark.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 2.598,
+      "summary": [
+        "R17 native benchmark check OK: exact anchors, certificates, sampling, semantic sensitivity; max abs float diff=0.000e+00"
+      ]
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "analysis_r17_weight_regions.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.399,
+      "summary": [
+        "R17 weight-region check OK: 22 unique contrasts, {'WEIGHT_DEPENDENT': 17, 'NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES': 5}; max abs float diff=0.000e+00"
+      ]
+    }
+  ],
+  "tests": {
+    "ran": 251,
+    "passed": 251
+  },
+  "paper": {
+    "pages": 103,
+    "clean_build_text_match": true,
+    "ghostscript_all_pages": true,
+    "bibliography_entries": 115,
+    "figures": 6,
+    "title": "Autonomy as Determination by One's Own Normative Structure: A White-Box-First Five-Channel Audit Framework with Axioms and Conditional Theorems",
+    "author": "Wen Hu and Gong Zhang",
+    "float_too_large": false,
+    "undefined_references_or_citations": false,
+    "max_overfull_pt": 8.93814,
+    "fonts_embedded": true,
+    "font_unicode_maps": true,
+    "font_count": 51,
+    "abstract_deversioned": true
+  },
+  "sha256": {
+    "latex/SUBMISSION_MANIFEST.md": "4619d45d3e622d00c52bf292c6642dcd1972ba350fbcc2ed35ee396009603825",
+    "latex/appendix.tex": "43c64e09d77dfba850f6ca634257cf043af8fe44506e54977cb4e0d7dea69f13",
+    "latex/main.bbl": "75d6e8fc2ed7bf4b16a8ba9b6dc67f721b66277488e22dd0078471d4ca5eec9f",
+    "latex/main.pdf": "d0de7a76cdad1a398008ec4ae42022c8e85fca5339d3388e83111ae8c7d781ff",
+    "latex/main.tex": "b111710845eda034fe9f2d32227a6ad48adb4a830e00d51ad095d882e27c2fd1",
+    "latex/refs.bib": "ee444e8400212e29e40f1595fb9fae6efcf6ba2c440b6917407179f02ad27de1",
+    "latex/related_work.tex": "541fe490378c0d45963a680a15706a67f316fe41994681e490d0d5f3b0afc6bb",
+    "latex/sections/sec_axioms.tex": "27d3a26921a85c52ea4e4860a37b860eb78e898b8fe078fc5bfbf0b3ddb55571",
+    "latex/sections/sec_conclusion.tex": "24d510ca01baa1c384ec49066dbe9cd37aa6f2c5c28b11cad0fe87fabf0e1429",
+    "latex/sections/sec_discussion.tex": "8e935345d044c332ca1a03eb94541b4cbde8f83dd505baa2608f691c7b374806",
+    "latex/sections/sec_experiments.tex": "f7252209676397f41ac5f0a518d0a5d282a6f8091c32d0d1145273342701e2bc",
+    "latex/sections/sec_framework.tex": "6fd7147118609fc70394cad056ee1d55cd7c838c99263d171f276931c9bfec93",
+    "latex/sections/sec_identifiability.tex": "27c32fd7aef1b0f584f27f3eb942324a9c8cc6b5f91de9a5d1148c7161687484",
+    "latex/sections/sec_intro.tex": "6de0e458a45db8e94de9f6c80e4c18ca7f5d5af224e351f41873e90d312a620c",
+    "latex/sections/sec_representation.tex": "3161c64933b4486b1a923219b4f9430ac2b7c163344dd2e3e89b78ec50d4664b",
+    "latex/sections/sec_theorems.tex": "84ac6b8d08f1d574866fb622cd594386326b7a0dc8a4a6c10ebcddedcfd6c607",
+    "refs/manifest.md": "99c4ed19232c23e8ba115cefcd2056fd5ed6036f0351a23a49a37e944c8ba974",
+    "sim/CRITERION_VERSION_MAP.md": "7364cc82d7235b78da288fa830fe52988927ceba6e7f0ef810224103fc1d5de6",
+    "sim/EXTERNAL_VALIDATION_PROTOCOL.md": "7c28c46e28de6bd56bdbb7334f8edec48571480ea21c7763e565cbdf09a26fc2",
+    "sim/README.md": "7429846609cb622603b66d44da0f393356cc37a2f527c93b655f39297431bed7",
+    "sim/SPEC_estimators.md": "3e468ef50e236d82a704089056f5586cf7baf7ff2c24591cc68899ecaeee264b",
+    "sim/SPEC_experiments.md": "83ad6a30e4ded374bf0552926a740ec56b602dff0b5c93b99327d60ac67b15fd",
+    "sim/SPEC_tests.md": "fe7b26351f1728c3d311c171fc758161e2d2e6247c8de12728487030af3ea389",
+    "sim/analysis_r15_statistics.json": "87287071f145a04e45ff034155a905c9957349b79c262e5b3726b4cfd3938ee2",
+    "sim/analysis_r15_statistics.py": "9db4da8b94543c32f7f215f725b211a20f07878f0241ed842f01fb206497cd5f",
+    "sim/analysis_r15_x5c_paired.json": "1a7dfaa44c62e2790f5de9fc943191fbda35d7721b4cd73671bf86d9cace1ddf",
+    "sim/analysis_r15_x5c_paired.py": "6380c03a56ec987a06b256236dbc5a25c06240546dfe5a29d2e22e2e02698ce1",
+    "sim/analysis_r16_source_attribution.json": "771471a57be877e7cf7edf74146db856d1a0bc1ea95e9ccf45ab4a51a3724147",
+    "sim/analysis_r16_source_attribution.py": "92168d2dd384b819a7138f10b21439beff3b11f739a9b5b6a35af2055904eaca",
+    "sim/analysis_r17_native_benchmark.json": "4137ee272685a7a0976d2647350e6e4430960ae991b9f78956e48fa5fe01a322",
+    "sim/analysis_r17_native_benchmark.py": "823ac3db9defcb777c38dee07d60d2505033f12889b470c4dea861dc1f8cecd7",
+    "sim/analysis_r17_weight_regions.json": "7f1f1d03546650fadd53ab11d4c6d3a04a990ed78cec9062e5b3e8d54634e96e",
+    "sim/analysis_r17_weight_regions.py": "c927f854c7cadb5ac6de250d592565d2c4cfd33dd9877ecb005127de25163bdc",
+    "sim/runs/20261117_r15/validation.json": "0ea05f2f824b093457a149d6aeb1f6b57e77fa13cb7d9c6534a335b710dc08f6",
+    "sim/runs/20261117_r16/validation.json": "c015bb17c3390c5327840f687cee1e90c5c1429004292144021c88f726e12c2b",
+    "sim/runs/20261119_r17/PROVENANCE.md": "98162b96d92cf0374326ae74204e3ba1fcc0082a61b46f83c7f0a985afad457f",
+    "sim/src/autonomy_sim/__init__.py": "742ebe93a85718bb28ed161f08ffe6a9ceccc5783c3b62bc7619aa292f20f49e",
+    "sim/src/autonomy_sim/aggregate.py": "634fa8a16a4d3db20ec54c8b675873500e470443ddb20db52ddc0a748c7ca6af",
+    "sim/src/autonomy_sim/attack.py": "fe53e260c133b44acbdbe8a01855cb23dbf0a175f537138231b7e1a944f6cbbb",
+    "sim/src/autonomy_sim/blackbox.py": "59638ed33a46d7f539ed255334d41daa41a200d3b984558b1be5ea31f8cfa892",
+    "sim/src/autonomy_sim/c0_witness.py": "9fff5b6a63c2e16ab88cd397abdecda6511bda3fd6e65b1b76ec955399c4a98d",
+    "sim/src/autonomy_sim/components.py": "a4ca2249854faaa260a9d4a0a53ddd7faac3242545ab406211c4c9b80b03195e",
+    "sim/src/autonomy_sim/counterfactual.py": "2682865720fac830dd195b2fdc12112c9a3c60256a3aab8a47f5548c53b27d09",
+    "sim/src/autonomy_sim/delegation.py": "ed49946fa792fbc680ffe996fe6b6c7f26d639e1f5b96e0360c502f6d8aa44a4",
+    "sim/src/autonomy_sim/di.py": "bac838d3ab454597dc2cc5c5f4f76a0a21a0f386af8a50a853af258f4baef465",
+    "sim/src/autonomy_sim/dynamics.py": "e2a71c3701969ecf42e43ecdbb203f3cc27de81a09705a0318b17dd8607936db",
+    "sim/src/autonomy_sim/empowerment.py": "60069699a7a61e7397e274e47b4603c8c3a9259aeaf2f71a30e8e12417edd2a0",
+    "sim/src/autonomy_sim/env0.py": "b14a99b3b5b67c634b8ae04a36f5ad8c1801cac30f47d67f193d6005d9d23ca1",
+    "sim/src/autonomy_sim/estimators.py": "7f694799397f302f341ed9e65ccde3311fab6c04ac60b2d389ab0e09dee78f2a",
+    "sim/src/autonomy_sim/fixtures.py": "afeb2a2fd86abea5c312cb8c8884f2c7591aa3d201bb5d18af90df0fbca2bd91",
+    "sim/src/autonomy_sim/formation_audit.py": "a42ca1a04f6570960531dd8aba0f2a90839dc45a1243802c20dc8d9a9644406d",
+    "sim/src/autonomy_sim/graph.py": "f5c4f951bad72ac9090b7fa0b75d25f40a1d4a76186b0e304989b29485ecf249",
+    "sim/src/autonomy_sim/interventions.py": "21259b67a4d7ecadcd9339adc0cccb2eeb43e8d34554be0781b136624c37783c",
+    "sim/src/autonomy_sim/logschema.py": "af68f5920091d999968d244a4d0267de1954f4a8a6690c5041cb66cd2b2c2e9c",
+    "sim/src/autonomy_sim/matrix.py": "0d06833d01cbb04d9438b90e7ad657fa4b5e3e2c890e281e156198be522ed86f",
+    "sim/src/autonomy_sim/native_benchmark.py": "cfbe82c8c6ac1599083fd19ca1ddeb672688a6075890d8404d70ea06db34f173",
+    "sim/src/autonomy_sim/numerics.py": "32790709d9262f21fbe6a4478469384722ce8c724992cf046c1d8f862e98f548",
+    "sim/src/autonomy_sim/open_loop_execution.py": "5ad006ac4dbe5bb77792b84f4e975c878d3a4ba195e176f2bc96da2d56284e92",
+    "sim/src/autonomy_sim/propagate.py": "2bcb7cdb809ce7b80f939490cbbd8516e00bdfab43de00bb446099de774b6ab4",
+    "sim/src/autonomy_sim/r15_guards.py": "b652bc8d1c26b11d291ad7d3aba20760ea3de9a43b4c2f713f81ed77931722f1",
+    "sim/src/autonomy_sim/r17_guards.py": "45af0427f886a13401a1e2a6c0bd3e71cf49234b9faad9d1eafa5fe1ac5ce357",
+    "sim/src/autonomy_sim/rng.py": "0a9819406f0d8b92a03cc7cc11bbc7e78b2fc5cfaf16ea7a0624710f0a14ce51",
+    "sim/src/autonomy_sim/scenarios.py": "e7af994372aede61b15142f0d79677d3a9739f47988cbb9e0c2fc6466a59a42a",
+    "sim/src/autonomy_sim/simulate.py": "dd95cc23ab1efbc3b5552a33ec79bb6559d487c9a85fad95e08c46aa004c9812",
+    "sim/src/autonomy_sim/source_attribution.py": "9614d76d2300f0751778cd373e5f07b74bc1b147c9cb690e4975ac1ce23cb542",
+    "sim/src/autonomy_sim/stats.py": "eedffe1a9465178374ad596ca042189ef5bcc2e173cc6584fccb4b7cadd90b12",
+    "sim/src/autonomy_sim/wiring.py": "408d773d12695f47ef7b229d34d22a52834797cb3ab11e6b70222992364382b2",
+    "sim/tests/test_l0_foundation.py": "d33f4833405cfa792fa356ada444d4a506be4e5d297d5a2d354bd16462702031",
+    "sim/tests/test_l1_aggregate.py": "392c5a0c81f32d7fab1a02f544af560aa1a10d331e75d4ae2f7b89d869d249b4",
+    "sim/tests/test_l1_components.py": "6c0638f1f735921897c5ad7dd824b4715774e3ef2647c14984effcc6548769d6",
+    "sim/tests/test_l1_coverage.py": "c76645f649ea92ec30456ffcd02e2c12d9052ef004372035035dd9a47612fca3",
+    "sim/tests/test_l1_deleg_blackbox.py": "16e8041a15998395f43bfc3e6d33e31c8f13108dd17e00da5e265a7676f0305c",
+    "sim/tests/test_l1_di.py": "77b8b51b786650f85f24a3df552aa48c9cc7b264494f7e601816149e11819da3",
+    "sim/tests/test_l1_dynamics.py": "476bf6ce346b36703500ec772d2a1ac75232b66f43974e5682d77e25c7ca474a",
+    "sim/tests/test_l1_estimators.py": "0362ad24aaa0fd4629426cc7addde73296f7b4be17a075a8e6f25b5dceb95adf",
+    "sim/tests/test_l1_r11_counterexamples.py": "00d870c8f169f7f2dc74b06878dcfc008b59b03b6659a6928e18152c31037ab0",
+    "sim/tests/test_l1_r12_counterexamples.py": "f668141c495ce8d6ddb56a2ddff38ccc20d4c3edfce424dc88b47d2d815a9fd8",
+    "sim/tests/test_l1_r13_counterexamples.py": "befe51bfcd62b5a1438720167e10ebdadf8f0407662ff68b846a481558fb6f00",
+    "sim/tests/test_l1_r14_counterexamples.py": "ecfb8bd6279c556e8c0d8d3f51fa1cd3c40dbfcd91a8f59513a056da92d4a73b",
+    "sim/tests/test_l2_bb2.py": "c90dbb4d9a6716755be114deb91d54e7dbd938001ae4dadc14298e56160492e6",
+    "sim/tests/test_l2_env0.py": "e5027bf96a2079143b1698582fc9a43ecee6a30fd95f5670d05e96fccdcb37e8",
+    "sim/tests/test_l2_p3.py": "99dd96f72b3195a88a0bfb4eb59ea841bf20b885d3076e55a7b9ffc3458482d6",
+    "sim/tests/test_l2_refinement.py": "0a0b7a2ff0a25d58fdada0df8e0f34be267e9142510799979f9ab069ff196f71",
+    "sim/tests/test_l2_scenarios.py": "99abb93137ee1ae67922700a9626df7b19210e75c8bdac5fb5566e5efcc7e742",
+    "sim/tests/test_l3_matrix.py": "370057aa95541cfe411cdff7ec258a4548651ea3392c63bf09aae9cec243a8fb",
+    "sim/tests/test_r14_artifacts.py": "779ead3f4426dd3992fb369848f4dc06d081f358951da68cccfe89685644e9ad",
+    "sim/tests/test_r15_reviewer_counterexamples.py": "e4f2b34534d71037d5afdf676271d00d5ce62c010cd552a4d71cf416cdb0cfee",
+    "sim/tests/test_r16_analysis_replay.py": "01993d5dbe22225ef9a2027dec301a7e5e1c7691bdccb548f250d2670821060c",
+    "sim/tests/test_r16_certificate_guards.py": "7fdeca32d6468aaee6882fc3d05e83552da303637441d6b5c24945737f44e3d8",
+    "sim/tests/test_r16_source_attribution.py": "964b73c3d673feade026823fb20d45621674af18ea0e2c224843d00c2466ce21",
+    "sim/tests/test_r17_formation_certificate.py": "3aebd04cc1bd797e5bc8371a57d41fc2088a2256ef78d361765f30cccc4af6b8",
+    "sim/tests/test_r17_native_benchmark.py": "9edebce3dafc4f681c64763d567227db2bbc203506f990151205aff3b73b0553",
+    "sim/tests/test_r17_open_loop_execution.py": "950744eea6316685a6038b255743e91a274bfadda75f20e288ce3f55c299402b",
+    "sim/tests/test_r17_weight_regions.py": "97beb9cb72c4ab151063e2f717388fa022e78be21700ac55ed02a4168ece3678",
+    "sim/tests/test_report_r13.py": "712b41d692e57dc0ffddc27c05509a929426dbc3b5e3532eed6e96cd46b442fb",
+    "sim/tests/test_report_r14.py": "77eb94ab58190abe99f2929f005a1212e9c9e008ba8df409f6a9cf99a2e4796b",
+    "tools/make_r17_validation.py": "8a59d7e17973dff67cb273d2e22b6969d0faf9c0fc334397219ecaf6cea3be23"
+  },
+  "scope": {
+    "current_source_commit_replay": true,
+    "historical_r11_r16_files_modified": false,
+    "external_protocol_design_frozen": true,
+    "external_protocol_executed": false,
+    "external_construct_validation": false,
+    "external_sesoi_or_power": false,
+    "selector_conditional_del1_estimator": false,
+    "immutable_tag": false,
+    "formal_release": false,
+    "version_doi": false,
+    "old_spec_snapshots_recovered": false,
+    "legacy_org_via_or_bundle_upgraded": false,
+    "lean_certification": false
+  }
+}

@@ -12,8 +12,8 @@ R17 is a major revision: precommitted open-loop multi-step execution with a feed
 | Item | Value |
 |---|---|
 | R17 development-source commit | `140e631bb03307ac2bc98af20bfd7736fe28ddf2` |
-| R17 public content commit used for clean validation | `R17_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R17_VALIDATED_TREE` |
+| R17 public content commit used for clean validation | `b0edb7694d9f769b31f800f9ff5ebeb929247e2c` |
+| Validated public source tree | `6413a515fd47566e2ac43d2d1f5151656aa192b2` |
 | R16 reviewed public baseline | `cb000d8748a7aa4d0f048c52485e70b2e7128f4c` |
 | R16 validated content commit | `397b52e4f858c690ed7692b3563adfb274021ea5` |
 | `latex/main.tex` SHA-256 | `b111710845eda034fe9f2d32227a6ad48adb4a830e00d51ad095d882e27c2fd1` |
