@@ -123,7 +123,18 @@ def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: 
 
 def open_loop_zero_iff_rows_identical(kernels, *, allowed_sequences=None,
                                       tol: float = 1e-12) -> bool:
-    """Zero capacity over a finite sequence set iff all allowed rows coincide."""
+    """Zero *capacity* over a finite sequence set iff all allowed rows coincide.
+
+    R18 quantifier convention: the capacity mode optimizes over every
+    precommitted distribution on the allowed set, so every allowed pure
+    sequence can receive positive probability under some admissible Q (its
+    point mass).  Zero capacity therefore holds exactly when all sequences
+    that can be assigned positive probability by some admissible Q induce the
+    same conditional terminal-observation kernel.  For a *fixed* precommitted
+    Q the correct statement is support-relative; see
+    :func:`open_loop_zero_iff_positive_support_rows_identical`.  A point-mass
+    Q has zero MI even when the allowed rows differ.
+    """
     kernel = _kernel_matrix(kernels)
     if not math.isfinite(tol) or tol < 0.0:
         raise ValueError("tol must be finite and nonnegative")
@@ -132,11 +143,43 @@ def open_loop_zero_iff_rows_identical(kernels, *, allowed_sequences=None,
     return bool(np.all(np.max(np.abs(rows - rows[0]), axis=0) <= tol))
 
 
-def memoryless_sequence_kernels(step_channel, *, n_actions: int) -> np.ndarray:
-    """Kronecker product channel from open-loop action tuples to observation tuples.
+def open_loop_zero_iff_positive_support_rows_identical(kernels, input_dist, *,
+                                                       allowed_sequences=None,
+                                                       tol: float = 1e-12) -> bool:
+    """Fixed-Q zero MI iff all positive-probability sequence rows coincide.
 
-    This is the explicit memoryless special case.  General stateful environments
-    must instead supply their marginalized sequence kernels directly.
+    R18 quantifier convention for the fixed-precommitted-distribution mode:
+    sequences outside the support of Q are irrelevant to I_Q(A^n; O_final).
+    In particular a point-mass Q always gives zero MI, regardless of how
+    different the unused sequence kernels are.
+    """
+    kernel = _kernel_matrix(kernels)
+    if not math.isfinite(tol) or tol < 0.0:
+        raise ValueError("tol must be finite and nonnegative")
+    q = _distribution(input_dist, kernel.shape[0], "input_dist")
+    if allowed_sequences is not None:
+        allowed = tuple(sorted({int(index) for index in allowed_sequences}))
+        if not allowed or allowed[0] < 0 or allowed[-1] >= kernel.shape[0]:
+            raise ValueError("allowed_sequences must be a nonempty valid index set")
+        if np.any(q[np.setdiff1d(np.arange(kernel.shape[0]), allowed)] > 0.0):
+            raise ValueError("input_dist puts mass outside allowed_sequences")
+    support = np.flatnonzero(q > 0.0)
+    if support.size == 0:
+        raise ValueError("input_dist must have nonempty support")
+    rows = kernel[support, :]
+    return bool(np.all(np.max(np.abs(rows - rows[0]), axis=0) <= tol))
+
+
+def memoryless_observation_sequence_kernels(step_channel, *, n_actions: int) -> np.ndarray:
+    """Kronecker channel from action tuples to *whole observation sequences*.
+
+    R18 naming convention: this object maps A^n to (O_{t+1},...,O_{t+n}) and
+    is the **observation-sequence** channel, not the paper's execution
+    estimand, which reads only the terminal observation O_{t+n}.  For a
+    two-step BSC with error p the normalized observation-sequence capacity is
+    1 - H_b(p)/ln 2, while the terminal-observation capacity is
+    (ln 2 - H_b(p))/(2 ln 2); the two objects must not be conflated.  Use
+    :func:`memoryless_terminal_observation_kernels` for the latter.
     """
     step = _kernel_matrix(step_channel)
     n_actions = _positive_int(n_actions, "n_actions")
@@ -144,6 +187,33 @@ def memoryless_sequence_kernels(step_channel, *, n_actions: int) -> np.ndarray:
     for _ in range(n_actions - 1):
         result = np.kron(result, step)
     return result
+
+
+# Backward-compatible R17 name; the object is the observation-sequence channel.
+memoryless_sequence_kernels = memoryless_observation_sequence_kernels
+
+
+def memoryless_terminal_observation_kernels(step_channel, *, n_actions: int) -> np.ndarray:
+    """Terminal-observation kernels for a memoryless per-step environment.
+
+    R18 convention matching the paper's estimand: when each observation
+    O_{t+k} depends only on the concurrent action A_{t+k} through the same
+    step channel (no environment state carries action effects forward), the
+    marginalized terminal kernel K(o | a^n) = step(o | a_n) depends only on
+    the last action.  Stateful environments (e.g. the native benchmark's
+    parity SCM) must instead supply their marginalized sequence kernels
+    directly; this helper is only the memoryless special case.
+    """
+    step = _kernel_matrix(step_channel)
+    n_actions = _positive_int(n_actions, "n_actions")
+    if step.shape[0] != step.shape[1]:
+        raise ValueError("memoryless terminal helper requires a square step channel")
+    alphabet = step.shape[0]
+    rows = []
+    for sequence in range(alphabet ** n_actions):
+        last_action = sequence % alphabet
+        rows.append(step[last_action])
+    return np.asarray(rows, dtype=float)
 
 
 def feedback_copy_counterexample() -> dict:

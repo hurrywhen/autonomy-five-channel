@@ -1,7 +1,8 @@
 # SPEC_tests —— R3 TDD 测试计划（L0–L3 注册表）
 
-**版本**: v1.3（2026-11-19；v0.1 初版 2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
-**R17 附注**：新增开环执行/反馈反例、历史形成证书、原生端到端基准、权重闭单纯形界条目；当前冻结目标 **251 项**，精确数量由 `runs/20261119_r17/validation.json` 复核，R16 的 230 项历史验收不改写。
+**版本**: v1.4（2026-11-21；v0.1 初版 2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
+**R18 附注**：新增开环输出约定（期末观察/观察序列、支持集零值量词）、R18 完整剖面证书与强制敏感性标志、联合日志端到端审计条目；当前冻结目标 **273 项**，精确数量由 `runs/20261121_r18/validation.json` 复核，R17 的 251 项历史验收不改写。
+**R17 附注**：新增开环执行/反馈反例、历史形成证书、原生端到端基准、权重闭单纯形界条目；R17 冻结目标 251 项，R16 的 230 项历史验收不改写。
 **R16 附注**：新增有序归因/闭环、证书与非有限值、数值容差复核条目；R16 冻结目标 230 项，R15 的 194 项历史验收不改写。
 **TDD 纪律**: ①每个 SPEC 条目先有其测试（红）再写实现（绿）；②测试命名 `test_<条目号>_<短名>`（如 `test_P61_seed_determinism`）；③本注册表与测试文件同步增长——新测试先在此登记条目号；④L1 定理性质测试是理论回归防线，不许跳过（无 `skip` 除非登记理由）。
 
@@ -98,6 +99,9 @@
 | T-R17-FORM | R17 历史形成并列证书 | 固定点植入 U0≠U1 均 Fix、A_goal=1、F_ext=0，当前剖面不变但 formation=REGISTERED_SURGERY；Lambda 审计时移除=1 与最初植入阻止=0 不同 estimand；R17 双 top-level profiles、time_origin/scope 匹配、profile drift/legacy schema/writer fail-closed |
 | T-R17-NATIVE | R17 原生端到端基准 | 同一 T=3 反应式 SCM+开环 n=2 执行审计；精确联合表归一；A_epi=1-p、A_goal=0.5、开环容量解析、fidelity=1-H(q)/ln2、Lambda 手术臂 0；替代语义划分改变 NRI/顺序平均；解耦执行 0；采样误差/ bootstrap/Wilson 区间与 bias note；R17 证书有效；非外部验证 |
 | T-R17-WEIGHT | R17 权重闭单纯形界 | 正分量 log A 线性⇒顶点上下界；成对损伤半空间 c+Σd_i w_i≥0，全正/全负/权重依赖/边界 ties 分类；零分量/闸门/log 未定义单列；非法输入 fail-closed；历史只读重放 22 唯一对比，17 权重依赖，不冒称因果/比例尺度/统计功效 |
+| T-R18-OL-CONV | R18 开环输出约定 | 期末观察 BSC p=0.1 n=2 归一 0.2655022；观察序列 Kronecker 对象 0.5310044 且严格更大；固定点质量 Q 在异核下 MI=0 而容量>0；支持集零值 iff 仅正概率行相同；容量 iff 全允许行相同；非法输入 fail-closed |
+| T-R18-CERT | R18 完整剖面证书 | 完整通道向量/状态/区间/协议版本；RNI/NRI/顺序平均/流量项/替代语义/复合范围/权重；RNI≈1/NRI≈0 强制 ORDER_SENSITIVE+MODEL_SENSITIVE+警示+SENSITIVITY_QUALIFIED；剥离字段/压标志/降等级/复合漂移/权重漂移/因子积/事件计数/中间观察/NaN fail-closed；零反思全口径零复合无标志；零总流 UNDEFINED 不得正标量；writer 共合同；R17 基座升级校验 |
+| T-R18-JOINT | R18 联合日志端到端审计 | 单批次日志确定性重生成；事件计数 n*T/n；执行流仅读期末观察；操作侧全通道同源日志；8192 默认运行全锚（精确复合 0.4608565/0.0003908/0.4011989、双标志、手术臂零复合、解耦执行零）；保存工件重放与证据边界（非外部验证、supersede R17-native） |
 
 ## 3. L2 场景冒烟测试（每场景一测，短视界单种子）
 

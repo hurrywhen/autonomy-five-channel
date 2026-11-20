@@ -343,10 +343,15 @@ derived open-loop sequence channel \citep{cover_thomas2006}; variational bounds
 have separate premises \citep{mohamed2015}. No attainment or BA claim is made
 for an unstructured feedback-policy class.
 
-$\Aexec=0$ iff every allowed open-loop sequence induces the same conditional
-outcome distribution (equivalently, every admissible $Q$ has zero MI).
-Repertoire collapse to one sequence and complete action--environment
-decoupling are sufficient causes. The pre-intervention normalizer prevents
+$\Aexec=0$ in capacity mode iff every sequence that can receive positive
+probability under some admissible $Q$ induces the same conditional
+terminal-observation kernel (with all pure-sequence point masses admissible,
+equivalently: all allowed sequences coincide; equivalently, every admissible
+$Q$ has zero MI). For a fixed precommitted $Q$, zero MI holds iff the kernels
+coincide on the positive-probability support of $Q$; a point-mass $Q$ is
+always zero even when unused rows differ. Repertoire collapse to one sequence
+and complete action--environment decoupling are sufficient causes. The
+pre-intervention normalizer prevents
 $\delta$-contractions from spuriously raising the ratio. Continuous actions
 require registered finite quantization or a positive same-protocol capacity
 normalizer; $\log\mathrm{Vol}(\Acal^n)$ is not a general MI upper bound.

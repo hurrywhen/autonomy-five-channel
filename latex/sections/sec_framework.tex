@@ -145,28 +145,67 @@ $\Aorg^{RNI}=\Astate=0$ under the primary rule in \eqref{eq:aorgnorm}; it is a
 mandatory negative control, not an NRI- or relabeling-invariant claim.
 
 \paragraph{Mandatory co-primary audit output and evidence ceiling.}
-No deployment interface may emit only a scalar. Every R17 certificate contains
-two top-level profiles. \path{current_structural_profile} carries $\Astate$,
-$\Avia$, $\Rdef$, and the explicit mark that the composite is
-protocol-normalized, not a ratio scale. \path{historical_formation_profile}
+No deployment interface may emit only a scalar. Every current certificate
+contains two top-level profiles. \path{historical_formation_profile}
 carries formation status, surgery history, source registration, $\Lam$ (or
 N/A/unknown), and the matching \path{lambda_time_origin} and
-\path{lambda_counterfactual_scope}. Unknown history/source registration or
+\path{lambda_counterfactual_scope}. \path{current_structural_profile} carries
+$\Astate$, $\Avia$, $\Rdef$, the explicit mark that the composite is
+protocol-normalized, not a ratio scale, the composite range across registered
+conventions, the sensitivity flags, and a reference to the full channel
+profile. Unknown history/source registration or
 unavailable required $\Lam$ evidence caps the grade at \textsc{limited}; N/A at
 L0/L1 is not unknown. Complete registration without an SCM audit is
 \textsc{registered\_complete}, not \textsc{scm\_audited}. The latter requires
 explicit audited-SCM evidence and model/evidence hash bindings, and still
 implies neither integrity nor external construct validation.
 
+\paragraph{Full-profile certificate contract.}
+The profile-first principle is machine-checked, not merely stated. The
+current schema requires, as mandatory top-level fields:
+\begin{sloppypar}
+\begin{itemize}
+\item \path{channel_profile}: the complete layer-applicable channel vector,
+each component carrying its value, state, optional interval, and protocol
+version; the goal entry additionally carries the structural point and the
+registered IRL interval, the execution entry the open-loop horizon and the
+explicit no-intermediate-observation mark, and the reflection entry the three
+factors (fidelity, endorsement consistency, $\Lam$) together with logged
+event counts---consistency must equal the logged endorsement/update ratio,
+and a reflection certificate without logged carriers fails closed;
+\item \path{attribution_sensitivity}: the registered partition's RNI, NRI,
+and two-order-average shares with every flow term, every preregistered
+alternative semantic partition, the aggregation weights, and the recomputed
+composite under \emph{each} convention, with the composite range;
+\item \path{sensitivity_flags}, \path{composite_scalar_grade}, and
+\path{scalar_export_warning}: whenever the composite spread across order
+conventions, or across semantic partitions, exceeds the preregistered
+internal threshold ($0.05$ on this protocol-normalized scale---an engineering
+threshold, not a domain SESOI), the certificate \emph{must} carry
+\textsc{order\_sensitive} and/or \textsc{model\_sensitive}, a nonempty export
+warning, and a sensitivity-qualified scalar grade (machine value
+\texttt{sensitivity\_\allowbreak qualified\_\allowbreak not\_\allowbreak
+a\_\allowbreak robust\_\allowbreak point\_\allowbreak reading}). The flags are
+recomputed by the producer from the declared shares, channels, weights, and
+viability; they cannot be suppressed by omission.
+\end{itemize}
+\end{sloppypar}
+The exported scalar must equal the registered primary (RNI) convention's
+composite; any drift fails closed. A certificate presenting a near-one RNI
+share and a near-zero NRI share as a single unflagged positive value is
+rejected by the validator and covered by a dedicated regression test.
+
 Machine-checked \path{channel_schema_version}, \path{org_mode},
 \path{goal_mode}, and \path{state_readiness_version} fields prevent legacy
 numbers from being promoted merely by supplying plausible channels; L1/L2
 certificates require artifact hashes. Hashes bind registered bytes but do not
 prove provenance or external truth. The producer
-\path{produce_r17_certificate} and fail-closed writer
-\path{write_r17_certificate} enforce this contract; R16/R15 symbols remain
-compatibility layers. Legacy \texttt{Bundle} records are rejected rather than
-silently converted into current normative-source or historical certificates.
+\path{produce_r18_certificate} and fail-closed writer
+\path{write_r18_certificate} enforce this contract; earlier schema symbols
+remain compatibility layers, and the earlier scalar-only profile is no longer
+a conforming current certificate. Legacy \texttt{Bundle} records are rejected
+rather than silently converted into current normative-source or historical
+certificates.
 
 \subsection{System model}\label{sec:model}
 
@@ -338,26 +377,22 @@ outside the enumerated class---they compose the five classes rather than
 constitute a sixth.
 
 \paragraph{The excluded class, and its governance consequences.}
-Case (vi) of the proof---surgeries on the environment's own dynamics---is a
-boundary registration, and its practical weight deserves stating rather than
-leaving it as a technical aside. A platform that rewrites its recommendation
-algorithm, or a market operator that changes the matching rules, changes the
-ecology in which every user's autonomy was baselined; on our definitions this
-is not an influence \emph{on} the agent within the audit but a replacement of
-the reference environment, and the pre-change baseline ceases to apply. The
-operational consequence is a \emph{re-baselining obligation}: any such change
-restarts the audit (baseline period, calibration of channel parameters, the
-percentile bands of Section~\ref{sec:experiments}), and no continuity claim
-across the change is licensed. We concede what this costs: the class that is
-arguably the most consequential influence in modern deployments---shaping the
-environment everyone acts in, at scale and invisibly---is outside the
-per-agent channel audit. What the framework offers for it is not silence but
-a different instrument: the change itself is a logged deployment-level event
-(a modification of the $E$-inheritance law), the obligation to declare it and
-re-baseline is enforceable, and cross-environment comparisons proceed by
-channel \emph{profiles} with both instantiations stated
-(Section~\ref{sec:objections}(viii)). Governing the excluded class is a
-task for the instantiation-level registry, not for the channel readings.
+Case (vi)---surgeries on the environment's own dynamics---is a boundary
+registration with practical weight: a platform that rewrites its recommendation
+algorithm, or a market operator that changes the matching rules, replaces the
+reference environment in which every user's autonomy was baselined. This is
+not an influence \emph{on} the agent within the audit, so it carries a
+\emph{re-baselining obligation}: any such change restarts the audit (baseline
+period, channel calibration, percentile bands), and no continuity claim across
+the change is licensed. We concede the cost: arguably the most consequential
+influence in modern deployments---shaping the environment everyone acts in, at
+scale and invisibly---is outside the per-agent channel audit. The framework's
+instrument for it is a logged deployment-level event (a modification of the
+$E$-inheritance law) with an enforceable declare-and-re-baseline obligation;
+cross-environment comparisons proceed by channel \emph{profiles} with both
+instantiations stated (Section~\ref{sec:objections}(viii)). Governing the
+excluded class belongs to the instantiation-level registry, not the channel
+readings.
 
 \subsection{Cross-substrate instantiation}\label{sec:substrates}
 

@@ -2,7 +2,8 @@
 
 **Design status:** `DESIGN_FROZEN_UNEXECUTED`
 **Design freeze date:** 2026-11-17
-**Evidence status:** no external outcomes, no external construct validation, no external SESOI or power analysis.
+**Decision-rule precision (R18):** 2026-11-21 (TOST wording and non-inferiority direction clarified; frozen margins unchanged)
+**Evidence status:** no external outcomes, no external construct validation, no domain-justified SESOI or power analysis.
 
 This file freezes the comparison design requested during review. It is not an outcome preregistration: before any outcome unblinding, the executor must fill the pending numerical fields, timestamp the completed protocol in a public registry, and bind the data/code manifests. Those steps have not been performed.
 
@@ -17,7 +18,11 @@ Co-primary endpoints are:
 
 Secondary endpoints are source-order sensitivity, intervention-attribution coverage, downstream robustness prediction, and blinded expert convergent/discriminant ratings. Expert ratings, the independently timed downstream outcome, and SCM-ground-truth attribution are never pooled into one accuracy number.
 
-**Equivalence and non-inferiority, not non-significance.** The added-value comparisons are full profile minus each preregistered reduced comparator. For balanced accuracy, the equivalence margin is `Delta_BA=0.05` and the non-inferiority margin is `Delta_BA_NI=0.03`; for Brier score, lower is better, with `Delta_Brier=0.02` and `Delta_Brier_NI=0.01`. These are frozen engineering design margins, not empirically justified domain SESOI and not a power calculation. Two one-sided 95% confidence intervals must lie wholly within `[-Delta, +Delta]` before declaring equivalence, and a one-sided 95% interval must exclude the corresponding NI margin before declaring non-inferiority. Any other result is `INCONCLUSIVE`, never “no significant difference, therefore equivalent.” The same decision rule is applied per substrate and in a preregistered random-effects pooled analysis; a pooled interval cannot rescue a failed required substrate.
+**Equivalence and non-inferiority, not non-significance.** The added-value comparisons are full profile minus each preregistered reduced comparator. For balanced accuracy, the equivalence margin is `Delta_BA=0.05` and the non-inferiority margin is `Delta_BA_NI=0.03`; for Brier score, lower is better, with `Delta_Brier=0.02` and `Delta_Brier_NI=0.01`. These are frozen engineering design margins, not empirically justified domain SESOI and not a power calculation.
+
+**Decision rule (TOST, R18 precision).** Equivalence is declared only by two one-sided tests (TOST) at level `alpha=0.05` each: both inferiority nulls are rejected, which is equivalent to the **90% two-sided** confidence interval for the difference lying wholly inside `(-Delta, +Delta)`. A one-sided 95% interval is unbounded on one side and cannot "lie wholly within" a finite margin; if a 95% two-sided interval is preferred instead, the two one-sided tests must each be run at `alpha=0.025`. Any other result is `INCONCLUSIVE`, never "no significant difference, therefore equivalent."
+
+**Non-inferiority direction (reduced model not worse than full).** Let `delta_BA = BA_full - BA_reduced` (higher BA is better). The reduced model is non-inferior iff the one-sided 95% **upper** confidence bound for `delta_BA` is strictly below `Delta_BA_NI` (test of `H0: delta_BA >= Delta_BA_NI`). Let `delta_Brier = Brier_full - Brier_reduced` (lower Brier is better). The reduced model is non-inferior iff the one-sided 95% **lower** confidence bound for `delta_Brier` is strictly above `-Delta_Brier_NI` (test of `H0: delta_Brier <= -Delta_Brier_NI`). The same decision rule is applied per substrate and in a preregistered random-effects pooled analysis; a pooled interval cannot rescue a failed required substrate.
 
 The substantive added-value falsifier is therefore an explicitly declared equivalence or non-inferiority result for a behavior-only, utility-only, scalar, or reduced-channel comparator on both co-primary endpoints across the required substrates. Source attribution is additionally falsified as an order-free interpretation whenever RNI, NRI, and Shapley-style values materially disagree. Independent-investigator reimplementation of at least one substrate and its outcome pipeline is required before upgrading any model-linked success to external construct validation; the present authors' SCMs and newly logged surgery labels remain model constructions.
 
@@ -71,10 +76,11 @@ The result remains `INCONCLUSIVE` if a required substrate, `N/R/I` role registry
 | Item | Status |
 |---|---|
 | Comparison design and minimum substrates | Design frozen here |
+| Engineering equivalence/non-inferiority margins and TOST rule | Frozen here (R18 precision); not domain SESOI |
 | Ingel/Albantakis execution | Not run |
 | PID/candidate numerical comparison | Not run |
 | Intervention-attribution accuracy outcomes | Not run |
 | External expert study | Not run |
-| External SESOI and power calculation | Pending before unblinding |
+| Domain-justified SESOI and power calculation | Pending before unblinding |
 | Public outcome preregistration timestamp | Not created |
 | Immutable external-data/result release and version DOI | Not created |

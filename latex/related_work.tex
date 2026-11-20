@@ -165,69 +165,59 @@ iff no feedback) supplies the directed-information background; it is not
 itself evidence for T2's architecture-specific mediation and attribution
 claims, which require the additional causal-graph premises proved below.
 A direct formal precursor for bidirectional influence is
-\citet{abel2025plasticity}: their generalized directed information (GDI)
-extends Massey's quantity to arbitrary time windows, defines plasticity as
+\citet{abel2025plasticity}: generalized directed information (GDI) extends
+Massey's quantity to arbitrary time windows, defines plasticity as
 observation-to-action influence, and recovers empowerment with the direction
-reversed, yielding a formal mirror and tension theorem. This already supplies
-a bidirectional agent--environment information decomposition. Our different
-question is which registered normative or external source drives behavior in
-a fixed instantiation; plasticity is not autonomy loss, because adaptation to
-observations can be legitimate. GDI therefore neither replaces our causally
-conditioned, normative-state registration nor supplies the historical
-provenance clause or a proof of T2.
+reversed (a formal mirror and tension theorem). Our different question is
+which registered normative or external source drives behavior in a fixed
+instantiation; plasticity is not autonomy loss, because adaptation to
+observations can be legitimate. GDI neither replaces our causally conditioned
+normative-state registration nor supplies the historical provenance clause or
+a proof of T2.
 The information-theoretic study of autonomy itself has a direct lineage that
-our origination channel continues: \citet{bertschinger2008} define and
-measure autonomy as informational closure---an agent is autonomous to the
-extent that its sensory future is determined by its own state rather than by
-the environment's---and \citet{krakauer2020} develop an information theory of
-individuality in the same closure tradition. \citet{ay_polani2008} work out
-the causal-network version of the same idea, analyzing autonomy through the
-balance of internally determined versus externally driven information flows
-in causal networks---structurally the distinction our origination ratio
-\eqref{eq:aorg} makes quantitative with causally conditioned directed
-information, and the missing link between the closure tradition and the
-directed-information machinery. \citet{seth2010} independently proposed
-G-autonomy, measuring how much a variable's own past improves prediction of
-its future beyond environmental pasts, using multivariate autoregression and
-Granger causality, and demonstrated it in agent-based models. This is the
-closest predictive-time-series precursor to our origination channel. The
-difference is substantive: Granger predictive self-determination is not
-identical to causally conditioned directed information from a registered
-normative state, and it supplies neither the endorsement/history distinction
-nor the five-channel attribution cover. We therefore treat Seth's result as
-direct prior work on measuring autonomy, not as evidence for our specific
+our origination channel continues: \citet{bertschinger2008} measure autonomy
+as informational closure---the sensory future determined by the agent's own
+state rather than the environment's---and \citet{krakauer2020} develop an
+information theory of individuality in the same tradition.
+\citet{ay_polani2008} work out the causal-network version, balancing
+internally determined versus externally driven flows---structurally the
+distinction our origination ratio \eqref{eq:aorg} makes quantitative with
+causally conditioned directed information. \citet{seth2010} independently
+proposed G-autonomy (own-past predictive improvement beyond environmental
+pasts, via multivariate autoregression and Granger causality), the closest
+predictive-time-series precursor. The difference is substantive: Granger
+predictive self-determination is not causally conditioned directed information
+from a registered normative state, and supplies neither the
+endorsement/history distinction nor the five-channel attribution cover; we
+treat it as direct prior work on measuring autonomy, not as evidence for our
 mediation theorem.
 
-Two closer autonomy-measurement studies sharpen both the lineage and the
-remaining validation burden. \citet{ingel2022quantifying} apply partial
-information decomposition (PID) to the \emph{next internal state} $S_{t+1}$,
-with current internal and environment states as sources. Their conditional
-self-determination term combines unique internal information with
-internal--environment complementary information; this is not the same estimand
-as our behavior-directed chain $\Frand+\Fnorm+\Fext$. PID unique, shared, and
-complementary terms answer how internal and environmental sources jointly
-update memory, whereas the present order-registered, action-directed attribution asks which registered normative, innovation, or
-bypass source produces actions. Their Gridworld and repeating-pattern RL
-experiments, including observation perturbations and LSTM training, also show
-that task performance and autonomy need not move together. Those experiments
-are direct precedent for perturbation audits and candidate external
-substrates, not validation of our channels; their finite histogram/PID and
-discretized-memory protocol is not our causal-DI estimator.
+Two closer autonomy-measurement studies sharpen the lineage and the remaining
+validation burden. \citet{ingel2022quantifying} apply partial information
+decomposition (PID) to the \emph{next internal state} $S_{t+1}$, with current
+internal and environment states as sources; their conditional
+self-determination term combines unique internal with internal--environment
+complementary information. This is not our behavior-directed chain
+$\Frand+\Fnorm+\Fext$: PID terms answer how internal and environmental sources
+jointly update memory, whereas our order-registered, action-directed
+attribution asks which registered normative, innovation, or bypass source
+produces actions. Their Gridworld/repeating-pattern RL experiments (including
+observation perturbations and LSTM training) show task performance and
+autonomy need not move together---direct precedent for perturbation audits and
+candidate external substrates, not validation of our channels; their finite
+histogram/PID and discretized-memory protocol is not our causal-DI estimator.
 
 \citet{albantakis2021quantifying} compare structural, information-theoretic,
 causal, and dynamical autonomy candidates on structurally diverse discrete
-Markov Brains performing PathFollow tasks, organizing them around
-self-determination, closure, and agency. The comparison finds implementation-
-and measure-dependent dissociations, including between observational and
-causal variants. This is strong precedent for multi-instrument profiles and
-for inspecting causal structure rather than inferring autonomy from successful
-behavior alone. It is not a one-to-one anticipation of our five channels and
+Markov Brains (PathFollow tasks), finding dissociations that depend on the
+implementation and the measure, including between observational and causal
+variants. This is strong precedent for multi-instrument profiles and for
+inspecting causal structure rather than inferring autonomy from successful
+behavior, but it is not a one-to-one anticipation of our five channels and
 excludes constitutive self-maintenance, endorsement history, and our
 reflection estimand. Albantakis's automata and Ingel's RL environments are
 therefore the minimum substrates in the design-frozen, unexecuted protocol
-\texttt{AFC-EXT-001}, which compares the full profile,
-ablations, behavior-only/utility-only baselines, PID candidates, and
-intervention-attribution accuracy. No such comparison has yet been run.
+\texttt{AFC-EXT-001}; no such comparison has yet been run.
 
 These approaches do not by themselves supply our
 goal/execution/epistemic/reflection decomposition, intervention taxonomy,
@@ -243,14 +233,13 @@ behavior \citep{ziebart2008}, yielding the $U_{eff}$ side of $A_{goal}$.
 Estimation at scale is covered by variational empowerment
 \citep{mohamed2015} and by $k$-NN and neural mutual-information estimators
 \citep{kraskov2004,belghazi2018} (Section~\ref{sec:identifiability}).
-For language agents, \citet{song2026eelma} introduce EELMA, a direct
-estimation precursor that maps multi-turn text trajectories into pretrained
-language embeddings and estimates effective empowerment through two InfoNCE
-objectives. They evaluate it on textual Gridworld and Tower of Hanoi,
-WebArena, and $\tau$-bench tool use. EELMA thus addresses scalable estimation
-of an action--future-state influence quantity, not our five-channel source
-attribution or counterfactual endorsement deviation. Its task-performance correlations are
-evidence for EELMA's capability proxy in those environments, not external
+For language agents, \citet{song2026eelma} introduce EELMA, which maps
+multi-turn text trajectories into pretrained language embeddings and estimates
+effective empowerment through two InfoNCE objectives (textual Gridworld, Tower
+of Hanoi, WebArena, $\tau$-bench). EELMA addresses scalable estimation of an
+action--future-state influence quantity, not our five-channel source
+attribution or counterfactual endorsement deviation; its task-performance
+correlations are evidence for EELMA's capability proxy, not external
 validation of our $\Aexec$ or composite $A$.
 Causal emergence---macro-level descriptions can carry more effective
 information than micro-level ones \citep{hoel2013}---is the closest
@@ -482,38 +471,32 @@ labels, and machine-readable provenance/evidence ceilings \\
 
 % [MaM: compress the case list; Syn: keep]
 The safety literature has accumulated, case by case, exactly the failure modes
-our taxonomy organizes; we map the load-bearing ones and compress the rest.
-Reward tampering---agents seizing control of their own reward signal---is
-analyzed in causal-influence-diagram terms that parallel our $\beta$-class
-surgery semantics \citep{amodei2016,pan2022,everitt2021}. Goal
-misgeneralization shows capability and goal coming apart
-\citep{langosco2022,shah2022}, unified under proxy alignment by
-\citet{ngo2022}. Mesa-optimization exhibits the manipulation case as
-engineering reality: an inner optimizer can be selected for \emph{deceptive}
+our taxonomy organizes. Reward tampering is analyzed in causal-influence-diagram
+terms parallel to our $\beta$-class surgery semantics
+\citep{amodei2016,pan2022,everitt2021}; goal misgeneralization shows capability
+and goal coming apart \citep{langosco2022,shah2022}, unified under proxy
+alignment by \citet{ngo2022}. Mesa-optimization exhibits the manipulation case
+as engineering reality: an inner optimizer can be selected for \emph{deceptive}
 alignment, passing every behavioral endorsement test while its goals were
 installed from outside \citep{hubinger2019}. Goal drift in deployed LM agents
-\citep{arike2025} is the empirical counterpart of the slow
-sub-threshold drift regime of Theorem~T6, and sycophancy
-\citep{sharma2023} is a qualitative analogue of our hallucination index
-$\AHI>0$, not a direct validation of the index on LLMs.
-Prompt injection \citep{greshake2023} and self-propagating agent worms
-\citep{cohen2024} show observation-channel inputs producing action-level
-hijack---the $\alpha$-masquerading-as-$\beta$ case that Theorem~T2's mediation
-criterion separates from persuasion (susceptibility is measured by
-\citealp{andriushchenko2024}); dark patterns at web scale
-\citep{nouwens2020} are the $\gamma$-class channel manipulation of human
-agents. On the defensive side, corrigibility
-\citep{soares2015} is the technical core of our delegation-quality parameter
-$q$; safe interruptibility \citep{orseau2016} is the exit-option condition of
-our $\delta$ class seen from the designer's side (registered as a property of
-the agent's $\Aexec$ environment, not of its autonomy);
+\citep{arike2025} is the empirical counterpart of T6's slow sub-threshold
+drift regime; sycophancy \citep{sharma2023} is a qualitative analogue of
+$\AHI>0$, not a direct validation. Prompt injection \citep{greshake2023} and
+self-propagating agent worms \citep{cohen2024} show observation-channel inputs
+producing action-level hijack---the $\alpha$-masquerading-as-$\beta$ case that
+T2's mediation criterion separates from persuasion (susceptibility measured by
+\citealp{andriushchenko2024}); dark patterns at web scale \citep{nouwens2020}
+are the $\gamma$-class channel manipulation of human agents. On the defensive
+side, corrigibility \citep{soares2015} is the technical core of our
+delegation-quality parameter $q$; safe interruptibility \citep{orseau2016} is
+the exit-option condition of our $\delta$ class seen from the designer's side
+(a property of the agent's $\Aexec$ environment, not of its autonomy);
 constitutional AI instantiates an explicit second-order review loop
 \citep{bai2022}, and LM self-models are learnable yet corruptible
-\citep{binder2024}, supporting both the feasibility
-of $A_{ref}$ in silicon and its confinement to the calibration track. The
-conceptual map of value alignment \citep{gabriel2020} frames the normative
-pluralism we quarantine into the application layer (the value-pluralism risk
-is registered in Section~\ref{sec:objections}, not denied).
+\citep{binder2024}, supporting both the feasibility of $A_{ref}$ in silicon
+and its confinement to the calibration track. The conceptual map of value
+alignment \citep{gabriel2020} frames the normative pluralism we quarantine
+into the application layer (Section~\ref{sec:objections}).
 
 What the safety corpus lacks is a shared audit schema: each failure mode is
 studied in its own vocabulary. This makes instantiation-relative
@@ -590,7 +573,7 @@ degree one, and coordinatewise scale invariance of the induced order (AX6b)
 characterize the weighted geometric mean uniquely. A harmonic counterexample
 isolates invariance and $\tfrac12\sqrt{xy}$ isolates calibration. This
 normalization-explicit characterization answers the arbitrariness objection,
-with robustness reported across axiom-relaxation bands of $\varsigma$ (the
+with sensitivity reported across axiom-relaxation bands of $\varsigma$ (the
 $\varsigma\in[0.5,1)$ band relaxing AX6b and $\varsigma=2$ relaxing AX5, on
 equal footing; Section~\ref{sec:experiments}).
 

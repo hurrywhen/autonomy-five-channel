@@ -381,19 +381,17 @@ are not point readings of \eqref{eq:aorgnorm}.
 convex parameter box of normalized utilities (canonical parameterization:
 $\sup$-norm $\le1$ and anchoring $U(x_0)=0$), and let
 $\Endorse_{B,M}:\Theta\to\Theta$ be the endorsement map under belief $B$ and
-self-model $M$. Fixed-point existence is not obtained by listing theorem names. Brouwer
-requires a continuous self-map on the nonempty compact convex $\Theta$;
-Banach requires a contraction ($c<1$) on a nonempty closed subset of a complete
-metric space and yields uniqueness; Tarski requires an order-preserving map on
-a complete lattice. For set-valued endorsement, Kakutani--Fan--Glicksberg
-requires nonempty closed convex values and upper hemicontinuity (a closed graph
-on the compact domain) on a compact convex subset of a locally convex
-Hausdorff space. A measurable selection by Kuratowski--Ryll-Nardzewski
-additionally assumes a Polish target, nonempty closed values, and weak
-measurability of the correspondence \citep{kuratowski_ryllnardzewski1965}.
-Whenever \eqref{eq:agoal} is used as a point value, the invoked alternative
-and its hypotheses must be registered; $\Fix$ must be nonempty and closed for
-the distance and maximum below. Then
+self-model $M$. Fixed-point existence must be invoked with its hypotheses, not
+by listing theorem names: Brouwer (continuous self-map on nonempty compact
+convex $\Theta$), Banach (contraction $c<1$ on a nonempty closed subset of a
+complete metric space; uniqueness), Tarski (order-preserving map on a complete
+lattice), Kakutani--Fan--Glicksberg for set-valued endorsement (nonempty closed
+convex values, upper hemicontinuity, compact convex domain in a locally convex
+Hausdorff space), and Kuratowski--Ryll-Nardzewski measurable selection (Polish
+target, nonempty closed values, weak measurability)
+\citep{kuratowski_ryllnardzewski1965}. The invoked alternative and its
+hypotheses must be registered whenever \eqref{eq:agoal} is used as a point
+value; $\Fix$ must be nonempty and closed for the distance and maximum below. Then
 \begin{equation}\label{eq:agoal}
 \Agoal := 1-\frac{d(\Ueff,\Fix)}{\dc},
 \end{equation}
@@ -424,7 +422,7 @@ same translated metric, so both $d$ and $\dc$ are preserved. Otherwise the
 reading is a new instantiation and belongs in sensitivity analysis. General
 endpoint shaping is likewise non-invariant and is reported through the
 identified-set interval, alongside the endorsement-quantization arm
-(Section~\ref{sec:threats}(x-a)). $\dc$ is the ``maximally alienated goal''
+(Section~\ref{sec:threats}(x)). $\dc$ is the ``maximally alienated goal''
 scale, the canonical normalizer of complete capture. $\Agoal\in[0,1]$, with
 $\Agoal=0$ iff $\Ueff$ is maximally alienated, and partial capture giving
 graded reduction ($0<\Agoal<1$). If $\Fix=\varnothing$ (failure of the
@@ -484,10 +482,22 @@ actions did not solve this feedback problem; the open-loop restriction does.
 
 This is empowerment \citep{klyubin2005,salge2013} restricted to accessible
 precommitted sequences. The normalizer uses the pre-intervention alphabet, so
-a $\delta$ contraction shrinks the feasible set but not the denominator. Zero
-execution means that all allowed open-loop sequences induce the same outcome
-distribution; repertoire collapse and complete action--environment decoupling
-are alternative causes. Reporting both unrestricted environmental capacity
+a $\delta$ contraction shrinks the feasible set but not the denominator. The
+zero-value statement carries an explicit quantifier. In capacity mode, zero
+execution holds iff every sequence that can be assigned positive probability
+by some admissible $Q\in\mathcal Q_{t,s}$ induces the same conditional
+terminal-observation kernel; when all pure-sequence point masses are
+admissible this is exactly ``all allowed sequences induce the same outcome
+distribution.'' For a \emph{fixed} precommitted $Q$, the mutual information is
+zero iff the kernels coincide on the positive-probability support of $Q$
+alone: a point-mass $Q$ gives zero regardless of how different the unused
+sequence kernels are. Repertoire collapse and complete action--environment
+decoupling are sufficient causes in either mode. The outcome read here is the
+single terminal observation $O_{t+n}$; a Kronecker channel over whole
+observation sequences $(O_{t+1},\dots,O_{t+n})$ is a different object with a
+larger capacity (for a two-step binary symmetric channel at error $0.1$,
+normalized $0.5310$ versus $0.2655$), and the implementation guards keep the
+two conventions separate. Reporting both unrestricted environmental capacity
 and restricted capacity can separate some signatures, but neither identifies a
 unique psychological cause. The finite-alphabet upper bound is
 $n\log|\Acal|$. Continuous actions require a registered finite quantization or

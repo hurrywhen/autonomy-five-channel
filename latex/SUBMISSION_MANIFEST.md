@@ -1,4 +1,4 @@
-# R17 complete LaTeX submission manifest
+# R18 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -75,20 +75,35 @@ known incomplete submission configuration and must fail review.
   profiles, fixed-point implant witness, and Lambda time-origin certificate guards.
 - `sim/src/autonomy_sim/native_benchmark.py`,
   `sim/analysis_r17_native_benchmark.{py,json}`, and
-  `sim/tests/test_r17_native_benchmark.py` — R17-native multi-step end-to-end
-  internal concept-validation benchmark.
+  `sim/tests/test_r17_native_benchmark.py` — R17-native multi-step
+  internal concept-validation benchmark (read-only; superseded by the R18
+  joint-log audit, not rewritten).
+- `sim/src/autonomy_sim/r18_guards.py` and
+  `sim/tests/test_r18_certificate_profile.py` — R18 full-profile certificate
+  schema with enforced order/semantic sensitivity flags and composite range.
+- `sim/src/autonomy_sim/native_joint_audit.py`,
+  `sim/analysis_r18_native_joint_audit.{py,json}`, and
+  `sim/tests/test_r18_native_joint_audit.py` — R18 single-SCM/single-log-schema
+  joint-batch end-to-end internal audit (separate precommitted open-loop
+  execution stream); exact convention composites and sampling agreement.
+- `sim/tests/test_r18_open_loop_conventions.py` — terminal-observation vs
+  observation-sequence capacity and support-relative zero-MI quantifier guards.
 - `sim/analysis_r17_weight_regions.{py,json}` and
   `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
-  pairwise damage halfspaces for the geometric bookkeeping aggregate.
+  pairwise damage halfspaces (an exact weight-sensitivity characterization, not
+  robustness evidence) for the geometric bookkeeping aggregate.
 - `sim/EXTERNAL_VALIDATION_PROTOCOL.md` — design-frozen but unexecuted external
-  comparison protocol with equivalence/non-inferiority margins; external
-  SESOI/power and outcome registration remain pending.
-- `sim/runs/20261117_r15/` and `sim/runs/20261117_r16/` — preserved historical
-  clean-worktree validations; not R17 validation.
-- `sim/runs/20261119_r17/` — current clean-worktree provenance and exact
-  source-commit replay manifest; not a release tag or external validation.
-- `tools/make_r17_validation.py` — current clean-worktree validator; historical
-  R15/R16 validators and validations are retained unchanged.
+  comparison protocol; engineering equivalence/non-inferiority margins and the
+  TOST decision rule are frozen, domain SESOI/power and outcome registration
+  remain pending.
+- `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`, and
+  `sim/runs/20261119_r17/` — preserved historical clean-worktree validations;
+  not R18 validation.
+- `sim/runs/20261121_r18/` — current clean-worktree provenance and exact
+  source-commit replay manifest for the immutable tag `v1.1-r18`; not a
+  version DOI or external validation.
+- `tools/make_r18_validation.py` — current clean-worktree validator; historical
+  R15/R16/R17 validators and validations are retained unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -105,10 +120,12 @@ known incomplete submission configuration and must fail review.
   invalid for nondegenerate composite separation.
 
 These evidence packages do not constitute external validation.
-`RELEASE_NOTES.md` identifies the development-source commit and, once actually
-created, the corresponding fresh-history public commit on the repository
-`main` branches. Historical `a_org` and combined-gate values are not
-silently re-signed as current normative-source or present-state values. An
-immutable tag/version DOI for this revision and the external-substrate
-power/validation program remain incomplete; the historical concept DOI does
+`RELEASE_NOTES.md` identifies the development-source commit and the
+corresponding fresh-history public commit on the repository `main` branches.
+Historical `a_org` and combined-gate values are not silently re-signed as
+current normative-source or present-state values. This revision is frozen by
+the immutable tag `v1.1-r18` with a clean-worktree replay manifest
+(`sim/runs/20261121_r18/validation.json`); a version DOI requires Zenodo
+archiving of that tag and is not yet minted, and the external-substrate
+power/validation program remains incomplete. The historical concept DOI does
 not cover them.

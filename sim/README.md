@@ -1,6 +1,8 @@
 # 仿真与实验 · 总规约
 
-> **R17 当前注记（2026-11-19）**：权威口径为 `SPEC_estimators.md` v1.3、`SPEC_experiments.md` v1.3 和英文 `latex/`；下方 R3 路线只作建设史。R17 将多步执行改为预承诺开环序列干预核并加入反馈复制反例；当前结构/历史形成并列输出，Lambda 时间原点显式；新增 R17-native T=3 端到端基准、权重闭单纯形对数界/半空间、外部等价/非劣效设计。运行全套 **251 项**测试：`python3 -m unittest discover -s tests -q`；`analysis_r17_native_benchmark.py --check`、`analysis_r17_weight_regions.py --check` 与 R15/R16 复核均只读。`EXTERNAL_VALIDATION_PROTOCOL.md` 仅设计冻结，未执行外部实验。历史 R11–R16 manifest/results/verdict/validation 不改写，旧 a_org/a_via/Bundle 不冒充当前构念。
+> **R18 当前注记（2026-11-21）**：权威口径为 `SPEC_estimators.md` v1.4、`SPEC_experiments.md` v1.4 和英文 `latex/`；下方 R3 路线只作建设史。R18 在 R17 开环执行/双核心输出基础上：最终证书升级为完整剖面 schema（`r18_guards.py`，强制完整通道向量、RNI/NRI/顺序平均/替代语义、复合值范围与 ORDER_SENSITIVE/MODEL_SENSITIVE 标志）；R17-native 组合式夹具被联合日志端到端审计 supersede（`native_joint_audit.py`、`analysis_r18_native_joint_audit.json`，单 SCM/单日志/单批次，执行另设预承诺开环流）；开环零值量词改支持集相对、期末观察/观察序列约定分离；权重结果统一称精确敏感性；外部协议 TOST/非劣效方向精确化。运行全套 **273 项**测试：`python3 -m unittest discover -s tests -q`；`analysis_r18_native_joint_audit.py --check`、`analysis_r17_native_benchmark.py --check`、`analysis_r17_weight_regions.py --check` 与 R15/R16/R17 复核均只读。`EXTERNAL_VALIDATION_PROTOCOL.md` 仅设计冻结（工程等价/非劣效界值已冻结，域 SESOI/功效/执行未做）。历史 R11–R17 manifest/results/verdict/validation 不改写，旧 a_org/a_via/Bundle 不冒充当前构念。本轮创建不可变 tag `v1.1-r18` 与冻结重放清单；version DOI 仍待 Zenodo 归档。
+>
+> **R17 历史注记（2026-11-19）**：R17 将多步执行改为预承诺开环序列干预核并加入反馈复制反例；当前结构/历史形成并列输出，Lambda 时间原点显式；新增 R17-native T=3 基准、权重闭单纯形对数界/半空间、外部等价/非劣效设计（251 项测试）。该轮工件只读保留。
 
 **历史版本**: v0.1（规约先行版，2026-10-04）
 **定位**: 路线图 R3 阶段工作区。产出目标（input §9）：实验报告＋`autonomy-bench`。本目录任何实现代码之前，必须先有对应 SPEC 条目并通过评审；实现严格遵循 TDD（SPEC_tests.md）。

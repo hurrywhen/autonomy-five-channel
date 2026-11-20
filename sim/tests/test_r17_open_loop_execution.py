@@ -49,7 +49,12 @@ class R17OpenLoopExecution(unittest.TestCase):
         self.assertAlmostEqual(result["empowerment_nats"], math.log(4.0), places=12)
         self.assertAlmostEqual(result["a_exec"], 1.0, places=12)
 
-    def test_memoryless_bsc_sequence_channel_matches_analytic_capacity(self):
+    def test_memoryless_bsc_observation_sequence_channel_matches_analytic_capacity(self):
+        # R18 convention note: this helper constructs the OBSERVATION-SEQUENCE
+        # Kronecker channel (the whole (O_{t+1},O_{t+2}) tuple), not the paper's
+        # terminal-observation estimand.  Its normalized capacity at p=0.1 is
+        # 0.5310044; the terminal-observation value 0.2655022 is guarded in
+        # test_r18_open_loop_conventions.py.
         p = 0.1
         step = np.array([[1 - p, p], [p, 1 - p]])
         kernels = memoryless_sequence_kernels(step, n_actions=2)

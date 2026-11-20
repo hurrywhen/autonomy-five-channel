@@ -124,23 +124,19 @@ are not the mathematical source of the TV inequality.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-T1a: each component lies in $[0,1]$ (the component propositions (Appendix~\ref{app:components}) of the technical
-appendix) and the product form preserves the interval. T1b: every applicable
-factor is positive by hypothesis; at L2, \eqref{eq:aref} makes positivity of
-$\Lam_{ref}$ an explicit third requirement, and AX5 then gives $A>0$. The
-converse boundary $\Lam_{ref}=0$ follows directly from \eqref{eq:aref}.
-T1c: each condition forces its component
-strictly below $1$, and (A2) makes the composite strictly decreasing.
-T1d: take the posited accuracy-sensitive family $\gamma_s$; (R-epi) supplies
-the strict registered-coordinate loss, while $P_{\gamma_s}\to P_0$ in TV and
-the testing duality (Lemma~\ref{lem:tv-testing}) bounds the power of any
-level-$\alpha$ test by $\alpha+\TV$. The accuracy loss is an explicit premise,
-not a consequence of small TV: an orthogonal degradation need not move
-$\Aepi$. The four-way split is
-necessary, not cosmetic: a single statement ``$0<A<1$'' fails on both sides
-(a deterministic fully driven agent with a complete self-copy and no
-intervention attains $A=1$; resource starvation gives $A=0$ while AX0--AX2
-still hold).
+T1a: each component lies in $[0,1]$ (Appendix~\ref{app:components}) and the
+product form preserves the interval. T1b: applicable factors are positive by
+hypothesis; at L2, \eqref{eq:aref} makes $\Lam_{ref}>0$ an explicit third
+requirement, and AX5 gives $A>0$; $\Lam_{ref}=0$ gives the converse boundary.
+T1c: each condition forces its component strictly below $1$, and (A2) makes the
+composite strictly decreasing. T1d: (R-epi) supplies the strict
+registered-coordinate loss while $P_{\gamma_s}\to P_0$ in TV, and testing
+duality (Lemma~\ref{lem:tv-testing}) bounds any level-$\alpha$ test's power by
+$\alpha+\TV$. The accuracy loss is an explicit premise, not a consequence of
+small TV (orthogonal degradation need not move $\Aepi$). The four-way split is
+necessary: a deterministic fully driven agent with a complete self-copy and no
+intervention attains $A=1$; resource starvation gives $A=0$ with AX0--AX2
+intact. Full proofs: Appendix~\ref{app:components}.
 \end{proof}
 
 \emph{Falsification window}: exhibit a finite-capacity verification mechanism
@@ -1002,28 +998,23 @@ active probes, trusted records, and structural logs are separate candidate
 routes rather than a uniquely mandated architecture.
 \end{corollary}
 \begin{proof}[Proof sketch]
-(ii) Both configurations use a fair binary environment, the same faithful
-observation kernel $O=E$, the same goal-dependent action policy, and the same
-registered $\kappa$. The next environment state is action-driven, so both
-execution channels are identical and positive. The faithful arm has
-$B=\delta_E$; the surgery arm only replaces the belief update by a point belief
-independent of $E$. Exact enumeration shows identical full-trajectory
-$(E^T,O^T,A^T)$ laws, while $\Aepi^{real}=1$ and $0.5$,
-respectively. The auxiliary endorsement SCM has $Y=U$ in one model and
-$Y=U\oplus1$ in the other, with fair $U$ and nonempty surgery history in both.
-Their factual endorsement laws are both fair and their auxiliary passive
-actions are fixed, but abduction $U=Y\oplus J$, action $J=0$, and shared-noise
-prediction give output TV $0$ versus $1$, hence $\Lam=1$ versus $0$. This is
-not a degenerate-endorsement certification convention. Holding every other
-positive L1 factor fixed gives
-$0<A(Z_2)=A(Z_1)0.5^{w_{epi}}<A(Z_1)$. The auxiliary $\Lam$ is
-composite-silent at L1 and is N/A when no endorsement SCM is instantiated.
-The executable same-environment witness is in
-\texttt{sim/runs/20261116\_r14/c0cf\_v2/}; it remains a model construction, not
-external construct validation. No full-profile equality under C0(i)'s external
-mappings is used. Appendix~\ref{app:c0}. The residual uncertainty about those mappings is
-hermeneutic, while the behavioral non-identifiability conclusion is
-independent of it.
+(ii) Both configurations share a fair binary environment, the faithful kernel
+$O=E$, the goal-dependent policy, and registered $\kappa$; the next state is
+action-driven, so both execution channels are identical and positive. The
+faithful arm has $B=\delta_E$; the surgery arm replaces the belief update by a
+point belief independent of $E$. Exact enumeration gives identical
+full-trajectory $(E^T,O^T,A^T)$ laws with $\Aepi^{real}=1$ versus $0.5$. The
+auxiliary endorsement SCM ($Y=U$ vs.\ $Y=U\oplus1$, fair $U$, nonempty surgery
+history in both) has identical fair factual endorsement laws and fixed passive
+actions, but abduction--action--prediction with shared noise gives output TV
+$0$ versus $1$, hence $\Lam=1$ versus $0$ (not a degenerate-endorsement
+convention). Holding other positive L1 factors fixed,
+$0<A(Z_2)=A(Z_1)0.5^{w_{epi}}<A(Z_1)$; the auxiliary $\Lam$ is composite-silent
+at L1 and N/A without an endorsement SCM. The executable witness
+(\texttt{sim/runs/20261116\_r14/c0cf\_v2/}) is a model construction, not
+external validation; no full-profile equality under C0(i)'s external mappings
+is used. Appendix~\ref{app:c0}. The mapping residual is hermeneutic; the
+behavioral non-identifiability conclusion is independent of it.
 \end{proof}
 
 \subsection{C1 and C2: collapse and hysteresis}\label{sec:c1c2}

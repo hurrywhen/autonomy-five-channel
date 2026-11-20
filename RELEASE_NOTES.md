@@ -1,5 +1,45 @@
 # Release Notes
 
+## R18 public source synchronization — 2026-11-21 (`main`, immutable tag `v1.1-r18`)
+
+**Paper:** `latex/main.pdf`, 103 pages, 6 figures, 115 cited references.
+**Authors:** Wen Hu and Gong Zhang.
+
+R18 is a focused local revision addressing the R17 review (which confirmed the R16 core defects were already repaired in R17): full-profile certificates with enforced order/semantic sensitivity flags; a single-SCM/single-log-schema joint-batch end-to-end native audit superseding the R17-native compositional fixture; support-relative open-loop zero-MI quantifiers and terminal-observation vs observation-sequence conventions; weight results unified as exact sensitivity characterization; and TOST/non-inferiority precision in the external protocol. Unlike R17, this revision **is frozen by an immutable annotated tag `v1.1-r18`** on the final synchronization commit, with a clean-worktree replay manifest. A version DOI requires Zenodo archiving of the tag and is **not** yet minted; no formal Release page is created.
+
+### Development-source and frozen-content provenance
+
+| Item | Value |
+|---|---|
+| R18 development-source commit | `bc1c5380f440f6de9ccfb629ca9050d65a4ded48` |
+| R18 public content commit used for clean validation | `R18_PUBLIC_CONTENT_COMMIT` |
+| Validated public source tree | `R18_VALIDATED_TREE` |
+| Final public synchronization commit (tag `v1.1-r18` target) | `R18_FINAL_COMMIT` |
+| R17 reviewed public baseline | `21c6016f1aa946d41ebe43355e899c1efda69d33` |
+| `latex/main.tex` SHA-256 | `d56a1893ef2a7545fe6521d86085a0bfdaac250153c203931a0f97921a57a39d` |
+| `latex/main.pdf` SHA-256 | `97caea96f32cb7d3be13be9f53db0a17857bf632aa7d02cc17322f8a1c2408a0` |
+| Public tag | `v1.1-r18` (annotated; created on the final synchronization commit) |
+| R18 version DOI | **Not minted** (requires Zenodo archiving of `v1.1-r18`) |
+| Historical archive | `v1.0-r10.1`; concept DOI `10.5281/zenodo.23608751`, which does not archive R18 |
+
+`sim/runs/20261121_r18/validation.json` records the exact clean content commit, its tree and current scientific-source hashes, **273/273 tests**, three R14 read-only replays, R15 tau-b and paired-X5-c audits, R16 source-attribution audit, R17 native-benchmark and weight-region audits, the R18 joint-log audit, and an independent clean build. It also checks extracted-text equality, all-page Ghostscript parsing, 115 cited references, 6 figures, unresolved-reference/float warnings, metadata, embedded fonts, and Unicode maps. Its scope remains internal mathematical/implementation consistency and small-scale concept validation.
+
+### Substantive R18 changes
+
+- **Full-profile certificates (`r18_guards.py`):** mandatory complete channel vector (value/state/interval/protocol version), goal structural point + IRL interval, execution open-loop horizon, reflection three factors + logged event counts, registered RNI/NRI/order-average shares + flow terms + alternative semantic partitions, weights, and recomputed per-convention composites with range. Composite spread > 0.05 (preregistered internal engineering threshold, not domain SESOI) forces `ORDER_SENSITIVE`/`MODEL_SENSITIVE`, a scalar-export warning, and a sensitivity-qualified grade. The exported scalar must equal the registered RNI-convention composite; a near-one RNI / near-zero NRI reading cannot be exported unflagged.
+- **Joint-log native audit (`native_joint_audit.py`):** one registered \(T=3\) SCM, one log schema, one joint operating batch (8192 trajectories) estimates attribution (both partitions), epistemic accuracy, reflection fidelity/consistency/Lambda, and viability/defense; execution uses a separate precommitted open-loop stream from the same environment law. Exact convention composites: RNI 0.4608565248, NRI 0.0003907989, order-average 0.4011989073; alternative partition ~0.4608565; range [0.0003908, 0.4608565]. The paper reports these directly (Table tab:native). R17-native artifact preserved read-only.
+- **Open-loop conventions:** fixed-Q zero MI is support-relative (point-mass Q always zero); capacity-mode iff quantifies over sequences assignable positive probability by some admissible Q. Terminal-observation BSC p=0.1 n=2 normalized 0.2655022 vs observation-sequence 0.5310044, guarded separately.
+- **Weight terminology:** exact sensitivity characterization, not robustness; closed simplex (zero vertices) is a relaxation, certificate/representation weights strictly positive interior.
+- **External protocol:** TOST (two one-sided alpha=0.05 ⇔ 90% two-sided CI inside margins; 95% two-sided requires alpha=0.025); NI directions delta_BA upper bound < Delta_BA_NI and delta_Brier lower bound > -Delta_Brier_NI. Engineering margins frozen; domain SESOI/power/execution pending. Paper abstract/conclusion corrected accordingly.
+
+### Evidence boundaries
+
+Historical 4,620-run records, R11 replay, R13 CUSUM, old X5, R14 manifest/results/verdicts, R15/R16/R17 analysis artifacts and validations are preserved read-only. R18 adds new source, test, analysis, protocol, and validation files only. Historical `a_org` remains an internal-causal marker, combined `a_via` a resilience marker, X5-c `MODEL_SENSITIVE`, paired X5-c `POST_HOC_PASS`, and T7 `INCONCLUSIVE`. No legacy record is promoted to current N/R/I attribution, present-state autonomy, SCM audit, or external validation.
+
+Still outstanding: a version DOI (Zenodo archiving of `v1.1-r18`); selector-conditional DEL-1 and a nondegenerate bracket; actual Ingel/Albantakis/PID comparisons and intervention-attribution accuracy; domain-justified SESOI/power, held-out external error analysis, experts and downstream criteria; independent-investigator reimplementation; general MaxEnt-IRL identified-set solving; more SCMs and Lean; Chinese synchronization; and recovery of the three unavailable R14 run-time SPEC byte snapshots. No third-party bibliographic PDFs or internal review archives are redistributed.
+
+---
+
 ## R17 public source synchronization — 2026-11-20 (`main`, untagged)
 
 **Paper:** `latex/main.pdf`, 103 pages, 6 figures, 115 cited references.
