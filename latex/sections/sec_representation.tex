@@ -82,12 +82,13 @@ in the framework licenses ex ante inequality (the benchmark uses this);
 annotation), registered as application-layer input; (c) \emph{behaviorally
 measured} weights, recovered from the agent's own trade-offs under controlled
 single-channel perturbations. Whichever protocol is used, reporting a
-weight-sensitivity band is an obligation: Section~\ref{sec:experiments}
-recomputes every campaign verdict under five alternative weight vectors. The
-The read-only audit uses Kendall $\tau_b$, reports all tie counts and scenario
-strata, and finds whole-pool values $[0.9276,1]$; it does not claim a uniform
-$0.93$ scenario-level floor. Historical verdict-flip counts remain descriptive
-of the legacy aggregate, not current normative-source validation.
+weight-sensitivity band is an obligation. Section~\ref{sec:experiments}
+reports exact log-domain bounds and feasible halfspaces over the closed weight
+simplex, which is stronger than recomputing a few alternative vectors. The
+older read-only Kendall $\tau_b$ battery remains descriptive, with tie counts
+and scenario strata; it does not establish robustness over all weights or a
+uniform $0.93$ scenario-level floor. Historical verdict-flip counts describe
+the legacy aggregate, not current normative-source validation.
 
 The characterization, with its calibration and quantifiers made explicit,
 is our answer to the standing objection that composite aggregation is

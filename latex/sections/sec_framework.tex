@@ -43,10 +43,14 @@ Proposition~\ref{prop:unidentifiable}). All framework claims are conditioned
 on the instantiation being held fixed across the comparisons being made.
 \end{definition}
 
-The five respects are serviced by the five channels $\Aorg,\Agoal,\Aref,\Aexec,\Aepi$,
-the gate $\Avia$, and the historical factor $\Lam$ (Section~\ref{sec:axioms}).
-The mapping is many-to-many, and we display it explicitly rather than leave it
-implicit:
+The primary output is the pair $(\Ccur,\Hform)$: a current structural profile
+and a historical formation profile. The five current channels
+$\Aorg,\Agoal,\Aref,\Aexec,\Aepi$, the gate $\Avia$, and separate readiness
+$\Rdef$ belong to $\Ccur$; surgery-history evidence, source registration, and
+the time-origin-indexed endorsement factor $\Lam$ belong to $\Hform$
+(Section~\ref{sec:axioms}). The historical profile is not a sixth current
+channel and is not inferred from the current scalar. The mapping is
+many-to-many, and we display it explicitly rather than leave it implicit:
 
 \begin{center}
 \small
@@ -71,8 +75,9 @@ structural alignment, output-law deviation, and provenance separately &
 $\Lam$ enters the composite only at L2; at L0/L1 it requires an auxiliary SCM
 and is otherwise N/A; $\mathcal H^{surg}$ never substitutes for it
 (Section~\ref{sec:axioms}) \\
-executability & $\Aexec$ (repertoire-restricted empowerment) & predictable
-leverage with exit options & continuous-action normalization carries a
+executability & $\Aexec$ (precommitted open-loop sequence empowerment) &
+predictable leverage under open-loop intervention & reactive feedback MI is
+not execution capacity; continuous-action normalization carries a
 reference-measure freedom \\
 viability & $\Avia$ (current resource gate), $\Rdef$ (separate defense
 readiness) & present operation and future preparedness separately & A combined
@@ -91,9 +96,10 @@ separate respect of its own. Second, this mapping is the framework's
 operative \emph{design choice}, not a derived unique decomposition of the
 operational definition: the channels are instrumented sufficient indicators of
 the five respects. What \emph{is} proved is coverage at the instrument level:
-Theorem~T2 is an attribution cover of the surgery loci \emph{within this
-instrument family}, with multi-channel necessity as a theorem---not a proof
-that the five respects are the uniquely correct conceptual carve-up.
+T2 is an attribution cover of the surgery loci \emph{within this instrument
+family}, and any single channel is insufficient for the registered classes.
+This is not a proof that the five respects are the uniquely correct conceptual
+carve-up, nor an exactly-five minimality theorem.
 Alternative decompositions of the respects would require re-running the
 coverage argument; the construct-validity case for \emph{this} carve-up is
 assembled in Section~\ref{sec:construct}. We register the non-uniqueness
@@ -138,26 +144,29 @@ reading. At L1+ the same construction has $\Fnorm=0$ and $\Frand>0$, hence
 $\Aorg^{RNI}=\Astate=0$ under the primary rule in \eqref{eq:aorgnorm}; it is a
 mandatory negative control, not an NRI- or relabeling-invariant claim.
 
-\paragraph{Mandatory audit output and evidence ceiling.}
-No deployment interface may emit only a scalar. Every certificate contains
-$\Astate$, $\Avia$, $\Rdef$, layer/construct scope, surgery history, $\Lam$ (or
-N/A/unknown), and separate registration-completeness and mechanism-evidence
-fields. Unknown history/source registration or unavailable required $\Lam$
-evidence caps the grade at \textsc{limited}; N/A at L0/L1 is not unknown.
-Complete registration without an SCM audit is \textsc{registered\_complete},
-not \textsc{scm\_audited}. The latter requires explicit audited-SCM evidence
-and model/evidence hash bindings, and still implies neither integrity nor
-external construct validation.
+\paragraph{Mandatory co-primary audit output and evidence ceiling.}
+No deployment interface may emit only a scalar. Every R17 certificate contains
+two top-level profiles. \path{current_structural_profile} carries $\Astate$,
+$\Avia$, $\Rdef$, and the explicit mark that the composite is
+protocol-normalized, not a ratio scale. \path{historical_formation_profile}
+carries formation status, surgery history, source registration, $\Lam$ (or
+N/A/unknown), and the matching \path{lambda_time_origin} and
+\path{lambda_counterfactual_scope}. Unknown history/source registration or
+unavailable required $\Lam$ evidence caps the grade at \textsc{limited}; N/A at
+L0/L1 is not unknown. Complete registration without an SCM audit is
+\textsc{registered\_complete}, not \textsc{scm\_audited}. The latter requires
+explicit audited-SCM evidence and model/evidence hash bindings, and still
+implies neither integrity nor external construct validation.
 
 Machine-checked \path{channel_schema_version}, \path{org_mode},
-\path{goal_mode}, and \path{state_readiness_version} fields prevent
-legacy numbers from being promoted merely by supplying plausible channels;
-L1/L2 certificates require artifact hashes. Hashes bind registered bytes but do
-not prove provenance or external truth. The producer
-\path{produce_r16_certificate} and fail-closed writer
-\path{write_r16_certificate} enforce this contract; historical R15-named
-API symbols remain only compatibility aliases. Legacy \texttt{Bundle} records
-are rejected rather than silently converted into L1+ normative-source reads.
+\path{goal_mode}, and \path{state_readiness_version} fields prevent legacy
+numbers from being promoted merely by supplying plausible channels; L1/L2
+certificates require artifact hashes. Hashes bind registered bytes but do not
+prove provenance or external truth. The producer
+\path{produce_r17_certificate} and fail-closed writer
+\path{write_r17_certificate} enforce this contract; R16/R15 symbols remain
+compatibility layers. Legacy \texttt{Bundle} records are rejected rather than
+silently converted into current normative-source or historical certificates.
 
 \subsection{System model}\label{sec:model}
 

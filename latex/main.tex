@@ -64,6 +64,8 @@
 \newcommand{\Rdef}{R_{\mathrm{def}}}
 \newcommand{\Astate}{A^{\mathrm{state}}}
 \newcommand{\Ares}{A^{\mathrm{res}}}
+\newcommand{\Ccur}{\mathcal{C}^{\mathrm{cur}}}
+\newcommand{\Hform}{\mathcal{H}^{\mathrm{form}}}
 \newcommand{\Aorg}{A_{\mathrm{org}}}
 \newcommand{\Agoal}{A_{\mathrm{goal}}}
 \newcommand{\Aexec}{A_{\mathrm{exec}}}
@@ -82,7 +84,7 @@
 \newcommand{\DI}{\mathrm{DI}}
 \newcommand{\Lam}{\Lambda}
 \newcommand{\Emp}{\mathcal{E}}
-\newcommand{\EmpPi}{\Emp^{\Pi}}
+\newcommand{\EmpPi}{\Emp^{OL,\Pi}}
 \newcommand{\Envenv}{\Emp^{\mathrm{env}}}
 \newcommand{\Fix}{\mathrm{Fix}}
 \newcommand{\Ueff}{U_{\mathrm{eff}}}
@@ -116,43 +118,42 @@ with Axioms and Conditional Theorems}
 Nanjing University of Aeronautics and Astronautics, Nanjing, China}}\\
 {\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China}\\[3pt]
 {\small Email: \texttt{huwen@nuaa.edu.cn; gzhang@nuaa.edu.cn}}}
-\date{\today}
+\date{20 November 2026}
 \maketitle
 
 \begin{abstract}
 How much autonomy does an agent retain under influence? We present a
-white-box-first audit schema whose primary output is an instantiation-relative
-channel profile, provenance record, and evidence grade, not a context-free
-score. Five channels are gated by current resource viability; defense and
-recovery readiness are reported separately. L0 measures only internal-causal
-autonomy. At L1 and above, an ordered residual-attribution rule separates
-normative-state directed information from independent innovation noise and
-external bypass flow. The primary RNI rule gives zero normative credit to an
-action copied only from an independent random register; reverse-order and
-semantic-partition reports expose where that convention matters. Shapley-style
-averages are sensitivity descriptors, not unique causal decompositions.
+white-box-first audit schema with two co-primary outputs: a current structural
+channel profile and a historical formation profile. Neither is a context-free
+score, and the historical profile is evidence rather than a scalar inferred
+from current channels. Five current channels are gated by resource viability;
+defense readiness is separate. L0 measures only internal-causal autonomy. At
+L1+, ordered residual attribution separates normative, innovation, and external
+flows; reverse-order and semantic-partition reports expose non-uniqueness.
+Multi-step execution is restricted to precommitted open-loop action sequences:
+a feedback-copy counterexample shows why ordinary reactive mutual information
+cannot serve as execution capacity. Goal alignment distinguishes structural
+fixed-point readings from behavior-IRL intervals, and a fixed-point implant
+example shows why present self-endorsement does not certify goal origin.
 
-A conditional representation theorem recovers the classical weighted-geometric
-characterization under explicit calibration, invariance, and homogeneity
-commitments. The main results concern attribution coverage, conditional strict
-comparisons, retention margins, and identifiability. Execution empowerment uses
-exactly $n$ actions; compatibility is componentwise rather than a
-no-surgery/full-mediation/honesty equivalence; and goal alignment distinguishes
-structural point readings from behavior-based IRL set identification. Explicit
-counterexamples delimit interval compatibility, positivity, source attribution,
-flow-ratio monotonicity, and attack optimization. The endorsement factor
-$\Lambda$ is defined by actual/no-surgery output-law total variation under
-abduction--action--prediction, separately from mandatory provenance fields.
-Nondegenerate observationally equivalent SCMs prove that the specified passive
-protocol cannot identify it.
+A conditional representation theorem recovers the weighted-geometric form under
+explicit calibration, invariance, and homogeneity commitments. It does not
+establish ratio scales or causal attribution; log-damage shares are bookkeeping
+under the selected aggregator. We provide conditional comparisons, retention
+margins, identifiability boundaries, and exact weight-simplex bounds rather
+than treating a few alternative weights as a robustness proof. The endorsement
+factor $\Lambda$ is an actual/no-surgery output-law deviation with an explicit
+counterfactual time origin; audit-time removal and original-implant prevention
+are different estimands.
 
-A legacy $4{,}620$-run campaign supplies implementation and same-model checks,
-not external validation. Deterministic negative controls and exact finite
-closed-loop enumerations test the mathematical guards; X5-c computations remain
-model-sensitive and a same-environment C0 witness remains a model construction.
-Failed criteria, post hoc replacements, provenance gaps, and unrun work remain
-visible. Independent-substrate validation, external SESOI/power analysis, and
-an immutable archival release with a version DOI remain outstanding.
+A legacy $4{,}620$-run campaign supplies implementation and same-model checks.
+A new small R17-native multi-step benchmark exercises the current estimands
+end-to-end with exact truth, seeded sampling errors, intervals, semantic
+sensitivities, and negative controls; it is internal concept validation, not
+external construct validation. X5-c remains model-sensitive, T7 remains
+inconclusive, and failed or post hoc criteria remain visible. Independent
+substrates, external SESOI/power, equivalence margins, and an archival version
+DOI remain outstanding.
 \end{abstract}
 
 \paragraph{Keywords} autonomy; agency measurement; directed information;
@@ -176,8 +177,9 @@ from its coordinates. The repository also retains
 counterexample/optimizer analysis, time-stratified X5-c evidence, and the
 same-environment C0 package. Current supplements provide executable negative
 controls, source-order and closed-loop attribution checks, state/defense and
-certificate guards, and read-only statistical audits. These supplements are not
-asserted to be contained in the historical public tag. The map records
+certificate guards, read-only statistical audits, the R17-native multi-step
+end-to-end benchmark, and exact weight-simplex bookkeeping bounds. These
+supplements are not asserted to be contained in the historical public tag. The map records
 superseded criteria and post hoc status; legacy markers and counterfactual-SCM
 results are not pooled or retroactively relabeled under the current estimands.
 \texttt{RELEASE\_NOTES.md} identifies the corresponding development-source and

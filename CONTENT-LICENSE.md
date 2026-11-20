@@ -13,7 +13,7 @@ Suggested paper attribution:
 
 > Wen Hu and Gong Zhang, *Autonomy as Determination by One's Own Normative
 > Structure: A White-Box-First Five-Channel Audit Framework with Axioms and
-> Conditional Theorems*, R16 public source synchronization, 17 November 2026.
+> Conditional Theorems*, R17 public source synchronization, 20 November 2026.
 
 Software (code under `sim/` and `tools/`) is licensed separately under the MIT
 License; see [LICENSE](LICENSE). Code/data-specific attribution follows the

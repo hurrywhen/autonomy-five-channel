@@ -1,5 +1,45 @@
 # Release Notes
 
+## R17 public source synchronization — 2026-11-20 (`main`, untagged)
+
+**Paper:** `latex/main.pdf`, 103 pages, 6 figures, 115 cited references.
+**Authors:** Wen Hu and Gong Zhang.
+
+R17 is a major revision: precommitted open-loop multi-step execution with a feedback-copy counterexample; co-primary current structural and historical formation profiles; explicit Lambda time origins; an R17-native multi-step end-to-end internal benchmark; exact weight-simplex bookkeeping bounds; contracted aggregation/necessity claims; C1/C2/T1d corrections; and an external protocol with equivalence/non-inferiority design. It updates GitHub and Gitee `main` only; it is not an immutable tag, formal Release, version DOI, external validation, or independent-investigator replication.
+
+### Development-source and frozen-content provenance
+
+| Item | Value |
+|---|---|
+| R17 development-source commit | `140e631bb03307ac2bc98af20bfd7736fe28ddf2` |
+| R17 public content commit used for clean validation | `R17_PUBLIC_CONTENT_COMMIT` |
+| Validated public source tree | `R17_VALIDATED_TREE` |
+| R16 reviewed public baseline | `cb000d8748a7aa4d0f048c52485e70b2e7128f4c` |
+| R16 validated content commit | `397b52e4f858c690ed7692b3563adfb274021ea5` |
+| `latex/main.tex` SHA-256 | `b111710845eda034fe9f2d32227a6ad48adb4a830e00d51ad095d882e27c2fd1` |
+| `latex/main.pdf` SHA-256 | `d0de7a76cdad1a398008ec4ae42022c8e85fca5339d3388e83111ae8c7d781ff` |
+| Public tag / R17 version DOI | **Not created** |
+| Historical archive | `v1.0-r10.1`; concept DOI `10.5281/zenodo.23608751`, which does not archive R17 |
+
+`sim/runs/20261119_r17/validation.json` records the exact clean content commit, its tree and current scientific-source hashes, **251/251 tests**, three R14 read-only replays, R15 tau-b and paired-X5-c audits, R16 source-attribution audit, R17 native-benchmark audit, R17 weight-region audit, and an independent clean build. It also checks extracted-text equality, all-page Ghostscript parsing, 115 cited references, 6 figures, unresolved-reference/float warnings, metadata, embedded fonts, and Unicode maps. Its scope remains internal mathematical/implementation consistency and small-scale concept validation.
+
+### Substantive R17 changes
+
+- **Open-loop execution:** multi-step execution optimizes precommitted sequence distributions under intervention kernels; reactive ordinary MI is excluded. The feedback-copy witness has old score 0.5 and open-loop score 0. EXEC-1/ENV-0 are \(n=1\) special cases.
+- **Current/history co-primary outputs:** R17 certificates carry separate current structural and historical formation profiles. Fixed-point goal implant can leave current channels unchanged while formation status records surgery. Lambda audit-time removal and original-implant prevention are distinct estimands.
+- **R17-native benchmark:** same-instance \(T=3\) reactive SCM plus separate open-loop execution audit, exact truth, seeded sampling errors/intervals, alternative semantic partition, surgery/decoupling negative controls, and certificates. Internal concept validation only.
+- **Weight regions:** exact closed-simplex log bounds and pairwise damage halfspaces; 22 unique finite contrasts, 17 weight-dependent. Log-damage shares are bookkeeping, not causal/ratio-scale attribution.
+- **Claim contraction:** single-channel insufficiency rather than exactly-five minimality; design propositions/bookkeeping corollaries; C1 OU premise, C2 truncation, T1d Le Cam scope.
+- **External protocol:** equivalence/non-inferiority margins, independent downstream Brier outcome, nested validation, and independent-investigator reimplementation requirements; still unexecuted.
+
+### Evidence boundaries
+
+Historical 4,620-run records, R11 replay, R13 CUSUM, old X5, R14 manifest/results/verdicts, R15/R16 analysis artifacts and validations are preserved. R17 adds new source, test, analysis, protocol, and validation files only. Historical `a_org` remains an internal-causal marker, combined `a_via` a resilience marker, X5-c `MODEL_SENSITIVE`, paired X5-c `POST_HOC_PASS`, and T7 `INCONCLUSIVE`. No legacy record is promoted to current N/R/I attribution, present-state autonomy, SCM audit, or external validation.
+
+Still outstanding: immutable tag/formal Release/version DOI and their frozen release replay; selector-conditional DEL-1 and a nondegenerate bracket; actual Ingel/Albantakis/PID comparisons and intervention-attribution accuracy; external SESOI/power, held-out external error analysis, experts and downstream criteria; independent-investigator reimplementation; general MaxEnt-IRL identified-set solving; more SCMs and Lean; Chinese synchronization; and recovery of the three unavailable R14 run-time SPEC byte snapshots. No third-party bibliographic PDFs or internal review archives are redistributed.
+
+---
+
 ## R16 public source synchronization — 2026-11-17 (`main`, untagged)
 
 **Paper:** `latex/main.pdf`, 104 pages, 6 figures, 115 cited references.

@@ -1,4 +1,4 @@
-# R16 complete LaTeX submission manifest
+# R17 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -67,13 +67,28 @@ known incomplete submission configuration and must fail review.
 - `sim/tests/test_r16_source_attribution.py`,
   `sim/tests/test_r16_certificate_guards.py`, and
   `sim/tests/test_r16_analysis_replay.py` — R16 mathematical and fail-closed controls.
+- `sim/src/autonomy_sim/open_loop_execution.py` and
+  `sim/tests/test_r17_open_loop_execution.py` — precommitted open-loop execution
+  repair and feedback-copy counterexample.
+- `sim/src/autonomy_sim/formation_audit.py`, `sim/src/autonomy_sim/r17_guards.py`,
+  and `sim/tests/test_r17_formation_certificate.py` — co-primary current/history
+  profiles, fixed-point implant witness, and Lambda time-origin certificate guards.
+- `sim/src/autonomy_sim/native_benchmark.py`,
+  `sim/analysis_r17_native_benchmark.{py,json}`, and
+  `sim/tests/test_r17_native_benchmark.py` — R17-native multi-step end-to-end
+  internal concept-validation benchmark.
+- `sim/analysis_r17_weight_regions.{py,json}` and
+  `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
+  pairwise damage halfspaces for the geometric bookkeeping aggregate.
 - `sim/EXTERNAL_VALIDATION_PROTOCOL.md` — design-frozen but unexecuted external
-  comparison protocol; external SESOI/power and outcome registration remain pending.
-- `sim/runs/20261117_r15/` — preserved R15 clean-worktree validation; not R16 validation.
-- `sim/runs/20261117_r16/` — current clean-worktree provenance and exact
+  comparison protocol with equivalence/non-inferiority margins; external
+  SESOI/power and outcome registration remain pending.
+- `sim/runs/20261117_r15/` and `sim/runs/20261117_r16/` — preserved historical
+  clean-worktree validations; not R17 validation.
+- `sim/runs/20261119_r17/` — current clean-worktree provenance and exact
   source-commit replay manifest; not a release tag or external validation.
-- `tools/make_r16_validation.py` — current clean-worktree validator; the historical
-  `tools/make_r15_validation.py` and its validation are retained unchanged.
+- `tools/make_r17_validation.py` — current clean-worktree validator; historical
+  R15/R16 validators and validations are retained unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.

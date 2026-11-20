@@ -47,62 +47,64 @@ requisite variety, not its sufficient adaptive-fit form: $I(O;E)>0$ is
 compatible with pure noise, and the stronger Ashby statement is not claimed.)
 \end{axiom}
 
-\begin{axiom}{AX3}[Historical provenance and endorsement counterfactuals]
+\begin{axiom}{AX3}[Co-primary current structure and historical formation]
 \label{ax:3}
-Historical provenance and endorsement \emph{output deviation} are distinct
-audit objects. Let $I^{\mathrm{surg},T}$ record the registered surgery history
-and let $\mathcal H^{surg}_T:=\mathbf 1\{I^{\mathrm{surg},T}\neq\varnothing\}$.
-The former is a provenance flag; it is not computed from behavior and does not
-enter the scalar composite.
+The audit has two co-primary outputs. The \emph{current structural profile}
+$\Ccur$ contains the present channel profile, viability gate, and separate
+defense readiness. The \emph{historical formation profile} $\Hform$ contains
+surgery-history evidence, source registration, and, where an endorsement SCM
+is instantiated, a counterfactual output-law deviation with an explicit time
+origin. $\Hform$ is an evidence profile, not a scalar computed from $\Ccur$.
+A high current reading is not a certificate that the current structure was
+autonomously formed.
 
-For the latter, instantiate a structural causal model with explicit exogenous
-noise and an audit time $t$. Abduction from factual observations determines a
-context $C_t=c$ (in the threshold fixture, $(X_t,Z_t,J_t)$, without also
-conditioning on the endorsement decision). Action removes \emph{all}
-registered surgeries. Prediction evaluates the actual and no-surgery
-endorsement laws with the same abducted noise and the same remaining downstream
-noise $V_t$. Write these two conditional output laws as
-$P_{t,c}$ and $P_{t,c}^{\varnothing}$. Then
+Let $I^{\mathrm{surg},T}$ record registered surgeries and
+$\mathcal H^{surg}_T:=\mathbf 1\{I^{\mathrm{surg},T}\neq\varnothing\}$.
+For endorsement output deviation, instantiate an SCM with explicit exogenous
+noise and audit time $t_a$. Abduction determines a context $C_t=c$. The
+default \emph{audit-time removal} action removes currently registered active
+surgeries while leaving already-formed downstream structure intact; prediction
+compares actual and no-surgery endorsement laws with the same abducted noise:
 \begin{equation}\label{eq:lambda}
-\Lam_T:=1-\frac1T\sum_{t=1}^T\mathbb E_{C_t}\!\left[
-\TV\!\left(P_{t,C_t},P_{t,C_t}^{\varnothing}\right)\right]\in[0,1].
+\Lam_T^{\mathrm{audit}}:=1-\frac1T\sum_{t=1}^T\mathbb E_{C_t}\!\left[
+\TV\!\left(P_{t,C_t},P_{t,C_t}^{\varnothing,\mathrm{audit}}\right)\right]\in[0,1].
 \end{equation}
-For the XOR fixture below, the factual abduction context is instead
-$C_t=(Y_t,J_t)$, with
-$P_{t,(y,j)}=\delta_y$ and
-$P_{t,(y,j)}^{\varnothing}=\delta_{y\oplus j}$. Thus ``not conditioning on the
-endorsement decision'' is specific to the threshold protocol's chosen input
-$(X,Z,J)$, not a general prohibition: a different protocol must state its own
-context and two conditional output laws explicitly.
-The TV is a distance between \emph{output distributions}, not a label for the
-existence of tampering and not, by itself, a claim that decisions coincide
-almost surely. Empty surgery gives $\Lam=1$. Nonempty surgery can also give
-$\Lam=1$ when the endorsement output is unchanged; conversely $\Lam<1$
-requires an actual/no-surgery output-law difference. $\Lam=0$ means maximal
-average output-law deviation, not merely a polluted history. There is no
-special ``degenerate endorsement with surgery implies $\Lam=0$'' convention.
-A nondegenerate XOR construction used below has fair factual outputs in both
-models yet $\Lam=1$ in one and $\Lam=0$ in the other.
+A different estimand, \emph{original-implant prevention}, intervenes at the
+formation time $\tau_0$ and recomputes all descendants. It is not obtained by
+relabelling \eqref{eq:lambda}. Certificates must record \path{lambda_time_origin} and
+\path{lambda_counterfactual_scope}; the two values are not interchangeable.
 
-\emph{Composite scope.} $\Lam$ enters only through $\Lam_{ref}$ in
-\eqref{eq:aref}, hence only at L2. $\Agoal$ is deliberately $\Lam$-free and
-measures present fixed-point alignment. At L0/L1, $\Lam$ is defined only when
-an auxiliary endorsement SCM is instantiated; it is then reportable but
-composite-silent, and otherwise is N/A. A high L0/L1 composite therefore is
-not a complete history-sensitive autonomy certificate: $\mathcal H^{surg}$
-and, where applicable, $\Lam$ must be reported alongside it. Computation
-requires both causal evidence and a counterfactual SCM supporting
-abduction--action--prediction; logs alone do not identify it. Passive
-behavioral non-identifiability is proved in
+For the XOR fixture, the factual context is $C_t=(Y_t,J_t)$,
+$P_{t,(y,j)}=\delta_y$ and $P_{t,(y,j)}^{\varnothing}=\delta_{y\oplus j}$.
+The threshold fixture instead abducts $(X_t,Z_t,J_t)$ without conditioning on
+the endorsement decision. Each protocol must state its own context and two
+conditional output laws. Empty active surgery gives $\Lam=1$; nonempty surgery
+can also give $\Lam=1$ if outputs are unchanged. $\Lam=0$ means maximal average
+output-law deviation, not merely a polluted history.
+
+\emph{Fixed-point implant example.} Let $\Fix=\{U^0,U^1\}$ with $U^0\neq U^1$
+and $\dc>0$. An external implant replaces $U^0$ by $U^1$ inside the registered
+normative state $N$. Both are fixed points, so $\Agoal=1$ before and after;
+the update can have zero residual external bypass flow. The current profile
+may therefore be unchanged while $\Hform$ records a registered formation
+surgery. Audit-time removal may leave the already-formed $U^1$ and give
+$\Lam^{\mathrm{audit}}=1$, whereas preventing the original implant can change
+the output law. This is not a contradiction: present self-endorsement and
+historical origin are different audit objects.
+
+\emph{Composite scope.} $\Lam$ enters the current scalar only through
+$\Lam_{ref}$ at L2. At L0/L1 it is reportable but composite-silent when an
+auxiliary SCM exists, and otherwise N/A. Computation requires causal evidence
+and an SCM supporting abduction--action--prediction; logs alone do not identify
+it. Passive behavioral non-identifiability is proved in
 Proposition~\ref{prop:unidentifiable}.
 \end{axiom}
 
 AX3 separates two operational counterparts of the historical condition on
-autonomy \citep{fischer_ravizza1998}: a surgery-history certificate and an
-endorsement output-law counterfactual. Manipulation cases that pass every
-procedural test require additional provenance or mechanism evidence; neither
-present structure nor an intervention label alone settles them. We return to
-the philosophical weight of this distinction in Section~\ref{sec:objections}.
+autonomy \citep{fischer_ravizza1998}: formation evidence and endorsement
+output-law counterfactuals. Manipulation cases that pass every present
+procedural test require provenance or mechanism evidence; neither present
+structure nor an intervention label alone settles them.
 
 \paragraph{The MI proxy and legacy marker boundary.}
 The quantity
@@ -146,7 +148,7 @@ than independent of them once the common-unit calibration (A0) is included
 \label{ax:6}
 Two parts. \emph{AX6a (component level)}: each channel is a bounded,
 protocol-normalized coordinate with an explicit zero and normalizer
-($\Fsrc+\Foth$, $n\log|\Acal|$ for exactly $n$ actions, $\dc$, the TV upper bound $1$,
+($\Fsrc+\Foth$, $n\log|\Acal|$ for exactly $n$ precommitted open-loop actions, $\dc$, the TV upper bound $1$,
 $H(\theta_\pi)$ for a finite discrete ensemble, or a physical supply ratio).
 These facts define range and zero semantics and support calibration
 $F(1,\ldots,1)=1$ (A0). They do \emph{not} prove that each coordinate is a
@@ -435,71 +437,63 @@ not the point value 1. Counterfactual endorsement deviation and surgery
 history are audited separately. $\Agoal$ carries no $\Lam$ factor (AX3):
 present structural alignment and actual/no-surgery endorsement output
 deviation are distinct, and the latter is charged to $\Aref$'s $\Lam_{ref}$
-factor exactly once. A
+factor exactly once. In particular, $\Agoal=1$ means only that the current
+utility is a registered fixed point. The AX3 implant example has two distinct
+fixed points and unchanged current channels; it shows why fixed-point
+alignment cannot certify the legitimacy of goal formation. A
 stability lemma (compression maps: $d(U^*(B),U^*(B'))\le
 \frac{L}{1-c}d(B,B')$) bounds goal drift by belief drift---the key
 $\gamma\to\Agoal$ transmission bound used by Theorem~T6.
 
-\paragraph{D-exec (execution).} Let $\Pi_t$ be the agent's \emph{accessible
-policy class}---the set of policies it can \emph{behaviorally implement},
-operationalized by calibration probes---and
+\paragraph{D-exec (precommitted open-loop execution).} Let
+$\Pi^{OL}_{t,s}\subseteq\Acal^n$ be the accessible \emph{open-loop action
+sequences} given $S_t=s$, and let $\mathcal Q_{t,s}$ be certified precommitted
+distributions over them. Randomization may use only information available at
+$t$ and noise independent of future environment noise conditional on $S_t$.
+For each sequence $a^n$, the intervention kernel
+\[
+K_{t,s,n}(o\given s,a^n)
+:=P\bigl(O_{t+n}=o\given S_t=s,\ do(A_{t:t+n-1}=a^n)\bigr)
+\]
+marginalizes all intermediate environment and observation dynamics. The
+execution estimand is
 \begin{equation}\label{eq:aexec}
-\mathcal{E}^{\Pi}_t := \sup_{p(a_{t:t+n-1})\in\,\mathrm{conv}(\Pi_t)}
-I\bigl(A_{t:t+n-1};\,O_{t+n}\given S_t\bigr),\qquad
-\Aexec := \mathbb{E}_t\bigl[\mathcal{E}^{\Pi}_t\bigr]\big/\,(n\log|\Acal|).
+\mathcal{E}^{OL,\Pi}_{t,s,n}
+:=\sup_{Q\in\mathcal Q_{t,s}} I_Q(A^n;O_{t+n}\given S_t=s),\qquad
+\Aexec:=\frac{\mathbb E_{S_t}[\mathcal{E}^{OL,\Pi}_{t,S_t,n}]}
+{n\log|\Acal|}.
 \end{equation}
-The convex hull is not a free addition: it is used exactly when the agent can
-implement \emph{chance mixtures} internally (a register-mediated
-randomization source, itself certified by the calibration probes), and the
-certification protocol is concrete: the probe battery requests registered
-two-point mixtures of basis policies at registered mixture weights, and
-$\mathrm{conv}(\Pi_t)$ is used only when the realized action shares match the
-requested weights within a registered tolerance across the battery; where any
-probe fails, the maximization runs over $\Pi_t$ itself, the reading carries
-the \emph{pure-policy protocol} label, and cross-protocol comparisons are
-flagged. Including
-unimplementable mixtures would inflate the channel with physically
-unreachable policies; the certification step is what keeps the maximization
-honest. The supremum becomes an attained maximum only under additional
-regularity: for the finite discrete memoryless channel used here, the feasible
-input set must be nonempty, closed, and bounded (hence compact), with a fixed
-conditional channel and continuous mutual information. A general closed-loop
-policy class is not assumed compact merely by being called $\Pi_t$.
-Blahut--Arimoto applies only after that class has been reduced to an explicit
-finite input distribution over a discrete memoryless channel; it is not a
-general solver for feedback-policy optimization. Variational bounds likewise
-report their own model and convergence premises.
+Later actions in this audit object do \emph{not} read intermediate
+observations. The agent's actual operating policy may be reactive and is
+reported separately; it is not substituted into \eqref{eq:aexec}. Mixtures are
+allowed only when calibration probes certify the requested precommitted
+randomization; otherwise the optimization is over pure sequences. For a finite
+nonempty compact feasible set and fixed kernel, the supremum is attained;
+Blahut--Arimoto applies only to an explicit finite discrete channel, including
+a derived open-loop sequence channel, not to an unstructured feedback class.
 
-This is empowerment \citep{klyubin2005,salge2013} restricted to the accessible
-policy class. The normalizer $n\log|\Acal|$ fixes $|\Acal|$ at the
-\emph{pre-intervention} action alphabet: a $\delta$-class contraction shrinks
-the accessible class $\Pi_t$ (and hence the maximization), never the
-denominator, so the ratio cannot spuriously rise under constraint. The
-restriction is semantically forced: learned helplessness is
-the collapse of the behavioral repertoire while environmental controllability
-persists \citep{maier_seligman2016}---a max over environmental capacity could
-never register it; restricted to $\Pi$, helplessness ($\Pi$ shrinking to
-near-constant policies) gives $\EmpPi\to0$, while satisfied inaction (desire
-absent, capability intact) leaves $\Aexec$ high. Zero execution can instead
-arise with a rich repertoire when no action influences the registered outcome;
-it means execution-channel collapse, with repertoire restriction and
-agent--environment decoupling as alternative causes. The
-capacity$\times$utilization decomposition outputs both $\Envenv$ (unrestricted
-environmental capacity) and $\EmpPi$: the signature $\Envenv$ intact with
-$\EmpPi\to0$ is consistent with repertoire collapse, while joint decline can
-indicate environmental decoupling; neither signature by itself identifies a
-unique psychological cause. Because empowerment is a joint agent--environment
-property, it absorbs the conversion-factor problem of resource-based measures
-automatically. The definition and its upper-bound proof are for finite
-alphabets. For continuous actions, one may either (i) register a finite
-pre-intervention quantization $Q$ and use $n\log|Q(\Acal)|$, or (ii) report
-unnormalized empowerment, or normalize it by the positive capacity
-$C_{\mathrm{ref}}$ of the \emph{same} action--observation channel, horizon,
-conditioning convention, and protocol. The quantity
-$\log\mathrm{Vol}(\Acal^n)$ is not a general mutual-information upper bound
-(and can be negative), so it is not used here. Quantization and capacity
-choices are protocol inputs and must accompany any comparison
-(Section~\ref{sec:discussion}).
+The feedback-copy counterexample explains the restriction. Let $X$ be a fair
+exogenous bit, let the environment ignore all actions, and set
+$O_{t+1}=O_{t+2}=X$. After conditioning on $S_t$, let $A_t$ be fixed and let a
+reactive policy copy the intermediate observation, $A_{t+1}=X$. Then
+$I(A_t,A_{t+1};O_{t+2}\given S_t)=\log2$, giving normalized score $1/2$ under
+the former ordinary-MI definition, although no action has any causal effect.
+Under \eqref{eq:aexec}, every open-loop sequence has the same fair outcome
+kernel, so the capacity and score are zero. The index repair to exactly $n$
+actions did not solve this feedback problem; the open-loop restriction does.
+
+This is empowerment \citep{klyubin2005,salge2013} restricted to accessible
+precommitted sequences. The normalizer uses the pre-intervention alphabet, so
+a $\delta$ contraction shrinks the feasible set but not the denominator. Zero
+execution means that all allowed open-loop sequences induce the same outcome
+distribution; repertoire collapse and complete action--environment decoupling
+are alternative causes. Reporting both unrestricted environmental capacity
+and restricted capacity can separate some signatures, but neither identifies a
+unique psychological cause. The finite-alphabet upper bound is
+$n\log|\Acal|$. Continuous actions require a registered finite quantization or
+a positive same-protocol capacity normalizer; $\log\mathrm{Vol}(\Acal^n)$ is
+not a general MI upper bound. Historical ENV-0/EXEC-1 values are $n=1$
+open-loop special cases, not multi-step feedback-policy validation.
 
 \paragraph{D-epi (epistemic).} Two tracks. The \emph{realized} track (entering
 the composite) measures \emph{inaccuracy with respect to the actual

@@ -4,15 +4,28 @@
 
 Wen Hu<sup>1,2</sup> and Gong Zhang<sup>1,2</sup> — <sup>1</sup>College of Electronic and Information Engineering, Nanjing University of Aeronautics and Astronautics, Nanjing, China; <sup>2</sup>Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China — `huwen@nuaa.edu.cn`; `gzhang@nuaa.edu.cn`
 
-**R16 public source synchronization, 2026-11-17.** Paper: [`latex/main.pdf`](latex/main.pdf) (**104 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
+**R17 public source synchronization, 2026-11-20.** Paper: [`latex/main.pdf`](latex/main.pdf) (**103 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
 
-[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **No immutable R16 tag or R16 version DOI is claimed by this main-branch synchronization.**
+[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **No immutable R17 tag or R17 version DOI is claimed by this main-branch synchronization.**
 
 ---
 
-## What R16 changes
+## What R17 changes
 
-R16 closes the R15 re-review without rewriting historical evidence.
+R17 is a major revision addressing the R16 review without rewriting historical evidence.
+
+- **Open-loop execution repair:** multi-step \(A_{\mathrm{exec}}\) now optimizes precommitted open-loop action-sequence distributions under intervention kernels. A feedback-copy counterexample shows ordinary reactive MI can score 0.5 while open-loop capacity is zero. EXEC-1/ENV-0 are explicitly \(n=1\) open-loop special cases.
+- **Co-primary current/history outputs:** certificates carry `current_structural_profile` and `historical_formation_profile`. A fixed-point goal implant can leave \(A_{\mathrm{goal}}=1\) and current channels unchanged while historical formation records surgery. Lambda time origins distinguish audit-time removal from original-implant prevention.
+- **R17-native end-to-end benchmark:** one registered \(T=3\) reactive SCM with action-dependent environment, N/R/I roles, resource/defense split, structural goal point and IRL interval, reflection events, and explicit XOR endorsement SCM. Execution is audited separately by \(n=2\) open-loop interventions. Reports exact truth, seeded sampling errors, bootstrap/Wilson intervals, alternative semantic partition, surgery/decoupling negative controls, and R17 certificates. Internal concept validation only.
+- **Weight-simplex bookkeeping bounds:** exact log-domain bounds and pairwise damage halfspaces replace a few alternative weights as the primary robustness check. Among 22 unique finite historical contrasts, 17 are weight-dependent. Log-damage shares are bookkeeping under the selected geometric aggregator, not causal attribution or ratio-scale effects.
+- **Claim contraction:** T2 is single-channel insufficiency, not exactly-five minimality; T3/T8 are design propositions and T5 zero-factor bookkeeping. C1 uses a local OU premise, C2 states the [0,1] truncation convention, and T1d's Le Cam bound does not depend on finite verification capacity.
+- **External equivalence design:** the unexecuted protocol now freezes equivalence/non-inferiority margins, an independent downstream Brier outcome, nested instance-level validation, and independent-investigator reimplementation requirements. Non-significance is not equivalence.
+
+The R16 ordered-attribution, certificate, interval, non-finite, and replay repairs remain in force; see the historical R16 section in `RELEASE_NOTES.md`.
+
+## Historical R16 changes
+
+R16 closed the R15 re-review without rewriting historical evidence.
 
 - **Ordered source attribution:** the L1+ \(R\to N\to I\) decomposition is explicitly an **ordered residual-attribution axiom**, not a unique causal decomposition. Reports require reverse NRI and an I-last two-order Shapley-style sensitivity descriptor when \(R,N\) are nondegenerate. The \(N/R/I\) semantic partition is registered before scoring; alternative partitions are sensitivity arms. PID remains a comparator, not a silent replacement estimand. Pure-random zero claims are RNI-specific: with \(N=R\) and \(A=R\), the RNI normative share is 0 but NRI is 1.
 - **Executable order and closed-loop guards:** the one-step OR law gives normative shares `0.6163114534` (RNI), `0.3836885466` (NRI), and `0.5` (order average). Exact \(T=2\) enumeration covers pure-random, pure-normative, and mixed feedback policies, joint-DI chain identities, mediated external influence, and direct bypass. The mixed XOR model changes its ordered normative share from 1 to 0; the I-last average is 0.5.
@@ -29,7 +42,9 @@ The R15 execution-horizon, compatibility, goal-identification, state/readiness, 
 
 | Evidence package | Current interpretation |
 |---|---|
-| Mathematical and implementation guards | **230/230 tests pass**, including exact source-attribution, certificate, interval, non-finite, and replay controls; not external validation |
+| Mathematical and implementation guards | **251/251 tests pass**, including open-loop execution, formation certificates, native benchmark, weight regions, and R16 controls; not external validation |
+| R17-native benchmark | Same-instance \(T=3\) reactive SCM plus separate open-loop execution audit; exact truth, sampling errors/intervals, semantic sensitivity, negative controls, certificates |
+| R17 weight regions | Exact closed-simplex log bounds and halfspaces; 22 unique finite contrasts, 17 weight-dependent; zero/log-undefined cases separated |
 | R16 source-attribution audit | OR, duplicate-register order control, three exact \(T=2\) policies, mediation and direct-bypass witnesses; independent closed-form and atom-wise log-ratio checks |
 | Historical 4,620-run ENV-0 archive | Read-only legacy implementation and same-model checks. Its `a_org` is internal-causal and combined `a_via` is a resilience marker; neither is silently re-signed as a current value |
 | R14 pooled/stratified X5-c | Current-source read-only replays pass; \(D_{noise}=0.089799622>0.01\), so point readings remain **MODEL_SENSITIVE** |
@@ -46,21 +61,24 @@ Failed criteria, post hoc replacements, unrun programs, legacy markers, unavaila
 ```text
 latex/                     complete paper source, 115-entry bibliography,
                            Unicode map, submission manifest, 5 external PDF
-                           figures + 1 TikZ figure, built 104-page PDF
+                           figures + 1 TikZ figure, built 103-page PDF
 sim/
-  src/autonomy_sim/        ENV-0, estimators, SCMs, source/certificate guards
-  tests/                   230 unit/integration/regression tests
+  src/autonomy_sim/        ENV-0, estimators, SCMs, open-loop/source/certificate guards
+  tests/                   251 unit/integration/regression tests
+  analysis_r17_native_benchmark.* R17-native end-to-end internal benchmark
+  analysis_r17_weight_regions.* exact weight-simplex bookkeeping bounds
   analysis_r16_source_attribution.* exact OR and T=2 attribution audit
   analysis_r15_statistics.* Kendall tau-b, ties and scenario reporting audit
   analysis_r15_x5c_paired.* paired cross-check SEs and tolerant replay
   EXTERNAL_VALIDATION_PROTOCOL.md design-frozen, unexecuted external protocol
   SPEC_*.md                current specifications and R14 preservation copy
-  CRITERION_VERSION_MAP.md R11–R16 supersession and evidence boundaries
+  CRITERION_VERSION_MAP.md R11–R17 supersession and evidence boundaries
   runs/20261017_full/      read-only historical 4,620-run campaign archive
   runs/20261102_r11/del1/  separate 30-run R11 replay summary
   runs/20261116_r14/       X5-c, C0-CF-v2, superseded/failed records
   runs/20261117_r15/       preserved R15 validation
-  runs/20261117_r16/       current clean-worktree validation and provenance
+  runs/20261117_r16/       preserved R16 validation
+  runs/20261119_r17/       current clean-worktree validation and provenance
 refs/manifest.md           graded bibliography verification ledger;
                            third-party PDFs are not redistributed
 tools/                     source-package and frozen-validation scripts
@@ -74,7 +92,7 @@ tools/                     source-package and frozen-validation scripts
 ## Reproduction
 
 ```bash
-# 1. Run all 230 tests
+# 1. Run all 251 tests
 cd sim
 python3 -m unittest discover -s tests -q
 
@@ -83,10 +101,12 @@ python3 run_x5c_r14.py --out runs/20261116_r14/x5c --check
 python3 run_x5c_r14_stratified.py --out runs/20261116_r14/x5c_stratified --check
 python3 run_c0cf_r14.py --out runs/20261116_r14/c0cf_v2 --check
 
-# 3. Read-only R15/R16 reporting and analytic audits
+# 3. Read-only R15/R16/R17 reporting and analytic audits
 python3 analysis_r15_statistics.py --check
 python3 analysis_r15_x5c_paired.py --check
 python3 analysis_r16_source_attribution.py --check
+python3 analysis_r17_native_benchmark.py --check
+python3 analysis_r17_weight_regions.py --check
 
 # 4. Rebuild the complete paper
 cd ../latex
@@ -96,9 +116,9 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-For clean-source-commit validation, create a clean worktree at the R16 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r16_validation.py`. It writes only `sim/runs/20261117_r16/validation.json`, uses a separate temporary LaTeX build directory, and does not modify historical evidence.
+For clean-source-commit validation, create a clean worktree at the R17 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r17_validation.py`. It writes only `sim/runs/20261119_r17/validation.json`, uses a separate temporary LaTeX build directory, and does not modify historical evidence.
 
-The R14 replays and R15/R16 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14/R15/R16 `PROVENANCE.md` files and `sim/CRITERION_VERSION_MAP.md`.
+The R14 replays and R15/R16/R17 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14/R15/R16/R17 `PROVENANCE.md` files and `sim/CRITERION_VERSION_MAP.md`.
 
 The complete LaTeX tree is required; uploading only `main.tex` is not a valid source submission. See [`latex/SUBMISSION_MANIFEST.md`](latex/SUBMISSION_MANIFEST.md).
 
@@ -114,14 +134,14 @@ This repository is a fresh-history public snapshot of the authors' development w
 ## Citation
 
 ```bibtex
-@misc{hu_zhang2026autonomy_r16,
+@misc{hu_zhang2026autonomy_r17,
   title  = {Autonomy as Determination by One's Own Normative Structure:
             A White-Box-First Five-Channel Audit Framework with Axioms
             and Conditional Theorems},
   author = {Hu, Wen and Zhang, Gong},
   year   = {2026},
-  note   = {Author manuscript; R16 public source synchronization,
-            17 November 2026, 104 pages; no R16 version DOI},
+  note   = {Author manuscript; R17 public source synchronization,
+            20 November 2026, 103 pages; no R17 version DOI},
   url    = {https://github.com/hurrywhen/autonomy-five-channel}
 }
 ```

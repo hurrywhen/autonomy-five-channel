@@ -1,11 +1,11 @@
-# 论文—规约—代码—运行归档版本映射（R11–R16，更新于 2026-11-17）
+# 论文—规约—代码—运行归档版本映射（R11–R17，更新于 2026-11-19）
 
 ## 1. 原则
 
 - 历史运行目录 `runs/20261017_full/` 是只读证据快照；不得回写其 manifest、结果或 verdict。
 - manifest 中的 `spec_version` 是运行写出器当时写入的元数据，不一定等于该 commit 实际实现的全部有效判据。必须同时记录代码 commit、SPEC 变更日志和场景内容。
 - R11/R12/R13 的数学复审属于**对历史结果的重评价**，不是一次新的 4,620-run 独立实验。R14 发布必须冻结开发源 commit 与公开快照源码；公开 main 同步不等于不可变 tag/version DOI，只有全部版本链实际形成后才可声称闭合。
-- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。R16 再撤回 RNI 份额的顺序无关/唯一因果分解解释、Route B 第 6 步未缩放的中间等式、自然语言“区间非减”、NaN fail-open、完整字段自动 SCM_AUDITED、legacy 数值仅凭通道数升级及浮点逐位复核。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
+- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。R16 再撤回 RNI 份额的顺序无关/唯一因果分解解释、Route B 第 6 步未缩放的中间等式、自然语言“区间非减”、NaN fail-open、完整字段自动 SCM_AUDITED、legacy 数值仅凭通道数升级及浮点逐位复核。R17 再撤回多步普通 MI 执行容量（反馈复制反例）、历史自主性仅作辅助元数据、Lambda 时间原点混用、对数份额“canonical attribution”、五权重/tau-b 作为全单纯形稳健性证明、X3 排序作为几何形式独立经验证据、T1d 有限容量来源、C1 确定性 ODE 平稳方差/AR(1)、C2 未截断吸收态，以及 exactly-five 最小必要性口吻。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
 
 ## 2. 历史归档 manifest 的共同事实
 
@@ -36,6 +36,7 @@
 | R14 反例、estimand、直接文献与证据重签 | R14 开发源 `6a613086...`；公开 main `dbdf2f6f...`；不可变 tag/version DOI 未形成 | **v1.0** | 新增 R14 反例/优化/SCM 测试、`analysis_r14_math.*`、`x5c`、`x5c_stratified`、`c0cf_v2` 与失败目录；旧 `law_level_lambda` 仅 marker，新反事实仅限显式 SCM。$D_{noise}=0.089799622$ 故 MODEL_SENSITIVE。历史归档不改写 |
 | R15 定义、构念、识别、证明与报告治理 | R15 开发源 `0ebbae17...`；公开 main `ec53f987...`；不可变 R15 tag/version DOI 未形成 | **v1.1** | 新增 14 个确定性负控制、`r15_guards.py`、`stats.py`、`analysis_r15_statistics.*`、`analysis_r15_x5c_paired.*`。执行改 n 行动；T2 撤 iff；L1+ N/R/I 来源分割；A_goal 结构点/IRL 区间；V_state/R_def 分账；C2/Route B 修补；tau-b 总体与分场景。旧 a_org/a_via 只作 legacy marker，历史 manifest/results/verdict 不改写，外部验证仍未完成 |
 | R16 有序归因、证明缩放、证书与复核边界 | R16 开发/公开 commit 见本轮发布说明；main 同步不替代不可变 tag/version DOI | **v1.2** | RNI/NRI/Shapley 与 N/R/I 语义敏感性；OR 和 T=2 闭环独立枚举；Route B st' 缩放；IRL 区间端点序与 NaN fail-closed；注册完整≠SCM 审计；R16 schema/org/goal/readiness/hashes；浮点容差复核；Ingel/Albantakis/PID 外部协议设计冻结但未执行。R15 及更早证据只读 |
+| R17 开环执行、历史形成并列、原生基准与权重界 | R17 开发/公开 commit 见本轮发布说明；main 同步不替代不可变 tag/version DOI | **v1.3** | 多步 A_exec 改预承诺开环序列干预核，反馈复制反例；当前/历史双核心输出与 Lambda 时间原点；R17-native T=3 端到端基准（真值/采样/区间/语义/负控制/证书）；权重闭单纯形对数界/半空间；X2 簿记、X3 语义示例；C1 OU、C2 截断、T1d Le Cam；外部等价/非劣效设计。R16 及更早证据只读 |
 
 ## 4. 判据时间线（失败与替换不得擦除）
 
@@ -53,6 +54,7 @@
 | v1.0（2026-11-16） | 修复 T1b/T2/T3/T4/T5、离散 $A_{ref}$、比例解释、Lemma 37、Via-Ind；$\Lambda$ 改输出律 estimand；X5-c 两噪声执行并补时分层；C0 改同环境证人；补直接文献对照；证据按类型重签 | R14 反例与 SCM 复审；历史 marker 与新反事实分账，点读数 MODEL_SENSITIVE，旧归档不改写 |
 | v1.1（2026-11-17） | 修复执行索引、T2 兼容过强、L0/L1 随机来源、A_goal 识别层级、C2 与 Route B；状态/防御和强制 provenance 输出分账；补三篇直接前驱与统计报告 | R15 审稿反例与构念复审；194 项目标测试和 tau-b 只读重算；旧数值不冒充新构念验证，tag/version DOI 与外部实验未完成 |
 | v1.2（2026-11-17） | RNI 改有序残差归因并强制 NRI/Shapley 与语义敏感性；OR 和 T=2 闭环精确验证；Route B 缩放、区间端点序、NaN fail-closed；证书双证据轴及 R16 schema/hash；浮点容差复核；外部协议设计冻结但未执行 | R16 复审闭合；新增 `analysis_r16_source_attribution.*`、R16 证书/闭环/复核测试。旧 R15 validation 与所有历史结果只读；不升级外部验证、tag、Release 或 version DOI |
+| v1.3（2026-11-19） | 开环执行修复与反馈反例；历史形成并列输出/固定点植入/Lambda 时间原点；R17-native 端到端基准；权重闭单纯形界；X2/X3 降格；C1/C2/T1d 修正；外部等价/非劣效设计 | R17 大修；新增 `open_loop_execution.py`、`formation_audit.py`、`r17_guards.py`、`native_benchmark.py`、`analysis_r17_*` 与测试。旧 R16 validation 与所有历史结果只读；不升级外部验证、正式 Release 或 version DOI |
 
 ## 5. R11→R13 重点判据与主张 supersession 明细
 
@@ -124,3 +126,17 @@
 | 数值/状态边界追加 guard | 近退化 part-total 绝对容差可让 flow share>1；state=1/viability=0 可获审计上限 | ratio 直接检查，1e-13/1e-15 拒绝；强制 $A^{state}\le V_{state}$，0/0 可登记但正状态禁配零存续 | 新负控制使总数 228→230；首次候选 7b74ec4 被 superseded，重新冻结验收 |
 | 配对与源归因复核 | 全部 JSON 叶子逐位相等，平台末位浮点差可假失败 | 状态/seed/count/hash/类型精确，float 用 $10^{-12}$ 双重容差并报最大差；源归因另有独立闭式锚 | 容差外、非有限和类型改变仍失败；X5-c 数值/verdict 不变，POST_HOC_PASS 不升级 |
 | 外部协议与写作 | Ingel/Albantakis/PID 计划散见 Related Work/Conclusion；正文修订史口吻、N/A 与 UNKNOWN 表述不一致 | `EXTERNAL_VALIDATION_PROTOCOL.md` 统一设计冻结；正文保留最终定义与证据边界，历史集中本账本；UNKNOWN 才触发 LIMITED，T8 明确 A_state | 协议仍 UNEXECUTED；外部 SESOI/power、时间戳、独立基质、version DOI 和不可变 release 未完成 |
+
+## 10. R17 supersession 明细
+
+| 项目 | R16 残留缺陷 | R17 当前处理 | 回归与证据边界 |
+|---|---|---|---|
+| 多步 A_exec | 恰好 n 行动的普通 MI 仍允许反应式策略，观察→后续动作相关被计为执行能力 | 预承诺开环序列分布+干预核；后续动作不读中间观察；实际反应式策略另列 | 反馈复制旧 0.5/开环 0；控制序列上界、BSC 解析、单序列坍缩；EXEC-1/ENV-0 仅 n=1 特例 |
+| 历史自主性 | 手术史/Lambda 主要作辅助元数据，固定点植入可当前剖面不变 | 当前结构 profile 与历史形成 profile 并列 top-level 输出；formation_status 不由通道推断 | U0≠U1 均 Fix、A_goal=1、F_ext=0；R17 证书双 profile/time_origin/scope 匹配 |
+| Lambda 时间语义 | “移除所有注册手术”未区分审计时移除与最初植入阻止 | 默认 AUDIT_CURRENT_REMOVAL；ORIGINAL_IMPLANT_PREVENTION 另 estimand，须重算 descendants | 固定点 witness 审计时=1、最初阻止=0；证书拒绝 origin/scope 不匹配 |
+| R16-native 证据 | 小型 guard 与历史 4620-run 不同量级，缺同一实例端到端 | R17-native T=3 反应式 SCM+开环执行审计，真值/采样/区间/语义/负控制/证书 | `analysis_r17_native_benchmark.json`；内部概念验证，非外部构念验证，非通用 IRL 求解 |
+| 权重稳健性 | 五组权重+tau-b 被读作整体稳健 | 闭单纯形 log 上下界与半空间；22 唯一有限对比 17 权重依赖；零分量单列 | `analysis_r17_weight_regions.json`；闭单纯形为敏感性松弛，表示定理内点严格正；不冒称统计功效 |
+| 聚合/归因口吻 | X2 canonical attribution、X3 排序/零歼灭作独立证据 | X2 选定几何聚合器簿记，可负/无穷；X3 语义示例；几何形式不证比例尺度/因果 | 论文摘要/讨论/结论同步；历史 JSON 不改写 |
+| C1/C2/T1d | C1 确定性 ODE 写平稳方差/AR(1)；C2 D=1 吸收未截断；T1d 把 Le Cam 界归因有限容量 | C1 局部 OU 固定噪声/采样前提；C2 [0,1] 截断/投影；T1d 任意检验界，有限容量只限制可实现族 | 正文命题与附录 restatement 同步 |
+| 定理层级 | T3/T5/T8 与实质定理并列营造等强度印象 | T3/T8 设计命题，T5 簿记推论，T2 任何单一通道不足；不宣称 exactly-five 最小性 | 环境/标题/交叉引用更新；证明内容不变 |
+| 外部等价设计 | “较粗模型相当即否证”依赖不显著差异 | 冻结 BA/Brier 等价/非劣效界值、独立下游结局、嵌套实例级验证、独立研究者复现 | 协议仍 DESIGN_FROZEN_UNEXECUTED；界值是工程设计不是已验证域 SESOI |

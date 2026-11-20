@@ -5,7 +5,10 @@ E3.6 接口：信道 W 为 |𝒜|×|𝒪| 行随机矩阵（显式给定）；�
 信道容量双入口（E3.2）：blahut_arimoto（核心迭代，适面内点信道）与
 channel_capacity（循环顶点方向上升＋KKT 精度证书——I(q) 凹 ⇒ 坐标级最优即全局最优，
 边界最优信道亦在证书容差内闭合）。
-由模型内核导出 n 步信道与 E_t[·] 期望属场景步接线（第 6/7 步）。
+R17 范围：本模块的显式信道容量是**预先承诺的开环动作（或开环动作序列）**
+到结果的信道特例；n=1 时没有中间观察反馈问题。一般多步须由
+``open_loop_execution.py`` 提供干预后的序列核，禁止把读取中间观察的反应式
+策略普通互信息直接代入。由模型内核导出 n 步开环干预核与 E_t[·] 期望属场景接线。
 全部信息量以 nats 计。
 """
 import math
@@ -211,11 +214,13 @@ def empowerment_support(W, support) -> float:
 
 
 def a_exec(emp_nats: float, n: int, n_A: int) -> float:
-    """A_exec = ℰ^Π/(n·log|𝒜|)，n 是实际行动数（R15）。
+    """A_exec = ℰ^{OL,Π}/(n·log|𝒜|)，n 是实际行动数（R17 开环限定）。
 
-    对应 I(A_{t:t+n-1};O_{t+n}|S_t)。R14 论文的 A_{t:t+n} 含
-    n+1 个行动，与同一分母不一致；超容差输入必须 fail-closed，不能靠
-    clipping 掩盖定义错位。
+    对应预先承诺序列分布下的 I(A_{t:t+n-1};O_{t+n}|S_t)，其中后续动作
+    不读取中间观察；一般多步使用 open_loop_execution.py 的干预序列核。
+    R14 的 A_{t:t+n} 含 n+1 个行动，与同一分母不一致；R16 虽修正索引但
+    仍允许反馈策略普通 MI，R17 反馈复制反例撤回该形式。超容差输入必须
+    fail-closed，不能靠 clipping 掩盖定义错位。
     """
     if n < 1 or n_A < 2:
         raise ValueError(f"n≥1 且 |𝒜|≥2: n={n}, |𝒜|={n_A}")

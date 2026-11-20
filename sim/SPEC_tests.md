@@ -1,7 +1,8 @@
 # SPEC_tests —— R3 TDD 测试计划（L0–L3 注册表）
 
-**版本**: v1.2（2026-11-17；v0.1 初版 2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
-**R16 附注**：新增有序归因/闭环、证书与非有限值、数值容差复核条目；当前冻结目标 **230 项**，精确数量由 `runs/20261117_r16/validation.json` 复核，R15 的 194 项历史验收不改写。
+**版本**: v1.3（2026-11-19；v0.1 初版 2026-10-04）｜**框架**: stdlib `unittest`，运行 `python3 -m unittest discover -s tests -v`（离线环境，不引 pytest）。
+**R17 附注**：新增开环执行/反馈反例、历史形成证书、原生端到端基准、权重闭单纯形界条目；当前冻结目标 **251 项**，精确数量由 `runs/20261119_r17/validation.json` 复核，R16 的 230 项历史验收不改写。
+**R16 附注**：新增有序归因/闭环、证书与非有限值、数值容差复核条目；R16 冻结目标 230 项，R15 的 194 项历史验收不改写。
 **TDD 纪律**: ①每个 SPEC 条目先有其测试（红）再写实现（绿）；②测试命名 `test_<条目号>_<短名>`（如 `test_P61_seed_determinism`）；③本注册表与测试文件同步增长——新测试先在此登记条目号；④L1 定理性质测试是理论回归防线，不许跳过（无 `skip` 除非登记理由）。
 
 ---
@@ -93,6 +94,10 @@
 | T-R16-T2 | R16 区间与非有限兼容性 | 端点序要求上下端同时非减，$[0.2,0.8]\to[0.3,0.7]$ 拒绝；非有序/越界/NaN/Inf 区间 fail-closed；`componentwise_compatible` 对 NaN→NaN、NaN/±Inf 任一方向均 raise，且先验完全部值再返回，N/A=None 与 NaN 不混用 |
 | T-R16-CERT | R16 证书 estimand/version 与证据轴 | 强制 R16_CHANNEL_SCHEMA_V1、org/goal/state-readiness modes、L1/L2 双 64-hex hashes；无 SCM 完整注册=REGISTERED_COMPLETE，显式 audited SCM 才到 SCM_AUDITED，UNKNOWN/不全仍 LIMITED，N/A≠UNKNOWN；旧 Bundle、伪 schema/org/hash、真 external/integrity flag 均拒绝；另检查 $A^{state}\le V_{state}$，state=1/viability=0 在 producer/writer 均拒绝，0/0 可登记；producer/writer 同一合同 |
 | T-R16-REPLAY | R16 数值容差复核 | JSON 类型、键、状态、种子、计数、哈希精确比较；仅 float 叶子用 rel/abs=$10^{-12}$ 的 isclose，报告最大绝对差，容差外/非有限/类型改变 fail-closed；`analysis_r16_source_attribution.py --check` 另执行独立闭式锚，不仅比较保存 JSON |
+| T-R17-EXEC-OL | R17 开环执行与反馈反例 | 反馈复制 $O_{t+1}=O_{t+2}=X,A_{t+1}=X$ 旧普通 MI=ln2/归一 0.5，开环序列核全同⇒0；任意预承诺混合仍 0；控制序列达 n log|A| 上界；BSC 序列容量解析锚；单序列库坍缩 0；非法核/分布/视界 fail-closed |
+| T-R17-FORM | R17 历史形成并列证书 | 固定点植入 U0≠U1 均 Fix、A_goal=1、F_ext=0，当前剖面不变但 formation=REGISTERED_SURGERY；Lambda 审计时移除=1 与最初植入阻止=0 不同 estimand；R17 双 top-level profiles、time_origin/scope 匹配、profile drift/legacy schema/writer fail-closed |
+| T-R17-NATIVE | R17 原生端到端基准 | 同一 T=3 反应式 SCM+开环 n=2 执行审计；精确联合表归一；A_epi=1-p、A_goal=0.5、开环容量解析、fidelity=1-H(q)/ln2、Lambda 手术臂 0；替代语义划分改变 NRI/顺序平均；解耦执行 0；采样误差/ bootstrap/Wilson 区间与 bias note；R17 证书有效；非外部验证 |
+| T-R17-WEIGHT | R17 权重闭单纯形界 | 正分量 log A 线性⇒顶点上下界；成对损伤半空间 c+Σd_i w_i≥0，全正/全负/权重依赖/边界 ties 分类；零分量/闸门/log 未定义单列；非法输入 fail-closed；历史只读重放 22 唯一对比，17 权重依赖，不冒称因果/比例尺度/统计功效 |
 
 ## 3. L2 场景冒烟测试（每场景一测，短视界单种子）
 

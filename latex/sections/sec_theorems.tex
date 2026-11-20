@@ -1,8 +1,10 @@
-% sec_theorems.tex — the theorem suite (statements + proof sketches + falsification windows)
-\section{The Theorem Suite}\label{sec:theorems}
+% sec_theorems.tex — conditional results: theorems, design propositions, bookkeeping corollaries
+\section{Conditional Results and Bookkeeping}\label{sec:theorems}
 
-Each theorem below carries an explicit \emph{falsification window}: a concrete
-observation that would refute its registered mechanism model. Section~
+The T/C labels are stable names, not claims of equal mathematical strength.
+Some results are substantive conditional theorems; others are design
+propositions or direct bookkeeping consequences of the definitions. Each
+result carries an explicit \emph{falsification window} where applicable. Section~
 \ref{sec:experiments} separates the mathematical statement, analytic
 regression, legacy criterion outcome, evidence type, and external-validation
 status; it does not summarize them with a single ``confirmed'' tally. Older
@@ -111,11 +113,14 @@ s_k^{avail}<s_k^{crit}$.
 channel admits a degradation family $\gamma_s$ for which
 $\TV(P_{\gamma_s},P_0)\to0$ as $s\downarrow0$ and every $s>0$ satisfies the
 registered-coordinate accuracy-loss premise \textup{(R-epi)}, hence
-$\Aepi^{real}<1$. Under finite verification capacity (AX1: $v<\infty$,
-$W<\infty$), for every test level $\alpha>0$ there is a non-trivial member of
-this family ($s(\gamma)>0$) with detection power
-$\le\alpha+\varepsilon$, $\varepsilon=\TV(P_\gamma,P_0)$ arbitrarily
-small, while registration does not trigger and $\AHI>0$ can appear.
+$\Aepi^{real}<1$. The Le Cam/testing-duality bound applies to \emph{any}
+level-$\alpha$ test, not only to tests implementable with finite verification
+capacity: for every $\alpha>0$ there is a non-trivial member of this family
+with detection power $\le\alpha+\varepsilon$,
+$\varepsilon=\TV(P_\gamma,P_0)$ arbitrarily small, while registration does not
+trigger and $\AHI>0$ can appear. Finite $v,W$ in AX1 restrict the
+\emph{implementable test family} and may further reduce achievable power; they
+are not the mathematical source of the TV inequality.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
@@ -144,7 +149,7 @@ $\alpha+\TV(P_\gamma,P_0)$ uniformly in $s(\gamma)$---a vanishing-drift test
 that loses no power. (The window tests T1d's existence claim; AX1 itself is a
 modelling axiom, not an empirical hypothesis.)
 
-\subsection{T2: mediation, coverage, and multi-channel necessity}
+\subsection{T2: mediation, coverage, and single-channel insufficiency}
 \label{sec:t2}
 
 \begin{definition}[Compatibility, reduction, full mediation]\label{def:compat}
@@ -276,7 +281,7 @@ without necessarily changing present behavior \\
 \endgroup
 \end{theorem}
 
-\begin{theorem}[Multi-channel necessity]\label{thm:necessity}
+\begin{proposition}[Any single channel is insufficient]\label{thm:necessity}
 No single component of the instrument family defined in
 Section~\ref{sec:channels} detects all surgery classes: $\Aorg$ has blind
 witness models for $\beta_G$, $\gamma$, and the transition-kernel form of
@@ -287,10 +292,10 @@ but no universal behavior-IRL blindness is claimed (explicit witness
 constructions in Appendix~\ref{app:t2}; legacy special cases in
 Section~\ref{sec:experiments}). Hence
 the five-channel decomposition plus $\Lam$ is an \emph{attribution cover} of
-this instrument family, and multi-channel detection is a theorem, not a
-design preference. The claim is scoped: it is a coverage theorem about these
-instruments---not a minimality theorem (we do not prove that every proper
-sub-family fails on a registered class) and not a uniqueness theorem about
+this instrument family. The claim is scoped: any single channel is
+insufficient for the registered classes, but this is not a minimality theorem
+(we do not prove that every proper sub-family fails on a registered class),
+not an exactly-five uniqueness theorem, and not a uniqueness theorem about
 all conceivable decompositions---a generic monitor of the whole joint law
 (say, a likelihood ratio against baseline) could \emph{register} every class
 without \emph{attributing} any, which is exactly the service the
@@ -300,7 +305,7 @@ erodes current resources or defense envelopes while leaving
 $G,\pi,o,\Acal,\Endorse$ intact. Thus $\Avia$ and $\Rdef$ are necessary
 instruments for those distinct current-state and preparedness questions, not
 proof of a unique conceptual decomposition.
-\end{theorem}
+\end{proposition}
 
 \begin{proposition}[Componentwise compatibility; sufficient structural certificate]
 \label{cor:t2}
@@ -383,7 +388,7 @@ with no motive premise, and the asymmetric-motive classification belongs to
 the governance layer that consumes the certificate (cf.\
 \citealp{sussner2019}).
 
-\begin{theorem}[T3, layered]\label{thm:t3}
+\begin{proposition}[T3, layered manipulation comparisons]\label{thm:t3}
 \textup{(a)} Assume a point-valued baseline with $A^0>0$ and all unaffected
 applicable factors fixed. Then $A^1<A^0$ \emph{wherever the affected factor
 is applicable}: at any layer, $\beta_\pi$ with
@@ -428,7 +433,7 @@ $\Pr_\gamma[\hat A>A^\gamma]=\Pr_\gamma[\AHI>0]\ge g(s)$ (a lower
 bound on the firing probability, not a tight rate; informative when
 $0<c_1s^{\nu_0}-\varepsilon-\eta_0\le1$ and vacuous above $1$, where the
 hypotheses are unsatisfiable since $\hat A-A^\gamma\le1$).
-\end{theorem}
+\end{proposition}
 \begin{proof}[Proof sketch]
 (a) Each branch supplies exactly the corresponding strict component
 comparison of Lemma~\ref{lem:strict-comparison}; $A^0>0$ and AX4 then give a
@@ -531,9 +536,9 @@ is claimed. Under LinLog, superiority of spread over every best-leverage
 vertex would refute (i); under linear-fraction damage, a claimed generic
 interior minimum is refuted by the explicit counterexample above.
 
-\subsection{T5: total loss as a six-way disjunction}\label{sec:t5}
+\subsection{T5: zero-factor bookkeeping}\label{sec:t5}
 
-\begin{theorem}[T5, layered]\label{thm:t5}
+\begin{corollary}[T5, layered zero-factor disjunction]\label{thm:t5}
 For a point-valued, nondegenerate instantiation with applicable component set
 $\mathcal{C}$ (L0: $\{via,org,exec\}$; L1: $+\{goal,epi\}$; L2: $+\{ref\}$),
 $\Astate=0$ iff at least one applicable factor is zero (degenerate $A_{goal}$ or
@@ -544,8 +549,8 @@ $A_{ref}$ readings remain intervals and are outside this point-valued iff):
 \,\vee\, [\text{L2}]\,\Aref=0,
 \end{equation}
 with mechanism labels: current-resource viability cutoff \eqref{eq:avia};
-normative-source absence or action capture; execution-channel collapse through
-repertoire restriction or environmental decoupling;
+normative-source absence or action capture; open-loop execution-channel collapse
+through repertoire restriction or environmental decoupling;
 epistemic capture (beliefs carry no mass on the true state throughout,
 $\bar D=1$---detachment, not mere revision, since accuracy-based $\Aepi$
 cannot be zeroed by honest information); maximally alienated goal implantation
@@ -559,7 +564,7 @@ without such an SCM, $\Lam$ is N/A rather than implicitly one. The separate
 surgery-history flag is not a substitute for this output-law factor. For the
 separate resilience descriptor, $\Ares=0\iff\Rdef=0\vee\Astate=0$; zero
 repair/readiness is therefore not a disjunct for present $\Astate$.
-\end{theorem}
+\end{corollary}
 \begin{proof}[Proof sketch]
 The product form (Theorem~\ref{thm:rep}) vanishes iff a factor does (AX5, both
 directions); the zero semantics of each factor are
@@ -895,7 +900,7 @@ calibrated non-degenerate delegation configuration ($\rho\neq1$ or $f>0$).
 
 \subsection{T8: restricted coercion consistency}\label{sec:t8}
 
-\begin{theorem}[T8, direct compulsion cases and term-wise defense directions]
+\begin{proposition}[T8, direct compulsion cases and term-wise defense directions]
 \label{thm:t8}
 \textup{(i)} Consider a direct intervention of one of two registered forms,
 with superscripts $0,1$ denoting baseline and post-intervention values.
@@ -929,7 +934,7 @@ For the present-state composite $\Astate$, any immediate increase under the
 registered $\sigma$-model occurs only through $\Avia$. Scaffolding may
 independently raise $\Rdef$ and hence the separate resilience descriptor
 $\Ares=\Rdef\Astate$, without increasing $\Astate$.
-\end{theorem}
+\end{proposition}
 \begin{proof}[Proof sketch]
 (i) substitutes the two explicit baseline-strictness premises into the
 corresponding rows of Theorem~\ref{thm:coverage}; it does not use an
@@ -1029,8 +1034,11 @@ damage): for $\delta<\delta_c:=\varepsilon v/4$ there are two equilibria
 $D_\pm=(1\pm\sqrt{1-4\delta/\varepsilon v})/2$ ($D_-$ stable); at
 $\delta\uparrow\delta_c$ they merge (saddle-node) and beyond $\delta_c$,
 $D\to1$ catastrophically; the eigenvalue $|f'(D_-)|\to0$ gives critical
-slowing with $\Trec\propto(\delta_c-\delta)^{-1/2}$, diverging stationary
-variance, and AR(1)$\to1$---the three early-warning indicators
+slowing with $\Trec\propto(\delta_c-\delta)^{-1/2}$. The deterministic ODE has
+no stationary variance or AR(1). Those indicators are asserted only under a
+local Ornstein--Uhlenbeck linearization with fixed noise intensity and sampling
+interval: the local/quasi-stationary variance diverges and lag-one
+autocorrelation tends to one as the restoring rate vanishes
 \citep{lade_gross2012}.
 \end{proposition}
 
@@ -1038,6 +1046,10 @@ variance, and AR(1)$\to1$---the three early-warning indicators
 With lock-in $R(D)=\varepsilon_0 v\,D(1-D)(1-gD)$ (recovery function $R$;
 lock-in curvature $g>1$---distinct symbols from the $\gamma$ intervention
 class and from the redundancy copy count $r_j$):
+The state is constrained to $[0,1]$ by the registered truncation/projection
+convention: at $D=1$ positive outward drift is clipped, so $D=1$ is absorbing
+in the constrained dynamics even though the unconstrained polynomial drift is
+$\delta>0$ there. Under this convention:
 \textup{(i)} bistability between a healthy equilibrium and the absorbing
 $D=1$ for $0<\delta<\delta_{down}:=R(D_1)$; \textup{(ii)} collapse at
 $\delta\uparrow\delta_{down}$; \textup{(iii)} $D=1$ remains absorbing after
@@ -1049,8 +1061,9 @@ threshold is $\delta+s_c$, not $s_c$. The hysteresis loop does not close:
 $\delta_{down}$ and $s_c$ are independently positive.
 \end{proposition}
 
-If C1/C2 hold, ``autonomy defense must be prospective'' is a theorem-backed
-claim, not advice: intervene far before collapse. Randomized escape versions
+If C1/C2's registered normal-form premises hold, they give a model-supported
+reason to intervene far before collapse, not a general theorem about autonomy
+dynamics. Randomized escape versions
 (Kramers/Freidlin--Wentzell) are open (Section~\ref{sec:discussion}).
 Simulation confirmation: scaling slope $-0.504$ (theory $-0.5$), $R^2=1.0000$,
 and loop thresholds $\delta_{down}=0.0701$, $s_c=0.2347$ over 30 seeds

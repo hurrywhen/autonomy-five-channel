@@ -139,9 +139,9 @@ transitions \citep{lade_gross2012}, the template for Propositions~C1--C2
 
 % [Syn: keep full passage; MaM: may compress]
 Each of our channels binds to an established instrument. Empowerment---the
-channel capacity from an agent's actions to its future sensory input---is the
-canonical intrinsic measure of control \citep{klyubin2005}; its conceptual
-foundations and estimation issues are reviewed in \citet{salge2013}, and
+channel capacity from precommitted open-loop action sequences to future sensory
+input---is the canonical intrinsic measure of control \citep{klyubin2005}; its
+conceptual foundations and estimation issues are reviewed in \citet{salge2013}, and
 \citet{salge_polani2017} deploy it as a robot-safety norm (an agent that
 maintains its own empowerment does not strip humans of control channels).
 Because empowerment is a joint agent--environment property, it absorbs the
@@ -150,7 +150,12 @@ capacity. \citet{jung2011continuous} extend empowerment estimation to
 continuous vector-valued state spaces with Monte Carlo approximation and
 Gaussian-process dynamics. Their formal model uses a discrete action set; it
 is direct precedent for learned execution estimates, not a solution to the present
-continuous-action normalization or feedback-policy compactness problem.
+continuous-action normalization problem. We deliberately do not use ordinary
+reactive-policy mutual information as multi-step execution capacity: the
+feedback-copy counterexample in Section~\ref{sec:channels} shows that it can
+count observation-to-action correlation as control. Closed-loop directed
+information remains the tool for source attribution, not for this open-loop
+execution estimand.
 For directed influence, directed information
 \citep{massey1990} and its causally conditioned extension to networks with
 feedback \citep{kramer2003}, together with transfer entropy

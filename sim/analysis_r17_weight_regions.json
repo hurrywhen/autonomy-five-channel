@@ -1,0 +1,965 @@
+{
+  "artifact_version": "R17-weight-regions-v1",
+  "analysis_status": "POST_HOC_DESCRIPTIVE_CLOSED_SIMPLEX_BOUNDS",
+  "source_archive": "runs/20261017_full (read-only historical component bundles)",
+  "external_construct_validation": false,
+  "causal_attribution": false,
+  "ratio_scale_established": false,
+  "statistical_power_or_independent_replicates": false,
+  "scope": {
+    "aggregate": "sigma=1 geometric bookkeeping form only",
+    "weight_domain": "closed simplex for sensitivity; strictly positive interior for representation theorem",
+    "nested_and_deterministic_records": "deduplicated by scenario/intercept/slope for headline counts",
+    "zero_components": "excluded from log-domain contrasts and counted separately"
+  },
+  "n_main_sigma1_arms": 2880,
+  "n_cells": 720,
+  "n_finite_pairwise_comparisons_before_dedup": 1980,
+  "n_unique_component_bounds": 22,
+  "n_zero_or_log_undefined_exclusions": 360,
+  "n_unique_contrasts": 22,
+  "unique_contrast_verdicts": {
+    "WEIGHT_DEPENDENT": 17,
+    "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES": 5
+  },
+  "unique_contrast_verdicts_by_scenario": {
+    "1": {
+      "WEIGHT_DEPENDENT": 15
+    },
+    "2": {
+      "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES": 5
+    },
+    "4": {
+      "WEIGHT_DEPENDENT": 2
+    }
+  },
+  "component_bounds": [
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.068646276404145,
+      "log_max": 0.0,
+      "composite_min": 0.01710052222606047,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.0665506180903925,
+      "log_max": 0.0,
+      "composite_min": 0.017136396654776023,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.063418077236471,
+      "log_max": 0.0,
+      "composite_min": 0.01719016128336872,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.059246392892111,
+      "log_max": 0.0,
+      "composite_min": 0.0172620229980495,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.067597470993954,
+      "log_max": 0.0,
+      "composite_min": 0.01711846675480276,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.066027807984167,
+      "log_max": 0.0,
+      "composite_min": 0.017145358078488757,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.063939600483498,
+      "log_max": 0.0,
+      "composite_min": 0.017181198551978832,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.068226496161104,
+      "log_max": 0.0,
+      "composite_min": 0.017107702194335626,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.067597470993954,
+      "log_max": 0.0,
+      "composite_min": 0.01711846675480276,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.06675985027756,
+      "log_max": 0.0,
+      "composite_min": 0.017132811544097133,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.0665506180903925,
+      "log_max": 0.0,
+      "composite_min": 0.017136396654776023,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.06843634128414,
+      "log_max": 0.0,
+      "composite_min": 0.01710411260310608,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.0681216064173364,
+      "log_max": 0.0,
+      "composite_min": 0.017109496710946796,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "1",
+      "status": "FINITE",
+      "log_min": -4.06770225754514,
+      "log_max": 0.0,
+      "composite_min": 0.01711667306368894,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "2",
+      "status": "FINITE",
+      "log_min": -4.068646276404145,
+      "log_max": 0.0,
+      "composite_min": 0.01710052222606047,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "2",
+      "status": "FINITE",
+      "log_min": -5.391492566014855,
+      "log_max": -1.1102230246251565e-16,
+      "composite_min": 0.004555169368321896,
+      "composite_max": 0.9999999999999999,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 1,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "2",
+      "status": "FINITE",
+      "log_min": -7.026168688803466,
+      "log_max": 0.0,
+      "composite_min": 0.0008883287328703166,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "2",
+      "status": "FINITE",
+      "log_min": -4.713884940065023,
+      "log_max": 0.0,
+      "composite_min": 0.008969862426787281,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "2",
+      "status": "FINITE",
+      "log_min": -6.4151008108786804,
+      "log_max": 0.0,
+      "composite_min": 0.0016366549072018538,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 1,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "4",
+      "status": "FINITE",
+      "log_min": -4.426793726324991,
+      "log_max": 0.0,
+      "composite_min": 0.01195275209449766,
+      "composite_max": 1.0,
+      "minimizing_vertex": 2,
+      "maximizing_vertex": 0,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "4",
+      "status": "FINITE",
+      "log_min": -5.411808569674444,
+      "log_max": 0.0,
+      "composite_min": 0.004463560247258487,
+      "composite_max": 1.0,
+      "minimizing_vertex": 0,
+      "maximizing_vertex": 1,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    },
+    {
+      "scenario": "4",
+      "status": "FINITE",
+      "log_min": -6.057438650326693,
+      "log_max": 0.0,
+      "composite_min": 0.0023403877684544418,
+      "composite_max": 1.0,
+      "minimizing_vertex": 0,
+      "maximizing_vertex": 1,
+      "note": "closed-simplex sensitivity bounds; interior weights have the same inf/sup"
+    }
+  ],
+  "contrasts": [
+    {
+      "scenario": "1",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.3285040669720361,
+        -0.0020956583137525797,
+        -0.0001966330657497961,
+        0.2231435513142097
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.3285040669720361,
+        -0.0020956583137525797,
+        -0.0001966330657497961,
+        0.2231435513142097
+      ],
+      "damage_log_min": -0.0020956583137525797,
+      "damage_log_max": 0.3285040669720361,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.6523251860396901,
+        -0.0031325408539215616,
+        -0.0002948771215718071,
+        0.47000362924573547
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.6523251860396901,
+        -0.0031325408539215616,
+        -0.0002948771215718071,
+        0.47000362924573547
+      ],
+      "damage_log_min": -0.0031325408539215616,
+      "damage_log_max": 0.6523251860396901,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 2,
+      "after_arm": 3,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        1.9195928407379372,
+        -0.004171684344360216,
+        -0.00039303428468712154,
+        1.6094379124341007
+      ],
+      "vertex_damage_values": [
+        0.0,
+        1.9195928407379372,
+        -0.004171684344360216,
+        -0.00039303428468712154,
+        1.6094379124341007
+      ],
+      "damage_log_min": -0.004171684344360216,
+      "damage_log_max": 1.9195928407379372,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.15665381004537673,
+        -0.0010488054101909228,
+        -9.832136594523089e-05,
+        0.10536051565782623
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.15665381004537673,
+        -0.0010488054101909228,
+        -9.832136594523089e-05,
+        0.10536051565782623
+      ],
+      "damage_log_min": -0.0010488054101909228,
+      "damage_log_max": 0.15665381004537673,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.2645596550309265,
+        -0.0015696630097874475,
+        -0.00014746392549824794,
+        0.18232155679395468
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.2645596550309265,
+        -0.0015696630097874475,
+        -0.00014746392549824794,
+        0.18232155679395468
+      ],
+      "damage_log_min": -0.0015696630097874475,
+      "damage_log_max": 0.2645596550309265,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 2,
+      "after_arm": 3,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.4315157853081073,
+        -0.0020882075006687373,
+        -0.00019658474692321737,
+        0.3101549283038395
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.4315157853081073,
+        -0.0020882075006687373,
+        -0.00019658474692321737,
+        0.3101549283038395
+      ],
+      "damage_log_min": -0.0020882075006687373,
+      "damage_log_max": 0.4315157853081073,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 3,
+      "after_arm": 4,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.1281000026273157,
+        -0.0005215232470270337,
+        -4.914014895490704e-05,
+        0.09531017980432477
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.1281000026273157,
+        -0.0005215232470270337,
+        -4.914014895490704e-05,
+        0.09531017980432477
+      ],
+      "damage_log_min": -0.0005215232470270337,
+      "damage_log_max": 0.1281000026273157,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "2",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.06102470183777449,
+        -0.0004197802430407904,
+        -3.932970643655276e-05,
+        0.040821994520255034
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.06102470183777449,
+        -0.0004197802430407904,
+        -3.932970643655276e-05,
+        0.040821994520255034
+      ],
+      "damage_log_min": -0.0004197802430407904,
+      "damage_log_max": 0.06102470183777449,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "2",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.0956291082076021,
+        -0.0006290251671501323,
+        -5.899165950867813e-05,
+        0.06453852113757119
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.0956291082076021,
+        -0.0006290251671501323,
+        -5.899165950867813e-05,
+        0.06453852113757119
+      ],
+      "damage_log_min": -0.0006290251671501323,
+      "damage_log_max": 0.0956291082076021,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "2",
+      "rep": 0,
+      "before_arm": 2,
+      "after_arm": 3,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.13610780814970286,
+        -0.0008376207163944827,
+        -7.865013304383939e-05,
+        0.0930904230660119
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.13610780814970286,
+        -0.0008376207163944827,
+        -7.865013304383939e-05,
+        0.0930904230660119
+      ],
+      "damage_log_min": -0.0008376207163944827,
+      "damage_log_max": 0.13610780814970286,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "2",
+      "rep": 0,
+      "before_arm": 3,
+      "after_arm": 4,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.035742448776956315,
+        -0.0002092321871671743,
+        -1.9661566760725835e-05,
+        0.024692612590371588
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.035742448776956315,
+        -0.0002092321871671743,
+        -1.9661566760725835e-05,
+        0.024692612590371588
+      ],
+      "damage_log_min": -0.0002092321871671743,
+      "damage_log_max": 0.035742448776956315,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "3",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.030253043171020826,
+        -0.00020993512000533343,
+        -1.9665046571526457e-05,
+        0.020202707317519386
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.030253043171020826,
+        -0.00020993512000533343,
+        -1.9665046571526457e-05,
+        0.020202707317519386
+      ],
+      "damage_log_min": -0.00020993512000533343,
+      "damage_log_max": 0.030253043171020826,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "3",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.04635805920081944,
+        -0.0003147348668033345,
+        -2.9496844787257892e-05,
+        0.031090587070031206
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.04635805920081944,
+        -0.0003147348668033345,
+        -2.9496844787257892e-05,
+        0.031090587070031206
+      ],
+      "damage_log_min": -0.0003147348668033345,
+      "damage_log_max": 0.04635805920081944,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "3",
+      "rep": 0,
+      "before_arm": 2,
+      "after_arm": 3,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.06374351560080774,
+        -0.00041934887219685635,
+        -3.932777299961443e-05,
+        0.043017385083690685
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.06374351560080774,
+        -0.00041934887219685635,
+        -3.932777299961443e-05,
+        0.043017385083690685
+      ],
+      "damage_log_min": -0.00041934887219685635,
+      "damage_log_max": 0.06374351560080774,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "1",
+      "config": "3",
+      "rep": 0,
+      "before_arm": 3,
+      "after_arm": 4,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        0.01629919207272859,
+        -0.00010478655118539848,
+        -9.831701586832109e-06,
+        0.01104983618658495
+      ],
+      "vertex_damage_values": [
+        0.0,
+        0.01629919207272859,
+        -0.00010478655118539848,
+        -9.831701586832109e-06,
+        0.01104983618658495
+      ],
+      "damage_log_min": -0.00010478655118539848,
+      "damage_log_max": 0.01629919207272859,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "2",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        4.678479825771504e-13,
+        1.1102230246251565e-16,
+        1.3228462896107098,
+        0.12181288111367669,
+        0.29437106060257745
+      ],
+      "vertex_damage_values": [
+        4.678479825771504e-13,
+        1.1102230246251565e-16,
+        1.3228462896107098,
+        0.12181288111367669,
+        0.29437106060257745
+      ],
+      "damage_log_min": 1.1102230246251565e-16,
+      "damage_log_max": 1.3228462896107098,
+      "verdict": "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "2",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        -4.678479825771504e-13,
+        -1.1102230246251565e-16,
+        1.634676122788611,
+        0.1391333738060342,
+        0.4189788272748872
+      ],
+      "vertex_damage_values": [
+        -4.678479825771504e-13,
+        -1.1102230246251565e-16,
+        1.634676122788611,
+        0.1391333738060342,
+        0.4189788272748872
+      ],
+      "damage_log_min": -4.678479825771504e-13,
+      "damage_log_max": 1.634676122788611,
+      "verdict": "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "2",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.0,
+        1.1102230246251565e-16,
+        0.6452386636608782,
+        0.05901225215302083,
+        0.13639262490555482
+      ],
+      "vertex_damage_values": [
+        0.0,
+        1.1102230246251565e-16,
+        0.6452386636608782,
+        0.05901225215302083,
+        0.13639262490555482
+      ],
+      "damage_log_min": 0.0,
+      "damage_log_max": 0.6452386636608782,
+      "verdict": "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "2",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        4.678479825771504e-13,
+        0.0,
+        0.6776076259498316,
+        0.06280062896065586,
+        0.15797843569702263
+      ],
+      "vertex_damage_values": [
+        4.678479825771504e-13,
+        0.0,
+        0.6776076259498316,
+        0.06280062896065586,
+        0.15797843569702263
+      ],
+      "damage_log_min": 0.0,
+      "damage_log_max": 0.6776076259498316,
+      "verdict": "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "2",
+      "config": "1",
+      "rep": 0,
+      "before_arm": 2,
+      "after_arm": 3,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        -1.3444800828216033e-13,
+        -1.1102230246251565e-16,
+        1.0236082448638255,
+        0.09053063752401885,
+        0.2590141775822089
+      ],
+      "vertex_damage_values": [
+        -1.3444800828216033e-13,
+        -1.1102230246251565e-16,
+        1.0236082448638255,
+        0.09053063752401885,
+        0.2590141775822089
+      ],
+      "damage_log_min": -1.3444800828216033e-13,
+      "damage_log_max": 1.0236082448638255,
+      "verdict": "NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "4",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 0,
+      "after_arm": 1,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        5.411808569674444,
+        0.0,
+        -0.042995356454601286,
+        -0.004050674893339462,
+        0.6931471805599452
+      ],
+      "vertex_damage_values": [
+        5.411808569674444,
+        0.0,
+        -0.042995356454601286,
+        -0.004050674893339462,
+        0.6931471805599452
+      ],
+      "damage_log_min": -0.042995356454601286,
+      "damage_log_max": 5.411808569674444,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    },
+    {
+      "scenario": "4",
+      "config": "0",
+      "rep": 0,
+      "before_arm": 1,
+      "after_arm": 2,
+      "status": "FINITE",
+      "intercept": 0.0,
+      "slopes": [
+        0.645630080652249,
+        0.0,
+        -0.033900663454311086,
+        -0.003228767496391949,
+        1.6094379124341007
+      ],
+      "vertex_damage_values": [
+        0.645630080652249,
+        0.0,
+        -0.033900663454311086,
+        -0.003228767496391949,
+        1.6094379124341007
+      ],
+      "damage_log_min": -0.033900663454311086,
+      "damage_log_max": 1.6094379124341007,
+      "verdict": "WEIGHT_DEPENDENT",
+      "nonnegative_damage_region": {
+        "weights": "w_i>=0, sum_i w_i=1 (closed sensitivity simplex)",
+        "inequality": "intercept + sum_i slopes[i]*w_i >= 0",
+        "representation_theorem_interior": "w_i>0, sum_i w_i=1"
+      }
+    }
+  ],
+  "interpretation": "Each nonnegative-damage region is an exact simplex-halfspace intersection. These are bookkeeping conclusions under the selected geometric aggregator, not ratio-scale, causal-attribution, or external-validation claims."
+}

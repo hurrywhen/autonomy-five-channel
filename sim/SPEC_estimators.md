@@ -1,6 +1,7 @@
 # SPEC_estimators —— R3b 分量与复合指标估计规约
 
-**版本**: v1.2（2026-11-17：R16 有序归因、闭环与证书/复核契约）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**版本**: v1.3（2026-11-19：R17 开环执行、历史形成并列输出与原生基准）｜**依据**: input v2.1 §3.3–§3.5、§5；附录 §2（数学预备）、§5（分量良构性）、§10（可辨识性与黑盒降级）。
+**R17 附注**：多步执行改为预先承诺开环序列干预核，反馈复制反例撤回 R16 普通 MI；当前结构自主性与历史形成自主性并列输出，Lambda 显式区分审计时移除与最初植入阻止；新增原生多步端到端基准、权重闭单纯形对数界/半空间、外部等价/非劣效设计。几何对数份额只是簿记，不是比例尺度或因果归因。
 **R16 附注**：RNI 只称有序残差归因，强制 NRI/Shapley 与语义敏感性；新增 OR 和 T=2 闭环独立枚举、Route B st' 缩放、IRL 端点序、NaN/Inf fail-closed、R16 schema/hash 和 REGISTERED_COMPLETE≠SCM_AUDITED。配对复核仅 float 叶子用容差，外部协议仅设计冻结。
 **R15 附注**：执行统一为 \(A_{t:t+n-1}\) 对 \(O_{t+n}\)，恰好 n 个行动；一般非紧策略类只写 sup，紧有限 DMC 才写 max/BA。L0 的 \(A_{org}\) 仅内部因果；L1+ 按 R→N→I 链分离 \(F_{rand},F_{norm},F_{ext}\)，旧 ENV-0 聚合 S 值不冒充新 estimand。T2 撤回兼容 iff/四轨充要，盲性改显式证人。\(A_{goal}\) 分结构读取点值与 IRL 集合/区间两种模式。当前 \(V_{state}\)、防御 \(R_{def}\)、\(A^{state}\)、\(A^{res}\) 分账；强制输出手术史、Lambda、来源注册及未知证据上限。新增 `r15_guards.py`、14 个 R15 反例和 tie-aware `analysis_r15_statistics.py`；旧 R14 manifest/results/verdict 不改写。
 **R14 附注**：\(A_{org}\) 仅称直接/未中介绕过抵抗，严格下降须 \(F_{ext}/F_{int}\) 相对基线上升；删除 \(A_{goal}^{hist}=\Lambda A_{goal}\)；\(A_{ref}\) 限有限离散系综；\(\Lambda\) 改唯一实际/无手术背书输出律 estimand，旧 marker 全面隔离；新增 X5-c 时分层和同环境 C0-CF；数值越界统一 fail-closed。
@@ -27,12 +28,12 @@
 
 ## 3. A_exec（执行）：策略类 empowerment
 
-- **E3.1 定义（R15 恰好 n 行动）**：$\mathcal E_t^\Pi=\sup_{p(a_{t:t+n-1})\in\mathrm{conv}(\Pi_t)} I(A_{t:t+n-1};O_{t+n}\mid S_t)$；$A_{exec}=\mathbb E_t[\mathcal E_t^\Pi]/(n\log|\mathcal A|)$。只有非空紧的可行输入集与固定有限信道才将 sup 写 max；BA 仅限显式离散无记忆输入—输出信道，不能自动覆盖一般闭环策略类。零值=无可用行动—结果信息，可来自策略库坍缩或环境解耦。
+- **E3.1 定义（R17 预先承诺开环序列）**：$\Pi^{OL}_{t,s}\subseteq\mathcal A^n$ 是给定 $S_t=s$ 时可预先承诺的开环动作序列集合；$\mathcal Q_{t,s}$ 是其经校准认证的混合分布，随机性只来自 $t$ 前已知/独立于未来环境噪声的源。对每个序列 $a^n$，干预核 $K_{t,s,n}(o\mid s,a^n)=P(O_{t+n}=o\mid S_t=s,do(A_{t:t+n-1}=a^n))$ 已边缘化全部中间环境/观察动力学。$\mathcal E^{OL,\Pi}_{t,s,n}=\sup_{Q\in\mathcal Q_{t,s}} I_Q(A^n;O_{t+n}\mid S_t=s)$，$A_{exec}=\mathbb E_{S_t}[\mathcal E^{OL,\Pi}_{t,S_t,n}]/(n\log|\mathcal A|)$。执行期间禁止读取中间观察选择后续动作；实际反应式运行策略另列，不直接代入该优化对象。只有非空紧可行输入集与固定有限核才将 sup 写 max；BA 仅限显式离散无记忆输入—输出信道或已导出的开环序列核。零值 iff 所有允许开环序列的条件结果分布相同（含单序列库坍缩或完全动作—环境解耦）。R16 普通 MI 形式被反馈复制反例撤回：$O_{t+1}=O_{t+2}=X$、$A_{t+1}=X$ 时旧值 1 bit/归一 0.5，而开环值 0。
 - **E3.2 真值路径**：表格信道容量——枚举（小字母表）或自实现 Blahut–Arimoto（不引 scipy；收敛容差入配置）。实现形态：BA 核心迭代（面内点信道）＋`channel_capacity` 循环顶点方向上升（I(q) 凹 ⇒ 坐标级精确线搜索收敛到全局最优），精度由 KKT 证书 gap=max_a D(W_a‖out)−I(q) 保证（边界最优信道不依赖迭代阈值）。
 - **E3.3 分解诊断（无助鉴别器）**：同时输出 $\mathcal E^{env}$（不限策略类）与 $\mathcal E^\Pi$；无助签名=$\mathcal E^{env}$ 完好而 $\mathcal E^\Pi\to0$；真能力坍缩=两者同降（附录 §5.4）。
 - **E3.4 黑盒（R11 识别边界）**：独立探针可算且 $A\perp S\Rightarrow I(A;O)\le I(A;O\mid S)$；一般被动观察方向未识别，ENV-0 的 obs>cond 仅实例描述，不作单侧界。连续动作用注册有限量化或同协议容量归一化，禁止通用 $\log Vol$ 归一化。
 - **E3.5 视界剖面**：报告 $n\mapsto\mathcal E^\Pi(n)$ 饱和曲线（C0 映射中 Dung"长期规划"维度的对应物）。
-- **E3.6 真值路径接口与第 4 步范围**：真值函数作用于显式信道 $W$（$|\mathcal A|\times|\mathcal O|$ 行随机矩阵）；策略类 $\Pi$ 以**输入支撑限制**表示（P3.5 的确定性策略子集 ⟺ 行动子集单纯形，$\mathrm{conv}(\Pi)$=支撑约束单纯形；温度截断族在场景步落地）。由模型内核导出 $n$ 步信道（含 $p(E_t,Z_t\mid S_t)$ 后验）与 $\mathbb E_t[\cdot]$ 期望属场景步接线（第 6/7 步）——L1 性质（命题 5.6）在显式信道上闭合。Blahut–Arimoto：初值均匀，容差默认 1e-12、最大迭代入配置。
+- **E3.6 真值路径接口与范围**：`empowerment.py` 作用于显式单步开环信道 $W$；`open_loop_execution.py` 作用于一般有限开环序列核 $K(o\mid s,a^n)$，支持允许序列支撑、固定预承诺分布或有限序列容量。策略类以输入支撑限制表示；混合仅在预承诺随机化经校准认证时使用。历史 ENV-0/EXEC-1 的 `wiring._truth_a_exec` 是 $n=1$ 特例，不构成多步反馈策略估计器验证。一般状态环境的多步开环干预核须由场景显式导出；未导出时报告 NOT_IMPLEMENTED，不用普通反应式 MI 代替。Blahut–Arimoto：初值均匀，容差默认 1e-12、最大迭代入配置。
 - **E3.7 单步信道导出（第 5 步，T-COV δ 行）**：$W_s[a,o']=\sum_{e,z}p(e,z\mid s)\sum_{e'}env[e,a,z,e']\cdot obs[e',a,o']$（$p(e,z\mid s)$ 后验由 propagate 的 ESZ 联合精确提取——决策时（S 更新后）联合 $p(E_t,S_t,Z_t)$）；$\mathbb E_s[\cdot]$ 取**基线模型** $S_t$ 边缘（ceteris paribus 约定：δ 只改可行集不改环境物理）。完整 $n$ 步信道与 $\Pi_t$ 提取仍属场景步接线。
 
 ## 4. A_goal（目标）
