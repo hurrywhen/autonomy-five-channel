@@ -12,9 +12,9 @@ R19 is a medium revision addressing the R18 review, which confirmed that no new 
 | Item | Value |
 |---|---|
 | R19 development-source commit | `43d65db823027e5aa1d2a5790a0289c2fbdedc3e` |
-| R19 public content commit used for clean validation | `R19_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R19_VALIDATED_TREE` |
-| Final public synchronization commit (tag `v1.2-r19` target) | `R19_FINAL_COMMIT` |
+| R19 public content commit used for clean validation | `60a1ec56775e1327e124d8a64f86ecd216cec629` |
+| Validated public source tree | `74bdb2541d9d2f4ad42c543400a370c93a901544` |
+| Final public synchronization commit (tag `v1.2-r19` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object itself and in the development repository's R19 release record |
 | R18 reviewed public baseline | `fd568690b796aa6beef9c1a3af650550dec7a016` (tag `v1.1-r18`) |
 | `latex/main.tex` SHA-256 | `316bdcf8f4daf9e034df7900e6a9e0ba562c3741197ca2d5c8478342d795b405` |
 | `latex/main.pdf` SHA-256 | `739bbfb1b444cc046c72d25c339d068d7cd4efa27c72798351ea16965c3c78a0` |
