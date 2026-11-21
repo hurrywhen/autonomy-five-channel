@@ -118,7 +118,7 @@ with Axioms and Conditional Theorems}
 Nanjing University of Aeronautics and Astronautics, Nanjing, China}}\\
 {\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China}\\[3pt]
 {\small Email: \texttt{huwen@nuaa.edu.cn; gzhang@nuaa.edu.cn}}}
-\date{21 November 2026}
+\date{22 November 2026}
 \maketitle
 
 \begin{abstract}
@@ -147,21 +147,29 @@ with an explicit counterfactual time origin; audit-time removal and
 original-implant prevention are different estimands.
 
 A legacy $4{,}620$-run campaign supplies implementation and same-model checks.
-A new small native multi-step benchmark audits the current estimands from one
+A small native multi-step benchmark audits the current estimands from one
 joint trajectory-log batch of a single registered SCM, with a separate
-precommitted open-loop execution stream as the estimand requires; it reports
-exact truth, seeded sampling errors, intervals, and negative controls, and
-issues full-profile certificates in which every channel, attribution order,
-semantic partition, and the composite range across registered conventions are
-mandatory fields. On that instance the registered RNI, NRI, and order-average
-conventions give composites $0.4609$, $0.0004$, and $0.4012$: order sensitivity
-is enforced as a visible certificate flag, never hidden behind a single
-positive scalar. This is internal concept validation, not external construct
-validation. X5-c remains model-sensitive, T7 remains inconclusive, and failed
-or post hoc criteria remain visible. Independent substrates, a domain-justified
-SESOI and power analysis, and external execution remain outstanding; the
-engineering equivalence/non-inferiority margins are design-frozen, and an
-archival version DOI is still pending.
+precommitted open-loop execution stream as the estimand requires, including
+sampled surgery and action-decoupled negative controls. Certificates are
+layer-aware (L0 internal-causal reports are not forced into L1 attribution
+conventions) and carry explicit DEFINED/INTERVAL/UNKNOWN/NOT-APPLICABLE channel
+states: point and interval certificates are separate modes, and composite
+intervals propagate exactly by coordinatewise monotonicity. Order sensitivity
+and semantic-partition sensitivity are computed separately and enforced as
+visible flags under post hoc frozen internal engineering thresholds. On the
+registered instance the exact RNI, NRI, and order-average composites are
+$0.4609$, $0.0004$, and $0.4012$; these are model anchors, not finite-sample
+recoverability claims---a multi-seed study shows that plug-in bias amplified
+by the geometric composite prevents recovery of the near-zero NRI endpoint
+(bootstrap intervals under-cover the truth), so below-detection-limit
+conventions are reported with interval semantics. Evidence hashes bind
+immutable raw logs, not non-unique optimizer coordinates. This is internal
+concept validation, not external construct validation. X5-c remains
+model-sensitive, T7 remains inconclusive, and failed or post hoc criteria
+remain visible. Independent substrates, a domain-justified SESOI and power
+analysis, and external execution remain outstanding; the engineering
+equivalence/non-inferiority margins are design-frozen, and an archival version
+DOI is still pending.
 \end{abstract}
 
 \paragraph{Keywords} autonomy; agency measurement; directed information;
@@ -193,11 +201,14 @@ superseded criteria and post hoc status; legacy markers and counterfactual-SCM
 results are not pooled or retroactively relabeled under the current estimands.
 \texttt{RELEASE\_NOTES.md} identifies the corresponding development-source and
 fresh-history public commits on the repository \texttt{main} branches listed
-above. The present version is frozen by the immutable tag \texttt{v1.1-r18}
-with a clean-worktree replay manifest
-(\texttt{sim/runs/20261121\_r18/validation.json}); a version DOI requires
-Zenodo archiving of that tag and remains a publication-time requirement. The
-historical concept DOI does not discharge it. The complete
+above. The present version is frozen by the immutable tag \texttt{v1.2-r19}
+with a two-environment clean-worktree replay manifest
+(\texttt{sim/runs/20261122\_r19/validation.json}); the earlier tag
+\texttt{v1.1-r18} is retained, and the recorded R18 cross-environment replay
+failure and its repair are preserved in
+\texttt{sim/runs/20261122\_r19/REPLAY\_FAILURE\_R18.md}. A version DOI requires
+Zenodo archiving of the current tag and remains a publication-time requirement.
+The historical concept DOI does not discharge it. The complete
 compilable LaTeX source tree, bibliography, figures, and
 submission manifest are included with the submission rather than only the
 top-level \texttt{main.tex} shell.

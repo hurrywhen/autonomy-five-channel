@@ -8,6 +8,15 @@ all intermediate dynamics are marginalized into the supplied sequence kernel.
 
 This module is an exact finite-channel guard, not a closed-loop directed-
 information estimator and not external validation.
+
+R19 numerical-reproducibility addendum: the capacity VALUE is well-conditioned,
+but the capacity-ACHIEVING INPUT DISTRIBUTION is generally non-unique (e.g.
+the native parity kernel has a two-dimensional optimal face).  Iterative
+solvers therefore return platform-dependent auxiliary coordinates on that
+face (the R18 cross-environment replay failure, ~7.5e-10 drift).  R19 adds an
+opt-in canonicalization rule (``canonicalize_input=True``) so audit artifacts
+store a declared, deterministic representative instead of raw solver
+coordinates; the default path is bit-identical to R17/R18 behavior.
 """
 from __future__ import annotations
 
@@ -64,8 +73,141 @@ def sequence_channel_mi_nats(input_dist, kernels) -> float:
     return max(0.0, float(total))
 
 
+CANONICAL_INPUT_REPLAY_TOL = 1e-6
+CANONICAL_ROUND_DIGITS = 12
+CANONICAL_PRECISION_NATS = 1e-6
+# Near-zero capacity branch: when C <= this bound every distribution is
+# near-optimal and moment-matching is ill-conditioned (nearly identical rows,
+# e.g. a sampled action-decoupled negative control); the exact uniform vector
+# is the declared canonical representative, within this slack of capacity.
+CANONICAL_NEAR_ZERO_NATS = 1e-3
+CANONICALIZATION_RULE = (
+    "UNIFORM_IF_CAPACITY_ACHIEVING_OR_NEAR_ZERO_ELSE_MAX_ENTROPY_IPF_R19")
+
+
+def _mi_nats_of_input(kernel: np.ndarray, q: np.ndarray) -> float:
+    output = q @ kernel
+    total = 0.0
+    for row_index, probability in enumerate(q):
+        if probability <= 0.0:
+            continue
+        row = kernel[row_index]
+        mask = row > 0.0
+        total += float(probability * np.sum(row[mask] * np.log(row[mask] / output[mask])))
+    return max(0.0, total)
+
+
+def _round_renormalize(values: np.ndarray, digits: int) -> np.ndarray:
+    """Deterministic fixed-precision canonicalization with exact renormalization.
+
+    Round half-even to ``digits`` decimal places, clip tiny negatives, then
+    place the entire normalization residual on the largest component (first
+    index on ties).  This is a declared post-processing rule, not a claim that
+    the rounded vector is the exact optimizer output.
+    """
+    rounded = np.round(np.asarray(values, dtype=float), digits)
+    rounded = np.maximum(rounded, 0.0)
+    residual = 1.0 - float(rounded.sum())
+    index = int(np.argmax(rounded))
+    rounded[index] += residual
+    return rounded
+
+
+def canonical_capacity_input_distribution(kernel, capacity: float, q_raw, *,
+                                          kkt_tol: float = 1e-9) -> np.ndarray:
+    """R19 canonical representative of the capacity-achieving input set.
+
+    The capacity-achieving set of a finite channel is a convex face of the
+    simplex and is generally non-unique; raw iterative-solver coordinates on
+    that face drift across platforms (R18 replay failure).  Declared rule:
+
+    1. if the uniform distribution achieves the certified capacity within
+       ``kkt_tol``, return the exact uniform vector (bit-identical everywhere);
+    1b. if the certified capacity is at most ``CANONICAL_NEAR_ZERO_NATS``
+       (near-decoupled channel, ill-conditioned moment matching), return the
+       exact uniform vector as the declared canonical representative;
+    2. otherwise return the maximum-entropy capacity-achieving distribution,
+       which is unique because Shannon entropy is strictly concave on the
+       convex optimal face.  It is computed by deterministic iterative scaling
+       against the solver's capacity-achieving output, then rounded to
+       ``CANONICAL_ROUND_DIGITS`` with exact renormalization, and verified
+       fail-closed against the KKT certificate at ``CANONICAL_PRECISION_NATS``.
+
+    Branch 1 is byte-stable across platforms.  Branch 2 returns a unique
+    mathematical object whose numerical representation carries the declared
+    precision; its coordinates are auxiliary analysis outputs with replay
+    tolerance ``CANONICAL_INPUT_REPLAY_TOL`` and must never be the sole bearer
+    of byte-level evidence binding (R19 binds raw logs separately).
+    """
+    kernel = _kernel_matrix(kernel)
+    n = kernel.shape[0]
+    capacity = float(capacity)
+    if not math.isfinite(capacity) or capacity < 0.0:
+        raise ValueError("capacity must be finite and nonnegative")
+    uniform = np.full(n, 1.0 / n)
+    if _mi_nats_of_input(kernel, uniform) >= capacity - kkt_tol:
+        return uniform
+    if capacity <= CANONICAL_NEAR_ZERO_NATS:
+        # Near-decoupled channel: all rows nearly identical, capacity ~ 0.
+        # Uniform is the declared canonical representative; its achieved MI is
+        # within CANONICAL_NEAR_ZERO_NATS of the certified capacity.
+        return uniform
+    q_raw = _distribution(q_raw, n, "q_raw")
+    # Target the solver's capacity-achieving output directly (it lies in the
+    # row convex hull by construction; rounding it could push it outside and
+    # make the moment-matching problem infeasible -- the R19 IPF failure mode).
+    out_target = q_raw @ kernel
+    divergences = np.full(n, -np.inf)
+    for a in range(n):
+        mask = kernel[a] > 0.0
+        if np.all(out_target[mask] > 0.0):
+            divergences[a] = float(np.sum(
+                kernel[a][mask] * np.log(kernel[a][mask] / out_target[mask])))
+    optimal_rows = [a for a in range(n)
+                    if divergences[a] >= capacity - CANONICAL_PRECISION_NATS]
+    if len(optimal_rows) < 1:
+        raise RuntimeError("canonicalization found no optimal rows")
+    sub = kernel[optimal_rows, :]
+    # Deterministic iterative scaling (pure Python floats, fixed iterations):
+    # max-entropy distribution q_i ∝ exp(lambda · W_i) matching out_target.
+    m = sub.shape[1]
+    lam = [0.0] * m
+    q_sub = np.full(len(optimal_rows), 1.0 / len(optimal_rows))
+    for _ in range(20000):
+        logits = [math.fsum(lam[o] * float(sub[i, o]) for o in range(m))
+                  for i in range(len(optimal_rows))]
+        peak = max(logits)
+        weights = [math.exp(value - peak) for value in logits]
+        total = math.fsum(weights)
+        q_sub = np.asarray([value / total for value in weights], dtype=float)
+        got = q_sub @ sub
+        if float(np.max(np.abs(got - out_target))) <= 1e-11:
+            break
+        for o in range(m):
+            target_o = max(float(out_target[o]), 1e-300)
+            got_o = max(float(got[o]), 1e-300)
+            lam[o] += math.log(target_o / got_o)
+    if float(np.max(np.abs(q_sub @ sub - out_target))) > 1e-9:
+        raise RuntimeError("canonical iterative scaling did not match its output target")
+    q = np.zeros(n)
+    q[optimal_rows] = q_sub
+    q = _round_renormalize(q, CANONICAL_ROUND_DIGITS)
+    achieved = _mi_nats_of_input(kernel, q)
+    out_q = q @ kernel
+    gap = -np.inf
+    for a in range(n):
+        mask = kernel[a] > 0.0
+        if np.all(out_q[mask] > 0.0):
+            d_a = float(np.sum(kernel[a][mask] * np.log(kernel[a][mask] / out_q[mask])))
+            gap = max(gap, d_a - achieved)
+    if achieved < capacity - CANONICAL_PRECISION_NATS or gap > CANONICAL_PRECISION_NATS:
+        raise RuntimeError("canonical capacity input failed its KKT verification")
+    return q
+
+
 def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: int,
-                              allowed_sequences=None, input_dist=None) -> dict:
+                              allowed_sequences=None, input_dist=None,
+                              canonicalize_input: bool = False) -> dict:
     """Exact open-loop sequence MI/capacity and normalized execution score.
 
     ``kernels[i]`` is P(O_final | S_t fixed, do(A^n = sequence_i)), already
@@ -73,6 +215,11 @@ def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: 
     ``input_dist`` is supplied it must be a precommitted distribution over the
     candidate sequences; otherwise the finite allowed sequence channel is
     optimized by the existing Blahut--Arimoto/KKT implementation.
+
+    R19: ``canonicalize_input=True`` replaces the raw (generally non-unique)
+    optimizer coordinates by the declared canonical representative and reports
+    the MI achieved by that representative; the default False path remains
+    bit-identical to R17/R18 for read-only historical replay.
     """
     kernel = _kernel_matrix(kernels)
     n_actions = _positive_int(n_actions, "n_actions")
@@ -89,12 +236,27 @@ def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: 
             raise ValueError("allowed_sequences must be a nonempty valid index set")
     subkernel = kernel[list(allowed), :]
     normalizer = n_actions * math.log(action_alphabet_size)
+    canonicalization = None
     if input_dist is None:
         if len(allowed) == 1:
             empowerment = 0.0
             q = np.array([1.0])
         else:
-            empowerment, q = channel_capacity(subkernel)
+            capacity_certified, q_raw = channel_capacity(subkernel)
+            if canonicalize_input:
+                q = canonical_capacity_input_distribution(
+                    subkernel, capacity_certified, q_raw)
+                empowerment = _mi_nats_of_input(subkernel, q)
+                canonicalization = {
+                    "rule": CANONICALIZATION_RULE,
+                    "capacity_certificate_nats": float(capacity_certified),
+                    "replay_tolerance": CANONICAL_INPUT_REPLAY_TOL,
+                    "canonical_precision_nats": CANONICAL_PRECISION_NATS,
+                    "round_digits": CANONICAL_ROUND_DIGITS,
+                    "non_unique_optimum_auxiliary_coordinate": True,
+                }
+            else:
+                empowerment, q = capacity_certified, q_raw
         mode = "CAPACITY_OVER_ALLOWED_OPEN_LOOP_SEQUENCES"
     else:
         full_q = _distribution(input_dist, kernel.shape[0], "input_dist")
@@ -107,7 +269,7 @@ def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: 
     score = empowerment / normalizer
     if score > 1.0 + 1e-12:
         raise ValueError("open-loop score exceeds its declared normalizer")
-    return {
+    result = {
         "protocol": "PRECOMMITTED_OPEN_LOOP_SEQUENCE",
         "mode": mode,
         "n_actions": n_actions,
@@ -119,6 +281,11 @@ def open_loop_execution_score(kernels, *, n_actions: int, action_alphabet_size: 
         "allowed_sequences": list(allowed),
         "uses_intermediate_observations": False,
     }
+    # R19: the canonicalization key is present ONLY in canonical mode, so the
+    # default path stays byte-identical to R17/R18 for read-only replay.
+    if canonicalization is not None:
+        result["input_canonicalization"] = canonicalization
+    return result
 
 
 def open_loop_zero_iff_rows_identical(kernels, *, allowed_sequences=None,

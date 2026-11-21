@@ -1,5 +1,46 @@
 # Release Notes
 
+## R19 public source synchronization — 2026-11-22 (`main`, immutable tag `v1.2-r19`)
+
+**Paper:** `latex/main.pdf`, 105 pages, 6 figures, 115 cited references.
+**Authors:** Wen Hu and Gong Zhang.
+
+R19 is a medium revision addressing the R18 review, which confirmed that no new foundational math error (of the feedback-counterexample class) was found and that the remaining issues were certificate generality, cross-environment numerical reproducibility, and near-zero sampling-error propagation. It repairs the R18 cross-environment replay failure, makes the certificate architecture layer-aware and degradation-complete, corrects the `state_autonomy_RNI` field, discloses sampled convention composites and a multi-seed recoverability study, decomposes order/semantic sensitivity, and renames the 0.05 thresholds as post hoc frozen. This revision **is frozen by an immutable annotated tag `v1.2-r19`** on the final synchronization commit, with a **two-environment** clean-worktree replay manifest. The earlier tag `v1.1-r18` is retained; its recorded cross-environment replay failure is preserved (not replaced). A version DOI requires Zenodo archiving of the current tag and is **not** yet minted; no formal Release page is created.
+
+### Development-source and frozen-content provenance
+
+| Item | Value |
+|---|---|
+| R19 development-source commit | `43d65db823027e5aa1d2a5790a0289c2fbdedc3e` |
+| R19 public content commit used for clean validation | `R19_PUBLIC_CONTENT_COMMIT` |
+| Validated public source tree | `R19_VALIDATED_TREE` |
+| Final public synchronization commit (tag `v1.2-r19` target) | `R19_FINAL_COMMIT` |
+| R18 reviewed public baseline | `fd568690b796aa6beef9c1a3af650550dec7a016` (tag `v1.1-r18`) |
+| `latex/main.tex` SHA-256 | `316bdcf8f4daf9e034df7900e6a9e0ba562c3741197ca2d5c8478342d795b405` |
+| `latex/main.pdf` SHA-256 | `739bbfb1b444cc046c72d25c339d068d7cd4efa27c72798351ea16965c3c78a0` |
+| Public tag | `v1.2-r19` (annotated; created on the final synchronization commit) |
+| R19 version DOI | **Not minted** (requires Zenodo archiving of `v1.2-r19`) |
+| Historical archive | `v1.0-r10.1`; concept DOI `10.5281/zenodo.23608751`, which does not archive R19 |
+
+`sim/runs/20261122_r19/validation.json` records the exact clean content commit, its tree, both environments, and current scientific-source hashes: **319/319 tests** in two independent clean environments (differing thread/hash settings), three R14 read-only replays, R15 tau-b and paired-X5-c audits, R16 source-attribution audit, R17 weight-region audit, the R19 joint-log and multi-seed sampling-study replays, read-only integrity/anchor checks of the R17-native and R18 numerical blocks (whose cross-environment byte-replay is not guaranteed), original-environment R17-native/R18 numerical `--check` confirmations, and an independent clean build. It also checks extracted-text equality, all-page Ghostscript parsing, 115 cited references, 6 figures, unresolved-reference/float warnings, metadata, embedded fonts, and Unicode maps. Its scope remains internal mathematical/implementation consistency, small-scale concept validation, and an internal finite-sample study.
+
+### Substantive R19 changes
+
+- **Cross-environment numerical reproducibility (`open_loop_execution.py`, `r19_joint_audit.py`):** the R18 joint-audit artifact failed independent-environment replay because the parity execution kernel has a two-dimensional capacity-achieving face, so the optimizer's auxiliary input coordinates are non-unique and platform-sensitive (~7.524e-10 drift) yet sat inside the byte-level evidence hash. Repair: (i) evidence hashes bind immutable raw inputs only (log SHA-256 + config); (ii) a declared canonicalization rule (`canonical_capacity_input_distribution`) returns exact uniform when capacity-achieving or near-zero (<=1e-3 nats), otherwise the unique maximum-entropy capacity-achieving input via deterministic iterative scaling, fail-closed verified at 1e-6 nats; (iii) declared per-field replay tolerances (1e-6 coordinates, 1e-9 capacity values), raw hashes/counts/statuses byte-exact. The default `canonicalize_input=False` path is byte-identical to R17/R18. Verified in two clean environments; the failure record `runs/20261122_r19/REPLAY_FAILURE_R18.md` is retained.
+- **Layer-aware, degradation-complete certificates (`r19_guards.py`):** L0 uses an independent `L0_INTERNAL_CAUSAL` report (F_int/F_ext share only; RNI/NRI not imposed); L1/L2 use RNI/NRI/order-average + semantic partitions. Channel states DEFINED/INTERVAL/UNKNOWN/NOT_APPLICABLE; point vs interval certificates separate; composite intervals propagate exactly by coordinatewise monotonicity. IRL-interval goal mode (structural point optional), thin-log/zero-entropy reflection degradation to [0, product of defined factors], zero-total-flow share unidentifiability ([0,1] org interval + composite interval), UNKNOWN worst-case propagation with LIMITED ceiling.
+- **Corrected `state_autonomy_RNI`:** computed from the actual five channels (R18 returned only the resource gate 0.8); regression asserts equality with the registered RNI certificate composite.
+- **Sampled NRI disclosure + multi-seed study (`analysis_r19_joint_audit.py`, `analysis_r19_sampling_study.py`):** the paper tabulates exact AND sampled per-convention composites with errors (sampled NRI 0.1478374 vs exact 0.0003908, error 0.1474 > 0.05). Near-zero detection limit (NRI share < 1e-6) -> interval semantics [0, 0.1866]. 8 independent seeds (20261122--20261129), 8192 trajectories, 200 bootstrap resamples: NRI mean bias +0.151, percentile under-coverage (NRI 0/8, RNI 1/8, order-average 0/8); bias correction halves NRI RMSE (0.151 -> 0.081) but does not restore the endpoint. Exact endpoints are model anchors, not finite-sample recoverability claims.
+- **Decomposed sensitivity + threshold provenance:** `order_spread` (registered partition, across orders), `semantic_partition_spread` (max over orders of across-partition spread), `overall_composite_range` (overview only); ORDER_SENSITIVE and MODEL_SENSITIVE trigger independently. Native instance: order 0.4604657; per-convention partition differences RNI 0 / NRI 0.4604657 / order-average 0.0596576. The 0.05 thresholds are post hoc frozen internal engineering thresholds (frozen after the R17-native results were observed; not preregistered before outcomes; not a domain SESOI).
+- **Sampled negative controls:** surgery (Lambda=0 -> all convention composites zero, REGISTERED_SURGERY) and action-decoupled (execution zero within sampling precision <=1e-3; exact arm exactly zero) arms run through the same joint-log pipeline.
+
+### Evidence boundaries
+
+Historical 4,620-run records, R11 replay, R13 CUSUM, old X5, R14 manifest/results/verdicts, R15/R16/R17/R18 analysis artifacts and validations are preserved read-only. R19 adds new source, test, analysis, and validation files only; the R18 joint-audit numerical block is superseded with its failure recorded. Historical `a_org` remains an internal-causal marker, combined `a_via` a resilience marker, X5-c `MODEL_SENSITIVE`, paired X5-c `POST_HOC_PASS`, and T7 `INCONCLUSIVE`. No legacy record is promoted to current N/R/I attribution, present-state autonomy, SCM audit, or external validation.
+
+Still outstanding: a version DOI (Zenodo archiving of `v1.2-r19`); selector-conditional DEL-1 and a nondegenerate bracket; actual Ingel/Albantakis/PID comparisons and intervention-attribution accuracy; domain-justified SESOI/power, held-out external error analysis, experts and downstream criteria; independent-investigator reimplementation; general MaxEnt-IRL identified-set solving; more SCMs and Lean; Chinese synchronization; and recovery of the three unavailable R14 run-time SPEC byte snapshots. The cross-environment numerical governance is for internal audits, not a claim of external independent replication. No third-party bibliographic PDFs or internal review archives are redistributed.
+
+---
+
 ## R18 public source synchronization — 2026-11-21 (`main`, immutable tag `v1.1-r18`)
 
 **Paper:** `latex/main.pdf`, 103 pages, 6 figures, 115 cited references.

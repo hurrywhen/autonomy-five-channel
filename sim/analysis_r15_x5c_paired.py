@@ -55,16 +55,32 @@ def compute() -> dict:
 
 
 def compare_replay_json(saved: object, computed: object, *, rel_tol: float = 1e-12,
-                        abs_tol: float = 1e-12) -> dict:
+                        abs_tol: float = 1e-12,
+                        field_tolerances: dict | None = None) -> dict:
     """Compare a deterministic replay without demanding bitwise float equality.
 
     JSON types, object keys, list lengths, statuses, seeds, counts, and hashes
     remain exact.  Only leaves already serialized as JSON floats use isclose;
     non-finite floats and numeric type changes fail closed.
+
+    R19 addendum: ``field_tolerances`` maps path substrings to declared
+    per-field absolute tolerances for *auxiliary numerical analysis outputs*
+    whose coordinates are non-unique or ill-conditioned (e.g. capacity-
+    achieving input distributions on a flat optimal face).  A float leaf whose
+    path contains a registered substring uses that tolerance instead of the
+    default; immutable raw-log hashes, counts, and statuses are never float
+    leaves and remain byte-exact.  The default None preserves R15--R18
+    behavior bit-for-bit.
     """
     if not math.isfinite(rel_tol) or not math.isfinite(abs_tol) \
             or rel_tol < 0.0 or abs_tol < 0.0:
         raise ValueError("replay tolerances must be finite and non-negative")
+    field_tolerances = dict(field_tolerances or {})
+    for pattern, tolerance in field_tolerances.items():
+        if not isinstance(pattern, str) or not pattern:
+            raise ValueError("field tolerance patterns must be nonempty strings")
+        if not math.isfinite(tolerance) or tolerance < 0.0:
+            raise ValueError("field tolerances must be finite and non-negative")
     differences = []
 
     def visit(old: object, new: object, path: str) -> float:
@@ -76,7 +92,11 @@ def compare_replay_json(saved: object, computed: object, *, rel_tol: float = 1e-
                 differences.append(f"{path}: non-finite float")
                 return math.inf
             delta = abs(old - new)
-            if not math.isclose(old, new, rel_tol=rel_tol, abs_tol=abs_tol):
+            leaf_abs_tol = abs_tol
+            for pattern, tolerance in field_tolerances.items():
+                if pattern in path:
+                    leaf_abs_tol = max(leaf_abs_tol, tolerance)
+            if not math.isclose(old, new, rel_tol=rel_tol, abs_tol=leaf_abs_tol):
                 differences.append(f"{path}: {old!r} != {new!r} (abs diff {delta:.3e})")
             return delta
         if isinstance(old, dict):
@@ -98,6 +118,7 @@ def compare_replay_json(saved: object, computed: object, *, rel_tol: float = 1e-
     max_abs = visit(saved, computed, "$")
     return {"passed": not differences, "max_abs_float_difference": max_abs,
             "float_rel_tol": rel_tol, "float_abs_tol": abs_tol,
+            "field_tolerances": field_tolerances,
             "exact_non_float_leaves": True, "differences": differences}
 
 

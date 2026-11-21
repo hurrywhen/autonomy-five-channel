@@ -90,31 +90,25 @@ A run is one (scenario, defense, $\varsigma$, seed) execution, a cell its
 30-run block, and a bundle a six-component record
 ($\Aorg,\Agoal,\Aexec,\Aepi,\Aref,A_{via}^{R14}$); the first and last remain
 legacy markers. The weight-sensitivity pool (8,640 ATK-1/2/4 arm bundles) and
-the recursive registry (7,290 main-matrix/EXEC-1 bundles; 11,250 full-campaign)
-are distinct; Appendix~\ref{app:counting} decomposes their $1{,}530$-bundle
-difference. Table~\ref{tab:main}'s $N$
-counts criterion windows, not independent observations; main run-level verdicts
-are $2{,}520$ CONFIRMED and $360$ INCONCLUSIVE.
+the recursive registry (7,290 main-matrix/EXEC-1; 11,250 full-campaign) are
+distinct (Appendix~\ref{app:counting}). Table~\ref{tab:main}'s $N$ counts
+criterion windows, not independent observations; main run-level verdicts are
+$2{,}520$ CONFIRMED and $360$ INCONCLUSIVE.
 
 \paragraph{Registered effect sizes (SESOI).}
-Sign-based criteria carry a registered smallest effect size of interest:
-composite-level strict-decrease criteria (T3a family) require a drop of at
-least $0.01$ in $A$. This is a numerical decision threshold, not an externally
+Sign-based criteria carry a registered numerical threshold (composite-level
+strict-decrease criteria require a drop $\ge0.01$ in $A$), not an externally
 calibrated domain-important effect: the largest reported sample-mode absolute
-error is $0.0096$, so the ratio is only $0.01/0.0096=1.0417$. This threshold
-therefore has no demonstrated discriminative margin and is not interpreted as
-a domain-important effect. That error is a fixed-configuration estimate, not an
-independent error distribution or a standard error for every effect. The native
-joint-log audit reports plug-in bias and bootstrap variability separately;
-its intervals need not cover exact truth because finite-sample DI plug-ins are
-biased. Future external protocols must estimate
-measurement error on held-out calibration data, report effect/SE ratios and
-intervals, and freeze sampling units, primary endpoints, multiplicity, SESOI,
-and power before outcomes; blindness witnesses require the blind channel's
-change below $10^{-3}$ while a covering channel's response exceeds $10^{-3}$;
-the T7 linear-law tolerance is $5\%$; ratio criteria are reported with
-$95\%$ seed CIs. Criteria are thus not bare sign tests; effect sizes are
-reported with the verdicts in the archived report.
+error is $0.0096$ (a fixed-configuration estimate), so the ratio $1.0417$
+shows no demonstrated discriminative margin. The native joint-log audit
+reports plug-in bias and bootstrap variability separately; its intervals need
+not cover exact truth (Table~\ref{tab:sampling}). Future external protocols
+must estimate measurement error on held-out calibration data, report
+effect/SE ratios and intervals, and freeze sampling units, endpoints,
+multiplicity, SESOI, and power before outcomes; blindness witnesses require
+the blind channel's change below $10^{-3}$ while a covering channel's response
+exceeds $10^{-3}$; the T7 linear-law tolerance is $5\%$; ratio criteria are
+reported with $95\%$ seed CIs. Effect sizes are archived with the verdicts.
 
 \paragraph{Prospective independent-substrate protocol.}
 \texttt{AFC-EXT-001} design-freezes a common,
@@ -153,61 +147,62 @@ precommitted distributions.
 The earlier R17-native fixture
 (\texttt{analysis\_r17\_native\_benchmark.json}, read-only) covered the same
 registered instance but sampled each estimand object separately; it is
-superseded, not rewritten. The current native audit
-(\texttt{analysis\_r18\_native\_joint\_audit.json}) generates \emph{one} joint
-operating-log batch from \emph{one} registered $T=3$ reactive SCM under
-\emph{one} log schema (step fields $E,O,B,N,R,I,A,G,M,Z,D$; normative-update
-and surgery-context events), and estimates every operating-side estimand from
-that same batch: source attribution (both semantic partitions), epistemic
-accuracy from logged $(B_t,E_t)$ pairs, reflection fidelity from logged
-endorsement events, endorsement consistency from logged event counts, $\Lam$
-from logged surgery-context $(U,Y)$ pairs, and viability/defense from logged
-resource records. The execution channel is audited on a \emph{separate}
-precommitted open-loop intervention stream ($n=2$, four sequences) generated
-from the same environment law and logged under the same schema; that
-separation is required by the estimand, because the operating policy is
-reactive and an open-loop audit cannot be read off operating-policy logs. The
-goal channel remains a registered structural white-box read plus a
-caller-registered IRL interval. All channels feed one full-profile certificate
-pipeline with enforced sensitivity flags. Table~\ref{tab:native} reports the
-results directly. This is internal joint-log concept validation on one small
-instance---not external construct validation, not a generic MaxEnt-IRL solver,
-and not a replacement for the historical archive. These guards do not
-retroactively change legacy verdicts.
+superseded, not rewritten. The R18 joint audit
+(\texttt{analysis\_r18\_native\_joint\_audit.json}) is likewise retained
+read-only: its cross-environment replay failure and repair are recorded in
+\path{sim/runs/20261122_r19/REPLAY_FAILURE_R18.md} (see below). The
+current native audit (\texttt{analysis\_r19\_joint\_audit.json}) generates
+\emph{one} joint operating-log batch from \emph{one} registered $T=3$ reactive
+SCM under \emph{one} log schema (step fields $E,O,B,N,R,I,A,G,M,Z,D$;
+normative-update and surgery-context events), and estimates every
+operating-side estimand from that same batch: source attribution (both
+semantic partitions), epistemic accuracy from logged $(B_t,E_t)$ pairs,
+reflection fidelity from logged endorsement events, endorsement consistency
+from logged event counts, $\Lam$ from logged surgery-context $(U,Y)$ pairs,
+and viability/defense from logged resource records. The execution channel is
+audited on a \emph{separate} precommitted open-loop intervention stream
+($n=2$, four sequences) generated from the same environment law and logged
+under the same schema; that separation is required by the estimand, because
+the operating policy is reactive. The surgery arm ($\Lam=0$) and the
+action-decoupled arm are now \emph{also} generated and estimated through the
+same sampled pipeline, not only by exact enumeration. The goal channel
+remains a registered structural white-box read plus a caller-registered IRL
+interval. All channels feed one layer-aware certificate pipeline with
+enforced, decomposed sensitivity flags. Table~\ref{tab:native} reports exact
+and sampled results side by side. This is internal joint-log concept
+validation on one small instance---not external construct validation, not a
+generic MaxEnt-IRL solver, and not a replacement for the historical archive.
+These guards do not retroactively change legacy verdicts.
 
 \begin{table}[htbp]
 \centering\small
 \caption{Native joint-log audit on the registered $T=3$ instance
-($p_{obs}=q_{self}=0.1$, equal weights, $V_{\mathrm{state}}=0.8$). Top:
-channel truth vs.\ seeded sampling from one joint batch ($8{,}192$
-trajectories per stream; errors are implementation agreement, not a power
-claim). Bottom: attribution conventions and their composite consequences.
-The exact registered RNI/NRI/order-average composites span
-$[0.0003908,\,0.4608565]$; the certificate therefore carries
-\textsc{order\_sensitive} and \textsc{model\_sensitive} flags and a
-sensitivity-qualified scalar grade. The alternative semantic partition
-(reclassifying $R$ into normative memory) removes the order spread but is a
-different registered construct, not a selected score. Plug-in DI bias is
-amplified by the geometric composite near zero shares: the sampled
-NRI-convention composite can deviate substantially from its exact near-zero
-value, so the exact-truth certificate pins the endpoints.}
+($p_{obs}=q_{self}=0.1$, equal weights, $V_{\mathrm{state}}=0.8$; $8{,}192$
+trajectories per stream, seed 20261122). Top: channel truth vs.\ seeded
+sampling. Bottom: \emph{exact model anchors and sampled plug-in composites
+shown separately}. The sampled NRI error ($0.1474$) exceeds the internal
+$0.05$ threshold (geometric $x^{0.2}$ amplification of near-zero share bias);
+the exact NRI share ($4.38\times10^{-16}$) is below the post hoc frozen
+detection limit ($10^{-6}$), so the sampled NRI endpoint uses interval
+semantics $[0,\,0.1866]$, not a high-confidence point. Exact endpoints are
+anchors, not recoverability claims (Table~\ref{tab:sampling}).}
 \label{tab:native}
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Channel & Exact truth & Sampled & Abs.\ error \\
 \midrule
-$\Aorg$ (registered RNI share) & $1.0000$ & $0.9965$ & $0.0035$ \\
+$\Aorg$ (registered RNI share) & $1.0000$ & $0.9958$ & $0.0042$ \\
 $\Agoal$ (structural point; IRL $[0.5,1.0]$) & $0.5000$ & $0.5000$ & $0$ \\
-$\Aexec$ ($n=2$ open-loop, terminal $O_3$) & $0.2655$ & $0.2742$ & $0.0087$ \\
-$\Aepi$ (logged belief accuracy) & $0.9000$ & $0.9013$ & $0.0013$ \\
-$\Aref$ (fidelity$\times$consistency$\times\Lam$) & $0.5310$ & $0.5364$ & $0.0054$ \\
+$\Aexec$ ($n=2$ open-loop, terminal $O_3$) & $0.2655$ & $0.2686$ & $0.0031$ \\
+$\Aepi$ (logged belief accuracy) & $0.9000$ & $0.9011$ & $0.0011$ \\
+$\Aref$ (fidelity$\times$consistency$\times\Lam$) & $0.5310$ & $0.5322$ & $0.0012$ \\
 \midrule
-Convention & Normative share & \multicolumn{2}{c}{$\Astate$ composite} \\
+Convention & Exact $\Astate$ & Sampled $\Astate$ & Abs.\ error \\
 \midrule
-RNI (registered primary) & $\approx 1$ & \multicolumn{2}{c}{$0.4608565$} \\
-NRI (reverse order) & $4.38\times10^{-16}$ & \multicolumn{2}{c}{$0.0003908$} \\
-Two-order average & $0.5000$ & \multicolumn{2}{c}{$0.4011989$} \\
-Alternative partition (all orders) & $\approx 1$ & \multicolumn{2}{c}{$0.4608565$} \\
+RNI (registered primary) & $0.4608565$ & $0.4618544$ & $0.0010$ \\
+NRI (reverse order; below limit) & $0.0003908$ & $0.1478374$ & $0.1474$ \\
+Two-order average & $0.4011989$ & $0.4023375$ & $0.0011$ \\
+Alternative partition (all orders) & $0.4608565$ & $0.4591269$ & $0.0017$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -218,10 +213,90 @@ both orders (joint directed information $0.7306$ bits): the registered
 instance is a nearly pure normative-source policy, and the RNI/NRI divergence
 is an ordering convention exposed by the certificate, not a discovered causal
 fraction. Logged event carriers are $24{,}576$ normative updates, $24{,}576$
-endorsement events, and $8{,}192$ surgery contexts; the surgery arm
-($\Lam=0$) annihilates every convention composite to zero and records
-\textsc{registered\_surgery} in the co-primary history profile, while the
-action-decoupled negative control gives zero open-loop execution.
+endorsement events, and $8{,}192$ surgery contexts. The sampled surgery arm
+gives $\Lam=0$ exactly and annihilates every convention composite to zero
+(recording \textsc{registered\_surgery} in the co-primary history profile);
+the sampled action-decoupled arm gives zero execution within sampling
+precision ($\Aexec\le7\times10^{-4}$; the exact arm is exactly zero). The
+returned \path{state_autonomy_RNI} field is computed from the actual five
+channels and regression-tested equal to the registered RNI certificate
+composite (the R18 estimator returned only the resource gate there; the
+defect is recorded, and downstream R18 certificates were unaffected because
+they recomputed the composite).
+
+\paragraph{Decomposed sensitivity and threshold provenance.}
+On the exact instance, \path{order_spread} (registered partition, across
+orders) is $0.4604657$. The per-convention partition differences are $0$
+(RNI), $0.4604657$ (NRI), and $0.0596576$ (order average), so
+\path{semantic_partition_spread} is $0.4604657$ with an independent semantic
+cause: the two flags are no longer structurally redundant. The overall
+composite range $[0.0003908,\,0.4608565]$ is an overview, not the
+model-sensitivity definition. The $0.05$ thresholds were frozen \emph{after}
+the R17-native results were observed; they are post hoc frozen internal
+engineering thresholds, and preregistration language applies only to future
+audits frozen before their outcomes are seen.
+
+\paragraph{Multi-seed recoverability study.}
+A single batch cannot establish finite-sample recoverability.
+Table~\ref{tab:sampling} reports eight independent seeds (20261122--20261129,
+$8{,}192$ trajectories each, 200 trajectory-level bootstrap resamples;
+\texttt{analysis\_r19\_sampling\_study.json}). Plug-in bias dominates: the
+percentile intervals under-cover the exact composites (nominal 95\%), most
+severely for the near-zero NRI convention, whose mean bias $+0.151$ far
+exceeds the internal threshold and whose plug-in composites span
+$[0.139,0.163]$ across seeds while the exact value is $0.0003908$. Bootstrap
+bias correction halves the NRI RMSE ($0.151\to0.081$) but does not restore
+the endpoint; it is a reporting aid, not a consistency guarantee. The honest
+reading: exact convention endpoints are model anchors; the near-zero NRI
+endpoint is \emph{not} shown to be recoverable from finite samples, and
+below-limit conventions carry interval semantics. This is an internal
+finite-sample study on one registered instance, not a power analysis.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Multi-seed sampling study (8 independent seeds; registered
+partition). Bias/RMSE are versus the exact composite anchors; coverage is the
+fraction of seeds whose plug-in bootstrap 95\% composite interval contains
+the exact value; width is the mean interval width. Bias-corrected RMSE uses
+$2\hat s-\bar s_{\mathrm{boot}}$ clipped to $[0,1]$.}
+\label{tab:sampling}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Convention & Mean bias & RMSE & Coverage & Width & RMSE (corr.) \\
+\midrule
+RNI & $+0.0009$ & $0.0021$ & $1/8$ & $0.0006$ & $0.0022$ \\
+NRI & $+0.1509$ & $0.1511$ & $0/8$ & $0.0278$ & $0.0809$ \\
+Order average & $+0.0011$ & $0.0020$ & $0/8$ & $0.0007$ & $0.0020$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cross-environment numerical reproducibility (R18 failure and R19
+repair).}
+The R18 joint-audit artifact failed replay in an independent environment:
+two components of the open-loop optimal input distribution differed by
+$\approx7.524\times10^{-10}$ (beyond the $10^{-12}$ float tolerance), changing
+the evidence hash; the capacity value itself was stable. Root cause: the
+capacity-achieving input set of the parity kernel is a two-dimensional face
+($q_{00}+q_{11}=q_{01}+q_{10}=\tfrac12$), so the optimizer's auxiliary
+coordinates are non-unique and platform-sensitive, yet sat inside the
+byte-level evidence hash. The R19 repair: (i)~evidence hashes bind immutable
+registered inputs only (raw log SHA-256 digests and config), excluding
+approximate analysis outputs; (ii)~a declared canonicalization rule selects a
+deterministic representative---exact uniform when it achieves capacity (or
+when capacity is near zero, $\le10^{-3}$ nats, where moment matching is
+ill-conditioned), otherwise the unique maximum-entropy capacity-achieving
+distribution (strict concavity of entropy on the convex optimal face),
+computed by deterministic iterative scaling and verified fail-closed at
+$10^{-6}$ nats; on all registered exact instances the canonical input is
+exactly uniform, bit-identical across platforms, and perturbation-injection
+tests confirm stability under drifts up to $5\times10^{-9}$; (iii)~replay uses
+declared per-field tolerances for auxiliary outputs ($10^{-6}$ for canonical
+input coordinates, $10^{-9}$ for capacity-derived values), while raw hashes,
+counts, seeds, and statuses remain byte-exact. The full R19 replay suite is
+verified in two independent clean worktrees with differing thread/hash
+environments; the R18 failure record is retained, not replaced. This is
+numerical governance for internal audits, not external replication.
 
 \subsection{Main results}\label{sec:exp-results}
 
@@ -444,13 +519,12 @@ distribution; its $\Lam=1-s(\gamma)$ is not \eqref{eq:lambda}). The C0-CF
 witness holds the fair environment, observation kernel, goal-dependent policy,
 horizon, and $\kappa$ fixed, changes only belief updating, and obtains
 identical full-trajectory $(E^T,O^T,A^T)$ laws with $\Aepi=1$ versus $0.5$ on
-a nondegenerate baseline ($\Aorg=1$, $\Agoal=0.5$, $\Aexec\approx1$,
-$\Avia=1$). Under the custom registered L1 weights
+a nondegenerate baseline. Under the custom registered L1 weights
 $(4/15,4/15,4/15,1/5)$ the composites are $0.8312378961$ and $0.7236346187$
 (equal-weight sensitivity: $2^{-1/4}$ and $2^{-1/2}$). Auxiliary identity/XOR
 endorsement SCMs share the fair factual output and passive action but give
-$\Lam=1$ versus $0$. All four C0-CF construction criteria pass; a failed
-initial serialization is separately retained. C0-CORR remains an
+$\Lam=1$ versus $0$. All four C0-CF construction criteria pass (a failed
+initial serialization is separately retained); C0-CORR remains an
 author-defined KG/Dung descriptive check with no executable Feng mapping.
 \item \textbf{T2 multi-channel necessity (matrix-level)}. The blind-witness
 table reads: $\beta_G$ detected by $\{\Agoal,\Aref\}$, $\gamma$ by
@@ -564,26 +638,23 @@ positive interior weights.
 \end{sloppypar}
 
 The older five-vector battery remains descriptive: zero range violations,
-zero-annihilation preserved ($120/120$ complete-capture arms), and T3a
+zero-annihilation preserved ($120/120$ complete-capture arms), T3a
 monotonicity unbroken in the checked cells. The read-only Kendall $\tau_b$
 audit reports exact ties and scenario strata; across $5{,}760$ main arms the
-overall range is $[0.9276,1]$, with scenario minima including $0.8667$. These
+overall range is $[0.9276,1]$ (scenario minima including $0.8667$). These
 nested deterministic recomputations are not independent samples or power, and
 the earlier generic $\tau\ge0.93$ wording is not a uniform scenario-level
-claim. The T4 attack point moves \emph{by
-construction} ($\arg\max_i w_is_i/c_i$ depends on $w$): under equal weights
-the epistemic channel is the optimal target in $480/480$ cells, and under an
-origination-heavy vector the optimum splits between origination and epistemic
-($240/480$ each)---the comparative static, not a defect. On the default ENV-0
-instance the execution channel reads $\Aexec^{obs}\approx0.010$, so the
-composite is effectively four-channel-plus-suppression there
-(Section~\ref{sec:limitations}(x)); rerunning the weight and elasticity
-battery on the rich-coupling EXEC-1 instance
-(\texttt{analysis\_exec1\_weights.json}) preserves the verdict chain
-$0.647\!>\!0.637\!>\!0$ under all five alternative weight vectors (levels
-shift, $0.570$--$0.742$ for the rich arm; the zero-empowerment arm stays
-exactly $0$ by annihilation, so the direct chain check is primary) and under
-$\varsigma\in\{0.25,0.5,0.75,1\}$, while $\varsigma=2$ exhibits the expected
+claim. The T4 attack point moves \emph{by construction}
+($\arg\max_i w_is_i/c_i$ depends on $w$): equal weights make epistemic optimal
+in $480/480$ cells; an origination-heavy vector splits the optimum
+($240/480$ each)---a comparative static, not a defect. On default ENV-0,
+$\Aexec^{obs}\approx0.010$ makes the composite effectively
+four-channel-plus-suppression (Section~\ref{sec:limitations}(ix)); rerunning
+the battery on rich-coupling EXEC-1 (\texttt{analysis\_exec1\_weights.json})
+preserves the verdict chain $0.647\!>\!0.637\!>\!0$ under all five weight
+vectors (rich-arm levels $0.570$--$0.742$; the zero-empowerment arm stays
+exactly $0$, so the direct chain check is primary) and under
+$\varsigma\in\{0.25,0.5,0.75,1\}$, while $\varsigma=2$ shows the expected
 annihilation failure ($A=0.545$).
 
 \paragraph{Extended elasticity band.}
@@ -671,27 +742,23 @@ validation.
 
 \paragraph{Channel-count ablation at the accuracy level (X2).}
 Under the selected weights and geometric aggregator, log-damage decomposes
-additively: $\ln(A_0/A)=\sum_j w_j\ln(x_j^0/x_j)$. The resulting shares are
-\emph{bookkeeping components under that aggregator}, not canonical causal attribution
-and not ratio-scale effects (Table~\ref{tab:logshares}). They can be negative
-when a component improves, and zero components produce infinite log-damage and
-are counted separately. The magnitude carriers match the targeted
-channels for origination (ATK-4: $0.80$), goal (ATK-1: $0.59$), reflection
-(ATK-5: $1.00$), and execution (EXEC-1: $0.91$; ATK-2: $0.76$); the
-epistemic channel's magnitude share is small ($0.07$ in ATK-2), its
-necessity being \emph{attributional}, not volumetric---and the second
-ablation makes that precise: freezing any single
-channel at its baseline value breaks the unique attack-class identification
-of the blind-witness signatures in at least one campaign (freeze $\Agoal$
-in ATK-1 and $\beta_G$ is indistinguishable from endorsement tampering;
-freeze $\Aepi$ in ATK-2 and $\gamma$ has no unique signature; freeze
-$\Aorg$ in ATK-4 and the injection becomes invisible at channel level;
-freeze $\Aexec$ in EXEC-1 and a $\delta$ lock-in presents the
-channel-flat signature of $\sigma^-$ collapse (the gate separates the two);
-freeze $\Aref$ and $\beta_G$,
-$\beta_\pi$, and urgency manipulation all lose their provenance signature).
-Every channel is thus load-bearing at the verdict level, complementing the
-single-channel insufficiency result of Proposition~\ref{thm:necessity}.
+additively: $\ln(A_0/A)=\sum_j w_j\ln(x_j^0/x_j)$. The shares are
+\emph{bookkeeping components under that aggregator}, not canonical causal
+attribution or ratio-scale effects (Table~\ref{tab:logshares}); they can be
+negative when a component improves, and zero components produce infinite
+log-damage (counted separately). Magnitude carriers match the targeted
+channels (origination ATK-4 $0.80$, goal ATK-1 $0.59$, reflection ATK-5
+$1.00$, execution EXEC-1 $0.91$/ATK-2 $0.76$); the epistemic magnitude share
+is small ($0.07$ in ATK-2), its necessity being \emph{attributional}, not
+volumetric. The freeze ablation makes that precise: freezing any single
+channel at baseline breaks unique attack-class identification in at least
+one campaign (freeze $\Agoal$ in ATK-1: $\beta_G$ indistinguishable from
+endorsement tampering; $\Aepi$ in ATK-2: $\gamma$ has no unique signature;
+$\Aorg$ in ATK-4: injection invisible at channel level; $\Aexec$ in EXEC-1:
+$\delta$ lock-in mimics $\sigma^-$ collapse, separated only by the gate;
+$\Aref$: $\beta_G$, $\beta_\pi$, and urgency all lose their provenance
+signature). Every channel is load-bearing at the verdict level, complementing
+Proposition~\ref{thm:necessity}.
 
 \begin{table}[t]
 \centering\small
@@ -863,25 +930,20 @@ composites, so the hallucination-index series is reported at the calibrated
 weights; its weight-sensitivity is a registered gap.
 (viii) The hallucination index is directional as designed: it flags
 self-overestimation under covert manipulation, while self-\emph{under}estimation
-(learned helplessness, where $\Aphen<A_{obj}$) leaves the $\mathrm{AHI}>0$
-register silent. A minimal two-sided protocol is registered: (a) fit the
-calibration map on the manipulation-free period and report both tails,
-$\mathrm{AHI}^{+}=\Aphen-A_{\mathrm{obj}}$ and
-$\mathrm{AHI}^{-}=A_{\mathrm{obj}}-\Aphen$; (b) use the LH-1
-under-estimation arm as the positive control for the lower tail and the
-ATK-2 covert arms for the upper tail; (c) report ROC/AUC and the
-false-positive rate of the alarm at a pre-registered threshold. Until
-(a)--(c) are run, AHI is a one-sided warning signal, never evidence.
+(learned helplessness, $\Aphen<A_{obj}$) leaves the $\mathrm{AHI}>0$ register
+silent. A minimal two-sided protocol is registered (fit the calibration map
+on the manipulation-free period and report both tails $\mathrm{AHI}^{\pm}$;
+LH-1 as lower-tail positive control, ATK-2 covert arms for the upper tail;
+ROC/AUC and false-positive rate at a preregistered threshold). Until it is
+run, AHI is a one-sided warning signal, never evidence.
 (ix) The campaign instantiates one substrate; nothing here tests transfer to
 LLM agents or humans (Section~\ref{sec:substrates}).
 (x) \emph{Construct-validity sensitivity arms}: the endorsement-quantization
-and $\kappa$-coarse-graining arms were run as deterministic truth-mode re-runs
-(X5 of \S\ref{sec:e2checks}; \texttt{analysis\_sensitivity\_arms.json}):
-zero verdict flips, $\Agoal^\infty(\eta)=1-2\eta/(1+\eta)$ with stationary gap
-$\le0.057$ (the absolute-reading falsifier fires at the internal $0.01$
-threshold), and $\Aepi$ monotone in $s(\gamma)$ with level shifts
-$0.811\to0.778$ baseline and $0.500\to0.250$ deep capture; constant $\kappa$
-gives $\Aepi\equiv1$, witnessing the registration obligation.
+and $\kappa$-coarse-graining arms (X5 of \S\ref{sec:e2checks};
+\texttt{analysis\_sensitivity\_arms.json}) give zero verdict flips,
+$\Agoal^\infty(\eta)=1-2\eta/(1+\eta)$ with stationary gap $\le0.057$, and
+$\Aepi$ monotone in $s(\gamma)$; constant $\kappa$ gives $\Aepi\equiv1$,
+witnessing the registration obligation.
 (x-c) \emph{$\Lam$ counterfactual-model choice} (executed): pooled and
 time-stratified checks pass, but $D_{noise}=0.089799622$ yields
 \textsc{model-sensitive} point readings. Identity/XOR observationally
@@ -905,16 +967,14 @@ historical $n=30$ replay design is not a power statement.
 
 \paragraph{What would falsify the framework itself?}
 The registered windows test the implementation, not the theory: a correct
-replay of a definitional-layer claim cannot disconfirm it. The framework's
-substantive falsifier is external. If, across substrates, the five-channel
-profile fails to predict independent autonomy assessments---or if a coarser
-account (fewer channels, a single scalar, or a plain behavioral audit)
-predicts them as well or better---then the channel choice is disconfirmed,
-however well the algebra behaves. Within the substrate, this revision's
-checks already speak to the coarser-account disjunct: the scalar functional
-baseline $\bar u$ dissociates from $A$ in two of three regimes, and freezing
-any single channel destroys unique attack attribution in at least one
-campaign (\S\ref{sec:e2checks}). The cross-substrate disjunct is unaffected
-by these checks: external-substrate validation remains the decisive next
-experiment rather than a formality
+replay of a definitional-layer claim cannot disconfirm it. The substantive
+falsifier is external (Section~\ref{sec:objectivity}, clause four): if across
+substrates the five-channel profile fails to predict independent autonomy
+assessments, or a coarser account predicts them as well or better, the channel
+choice is disconfirmed however well the algebra behaves. Within the substrate,
+this revision's checks already speak to the coarser-account disjunct ($\bar u$
+dissociates from $A$ in two of three regimes; freezing any single channel
+destroys unique attack attribution in at least one campaign,
+\S\ref{sec:e2checks}). The cross-substrate disjunct is unaffected: external
+validation remains the decisive next experiment
 (Section~\ref{sec:limitations}).

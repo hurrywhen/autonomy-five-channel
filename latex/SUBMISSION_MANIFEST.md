@@ -1,4 +1,4 @@
-# R18 complete LaTeX submission manifest
+# R19 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -88,6 +88,26 @@ known incomplete submission configuration and must fail review.
   execution stream); exact convention composites and sampling agreement.
 - `sim/tests/test_r18_open_loop_conventions.py` — terminal-observation vs
   observation-sequence capacity and support-relative zero-MI quantifier guards.
+- `sim/src/autonomy_sim/r19_guards.py` and
+  `sim/tests/test_r19_certificate_schema.py` — R19 layer-aware certificate
+  schema: L0 internal-causal attribution, four channel states
+  (DEFINED/INTERVAL/UNKNOWN/NOT_APPLICABLE), point/interval modes with composite
+  interval propagation, IRL/thin-log/zero-entropy/zero-flow degradation, and
+  decomposed order/semantic sensitivity with post hoc frozen thresholds.
+- `sim/src/autonomy_sim/r19_joint_audit.py`,
+  `sim/analysis_r19_joint_audit.{py,json}`, and
+  `sim/tests/test_r19_joint_audit.py` — R19 joint-log audit: corrected
+  state_autonomy_RNI, immutable-input evidence binding, canonicalized execution
+  input, sampled surgery/decoupled negative controls, near-zero detection-limit
+  semantics, and degradation-aware reflection estimation.
+- `sim/analysis_r19_sampling_study.{py,json}` and
+  `sim/tests/test_r19_sampling_study.py` — multi-seed (8 independent seeds)
+  bias/coverage/width study; exact convention endpoints are model anchors, not
+  finite-sample recoverability claims.
+- `sim/tests/test_r19_numerical_reproducibility.py` — canonical capacity-input
+  rule, perturbation stability, and declared per-field replay tolerances.
+- `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md` — retained record of the R18
+  cross-environment replay failure and its R19 repair (not replaced).
 - `sim/analysis_r17_weight_regions.{py,json}` and
   `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
   pairwise damage halfspaces (an exact weight-sensitivity characterization, not
@@ -96,14 +116,15 @@ known incomplete submission configuration and must fail review.
   comparison protocol; engineering equivalence/non-inferiority margins and the
   TOST decision rule are frozen, domain SESOI/power and outcome registration
   remain pending.
-- `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`, and
-  `sim/runs/20261119_r17/` — preserved historical clean-worktree validations;
-  not R18 validation.
-- `sim/runs/20261121_r18/` — current clean-worktree provenance and exact
-  source-commit replay manifest for the immutable tag `v1.1-r18`; not a
-  version DOI or external validation.
-- `tools/make_r18_validation.py` — current clean-worktree validator; historical
-  R15/R16/R17 validators and validations are retained unchanged.
+- `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`,
+  `sim/runs/20261119_r17/`, and `sim/runs/20261121_r18/` — preserved historical
+  clean-worktree validations; not R19 validation.
+- `sim/runs/20261122_r19/` — current two-environment clean-worktree provenance
+  and exact source-commit replay manifest for the immutable tag `v1.2-r19`;
+  not a version DOI or external validation.
+- `tools/make_r19_validation.py` — current two-environment clean-worktree
+  validator; historical R15/R16/R17/R18 validators and validations are retained
+  unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -124,8 +145,9 @@ These evidence packages do not constitute external validation.
 corresponding fresh-history public commit on the repository `main` branches.
 Historical `a_org` and combined-gate values are not silently re-signed as
 current normative-source or present-state values. This revision is frozen by
-the immutable tag `v1.1-r18` with a clean-worktree replay manifest
-(`sim/runs/20261121_r18/validation.json`); a version DOI requires Zenodo
-archiving of that tag and is not yet minted, and the external-substrate
-power/validation program remains incomplete. The historical concept DOI does
-not cover them.
+the immutable tag `v1.2-r19` with a two-environment clean-worktree replay
+manifest (`sim/runs/20261122_r19/validation.json`); the earlier tag
+`v1.1-r18` is retained and its recorded cross-environment replay failure is
+preserved. A version DOI requires Zenodo archiving of the current tag and is
+not yet minted, and the external-substrate power/validation program remains
+incomplete. The historical concept DOI does not cover them.
