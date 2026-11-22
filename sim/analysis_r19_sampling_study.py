@@ -210,16 +210,17 @@ def validate_result(result: dict) -> None:
         agg = aggregates[convention]
         if not 0.0 <= agg["coverage_plugin_95"] <= 1.0:
             raise ValueError("coverage rate out of range")
-    # The near-zero NRI finding: every seed's plug-in composite error exceeds
-    # the internal sensitivity threshold (bias amplification), and the exact
-    # share is below the detection limit.
+    # R20 test-design decoupling (R19 review item 4): the near-zero NRI
+    # findings (plug-in error exceeding the threshold, bias correction
+    # improving RMSE, percentile under-coverage) are DESCRIPTIVE empirical
+    # results of this frozen study, recorded in the artifact and the paper.
+    # They are NOT software invariants: a future improved estimator, a new
+    # interval method, or new legitimate seeds must not fail validation for
+    # recovering the endpoint better.  Only structural checks remain here;
+    # the frozen artifact's specific values are covered by snapshot
+    # regression in the test suite, not by universal acceptance conditions.
     if not result["near_zero_finding"]["below_detection_limit"]:
-        raise ValueError("NRI exact share must be below the detection limit")
-    for row in result["per_seed"]:
-        if row["composites"]["NRI"]["abs_error_plugin"] <= 0.05:
-            raise ValueError("NRI plug-in error is expected to exceed the threshold")
-    if aggregates["NRI"]["rmse_bias_corrected"] >= aggregates["NRI"]["rmse_plugin"]:
-        raise ValueError("bias correction should reduce near-zero NRI RMSE on average")
+        raise ValueError("NRI exact share anchor: the fixture truth is below the limit")
     if result["scope"]["external_construct_validation"] or result["scope"]["power_analysis"]:
         raise ValueError("sampling study must not claim external validation or power")
 

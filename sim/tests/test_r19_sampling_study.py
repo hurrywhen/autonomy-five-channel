@@ -27,22 +27,28 @@ class R19SamplingStudy(unittest.TestCase):
         self.assertFalse(result["scope"]["power_analysis"])
         self.assertFalse(result["scope"]["statistical_consistency_claim"])
 
-    def test_saved_full_study_replays_and_reports_undercoverage(self):
+    def test_saved_full_study_snapshot_and_structure(self):
+        """SNAPSHOT REGRESSION on the frozen R19 artifact (not a universal
+        invariant): the specific 8-seed findings are recorded values of this
+        study.  R20 review item 4 decoupled them from software acceptance:
+        a future improved estimator or new legitimate seeds may legitimately
+        differ; only the frozen artifact's replay is checked here."""
         root = Path(__file__).resolve().parents[1]
         saved = json.loads((root / "analysis_r19_sampling_study.json").read_text(
             encoding="utf-8"))
         validate_result(saved)
         self.assertEqual(tuple(saved["seeds"]), STUDY_SEEDS)
         aggregates = saved["aggregates"]
-        # The central honest finding: percentile intervals under-cover the
-        # exact truth because plug-in bias dominates near zero shares.
-        self.assertLess(aggregates["NRI"]["coverage_plugin_95"], 0.5)
-        self.assertGreater(aggregates["NRI"]["mean_bias_plugin"], 0.05)
-        self.assertGreater(aggregates["NRI"]["max_abs_error_plugin"], 0.05)
-        # Bias correction reduces near-zero NRI RMSE on average (not a
-        # consistency guarantee).
-        self.assertLess(aggregates["NRI"]["rmse_bias_corrected"],
-                        aggregates["NRI"]["rmse_plugin"])
+        # Frozen-study snapshot values (descriptive findings of THIS artifact).
+        self.assertEqual(aggregates["NRI"]["coverage_plugin_95"], 0.0)
+        self.assertAlmostEqual(aggregates["NRI"]["mean_bias_plugin"],
+                               0.15089328249790063, places=12)
+        self.assertAlmostEqual(aggregates["NRI"]["max_abs_error_plugin"],
+                               0.16247681744861164, places=12)
+        self.assertAlmostEqual(aggregates["NRI"]["rmse_plugin"],
+                               0.1511019396847366, places=12)
+        self.assertAlmostEqual(aggregates["NRI"]["rmse_bias_corrected"],
+                               0.08092871692744573, places=12)
         self.assertEqual(saved["status"],
                          "INTERNAL_FINITE_SAMPLE_STUDY_NOT_EXTERNAL_NOT_POWER")
 

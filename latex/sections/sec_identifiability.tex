@@ -185,12 +185,10 @@ a registered $r_{\max}\ge\Frand$ in
 $\Fsrc^{base}(1-\eta)/(\Fsrc^{base}(1-\eta)+r_{\max}+F_{ext}^{obs})$.
 Since $F_{ext}^{obs}$ may understate the true flow, even that reference is not
 a certified lower bound; \eqref{eq:aorg-interval} is never an
-interval-containment result. (Insufficient $\eta$ serves as the negative
-control on premise (ii).) The band's
-width's dependence on baseline length and $\eta$ is the information content
-assessment; certified-direction results are reported in
-Section~\ref{sec:experiments} (zero violations of the upper end in $3/3$
-bypass arms, with widths reported).
+interval-containment result (insufficient $\eta$ is the negative control on
+premise (ii)). Certified-direction results are reported in
+Section~\ref{sec:experiments} (zero upper-end violations in $3/3$ bypass arms,
+with widths).
 
 \paragraph{Scope of the bound (the two premises, stated as obligations).}
 (i) \emph{Probe semantics, and the direction of the bias}: the observable
@@ -204,34 +202,26 @@ I(I^t;A_t\given A^{t-1},S^t)-I(I^t;A_t\given A^{t-1})
 shows that no direction holds in general. Two probe semantics exhaust the
 audit practice. \emph{Bypass-semantics probes}---exogenous, non-anticipative,
 and orthogonal to the agent's state given the action history,
-$I^t\ind S^t\given A^{t-1}$ (a probe that acts outside the belief-mediation
-path, as in the $\beta_\pi$-style script arms of BB-1): the second term of the
-identity vanishes and every per-term difference is non-negative, so
-$F_{ext}^{obs}\le\Fext$---the raw probe MI is then a \emph{lower} estimate of
-the causally conditioned external flow, and the upper end of
-\eqref{eq:aorg-interval} is certified. \emph{Mediation probes}---content
-absorbed through $B\in S$, i.e.\ the
-$\alpha$ class---reverse the direction: with $S=I\oplus N$, $A=S$ one has
-$\Fext=0$ while $I(I;A)=0.531$~bit, so the plug-in \emph{over}estimates the
-external flow and the certificate simply does not apply---its bypass premise
-fails on this family (the truth lies above the plug-in band). The certified
-scope of \eqref{eq:aorg-interval} is therefore the bypass family---not
-``non-adversarial influence'' in general, since honest $\alpha$ influence is
-mediated by construction. The BB-1 anchors (zero upper-end violations in
-$3/3$ bypass arms) exercise
-bypass arms and do not cover the mediation case. (ii) \emph{Adversarial
-adaptation}: the bypass premise requires $I$ exogenous, non-anticipative, and
-state-orthogonal; an adaptive adversary whose injection timing correlates
-with the agent's state violates it, and the naive exogenous plug-in
-misestimates the flow. The benchmark's BB-2 arm calibrates exactly this
-failure---the certified bound's premise is violated in $3/3$ adaptive arms,
-the naive exogenous plug-in then overestimates the external flow by $+0.17$
-to $+0.90$ nats, and the bound no longer holds there; exogenous control arms
-retain it. The demonstrated adaptive arms therefore void this
-exogenous-probe certificate; they do not prove that every adaptive audit
-requires full causal logs. Redesigned probes, trusted provenance, active
-mechanism probes, and structural logs are distinct routes requiring separate
-assumptions and evaluation.
+$I^t\ind S^t\given A^{t-1}$ (acting outside the belief-mediation path, as in
+the $\beta_\pi$-style script arms of BB-1): the second term vanishes and every
+per-term difference is non-negative, so $F_{ext}^{obs}\le\Fext$---the raw
+probe MI is a \emph{lower} estimate of the causally conditioned external flow,
+and the upper end of \eqref{eq:aorg-interval} is certified. \emph{Mediation
+probes}---content absorbed through $B\in S$, the $\alpha$ class---reverse the
+direction: with $S=I\oplus N$, $A=S$ one has $\Fext=0$ while $I(I;A)=0.531$~bit,
+so the plug-in \emph{over}estimates the external flow and the certificate does
+not apply (its bypass premise fails on this family). The certified scope is
+therefore the bypass family---not ``non-adversarial influence'' in general,
+since honest $\alpha$ influence is mediated by construction; the BB-1 anchors
+exercise bypass arms only. (ii) \emph{Adversarial adaptation}: an adaptive
+adversary whose injection timing correlates with the agent's state violates
+the bypass premise; BB-2 calibrates exactly this failure (premise violated in
+$3/3$ adaptive arms, naive plug-in overestimating the flow by $+0.17$ to
+$+0.90$ nats; Section~\ref{sec:experiments}). The demonstrated adaptive arms
+void this exogenous-probe certificate; they do not prove that every adaptive
+audit requires full causal logs. Redesigned probes, trusted provenance, active
+mechanism probes, and structural logs are distinct routes with separate
+assumptions.
 
 \paragraph{$\Aexec$: passive direction unidentified; probe direction conditional.}
 For the raw passive proxy, no universal inequality between

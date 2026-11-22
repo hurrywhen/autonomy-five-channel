@@ -123,6 +123,9 @@ class R19JointAuditFields(unittest.TestCase):
                          ["execution_open_loop"]["state_averaged_a_exec"], 0.0)
 
     def test_near_zero_detection_limit_semantics(self):
+        """R19 ORACLE-ASSISTED fixture rule (compatibility snapshot).  R20
+        supersedes it with a data-driven in-certificate rule; this test
+        preserves the frozen R19 behavior of the read-only artifact."""
         result = compute(n_samples=2048, seed=17, n_bootstrap=20)
         detection = result["near_zero_detection"]
         self.assertTrue(detection["NRI"]["below_detection_limit"])

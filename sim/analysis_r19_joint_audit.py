@@ -473,7 +473,8 @@ def validate_result(result: dict) -> None:
     if abs(exact_range[0] - 0.0003908) > 1e-6 or abs(exact_range[1] - 0.4608565) > 1e-6:
         raise ValueError("exact composite range fails the registered-convention anchor")
 
-    # Near-zero detection semantics.
+    # Near-zero detection semantics (R19 oracle-assisted fixture rule; the
+    # R20 data-driven rule supersedes it for deployment-shaped reporting).
     detection = result["near_zero_detection"]
     if not detection["NRI"]["below_detection_limit"]:
         raise ValueError("exact NRI share must be below the detection limit")
@@ -481,11 +482,12 @@ def validate_result(result: dict) -> None:
         raise ValueError("below-limit NRI must use interval semantics")
     if detection["RNI"]["below_detection_limit"]:
         raise ValueError("RNI share is not below the detection limit")
-    table = result["convention_composite_table"]["registered"]["NRI"]
-    if table["abs_error_plugin"] <= ORDER_SENSITIVITY_THRESHOLD:
-        raise ValueError("the sampled NRI composite error is expected to exceed the threshold")
-    if table["covers_exact_plugin"]:
-        raise ValueError("plugin bootstrap interval is not expected to cover the near-zero truth")
+    # R20 test-design decoupling (R19 review item 4): the sampled NRI error
+    # exceeding the threshold and the percentile interval NOT covering the
+    # near-zero truth are DESCRIPTIVE findings of this frozen study, recorded
+    # in the artifact (convention_composite_table) and the paper.  They are
+    # not software invariants and are no longer enforced here; snapshot
+    # regression on the frozen artifact covers the specific values.
 
     # Sampled negative controls.
     surgery_sampled = result["surgery_arm_sampled"]

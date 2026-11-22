@@ -4,22 +4,25 @@
 
 Wen Hu<sup>1,2</sup> and Gong Zhang<sup>1,2</sup> — <sup>1</sup>College of Electronic and Information Engineering, Nanjing University of Aeronautics and Astronautics, Nanjing, China; <sup>2</sup>Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China — `huwen@nuaa.edu.cn`; `gzhang@nuaa.edu.cn`
 
-**R19 public source synchronization, 2026-11-22.** Paper: [`latex/main.pdf`](latex/main.pdf) (**105 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
+**R20 public source synchronization, 2026-11-22.** Paper: [`latex/main.pdf`](latex/main.pdf) (**103 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
 
-[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present revision is frozen by the immutable tag `v1.2-r19` with a two-environment clean-worktree replay manifest (`sim/runs/20261122_r19/validation.json`). The earlier tag `v1.1-r18` is retained, and its recorded cross-environment replay failure is preserved in `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md`. A version DOI requires Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R19.**
+[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present revision is frozen by the immutable tag `v1.3-r20` with a two-environment clean-worktree replay manifest (`sim/runs/20261122_r20/validation.json`). The earlier tags `v1.1-r18` and `v1.2-r19` are retained, and the recorded R18 cross-environment replay failure is preserved in `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md`. A version DOI requires Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R20.**
 
 ---
 
+## What R20 changes
+
+R20 is a small-to-medium revision addressing the R19 review, which confirmed that the R18 cross-environment replay problem was substantively repaired and that the core theory issues (execution channel, historical provenance, certificate profile) should no longer be rejection reasons. The remaining problems were the executability of the near-zero detection rule, the statistical meaning of interval sensitivity, and tests coupled to expected empirical outcomes. R20 closes them without rewriting the theory or historical evidence.
+
+- **Data-driven near-zero detection inside the formal certificate (priority):** the R19 below-limit annotation was triggered by the exact share (known only in the white-box fixture) and lived outside the certificate; on this instance the sampled share and its percentile interval both lie ABOVE the limit, so no data-driven rule reproduces the oracle classification. R20 declares one executable rule BEFORE the study outcomes: plug-in share + bootstrap percentile interval -> basic bias-corrected interval [2p-q97.5, 2p-q2.5] clipped to [0,1] -> three-state classification against the inherited post hoc frozen limit (upper<limit: DATA_BELOW_LIMIT; lower>limit: DATA_ABOVE_LIMIT; otherwise INDETERMINATE_NEAR_ZERO). Every L1/L2 convention in the certificate carries convention_status, share_interval, composite_interval (with kinds), detection limit + rule/value provenance, and diagnostic plug-in outputs. The truth-triggered rule is explicitly labeled ORACLE_ASSISTED_VALIDATION_FIXTURE_ONLY_NOT_DEPLOYABLE. The sampled baseline certificate is INTERVAL-valued (no point export); its overall range is the hull of the reported convention intervals. The honest data verdict for the near-zero NRI convention at n=8192 is INDETERMINATE, reported as a conservative logical envelope [0, 0.1324]; the plug-in 0.1478 is a labeled diagnostic, not the reported semantics.
+- **Three-state interval sensitivity (priority):** confirmed sensitive (minimum possible convention separation exceeds the threshold) / no confirmed sensitivity (worst-case spread within threshold) / indeterminate (overlapping intervals) / not evaluable (zero total flow or unknown inputs). Identical wide intervals are NEVER read as agreement; the midpoint spread is retained only as a descriptive statistic; flags fire only on confirmed separation, and absence of a flag means "no confirmed sensitivity detected", not agreement.
+- **Real interval propagation with declared kinds (priority):** sampling certificates propagate the actual bias-corrected bootstrap share intervals, not degenerate [s,s] points. Every interval carries a kind (POINT_EXACT / LOGICAL_ENVELOPE / SAMPLING_* / SENSITIVITY / MODEL_SELECTION); logical envelopes are explicitly NOT confidence intervals; monotone endpoint propagation is an envelope guarantee for the given inputs, not automatically a full statistical uncertainty interval.
+- **Test decoupling (priority):** software correctness tests check formulas, structures, boundaries, analytic anchors, numerical stability, and governance only. The R19 empirical expectations (NRI error must exceed 0.05, bias correction must improve RMSE, intervals must not cover the truth) were removed from validators/tests and replaced by explicitly labeled snapshot regressions on the frozen artifacts (which remain byte-identical and replayable). A future improved estimator must not fail validation for recovering the endpoint better.
+- **Predeclared detection-rule study:** 16 independent seeds x {2048, 8192} x 200 bootstrap resamples, frozen in source before outcomes. Findings (descriptive): NRI is INDETERMINATE in 16/16 seeds at both sample sizes, with zero false-below/false-above classifications and 16/16 conservative-envelope coverage; ABOVE-limit conventions are correctly classified but their sampling intervals under-cover the exact composites because plug-in bias dominates. Indeterminate is an honest outcome, not a failure; this is reporting governance, not a consistency guarantee or power claim.
+
 ## What R19 changes
 
-R19 is a medium revision addressing the R18 review, which confirmed that no new foundational math error (of the feedback-counterexample class) was found and that the remaining issues were certificate generality, cross-environment numerical reproducibility, and near-zero sampling-error propagation. It does not rewrite the theory or historical evidence.
-
-- **Cross-environment numerical reproducibility (priority):** the R18 joint-audit artifact failed replay in an independent environment because the parity execution kernel has a two-dimensional capacity-achieving face, so the optimizer's auxiliary input coordinates are non-unique and platform-sensitive (~7.5e-10 drift) yet sat inside the byte-level evidence hash. R19 repairs this three ways: (i) evidence hashes bind immutable raw inputs only (log SHA-256 digests + config); (ii) a declared canonicalization rule selects exact uniform when it achieves capacity (or near-zero capacity), otherwise the unique maximum-entropy capacity-achieving input via deterministic iterative scaling, fail-closed verified; (iii) declared per-field replay tolerances (1e-6 coordinates, 1e-9 capacity values), with raw hashes/counts/statuses byte-exact. Verified in two independent clean worktrees with differing thread/hash settings. The failure record is retained, not replaced.
-- **Layer-aware, degradation-complete certificates:** `r19_guards.py` gives L0 an independent `L0_INTERNAL_CAUSAL` report (RNI/NRI not imposed); channel states extend to DEFINED/INTERVAL/UNKNOWN/NOT_APPLICABLE; point and interval certificates are separate modes with composite intervals propagated exactly by coordinatewise monotonicity. IRL-interval goal mode, thin-log/zero-entropy reflection degradation, and zero-total-flow share unidentifiability all have explicit interval semantics. New L0/L1/interval/degradation regression tests.
-- **Corrected `state_autonomy_RNI`:** the R18 estimator returned only the resource gate (0.8); R19 computes it from the actual five channels and regression-tests equality with the registered RNI certificate composite.
-- **Sampled NRI disclosure + multi-seed recoverability:** the paper tabulates exact AND sampled per-convention composites with errors (sampled NRI 0.1478 vs exact 0.0003908, error 0.1474 > 0.05). A near-zero detection limit gives interval semantics \([0,0.1866]\), not a high-confidence point. An 8-independent-seed study reports bias/RMSE/coverage/width: plug-in bias amplified by \(x^{0.2}\) prevents recovery of the near-zero NRI endpoint (percentile under-coverage); exact endpoints are model anchors, not finite-sample recoverability claims.
-- **Decomposed sensitivity + honest threshold provenance:** `order_spread`, `semantic_partition_spread`, and `overall_composite_range` are computed separately; ORDER_SENSITIVE and MODEL_SENSITIVE trigger independently. The 0.05 thresholds are renamed **post hoc frozen internal engineering thresholds** (frozen after the R17-native results were observed; not preregistered before outcomes; not a domain SESOI).
-- **Sampled negative controls:** surgery (Lambda=0) and action-decoupled arms now run through the same joint-log pipeline.
+R19 is a medium revision addressing the R18 review (no new foundational math error found): cross-environment replay repair (canonicalized capacity input, immutable-input evidence binding, per-field tolerances; failure record retained), layer-aware degradation-complete certificates, corrected state_autonomy_RNI, sampled convention disclosure + 8-seed study, decomposed sensitivity, post hoc frozen threshold provenance, sampled negative controls. (R19's oracle-triggered detection and midpoint sensitivity semantics are superseded by R20; its artifacts are retained read-only and byte-identical.)
 
 ## What R18 changes
 
@@ -63,10 +66,12 @@ The R15 execution-horizon, compatibility, goal-identification, state/readiness, 
 
 | Evidence package | Current interpretation |
 |---|---|
-| Mathematical and implementation guards | **319/319 tests pass**, including R19 layer-aware certificates, numerical reproducibility, joint-log audit, sampling study, and all R18/R17/R16 controls; not external validation |
-| R19 native joint-log audit | One SCM, one log schema, one joint operating batch; corrected `state_autonomy_RNI`, immutable-input evidence binding, canonicalized execution input, sampled surgery/decoupled controls, near-zero detection-limit semantics; exact composites \(0.4608565/0.0003908/0.4011989\) are model anchors |
-| R19 multi-seed sampling study | 8 independent seeds; plug-in bias amplified by \(x^{0.2}\) prevents recovery of the near-zero NRI endpoint (percentile under-coverage NRI 0/8, RNI 1/8); bias correction halves NRI RMSE but does not restore the endpoint; internal finite-sample study, not power |
-| R18 native joint-log audit | Read-only, superseded by R19; cross-environment replay failure recorded in `runs/20261122_r19/REPLAY_FAILURE_R18.md` and repaired by R19 (canonicalization + separated evidence binding + per-field tolerances) |
+| Mathematical and implementation guards | **369/369 tests pass**, including R20 data-driven detection, three-state sensitivity, real-interval certificates, detection study, and all R19/R18/R17/R16 controls; software correctness is decoupled from expected empirical outcomes (snapshot regressions only); not external validation |
+| R20 native joint-log audit | One SCM, one log schema, one joint operating batch; INTERVAL-valued sampled certificate with per-convention data-driven detection (below/above/indeterminate), real interval propagation with kinds, diagnostic plug-in separation, immutable-input evidence binding, sampled surgery/decoupled controls; exact composites \(0.4608565/0.0003908/0.4011989\) are model anchors; the honest NRI data verdict at n=8192 is INDETERMINATE |
+| R20 detection-rule study | Predeclared 16-seed x {2048,8192} grid; NRI INDETERMINATE 16/16 at both sizes, zero false-below/false-above, conservative-envelope coverage 16/16; ABOVE-limit sampling intervals under-cover exact composites (plug-in bias); descriptive, not power or universal coverage |
+| R19 native joint-log audit | Read-only, superseded by R20 (oracle-triggered detection outside the certificate replaced by the data-driven in-certificate rule); artifact byte-identical, replay still passes |
+| R19 multi-seed sampling study | Read-only frozen descriptive study (8 seeds): plug-in bias amplified by \(x^{0.2}\) prevents recovery of the near-zero NRI endpoint (percentile under-coverage NRI 0/8, RNI 1/8); bias correction halves NRI RMSE but does not restore the endpoint |
+| R18 native joint-log audit | Read-only, superseded by R19/R20; cross-environment replay failure recorded in `runs/20261122_r19/REPLAY_FAILURE_R18.md` and repaired by R19 (canonicalization + separated evidence binding + per-field tolerances) |
 | R17-native benchmark | Read-only, superseded by the R18/R19 joint-log audits; same-instance \(T=3\) compositional fixture with exact truth, sampling errors/intervals, semantic sensitivity, negative controls |
 | R17 weight regions | Exact closed-simplex log bounds and halfspaces (a sensitivity characterization); 22 unique finite contrasts, 17 weight-dependent; zero/log-undefined cases separated |
 | R16 source-attribution audit | OR, duplicate-register order control, three exact \(T=2\) policies, mediation and direct-bypass witnesses; independent closed-form and atom-wise log-ratio checks |
@@ -85,14 +90,18 @@ Failed criteria, post hoc replacements, unrun programs, legacy markers, unavaila
 ```text
 latex/                     complete paper source, 115-entry bibliography,
                            Unicode map, submission manifest, 5 external PDF
-                           figures + 1 TikZ figure, built 105-page PDF
+                           figures + 1 TikZ figure, built 103-page PDF
 sim/
   src/autonomy_sim/        ENV-0, estimators, SCMs, open-loop/source/certificate guards
-                           (r19_guards layer-aware schema, r19_joint_audit,
+                           (r20_detection data-driven rule, r20_guards detection-complete
+                           schema, r20_joint_audit; r19/r18 compatibility layers,
                            canonical capacity input)
-  tests/                   319 unit/integration/regression tests
-  analysis_r19_joint_audit.* R19 single-batch joint-log audit (current)
-  analysis_r19_sampling_study.* R19 multi-seed bias/coverage/width study
+  tests/                   369 unit/integration/regression tests (correctness decoupled
+                           from empirical expectations; frozen-artifact snapshots labeled)
+  analysis_r20_joint_audit.* R20 single-batch joint-log audit (current)
+  analysis_r20_detection_study.* R20 predeclared 16-seed detection misclassification study
+  analysis_r19_joint_audit.* R19 joint-log audit (read-only, superseded)
+  analysis_r19_sampling_study.* R19 frozen 8-seed bias/coverage/width study (read-only)
   analysis_r18_native_joint_audit.* R18 joint-log audit (read-only, superseded)
   analysis_r17_native_benchmark.* R17-native benchmark (read-only, superseded)
   analysis_r17_weight_regions.* exact weight-simplex sensitivity bounds
@@ -101,7 +110,7 @@ sim/
   analysis_r15_x5c_paired.* paired cross-check SEs and tolerant replay
   EXTERNAL_VALIDATION_PROTOCOL.md design-frozen, unexecuted external protocol
   SPEC_*.md                current specifications and R14 preservation copy
-  CRITERION_VERSION_MAP.md R11–R19 supersession and evidence boundaries
+  CRITERION_VERSION_MAP.md R11–R20 supersession and evidence boundaries
   runs/20261017_full/      read-only historical 4,620-run campaign archive
   runs/20261102_r11/del1/  separate 30-run R11 replay summary
   runs/20261116_r14/       X5-c, C0-CF-v2, superseded/failed records
@@ -109,8 +118,8 @@ sim/
   runs/20261117_r16/       preserved R16 validation
   runs/20261119_r17/       preserved R17 validation
   runs/20261121_r18/       preserved R18 validation
-  runs/20261122_r19/       current two-environment validation, provenance,
-                           and retained R18 replay-failure record (tag v1.2-r19)
+  runs/20261122_r19/       preserved R19 validation + retained R18 replay-failure record
+  runs/20261122_r20/       current two-environment validation and provenance (tag v1.3-r20)
 refs/manifest.md           graded bibliography verification ledger;
                            third-party PDFs are not redistributed
 tools/                     source-package and frozen-validation scripts
@@ -124,7 +133,7 @@ tools/                     source-package and frozen-validation scripts
 ## Reproduction
 
 ```bash
-# 1. Run all 319 tests
+# 1. Run all 369 tests
 cd sim
 python3 -m unittest discover -s tests -q
 
@@ -140,14 +149,18 @@ python3 analysis_r16_source_attribution.py --check
 python3 analysis_r17_native_benchmark.py --check
 python3 analysis_r17_weight_regions.py --check
 
-# 4. R19 current joint-log audit and multi-seed study (canonical, cross-env stable)
+# 4. R20 current joint-log audit and predeclared detection study (cross-env stable)
+python3 analysis_r20_joint_audit.py --check
+python3 analysis_r20_detection_study.py --check
+
+# 5. R19 frozen artifacts (byte-identical after validator decoupling; superseded)
 python3 analysis_r19_joint_audit.py --check
 python3 analysis_r19_sampling_study.py --check
 
-# 5. R18 joint-log audit (original-environment numerical replay; superseded)
+# 6. R18 joint-log audit (original-environment numerical replay; superseded)
 python3 analysis_r18_native_joint_audit.py --check
 
-# 6. Rebuild the complete paper
+# 7. Rebuild the complete paper
 cd ../latex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 bibtex main
@@ -155,9 +168,9 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-For clean-source-commit validation, create a clean worktree at the R19 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r19_validation.py`. It runs the suite and stable replays in TWO independent environments (differing thread/hash settings), checks the R17-native/R18 numerical blocks read-only (their cross-environment byte-replay is not guaranteed; the R18 failure is recorded), builds the paper in a separate temporary directory, and writes only `sim/runs/20261122_r19/validation.json`. It does not modify historical evidence.
+For clean-source-commit validation, create a clean worktree at the R20 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r20_validation.py`. It runs the suite and stable replays in TWO independent environments (differing thread/hash settings on the same platform), checks the R17-native/R18 numerical blocks read-only (their cross-environment byte-replay is not guaranteed; the R18 failure is recorded), builds the paper in a separate temporary directory, and writes only `sim/runs/20261122_r20/validation.json`. It does not modify historical evidence.
 
-The R14 replays and R15/R16/R17/R19 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R19 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
+The R14 replays and R15/R16/R17/R19/R20 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R20 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
 
 The complete LaTeX tree is required; uploading only `main.tex` is not a valid source submission. See [`latex/SUBMISSION_MANIFEST.md`](latex/SUBMISSION_MANIFEST.md).
 
@@ -173,15 +186,15 @@ This repository is a fresh-history public snapshot of the authors' development w
 ## Citation
 
 ```bibtex
-@misc{hu_zhang2026autonomy_r19,
+@misc{hu_zhang2026autonomy_r20,
   title  = {Autonomy as Determination by One's Own Normative Structure:
             A White-Box-First Five-Channel Audit Framework with Axioms
             and Conditional Theorems},
   author = {Hu, Wen and Zhang, Gong},
   year   = {2026},
-  note   = {Author manuscript; R19 public source synchronization,
-            22 November 2026, 105 pages; immutable tag v1.2-r19;
-            no R19 version DOI yet},
+  note   = {Author manuscript; R20 public source synchronization,
+            22 November 2026, 103 pages; immutable tag v1.3-r20;
+            no R20 version DOI yet},
   url    = {https://github.com/hurrywhen/autonomy-five-channel}
 }
 ```

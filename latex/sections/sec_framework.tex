@@ -146,26 +146,25 @@ mandatory negative control, not an NRI- or relabeling-invariant claim.
 
 \paragraph{Mandatory co-primary audit output and evidence ceiling.}
 No deployment interface may emit only a scalar. Every current certificate
-contains two top-level profiles. \path{historical_formation_profile}
-carries formation status, surgery history, source registration, $\Lam$ (or
-N/A/unknown), and the matching \path{lambda_time_origin} and
-\path{lambda_counterfactual_scope}. \path{current_structural_profile} carries
-$\Astate$, $\Avia$, $\Rdef$, the explicit mark that the composite is
-protocol-normalized, not a ratio scale, the composite range across registered
-conventions, the sensitivity flags, and a reference to the full channel
-profile. Unknown history/source registration or
-unavailable required $\Lam$ evidence caps the grade at \textsc{limited}; N/A at
-L0/L1 is not unknown. Complete registration without an SCM audit is
-\textsc{registered\_complete}, not \textsc{scm\_audited}. The latter requires
-explicit audited-SCM evidence and model/evidence hash bindings, and still
-implies neither integrity nor external construct validation.
+contains two top-level profiles: \path{historical_formation_profile}
+(formation status, surgery history, source registration, $\Lam$ or
+N/A/unknown, with matching time origin and counterfactual scope) and
+\path{current_structural_profile} ($\Astate$, $\Avia$, $\Rdef$, the
+protocol-normalized mark, the composite range across conventions, sensitivity
+statuses/flags, and a reference to the full channel profile). Unknown
+history/source registration or unavailable required $\Lam$ evidence caps the
+grade at \textsc{limited}; N/A at L0/L1 is not unknown. Complete registration
+without an SCM audit is \textsc{registered\_complete}, not
+\textsc{scm\_audited}; the latter requires audited-SCM evidence and hash
+bindings, and implies neither integrity nor external construct validation.
 
-\paragraph{Full-profile certificate contract (layer-aware, degradation-complete).}
+\paragraph{Full-profile certificate contract (layer-aware, detection-complete).}
 The profile-first principle is machine-checked, not merely stated. The
 current schema separates \emph{point certificates} (every applicable channel
-\textsc{defined}) from \emph{interval certificates} (at least one channel
-\textsc{interval}, \textsc{unknown}, or \textsc{not\_applicable}); insufficient
-information may never be forced into a point value. Mandatory content:
+\textsc{defined}; reserved for exact/registered white-box reads) from
+\emph{interval certificates} (at least one channel \textsc{interval},
+\textsc{unknown}, or \textsc{not\_applicable}); insufficient information may
+never be forced into a point value. Mandatory content:
 \begin{sloppypar}
 \begin{itemize}
 \item \path{channel_profile}: the complete layer-applicable channel vector.
@@ -173,65 +172,95 @@ Each component carries one of four states---\textsc{defined} (value, optional
 containing interval), \textsc{interval} (ordered bounds, no value),
 \textsc{unknown} (reason, no value; worst-case $[0,1]$ propagation and a
 \textsc{limited} evidence ceiling), \textsc{not\_applicable} (reason; governed
-by the layer's $\Lam$ rules)---plus its protocol version. The goal entry
-carries the registered IRL interval in both modes; in behavioral-inversion
-(\textsc{irl\_interval}) mode the structural point is optional and the IRL
-interval is the primary output, while structural-mode interval readings
-require a registered degradation reason (approximate fixed-point set,
-endorsement-blind $d_c=0$). The execution entry carries the open-loop horizon
-and the no-intermediate-observation mark. The reflection entry carries the
-three factors and logged event counts; consistency must equal the logged
+by the layer's $\Lam$ rules)---plus its protocol version. Every interval
+carries a declared \emph{kind}: \textsc{point\_exact},
+\textsc{logical\_envelope} (degradation, unidentifiability, detection-limited
+reporting---explicitly \emph{not} a confidence interval),
+\textsc{sampling\_basic\_bootstrap} / \textsc{sampling\_percentile} /
+\textsc{sampling\_normal\_approx}, \textsc{sensitivity}, or
+\textsc{model\_selection} (the registered IRL identified set). The goal entry
+carries the IRL interval in both modes; in behavioral-inversion mode the
+structural point is optional and the IRL interval is the primary output,
+while structural-mode interval readings require a registered degradation
+reason. The execution entry carries the open-loop horizon and the
+no-intermediate-observation mark. The reflection entry carries the three
+factors and logged event counts; consistency must equal the logged
 endorsement/update ratio, and the D-ref degradation rules are enforced: a thin
-change log or a zero-entropy ensemble yields the flagged interval
+change log or a zero-entropy ensemble yields the flagged logical envelope
 $[0,\,\text{product of defined factors}]$, never a silent point.
 \item Layer-aware attribution: L0 certificates carry an independent
 \path{L0_INTERNAL_CAUSAL} report ($\Fint,\Fext$ and their share only); the
 L1-style RNI/NRI/order-average decomposition is \emph{not} imposed on L0.
 L1/L2 carry the registered partition's three order conventions with every
-flow term, every registered alternative semantic partition, the aggregation
-weights (strictly positive interior), and the recomputed composite under each
-convention. With zero total flow the share is unidentifiable: the org channel
-is \textsc{interval} $[0,1]$ and the composite is an interval, not a flagged
-point/undefined mismatch.
-\item Composite interval propagation: the geometric composite is
-coordinatewise monotone, so interval channels and share intervals propagate
-exactly by endpoint evaluation; interval certificates export
+flow term, every registered alternative semantic partition, and the
+aggregation weights (strictly positive interior). With zero total flow the
+share is unidentifiable: the org channel is \textsc{interval} $[0,1]$
+(logical envelope) and the composite is an interval.
+\item In-certificate data-driven detection: every L1/L2 convention carries a
+\path{convention_report} with \path{convention_status}, \path{share_interval},
+\path{composite_interval}, the detection limit and its rule/value provenance,
+and the diagnostic plug-in outputs. The declared rule uses estimable inputs
+only---plug-in share plus its bootstrap percentile interval, reflected into
+the basic bias-corrected interval $[2\hat s-q_{97.5},\,2\hat s-q_{2.5}]$
+clipped to $[0,1]$---and classifies against the limit $\delta=10^{-6}$
+(inherited post hoc frozen internal constant, not a domain SESOI): upper
+$<\delta$ $\to$ \textsc{data\_below\_limit}; lower $>\delta$ $\to$
+\textsc{data\_above\_limit}; otherwise \textsc{indeterminate\_near\_zero}
+(boundary equality fail-closed). Below/indeterminate conventions export the
+conservative logical envelope $[0,\,\text{composite}(\text{upper})]$; above
+conventions export the monotone propagation of the sampling interval. The
+exact truth never enters a deployable decision; point certificates label
+their near-zero classification \textsc{oracle-assisted validation fixture
+only}. The plug-in composite is stored only as a \emph{diagnostic} output,
+may lie outside the reported interval, and is never the reported semantics.
+\item Interval propagation and the overall range: the geometric composite is
+coordinatewise monotone, so the declared input intervals propagate by
+endpoint evaluation---an envelope guarantee \emph{for those inputs}, not
+automatically a full statistical uncertainty interval. Sampling certificates
+propagate the actual bias-corrected share intervals, never degenerate
+$[s,s]$ points. \path{overall_composite_range} is recomputed as the hull of
+the reported convention composite intervals, so certificate and external
+summary agree by construction; interval certificates export
 \path{state_autonomy_interval} and no scalar.
-\item Decomposed sensitivity: \path{order_spread} is the composite spread
-across order conventions under the registered partition;
-\path{semantic_partition_spread} is the maximum, over fixed order conventions,
-of the spread across semantic partitions; \path{overall_composite_range} is
-an overview only. \textsc{order\_sensitive} and \textsc{model\_sensitive} are
-triggered by their own spreads against the $0.05$ composite-scale thresholds,
-which are \emph{post hoc frozen internal engineering thresholds} (frozen after
-the R17-native results were observed; not a domain SESOI, and preregistration
-language is reserved for future audits frozen before outcomes). Required
-flags, the export warning, and the sensitivity-qualified grade are recomputed
-by the producer and cannot be suppressed. In interval mode, spreads use
-convention-interval midpoints so that uncertainty width is never mistaken for
-convention disagreement.
+\item Three-state sensitivity: order sensitivity compares the reported
+composite intervals across order conventions (registered partition);
+semantic sensitivity compares them across partitions per convention. With
+$\underline d=\max_i\ell_i-\min_i u_i$ (minimum possible separation) and
+$\overline d=\max_i u_i-\min_i\ell_i$ (worst-case spread): $\underline d$
+above the $0.05$ threshold $\to$ \textsc{confirmed\_sensitive}; $\overline d$
+within it $\to$ \textsc{no\_confirmed\_sensitivity}; otherwise
+\textsc{indeterminate}; zero total flow or unknown inputs $\to$
+\textsc{not\_evaluable}. Identical wide intervals are \emph{never} read as
+agreement; the midpoint spread is retained only as
+\path{midpoint_spread_descriptive}. Flags fire only on confirmed separation;
+absence of a flag means ``no confirmed sensitivity detected,'' not agreement.
+The thresholds are \emph{post hoc frozen internal engineering thresholds}
+(frozen after the R17-native results were observed; not a domain SESOI;
+preregistration language is reserved for future audits frozen before
+outcomes). Statuses, flags, grades, and warnings are recomputed by the
+producer and cannot be suppressed.
 \end{itemize}
 \end{sloppypar}
 Point certificates export the registered primary-convention scalar (RNI at
-L1/L2, internal-causal at L0); any drift fails closed. A near-one RNI share
-with a near-zero NRI share cannot be exported as a single unflagged positive
-value. Evidence hashes bind \emph{immutable registered inputs} (raw log
-hashes, config); non-unique iterative-optimizer coordinates are canonicalized
-under a declared rule and carry declared per-field replay tolerances, never
-byte-level evidence binding (Section~\ref{sec:experiments}).
+L1/L2, internal-causal at L0); any drift fails closed. Evidence hashes bind
+\emph{immutable registered inputs} (raw log hashes, config); non-unique
+iterative-optimizer coordinates are canonicalized under a declared rule with
+per-field replay tolerances, never byte-level evidence binding
+(Section~\ref{sec:experiments}).
 
 Machine-checked \path{channel_schema_version}, \path{org_mode},
 \path{goal_mode}, and \path{state_readiness_version} fields prevent legacy
 numbers from being promoted merely by supplying plausible channels; L1/L2
 certificates require artifact hashes. Hashes bind registered bytes but do not
 prove provenance or external truth. The producer
-\path{produce_r19_certificate} and fail-closed writer
-\path{write_r19_certificate} enforce this contract across L0--L2 and both
-modes, with dedicated L0/L1, IRL-interval, thin-log, zero-entropy, zero-flow,
-and unknown-channel regression tests; the earlier point-valued L2 schema
-remains a compatibility layer, not the general architecture. Legacy
-\texttt{Bundle} records are rejected rather than silently converted into
-current normative-source or historical certificates.
+\path{produce_r20_certificate} and fail-closed writer
+\path{write_r20_certificate} enforce this contract across L0--L2 and both
+modes, with dedicated detection-rule, three-state-sensitivity, interval-kind,
+L0/L1, IRL-interval, thin-log, zero-entropy, zero-flow, and unknown-channel
+regression tests; the R18/R19 schemas remain compatibility layers for
+read-only historical replay. Legacy \texttt{Bundle} records are rejected
+rather than silently converted into current normative-source or historical
+certificates.
 
 \subsection{System model}\label{sec:model}
 

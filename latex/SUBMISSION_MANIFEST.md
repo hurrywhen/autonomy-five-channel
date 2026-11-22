@@ -1,4 +1,4 @@
-# R19 complete LaTeX submission manifest
+# R20 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -108,6 +108,27 @@ known incomplete submission configuration and must fail review.
   rule, perturbation stability, and declared per-field replay tolerances.
 - `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md` — retained record of the R18
   cross-environment replay failure and its R19 repair (not replaced).
+- `sim/src/autonomy_sim/r20_detection.py` and
+  `sim/tests/test_r20_detection_rule.py` — R20 declared data-driven near-zero
+  detection rule: basic bias-corrected bootstrap interval, three-state
+  classification (below/above/indeterminate), no truth parameter in the
+  deployable decision, oracle-assisted fixture rule explicitly labeled.
+- `sim/src/autonomy_sim/r20_guards.py` and
+  `sim/tests/test_r20_certificate_schema.py` — R20 detection-complete
+  certificate schema: per-convention detection reports inside the certificate,
+  three-state interval sensitivity (confirmed/indeterminate/not-evaluable,
+  never midpoint agreement), interval kinds, real interval propagation,
+  diagnostic plug-in separation, fail-closed governance.
+- `sim/src/autonomy_sim/r20_joint_audit.py`,
+  `sim/analysis_r20_joint_audit.{py,json}`, and
+  `sim/tests/test_r20_joint_audit.py` — R20 joint-log audit: INTERVAL-valued
+  sampled baseline certificate (no point export), data-driven detection
+  reports with oracle evaluation at artifact level only, diagnostic
+  five-channel plug-in field, sampled surgery/decoupled controls.
+- `sim/analysis_r20_detection_study.{py,json}` and
+  `sim/tests/test_r20_detection_study.py` — predeclared 16-seed x {2048,8192}
+  detection-rule misclassification/coverage study (descriptive; oracle truth
+  used for evaluation labeling only).
 - `sim/analysis_r17_weight_regions.{py,json}` and
   `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
   pairwise damage halfspaces (an exact weight-sensitivity characterization, not
@@ -117,14 +138,15 @@ known incomplete submission configuration and must fail review.
   TOST decision rule are frozen, domain SESOI/power and outcome registration
   remain pending.
 - `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`,
-  `sim/runs/20261119_r17/`, and `sim/runs/20261121_r18/` — preserved historical
-  clean-worktree validations; not R19 validation.
-- `sim/runs/20261122_r19/` — current two-environment clean-worktree provenance
-  and exact source-commit replay manifest for the immutable tag `v1.2-r19`;
+  `sim/runs/20261119_r17/`, `sim/runs/20261121_r18/`, and
+  `sim/runs/20261122_r19/` — preserved historical clean-worktree validations;
+  not R20 validation.
+- `sim/runs/20261122_r20/` — current two-environment clean-worktree provenance
+  and exact source-commit replay manifest for the immutable tag `v1.3-r20`;
   not a version DOI or external validation.
-- `tools/make_r19_validation.py` — current two-environment clean-worktree
-  validator; historical R15/R16/R17/R18 validators and validations are retained
-  unchanged.
+- `tools/make_r20_validation.py` — current two-environment clean-worktree
+  validator; historical R15/R16/R17/R18/R19 validators and validations are
+  retained unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -145,9 +167,9 @@ These evidence packages do not constitute external validation.
 corresponding fresh-history public commit on the repository `main` branches.
 Historical `a_org` and combined-gate values are not silently re-signed as
 current normative-source or present-state values. This revision is frozen by
-the immutable tag `v1.2-r19` with a two-environment clean-worktree replay
-manifest (`sim/runs/20261122_r19/validation.json`); the earlier tag
-`v1.1-r18` is retained and its recorded cross-environment replay failure is
-preserved. A version DOI requires Zenodo archiving of the current tag and is
-not yet minted, and the external-substrate power/validation program remains
-incomplete. The historical concept DOI does not cover them.
+the immutable tag `v1.3-r20` with a two-environment clean-worktree replay
+manifest (`sim/runs/20261122_r20/validation.json`); the earlier tags
+`v1.1-r18` and `v1.2-r19` are retained and the recorded R18 cross-environment
+replay failure is preserved. A version DOI requires Zenodo archiving of the
+current tag and is not yet minted, and the external-substrate power/validation
+program remains incomplete. The historical concept DOI does not cover them.

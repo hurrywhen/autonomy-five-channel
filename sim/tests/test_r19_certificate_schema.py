@@ -282,7 +282,10 @@ class R19DegradedStates(unittest.TestCase):
         cert = produce(profile=profile, attr=attr)
         self.assertEqual(cert["composite_scalar_grade"], GRADE_ZERO_FLOW)
         self.assertIsNone(cert["state_autonomy"])
-        self.assertEqual(cert["sensitivity_flags"], [])  # conventions agree
+        # R19 compatibility behavior: the midpoint rule emits no flags here.
+        # R20 reinterprets this case as NOT_EVALUABLE (unidentifiable shares),
+        # never as "conventions agree" --- see test_r20_certificate_schema.
+        self.assertEqual(cert["sensitivity_flags"], [])
         upper = 0.8 * (1.0 * 0.5 * A_EXEC * 0.9 * A_REF) ** 0.2
         self.assertAlmostEqual(cert["state_autonomy_interval"][1], upper, places=9)
         # A positive point export on zero flow fails closed.
@@ -365,8 +368,12 @@ class R19DecomposedSensitivity(unittest.TestCase):
         self.assertTrue(validate_r19_certificate(silent))
 
     def test_interval_mode_spreads_use_midpoints_not_uncertainty_width(self):
-        # Identical convention intervals (zero flow) must not fire flags even
-        # though the uncertainty hull is wide.
+        """R19 compatibility snapshot: the frozen R19 midpoint rule emits no
+        flags for identical zero-flow intervals.  R19 review item 2 showed
+        this must NOT be read as agreement; the R20 schema replaces it with
+        the NOT_EVALUABLE / INDETERMINATE status system (R20 tests)."""
+        # Identical convention intervals (zero flow) do not fire R19 flags
+        # even though the uncertainty hull is wide.
         zero = {"flows_bits_RNI": [0.0, 0.0, 0.0], "flows_bits_NRI": [0.0, 0.0, 0.0],
                 "joint_di_bits": 0.0,
                 "normative_share_RNI": None, "normative_share_NRI": None,

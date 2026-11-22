@@ -36,13 +36,17 @@ the current estimands from one trajectory batch of a single registered SCM,
 with the separate open-loop execution stream the estimand requires and
 sampled negative controls; its layer-aware certificates make every channel,
 attribution order, semantic partition, and the composite range mandatory,
-support interval/unknown/degraded states without forced point values, and
-enforce order and semantic sensitivity flags separately under post hoc frozen
-internal thresholds. Exact convention endpoints are model anchors, not
-finite-sample recoverability claims: the multi-seed study shows plug-in bias
-amplified by the geometric composite prevents recovery of the near-zero NRI
-endpoint, which is therefore reported with detection-limit interval
-semantics. Evidence hashes bind immutable raw inputs, and non-unique
+support interval/unknown/degraded states without forced point values, carry
+a declared data-driven near-zero detection rule per convention (with
+interval kinds separating logical envelopes from sampling intervals), and
+evaluate order/semantic sensitivity as confirmed/indeterminate/not-evaluable
+under post hoc frozen internal thresholds---never as midpoint agreement.
+Exact convention endpoints are model anchors, not finite-sample
+recoverability claims: multi-seed studies show plug-in bias amplified by the
+geometric composite prevents recovery of the near-zero NRI endpoint; the
+executable rule honestly reports it as indeterminate at the registered
+sample size, with the plug-in composite retained only as a diagnostic.
+Evidence hashes bind immutable raw inputs, and non-unique
 optimizer coordinates are canonicalized under a declared rule with per-field
 replay tolerances; the recorded R18 cross-environment replay failure and its
 repair are retained. It is internal concept validation.

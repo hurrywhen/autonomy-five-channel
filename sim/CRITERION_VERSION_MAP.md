@@ -1,11 +1,11 @@
-# 论文—规约—代码—运行归档版本映射（R11–R19，更新于 2026-11-22）
+# 论文—规约—代码—运行归档版本映射（R11–R20，更新于 2026-11-22）
 
 ## 1. 原则
 
 - 历史运行目录 `runs/20261017_full/` 是只读证据快照；不得回写其 manifest、结果或 verdict。
 - manifest 中的 `spec_version` 是运行写出器当时写入的元数据，不一定等于该 commit 实际实现的全部有效判据。必须同时记录代码 commit、SPEC 变更日志和场景内容。
 - R11/R12/R13 的数学复审属于**对历史结果的重评价**，不是一次新的 4,620-run 独立实验。R14 发布必须冻结开发源 commit 与公开快照源码；公开 main 同步不等于不可变 tag/version DOI，只有全部版本链实际形成后才可声称闭合。
-- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。R16 再撤回 RNI 份额的顺序无关/唯一因果分解解释、Route B 第 6 步未缩放的中间等式、自然语言“区间非减”、NaN fail-open、完整字段自动 SCM_AUDITED、legacy 数值仅凭通道数升级及浮点逐位复核。R17 再撤回多步普通 MI 执行容量（反馈复制反例）、历史自主性仅作辅助元数据、Lambda 时间原点混用、对数份额“canonical attribution”、五权重/tau-b 作为全单纯形稳健性证明、X3 排序作为几何形式独立经验证据、T1d 有限容量来源、C1 确定性 ODE 平稳方差/AR(1)、C2 未截断吸收态，以及 exactly-five 最小必要性口吻。R18 再撤回“最终证书仅含 RNI 单点标量即满足剖面优先”的做法、R17-native 组合式夹具的笼统“端到端”表述、开环零值未限定支持集量词、观察序列容量与期末观察估计量混用、权重精确界的“稳健”概括，以及“两个单侧 95% CI 落在等价界值内”的不严格 TOST 表述。R19 再撤回“R18 点值 L2 证书即通用全层级证书架构”的口吻（L0 被强加 L1 归因、区间/未知/薄日志状态无法表达）、把非唯一优化器辅助坐标纳入字节级证据哈希的做法、`state_autonomy_RNI` 仅返回资源门的实现缺陷、MODEL_SENSITIVE 与 ORDER_SENSITIVE 的结构性冗余（总跨度兼任模型敏感性）、0.05 阈值的“结果前预注册”时间语义（实为后验冻结），以及把精确复合端点当作有限样本可恢复性证据的单批次呈现。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
+- R12 撤回的是 R11 的错误量词、缺失前提和单调性全称句；R13 进一步撤回 T6 上比较推出必然俘获及 C0(ii) 完整外部画像相等。R14 再撤回 T1b 漏因子、T2/T3 无条件单调性、线性—分数内点最小化、连续 $I/h$、已证比例尺度、$\Lambda$ 历史标签/退化认证例外、弱脚本前提、Via-Ind 推导和 Feng 一般排序。R15 撤回执行 n/(n+1) 错位、T2 兼容 iff/四轨充要、普遍盲性、纯随机规范自主性解释、白盒全通道点识别、C2 省 δ、Route B properness/跳步归一和当前状态=防御准备度。R16 再撤回 RNI 份额的顺序无关/唯一因果分解解释、Route B 第 6 步未缩放的中间等式、自然语言“区间非减”、NaN fail-open、完整字段自动 SCM_AUDITED、legacy 数值仅凭通道数升级及浮点逐位复核。R17 再撤回多步普通 MI 执行容量（反馈复制反例）、历史自主性仅作辅助元数据、Lambda 时间原点混用、对数份额“canonical attribution”、五权重/tau-b 作为全单纯形稳健性证明、X3 排序作为几何形式独立经验证据、T1d 有限容量来源、C1 确定性 ODE 平稳方差/AR(1)、C2 未截断吸收态，以及 exactly-five 最小必要性口吻。R18 再撤回“最终证书仅含 RNI 单点标量即满足剖面优先”的做法、R17-native 组合式夹具的笼统“端到端”表述、开环零值未限定支持集量词、观察序列容量与期末观察估计量混用、权重精确界的“稳健”概括，以及“两个单侧 95% CI 落在等价界值内”的不严格 TOST 表述。R19 再撤回“R18 点值 L2 证书即通用全层级证书架构”的口吻（L0 被强加 L1 归因、区间/未知/薄日志状态无法表达）、把非唯一优化器辅助坐标纳入字节级证据哈希的做法、`state_autonomy_RNI` 仅返回资源门的实现缺陷、MODEL_SENSITIVE 与 ORDER_SENSITIVE 的结构性冗余（总跨度兼任模型敏感性）、0.05 阈值的“结果前预注册”时间语义（实为后验冻结），以及把精确复合端点当作有限样本可恢复性证据的单批次呈现。R20 再撤回由精确真值触发的近零检测判定作为可部署规则的口吻（实为 oracle-assisted 验证夹具规则，且未进入正式证书）、区间中点跨度推出"约定一致"的推断（相同宽区间只表示不可判定，零总流为不可评估）、退化 [s,s] 点区间冒充采样不确定度传播，以及把预期实证结果（必须恢复失败/偏差校正必须更好/区间必须不覆盖）设为通用软件验收条件的测试设计。保留数值只按各自版本与收窄实现解释，不回读为被撤回命题的证据。
 
 ## 2. 历史归档 manifest 的共同事实
 
@@ -39,6 +39,7 @@
 | R17 开环执行、历史形成并列、原生基准与权重界 | R17 开发/公开 commit 见本轮发布说明；main 同步不替代不可变 tag/version DOI | **v1.3** | 多步 A_exec 改预承诺开环序列干预核，反馈复制反例；当前/历史双核心输出与 Lambda 时间原点；R17-native T=3 端到端基准（真值/采样/区间/语义/负控制/证书）；权重闭单纯形对数界/半空间；X2 簿记、X3 语义示例；C1 OU、C2 截断、T1d Le Cam；外部等价/非劣效设计。R16 及更早证据只读 |
 | R18 完整剖面证书、联合日志审计、输出约定与 TOST | R18 开发/公开 commit 见本轮发布说明；本轮创建不可变 tag `v1.1-r18` 与冻结重放清单，version DOI 仍待 Zenodo 归档 | **v1.4** | R18 证书强制完整通道向量/分量状态/区间/协议版本、RNI/NRI/顺序平均/流量项/替代语义、目标点与 IRL 区间、开环视界、反思三因子与事件计数、权重与复合值范围；超阈值强制 ORDER_SENSITIVE/MODEL_SENSITIVE 与标量警示。R17-native 组合式夹具升级为单 SCM/单日志模式/单联合批次的端到端内部审计（执行仍按 estimand 要求另设预承诺开环干预流）；开环零值量词改支持集相对、期末观察/观察序列测试约定分离；权重结果统一称精确敏感性刻画；外部协议 TOST 90% 双侧/两个单侧 α=0.05 与非劣效方向精确化。R17 及更早证据只读 |
 | R19 层级感知证书、降级状态、数值可复现性与采样可恢复性 | R19 开发/公开 commit 见本轮发布说明；本轮创建不可变 tag `v1.2-r19` 与两环境冻结重放清单，version DOI 仍待 Zenodo 归档 | **v1.5** | R19 证书层级感知（L0 独立内部因果归因，不强加 RNI/NRI）＋通道四态 DEFINED/INTERVAL/UNKNOWN/NOT_APPLICABLE＋点值/区间证书分离＋复合区间单调传播；IRL 区间模式、薄日志/零熵反思降级、零总流份额不可辨识区间语义。修复 R18 跨环境重放失败：规范化非唯一容量最优输入、证据哈希仅绑定不可变原始输入、逐字段重放容差（保留失败记录）。修正 state_autonomy_RNI 仅返回资源门缺陷。敏感性分解 order/semantic/overall，两标志独立触发；0.05 阈值改称后验冻结内部工程阈值。正文并列精确/采样复合值与误差＋近零检测限区间语义＋8 独立种子偏差/覆盖率/宽度研究；采样手术/解耦负控制入联合日志流程。R18 及更早证据只读 |
+| R20 数据驱动检测入证书、三态区间敏感性、真实区间传播与测试解耦 | R20 开发/公开 commit 见本轮发布说明；本轮创建不可变 tag `v1.3-r20` 与两环境冻结重放清单，version DOI 仍待 Zenodo 归档 | **v1.6** | 近零检测改预声明数据驱动规则（basic 偏差校正 bootstrap 区间三态 below/above/indeterminate）并纳入正式证书每约定 convention_report（状态/份额区间/复合区间/限值来源/诊断插件）；真值规则降级 oracle-assisted 夹具专用；采样基线 INTERVAL 无标量、overall=报告区间 hull。区间敏感性三态（CONFIRMED/INDETERMINATE/NOT_EVALUABLE＋NO_CONFIRMED），相同宽区间永不解释为一致，中点仅描述。真实区间传播＋区间类型（逻辑包络≠置信区间）。测试解耦：实证期望移除改快照回归（R19 工件字节不变）。预声明 16 种子×{2048,8192} 检测误判/覆盖研究（NRI 16/16 INDETERMINATE、误报漏报 0）。主文压缩至 103 页。R19 及更早证据只读 |
 
 ## 4. 判据时间线（失败与替换不得擦除）
 
@@ -59,6 +60,7 @@
 | v1.3（2026-11-19） | 开环执行修复与反馈反例；历史形成并列输出/固定点植入/Lambda 时间原点；R17-native 端到端基准；权重闭单纯形界；X2/X3 降格；C1/C2/T1d 修正；外部等价/非劣效设计 | R17 大修；新增 `open_loop_execution.py`、`formation_audit.py`、`r17_guards.py`、`native_benchmark.py`、`analysis_r17_*` 与测试。旧 R16 validation 与所有历史结果只读；不升级外部验证、正式 Release 或 version DOI |
 | v1.4（2026-11-21） | R18 完整剖面证书与强制敏感性标志；联合日志端到端内部审计；开环零值支持集量词与期末观察约定；权重术语统一为精确敏感性；TOST/非劣效方向精确化；主文压缩 | R18 局部关键修订；新增 `r18_guards.py`、`native_joint_audit.py`、`analysis_r18_native_joint_audit.*` 与 22 项测试（总 273）。R17-native 工件保持只读并被 supersede；创建不可变 tag `v1.1-r18` 与冻结重放清单；version DOI、外部执行与独立复现仍未完成 |
 | v1.5（2026-11-22） | R19 层级感知证书与降级状态；跨环境数值可复现性修复；state_autonomy_RNI 修正；敏感性分解与阈值时间语义；精确/采样复合并列与多种子可恢复性研究；采样负控制；主文继续压缩 | R19 中等幅度修订；新增 `r19_guards.py`、`r19_joint_audit.py`、`analysis_r19_joint_audit.*`、`analysis_r19_sampling_study.*` 与 46 项测试（总 319）。R18 联合审计工件只读保留并记录跨环境重放失败（`REPLAY_FAILURE_R18.md`）；创建不可变 tag `v1.2-r19` 与两环境冻结重放清单；version DOI、外部执行与独立复现仍未完成 |
+| v1.6（2026-11-22） | R20 数据驱动检测入证书；三态区间敏感性；真实区间传播与类型区分；测试解耦；检测误判预声明网格研究；主文压缩至 103 页 | R20 小修至中修；新增 `r20_detection.py`、`r20_guards.py`、`r20_joint_audit.py`、`analysis_r20_joint_audit.*`、`analysis_r20_detection_study.*` 与 50 项测试（总 369）；R19 校验器/测试实证不变量解耦（工件字节不变）。R19 工件只读 supersede；创建不可变 tag `v1.3-r20` 与两环境冻结重放清单；version DOI、外部执行与独立复现仍未完成 |
 
 ## 5. R11→R13 重点判据与主张 supersession 明细
 
@@ -171,3 +173,14 @@
 | 阈值时间语义 | 0.05 阈值称“preregistered”，但在看到 R17-native 结果之后引入 | 改称**后验冻结内部工程阈值**（POST_HOC_FROZEN_..._AFTER_R17_NATIVE_RESULTS_NOT_PREREGISTERED_BEFORE_OUTCOMES）；预注册语言仅用于未来结果前冻结的审计；非域 SESOI | THRESHOLD_PROVENANCE 字段强制；正文/摘要/SPEC 同步 |
 | 采样负控制 | 手术臂/解耦负控制主要依赖精确模型计算 | 采样手术臂（Lambda=0 精确→全口径复合零＋REGISTERED_SURGERY）与采样解耦臂（执行零 within 采样精度≤1e-3）纳入同一联合日志流程；精确臂保留 | 采样/精确双证书；解耦采样容量近零分支精确均匀 |
 | 篇幅组织 | 103 页仍混概念/数学/版本史/软件验证/预协议 | 继续压缩历史/重复散文（讨论客观性/异议/构念效度/限制、实验 X2/X5/威胁/证伪段、引言）；新增审稿必需内容（采样复合表、多种子研究表、跨环境治理段、降级证书契约、敏感性分解）约 2 页 | 净 105 页（R18 103）；115 引用与 6 图保持；版本沿革集中本账本 |
+
+## 13. R20 supersession 明细
+
+| 项目 | R19 残留缺陷 | R20 当前处理 | 回归与证据边界 |
+|---|---|---|---|
+| 近零检测判定输入 | `below_detection_limit` 由精确真值（4.38e-16<1e-6）触发；采样插件份额 0.0033 与百分位区间 [0.0048,0.0107] 均高于限，纯数据不会触发同一判定；规则只在验证环境可用真值时成立 | 预声明数据驱动规则（先于 R20 研究结果冻结于源码）：插件份额＋百分位区间→basic 偏差校正区间 [2p−q97.5,2p−q2.5] clip[0,1]→三态（upper<δ BELOW／lower>δ ABOVE／否则 INDETERMINATE，边界相等 fail-closed）。本实例 NRI 判为 INDETERMINATE_NEAR_ZERO（诚实：n=8192 数据不足以确认近零）。真值规则显式标 ORACLE_ASSISTED_VALIDATION_FIXTURE_ONLY_NOT_DEPLOYABLE，仅用于分类评估标注 | `r20_detection.py`；classify 签名无真值参数；六类 oracle 对比标签；16 种子×{2048,8192} 误判研究：NRI 16/16 INDETERMINATE、FALSE_BELOW/FALSE_ABOVE 均 0、包络覆盖 16/16；ABOVE 口径采样区间欠覆盖（RNI 4/16→0/16，描述性） |
+| 检测限区间未入正式证书 | 基线证书 POINT 模式，NRI 以点值 0.1478374 保存，无 near_zero_detection 字段；[0,0.1866] 仅在证书外审计字段 | 每约定 convention_report 入证书：convention_status/share_interval{bounds,kind}/composite_interval{bounds,kind}/detection_limit＋规则与限值来源/诊断插件份额与复合；采样基线 INTERVAL 模式、state_autonomy=None；NRI 报告逻辑包络 [0,0.1324217]（LOGICAL_ENVELOPE，非置信区间）；overall_composite_range=报告约定复合区间 hull [0,0.4622412]（证书内外一致）；0.1478374 仅存 diagnostic_plugin_composite（可位于报告区间外，语义分离） | producer/validator 从可估计输入重算，伪造/压制 fail-closed；证书内禁 oracle_evaluation；正文表并列精确锚/诊断插件/报告区间 |
+| 区间中点推出"约定一致" | INTERVAL 模式用中点跨度判敏感；零总流相同 [0,1] 区间被注释为 conventions agree | 三态＋不可评估体系：min_possible_spread=max(0,max ℓ−min u)>阈值→CONFIRMED_SENSITIVE；worst_case_spread≤阈值→NO_CONFIRMED_SENSITIVITY；否则 INDETERMINATE；零总流/UNKNOWN→NOT_EVALUABLE；L0→NOT_APPLICABLE。相同宽区间永不解释为一致；中点仅 midpoint_spread_descriptive；标志仅 CONFIRMED 触发；无标志="未检出可确认敏感性" | disjoint→CONFIRMED、重叠宽区间→INDETERMINATE（中点跨度>阈值仍不触发标志）、紧区间→NO_CONFIRMED、零流/UNKNOWN→NOT_EVALUABLE 构造测试；警示文本强制 |
+| 退化点区间传播 | 联合审计区间证书 share_intervals=[插件,插件]，已估计的 bootstrap 区间未进入传播；"精确传播"只是退化端点包络 | 采样证书用真实 basic 偏差校正区间；区间类型词汇强制（POINT_EXACT/LOGICAL_ENVELOPE/SAMPLING_*/SENSITIVITY/MODEL_SELECTION）；单调端点传播明示为对给定输入的包络保证，非完整统计不确定度；逻辑包络显式非置信区间 | 非退化区间断言；a_org=注册 RNI share_interval（界＋类型）；类型缺失/非法 fail-closed；降级反思/IRL/零流类型强制 |
+| 测试耦合预期实证结果 | 多种子校验要求每种子 NRI 误差>0.05、偏差校正 RMSE<插件、区间不得覆盖真值；未来改进估计器反而无法通过 | 软件正确性测试只查公式/结构/边界/解析锚/数值稳定/治理；实证期望从 R19 校验器移除（compute 输出不变→工件字节不变、重放通过）；冻结工件具体值改明确标注的快照回归；R20 新测试同样不含实证不变量 | R19 --check 仍通过；test_r19_sampling_study 快照标注 SNAPSHOT；R20 研究校验仅结构/网格/锚 |
+| 篇幅组织 | 105 页仍含较多修复根因/测试设计/数值治理叙述 | DEL-1 六判据明细表移仓库账本（主文保留 T7 结论与计数）；相关工作/讨论/可辨识性/实验历史叙述收紧；新增检测规则段＋tab:detection＋三态契约由压缩抵消 | 净 **103 页**（与 R18 持平）；115 引用 6 图保持；完整版本沿革/修复细节在本账本与 docs/R20paper_复审意见处置_v1.md |

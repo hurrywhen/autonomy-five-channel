@@ -1,5 +1,46 @@
 # Release Notes
 
+## R20 public source synchronization — 2026-11-22 (`main`, immutable tag `v1.3-r20`)
+
+**Paper:** `latex/main.pdf`, 103 pages, 6 figures, 115 cited references.
+**Authors:** Wen Hu and Gong Zhang.
+
+R20 is a small-to-medium revision addressing the R19 review, which confirmed that the R18 cross-environment replay problem was substantively repaired and that the core theory issues (execution channel, historical provenance, certificate profile) should no longer be rejection reasons. R20 closes the four remaining gaps: the near-zero detection rule becomes a declared data-driven executable rule INSIDE the formal certificate (the truth-triggered rule is explicitly demoted to oracle-assisted validation-fixture use); interval sensitivity becomes a confirmed/indeterminate/not-evaluable status system (identical wide intervals are never read as agreement); interval propagation uses the actual available intervals with declared kinds (logical envelopes are explicitly not confidence intervals); and software correctness tests are decoupled from expected empirical outcomes (frozen-artifact snapshot regressions only). A predeclared 16-seed x {2048,8192} detection-rule misclassification/coverage study is added. This revision **is frozen by an immutable annotated tag `v1.3-r20`** on the final synchronization commit, with a **two-environment** clean-worktree replay manifest. The earlier tags `v1.1-r18` and `v1.2-r19` are retained; the R18 failure record is preserved (not replaced). A version DOI requires Zenodo archiving of the current tag and is **not** yet minted; no formal Release page is created.
+
+### Development-source and frozen-content provenance
+
+| Item | Value |
+|---|---|
+| R20 development-source commit | `ab169ccb9091aec39ccc59ed87defcfd957e67dd` |
+| R20 public content commit used for clean validation | `R20_PUBLIC_CONTENT_COMMIT` |
+| Validated public source tree | `R20_VALIDATED_TREE` |
+| Final public synchronization commit (tag `v1.3-r20` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object itself and in the development repository's R20 release record |
+| R19 reviewed public baseline | `6aa6735d42a39e97e689e50ee4f936e99a345233` (tag `v1.2-r19`) |
+| `latex/main.tex` SHA-256 | `2107ce0cef63d98bc47d6ddb479896eb4b97566b1cfeb4c019fad76d55af65e0` |
+| `latex/main.pdf` SHA-256 | `6b961474b69fdf7746566d31770c29f298d817be5068da77c5718d05402ca7cb` |
+| Public tag | `v1.3-r20` (annotated; created on the final synchronization commit) |
+| R20 version DOI | **Not minted** (requires Zenodo archiving of `v1.3-r20`) |
+| Historical archive | `v1.0-r10.1`; concept DOI `10.5281/zenodo.23608751`, which does not archive R20 |
+
+`sim/runs/20261122_r20/validation.json` records the exact clean content commit, its tree, both environments, and current scientific-source hashes: **369/369 tests** in two independent clean environments (differing thread/hash settings on the same platform), three R14 read-only replays, R15 tau-b and paired-X5-c audits, R16 source-attribution audit, R17 weight-region audit, the R19 joint-audit and sampling-study replays (artifacts byte-identical after validator decoupling), the R20 joint-log and detection-study replays, read-only integrity/anchor checks of the R17-native and R18 numerical blocks, original-environment R17-native/R18 numerical `--check` confirmations, and an independent clean build (103 pages, extracted-text equality, all-page Ghostscript parsing, 115 cited references, 6 figures, embedded fonts with Unicode maps). Its scope remains internal mathematical/implementation consistency, small-scale concept validation, and internal descriptive finite-sample studies.
+
+### Substantive R20 changes
+
+- **Data-driven near-zero detection inside the certificate (`r20_detection.py`, `r20_guards.py`):** declared BEFORE the R20 study outcomes: plug-in share + trajectory-block bootstrap percentile 95% interval -> basic (pivotal) bias-corrected interval [2p-q97.5, 2p-q2.5] clipped to [0,1] -> three-state classification against the inherited post hoc frozen limit 1e-6 (upper<limit: DATA_BELOW_LIMIT; lower>limit: DATA_ABOVE_LIMIT; otherwise INDETERMINATE_NEAR_ZERO; boundary equality fail-closed). The deployable classifier has no truth parameter. Every L1/L2 convention carries convention_status / share_interval{bounds,kind} / composite_interval{bounds,kind} / detection limit + rule/value provenance / diagnostic plug-in outputs, recomputed by the producer/validator (forgery/suppression fail-closed). BELOW/INDETERMINATE conventions export the conservative logical envelope [0, composite(upper)] (LOGICAL_ENVELOPE, not a confidence interval); ABOVE conventions export the propagated sampling interval. The sampled baseline certificate is INTERVAL-valued with overall range = hull of reported convention intervals ([0, 0.4622412] on the default seed); the plug-in NRI composite 0.1478374 is stored only as a diagnostic (outside the reported envelope [0, 0.1324217]). The truth-triggered R19 rule is retained only as ORACLE_ASSISTED_VALIDATION_FIXTURE_ONLY_NOT_DEPLOYABLE for evaluation labeling. On this instance the honest NRI data verdict is INDETERMINATE_NEAR_ZERO: n=8192 data cannot confirm the near-zero share.
+- **Three-state interval sensitivity:** minimum possible separation max(0, max lower - min upper) > threshold -> CONFIRMED_SENSITIVE; worst-case spread <= threshold -> NO_CONFIRMED_SENSITIVITY; otherwise INDETERMINATE; zero total flow / UNKNOWN inputs -> NOT_EVALUABLE. Identical wide intervals are never agreement; midpoint spread is descriptive only; flags fire only on CONFIRMED; absence of a flag means "no confirmed sensitivity detected". POINT mode reproduces R19 flag behavior exactly.
+- **Real interval propagation with kinds:** sampling certificates propagate actual basic bias-corrected share intervals (non-degenerate); interval kinds POINT_EXACT / LOGICAL_ENVELOPE / SAMPLING_BASIC_BOOTSTRAP / SAMPLING_PERCENTILE / SAMPLING_NORMAL_APPROX / SENSITIVITY / MODEL_SELECTION are enforced; monotone endpoint propagation is documented as an envelope guarantee for the given inputs, not automatically a full statistical uncertainty interval.
+- **Test decoupling:** empirical expectations removed from R19 validators/tests (compute outputs unchanged -> R19 artifacts byte-identical, replays pass); frozen values covered by explicitly labeled SNAPSHOT regressions; R20 tests contain no empirical invariants. A future improved estimator or new legitimate seeds must not fail validation for recovering the endpoint better.
+- **Predeclared detection study (`analysis_r20_detection_study.py`):** 16 independent seeds (20261122--20261137) x n in {2048, 8192} x 200 bootstrap resamples, grid frozen in source before outcomes. Descriptive findings: NRI INDETERMINATE 16/16 at both sizes, zero false-below/false-above, envelope coverage 16/16 (width 0.1854 -> 0.1435); ABOVE-limit conventions correctly classified but sampling intervals under-cover exact composites (RNI 4/16 -> 0/16; order-average 8/16 -> 2/16) because plug-in bias dominates. Reporting governance, not a consistency guarantee, power claim, or universal coverage claim.
+- **Paper compression to 103 pages:** DEL-1 six-criterion ledger moved to the repository ledger (T7 verdict and counts retained); related work / discussion / identifiability / experiments historical prose tightened; cross-environment repair details retained in the repository with a main-text summary + pointer; new detection table and three-state contract offset by compression. 115 references, 6 figures, 0 undefined references, max overfull 8.94pt.
+
+### Evidence boundaries
+
+Historical 4,620-run records, R11 replay, R13 CUSUM, old X5, R14 manifest/results/verdicts, R15/R16/R17/R18/R19 analysis artifacts and validations are preserved read-only (R19 artifacts byte-identical). Historical `a_org` remains an internal-causal marker, combined `a_via` a resilience marker, X5-c `MODEL_SENSITIVE`, paired X5-c `POST_HOC_PASS`, and T7 `INCONCLUSIVE`. No legacy record is promoted to current N/R/I attribution, present-state autonomy, SCM audit, or external validation.
+
+Still outstanding: a version DOI (Zenodo archiving of `v1.3-r20`); selector-conditional DEL-1 and a nondegenerate bracket; actual Ingel/Albantakis/PID comparisons and intervention-attribution accuracy; domain-justified SESOI/power, held-out external error analysis, experts and downstream criteria; independent-investigator reimplementation; general MaxEnt-IRL identified-set solving; more SCMs and Lean; Chinese synchronization; and recovery of the three unavailable R14 run-time SPEC byte snapshots. The two validation environments differ in thread/hash settings on the same platform, not cross-platform independent replication. No third-party bibliographic PDFs or internal review archives are redistributed.
+
+---
+
 ## R19 public source synchronization — 2026-11-22 (`main`, immutable tag `v1.2-r19`)
 
 **Paper:** `latex/main.pdf`, 105 pages, 6 figures, 115 cited references.
