@@ -180,11 +180,14 @@ trajectories per stream, seed 20261122). Top: channel truth vs.\ seeded
 sampling. Bottom: exact model anchors, \emph{diagnostic} plug-in composites,
 and the \emph{reported} certificate intervals (with kinds). The sampled
 baseline certificate is INTERVAL-valued with overall range $[0,\,0.4622412]$
-and no point export. The NRI plug-in ($0.1478374$) is a diagnostic output
-only: the data-driven rule returns \textsc{indeterminate\_near\_zero} and the
-certificate reports the logical envelope $[0,\,0.1324217]$. Exact endpoints
-are anchors, not recoverability claims (Tables~\ref{tab:sampling},
-\ref{tab:detection}).}
+and no point export. Above-limit composite intervals are \emph{share-conditional}
+bootstrap intervals (only the source-share interval propagated; other channels
+fixed at points), marked ``SC''; they are not full joint-uncertainty
+intervals. The NRI plug-in ($0.1478374$) is a diagnostic output only: the
+data-driven rule returns \textsc{indeterminate\_near\_zero} and the certificate
+reports the logical envelope $[0,\,0.1324217]$ (anchor containment, not
+statistical coverage). Exact endpoints are anchors, not recoverability claims
+(Tables~\ref{tab:sampling}, \ref{tab:detection}).}
 \label{tab:native}
 \begin{tabular}{@{}lccc@{}}
 \toprule
@@ -198,10 +201,10 @@ $\Aref$ (fidelity$\times$consistency$\times\Lam$) & $0.5310$ & $0.5322$ & $0.001
 \midrule
 Convention & Exact anchor & Diagnostic plug-in & Reported interval (kind) \\
 \midrule
-RNI (primary) & $0.4608565$ & $0.4618544$ & $[0.4619225,0.4622412]$ (samp.) \\
+RNI (primary) & $0.4608565$ & $0.4618544$ & $[0.4619225,0.4622412]$ (SC) \\
 NRI (reverse) & $0.0003908$ & $0.1478374$ & $[0,0.1324217]$ (envelope) \\
-Two-order avg. & $0.4011989$ & $0.4023375$ & $[0.4018866,0.4026996]$ (samp.) \\
-Alt.\ partition & $0.4608565$ & $0.4591269$ & $[0.4610782,0.4622412]$ (samp.) \\
+Two-order avg. & $0.4011989$ & $0.4023375$ & $[0.4018866,0.4026996]$ (SC) \\
+Alt.\ partition & $0.4608565$ & $0.4591269$ & $[0.4610782,0.4622412]$ (SC) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -236,45 +239,69 @@ $[2\hat s-q_{97.5},\,2\hat s-q_{2.5}]$ clipped to $[0,1]$, then classify
 against $\delta=10^{-6}$ (upper $<\delta$: below; lower $>\delta$: above;
 otherwise indeterminate). Below/indeterminate conventions export the
 conservative logical envelope $[0,\text{composite(upper)}]$; above conventions
-export the propagated sampling interval. The rule's inputs are estimable from
-logs alone; the exact truth is used only to \emph{label} classifications in
-the fixture (oracle-assisted evaluation, explicitly not deployable).
+export a \emph{share-conditional} composite sampling interval (only the
+source-share interval propagated, other channels fixed at points). The rule's
+inputs are estimable from logs alone; the exact truth is used only to
+\emph{label} classifications in the fixture (oracle-assisted evaluation,
+explicitly not deployable). The rule is unchanged in R21.
 Table~\ref{tab:detection} reports the predeclared 16-seed $\times$
 $\{2048,8192\}$ grid (200 bootstrap resamples;
-\texttt{analysis\_r20\_detection\_study.json}). The honest finding: the NRI
+\texttt{analysis\_r21\_detection\_study.json}). The honest finding: the NRI
 convention is \textsc{indeterminate} in $16/16$ seeds at both sample sizes---the
-data cannot confirm the near-zero share---with zero false-below and
-false-above classifications, and the conservative envelope covers the exact
-anchor in every cell. Above-limit conventions are correctly classified, but
-their sampling intervals under-cover the exact composites because plug-in
-bias dominates (RNI coverage $4/16\to0/16$ as $n$ grows and intervals shrink
-around the biased estimate). Indeterminate is an honest outcome, not a
-failure; the rule is a reporting governance device, not a consistency
+data cannot confirm the near-zero share---with zero false-below and false-above
+classifications, and the conservative envelope \emph{contains} the exact anchor
+in every cell (containment, not statistical coverage). Above-limit conventions
+are correctly classified, but their share-conditional sampling intervals
+under-cover the exact composites. R21 attributes this under-coverage to
+\emph{two} causes, not bias alone: (i)~finite-sample plug-in bias of the
+directed-information share estimates, and (ii)~the share-conditional design
+itself---the execution, epistemic, and reflection channels are fixed at points,
+so their estimation error and inter-channel covariance are not propagated. A
+supplementary \emph{joint} trajectory bootstrap (all channels recomputed per
+resample, within-batch covariance preserved, execution stratified by sequence)
+quantifies cause~(ii) against cause~(i) (Table~\ref{tab:detection}); it is a
+diagnostic, not the reported certificate semantics, and does not remove bias.
+Envelope containment and sampling coverage are reported separately, never
+combined or compared as estimator quality. Indeterminate is an honest outcome,
+not a failure; the rule is a reporting governance device, not a consistency
 guarantee or a power claim.
 
 \begin{table}[htbp]
 \centering\small
-\caption{Detection-rule study (predeclared grid: 16 independent seeds
-20261122--20261137 $\times$ $n\in\{2048,8192\}$, 200 trajectory-block
-bootstrap resamples; registered partition). Classification is the
-data-driven three-state verdict; coverage is the fraction of cells whose
-reported composite interval contains the exact anchor; width is the mean
-reported width. False-below/false-above are relative to the fixture's oracle
-truth (evaluation only). Descriptive, not a universal coverage claim.}
+\caption{Detection-rule study (predeclared grid: 16 seeds 20261122--20261137
+$\times$ $n\in\{2048,8192\}$, 200 trajectory-block bootstrap resamples;
+registered partition; \texttt{analysis\_r21\_detection\_study.json}).
+False$\downarrow$/False$\uparrow$ are vs.\ the fixture's oracle truth (evaluation
+only). The three right columns are \emph{separate} semantics, never combined or
+compared as estimator quality: \textbf{Env.contain} = logical-envelope anchor
+containment (not statistical coverage; NRI only); \textbf{SC cov.} =
+share-conditional sampling coverage (other channels fixed at points; above-limit
+only); \textbf{Joint cov.} = supplementary joint-bootstrap coverage (all channels
+recomputed; not the reported semantics, does not remove bias). ``---'' = not
+applicable. Descriptive, not a universal coverage claim.}
 \label{tab:detection}
-\begin{tabular}{@{}llcccc@{}}
+\begin{tabular}{@{}llccccc@{}}
 \toprule
-Convention & $n$ & Classification (16 seeds) & False$\downarrow$/False$\uparrow$ & Coverage & Width \\
+Convention & $n$ & Classif.\ (16 seeds) & F$\downarrow$/F$\uparrow$ & Env.contain & SC cov. & Joint cov. \\
 \midrule
-NRI & $2048$ & indeterminate $16/16$ & $0/0$ & $16/16$ & $0.1854$ \\
-NRI & $8192$ & indeterminate $16/16$ & $0/0$ & $16/16$ & $0.1435$ \\
-RNI & $2048$ & above $16/16$ & $0/0$ & $4/16$ & $0.0010$ \\
-RNI & $8192$ & above $16/16$ & $0/0$ & $0/16$ & $0.0003$ \\
-Order avg. & $2048$ & above $16/16$ & $0/0$ & $8/16$ & $0.0023$ \\
-Order avg. & $8192$ & above $16/16$ & $0/0$ & $2/16$ & $0.0007$ \\
+NRI & $2048$ & indeterminate $16/16$ & $0/0$ & $16/16$ & --- & $0/16$ \\
+NRI & $8192$ & indeterminate $16/16$ & $0/0$ & $16/16$ & --- & $0/16$ \\
+RNI & $2048$ & above $16/16$ & $0/0$ & --- & $4/16$ & $16/16$ \\
+RNI & $8192$ & above $16/16$ & $0/0$ & --- & $0/16$ & $14/16$ \\
+Order avg. & $2048$ & above $16/16$ & $0/0$ & --- & $8/16$ & $15/16$ \\
+Order avg. & $8192$ & above $16/16$ & $0/0$ & --- & $2/16$ & $13/16$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Reading the two right columns together quantifies the causes for above-limit
+conventions: cells where SC cov.\ misses but Joint cov.\ covers are attributable
+to the conditional design (e.g.\ $14/16$ RNI cells at $n=8192$); both-miss cells
+reflect residual plug-in bias. For NRI neither sampling interval covers the
+near-zero anchor (bias dominates; the joint bootstrap does not remove it), yet
+the reported envelope contains it in $16/16$ cells---containment is therefore
+\emph{not} evidence of statistical recovery, and is never read as ``NRI estimated
+more reliably than RNI.''
 
 \paragraph{Three-state sensitivity and threshold provenance.}
 On the exact instance the convention point separation is $0.4604657$
@@ -302,7 +329,7 @@ bias correction halves the NRI RMSE ($0.151\to0.081$) but does not restore
 the endpoint. Exact convention endpoints are model anchors; the near-zero
 NRI endpoint is \emph{not} shown to be recoverable from finite samples.
 These are descriptive findings of this fixture, not software invariants:
-the R20 test suite separates correctness checks from empirical expectations,
+the R21 test suite separates correctness checks from empirical expectations,
 and the frozen values are covered by snapshot regression only.
 
 \begin{table}[htbp]

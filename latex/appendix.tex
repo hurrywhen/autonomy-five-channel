@@ -1337,30 +1337,21 @@ into a law-functional tier.
 \end{proposition}
 
 \paragraph{The certified bound (one-sided, conditionally).} See
-Proposition~\ref{prop:certified-bound} and \eqref{eq:aorg-interval}:
-Lemma~\ref{lem:probe}
-makes $F_{ext}^{obs}=I(I^T;A^T)$ observable without $S$-access, and
-Remark~\ref{rem:probe-bridge} supplies the bridge to the causally conditioned
-estimand: under premise (i) (the bypass premise $I^t\ind S^t\given A^{t-1}$)
-the probe MI is
-a lower estimate of $\Fext$, so---$\Aorg$ being decreasing in
-$\Fext$---the rule's upper end is the certified bound under premise (ii)
-($\Fsrc$ drift $\le\eta$; insufficient $\eta$ as negative control). At L1+
-the certified upper end conservatively drops nonnegative $\Frand$ from the
-denominator; a reference lower end additionally needs a registered random-flow
-cap and remains uncertified. Both
-premises are stated in the proposition itself because both are black-box
-unverifiable in general; the bound is \emph{conditionally} certified. The
-lower end treats
-$F_{ext}^{obs}$ as exact and is \emph{not} certified: the truth can fall
-below it when the external flow is understated, so the rule is a one-sided
-bound with a reference lower end, not an interval-containment statement.
-Certified scope:
-bypass-semantics exogenous randomized probes---\emph{not} non-adversarial
-influence in general, since mediation probes (the $\alpha$ class) reverse the
-direction. The adaptive-adversary failure mode is calibrated by the
-benchmark's BB-2 arm---see the scope paragraph in
-Section~\ref{sec:blackbox}.
+Proposition~\ref{prop:certified-bound} and \eqref{eq:aorg-interval}; the full
+scope discussion is in Section~\ref{sec:blackbox}. Lemma~\ref{lem:probe} makes
+$F_{ext}^{obs}=I(I^T;A^T)$ observable without $S$-access, and
+Remark~\ref{rem:probe-bridge} bridges to the causally conditioned estimand:
+under the bypass premise (i) $I^t\ind S^t\given A^{t-1}$ the probe MI is a lower
+estimate of $\Fext$, so---$\Aorg$ decreasing in $\Fext$---the upper end is
+certified under premise (ii) ($\Fsrc$ drift $\le\eta$; insufficient $\eta$ as
+negative control). At L1+ the certified upper end conservatively drops
+nonnegative $\Frand$; a reference lower end needs a registered random-flow cap
+and remains uncertified (it treats $F_{ext}^{obs}$ as exact, so the truth can
+fall below it). Both premises are black-box unverifiable in general, hence
+\emph{conditionally} certified; the rule is one-sided with a reference lower
+end, not interval containment. Certified scope: bypass-semantics exogenous
+randomized probes, not mediation probes (the $\alpha$ class reverses the
+direction); the adaptive-adversary failure is calibrated by BB-2.
 
 \paragraph{$\Aexec$: no general passive one-sided bound.}
 Probed mode (experimenter-forced $p(a^n)$ sequences) needs only the

@@ -177,8 +177,11 @@ carries a declared \emph{kind}: \textsc{point\_exact},
 \textsc{logical\_envelope} (degradation, unidentifiability, detection-limited
 reporting---explicitly \emph{not} a confidence interval),
 \textsc{sampling\_basic\_bootstrap} / \textsc{sampling\_percentile} /
-\textsc{sampling\_normal\_approx}, \textsc{sensitivity}, or
-\textsc{model\_selection} (the registered IRL identified set). The goal entry
+\textsc{sampling\_normal\_approx},
+\textsc{share\_conditional\_sampling\_basic\_bootstrap} (a composite sampling
+interval that propagates only the source-share interval; see below),
+\textsc{sensitivity}, or \textsc{model\_selection} (the registered IRL
+identified set). The goal entry
 carries the IRL interval in both modes; in behavioral-inversion mode the
 structural point is optional and the IRL interval is the primary output,
 while structural-mode interval readings require a registered degradation
@@ -208,19 +211,32 @@ $<\delta$ $\to$ \textsc{data\_below\_limit}; lower $>\delta$ $\to$
 \textsc{data\_above\_limit}; otherwise \textsc{indeterminate\_near\_zero}
 (boundary equality fail-closed). Below/indeterminate conventions export the
 conservative logical envelope $[0,\,\text{composite}(\text{upper})]$; above
-conventions export the monotone propagation of the sampling interval. The
-exact truth never enters a deployable decision; point certificates label
-their near-zero classification \textsc{oracle-assisted validation fixture
-only}. The plug-in composite is stored only as a \emph{diagnostic} output,
-may lie outside the reported interval, and is never the reported semantics.
-\item Interval propagation and the overall range: the geometric composite is
-coordinatewise monotone, so the declared input intervals propagate by
+conventions export a \emph{share-conditional} composite sampling interval
+(\textsc{share\_conditional\_sampling\_basic\_bootstrap}): only the source-share
+basic interval is propagated, with the other channels fixed at their declared
+points, and a \path{conditioning_scope} field records this. The exact truth never
+enters a deployable decision; point certificates label their near-zero
+classification \textsc{oracle-assisted validation fixture only}. The plug-in
+composite is stored only as a \emph{diagnostic} output, may lie outside the
+reported interval, and is never the reported semantics.
+\item Interval propagation, conditioning, and the overall range: the geometric
+composite is coordinatewise monotone, so declared input intervals propagate by
 endpoint evaluation---an envelope guarantee \emph{for those inputs}, not
 automatically a full statistical uncertainty interval. Sampling certificates
-propagate the actual bias-corrected share intervals, never degenerate
-$[s,s]$ points. \path{overall_composite_range} is recomputed as the hull of
-the reported convention composite intervals, so certificate and external
-summary agree by construction; interval certificates export
+propagate the actual bias-corrected share intervals, never degenerate $[s,s]$
+points. The share's own interval is unconditional
+(\textsc{sampling\_basic\_bootstrap}), but the above-limit \emph{composite}
+interval is \emph{share-conditional}: the other channels are held at their
+plug-in/structural points, so their estimation error and inter-channel
+covariance are not propagated. A \path{composite_interval_conditioning} policy
+and a per-interval \path{conditioning_scope} declare this design and its two
+under-coverage causes (plug-in bias and the conditional design); a joint
+trajectory bootstrap recomputing all channels is an \emph{artifact-level
+supplementary diagnostic} (Section~\ref{sec:experiments}), not the reported
+semantics, and does not remove bias. Logical-envelope anchor containment is a
+containment diagnostic, \emph{not} statistical coverage, never combined with or
+compared against sampling coverage. \path{overall_composite_range} is the hull
+of the reported convention composite intervals; interval certificates export
 \path{state_autonomy_interval} and no scalar.
 \item Three-state sensitivity: order sensitivity compares the reported
 composite intervals across order conventions (registered partition);
@@ -253,12 +269,12 @@ Machine-checked \path{channel_schema_version}, \path{org_mode},
 numbers from being promoted merely by supplying plausible channels; L1/L2
 certificates require artifact hashes. Hashes bind registered bytes but do not
 prove provenance or external truth. The producer
-\path{produce_r20_certificate} and fail-closed writer
-\path{write_r20_certificate} enforce this contract across L0--L2 and both
+\path{produce_r21_certificate} and fail-closed writer
+\path{write_r21_certificate} enforce this contract across L0--L2 and both
 modes, with dedicated detection-rule, three-state-sensitivity, interval-kind,
-L0/L1, IRL-interval, thin-log, zero-entropy, zero-flow, and unknown-channel
-regression tests; the R18/R19 schemas remain compatibility layers for
-read-only historical replay. Legacy \texttt{Bundle} records are rejected
+conditioning-scope, L0/L1, IRL-interval, thin-log, zero-entropy, zero-flow, and
+unknown-channel regression tests; the R18/R19/R20 schemas remain compatibility
+layers for read-only historical replay. Legacy \texttt{Bundle} records are rejected
 rather than silently converted into current normative-source or historical
 certificates.
 

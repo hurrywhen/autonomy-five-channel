@@ -156,12 +156,19 @@ conventions) and carry explicit DEFINED/INTERVAL/UNKNOWN/NOT-APPLICABLE channel
 states: point and interval certificates are separate modes, and composite
 intervals propagate the declared input intervals by coordinatewise
 monotonicity, with each interval marked as exact, logical envelope, or
-sampling. Near-zero detection is a declared data-driven rule inside the
-formal certificate (bias-corrected bootstrap interval vs.\ a post hoc frozen
-internal limit; below/above/indeterminate states), never a truth-triggered
-annotation; on the registered instance the honest data verdict for the
-near-zero NRI convention is \emph{indeterminate} at $n=8{,}192$, reported as a
-conservative envelope while the plug-in composite stays a labeled diagnostic.
+sampling. Above-detection-limit composite sampling intervals are
+\emph{share-conditional}---only the source-share interval is propagated, the
+other channels fixed at points---and carry an explicit conditioning scope; a
+supplementary joint trajectory bootstrap (all channels recomputed per resample)
+quantifies how much of their under-coverage is due to this conditional design
+versus plug-in bias, and logical-envelope anchor containment is reported
+separately from sampling coverage, never combined. Near-zero detection is a
+declared data-driven rule inside the formal certificate (bias-corrected
+bootstrap interval vs.\ a post hoc frozen internal limit;
+below/above/indeterminate states), never a truth-triggered annotation; on the
+registered instance the honest data verdict for the near-zero NRI convention is
+\emph{indeterminate} at $n=8{,}192$, reported as a conservative envelope while
+the plug-in composite stays a labeled diagnostic.
 Order and semantic-partition sensitivity use a confirmed/indeterminate/not-
 evaluable status system---identical wide intervals are never read as
 agreement---with flags only on confirmed separation under post hoc frozen
@@ -207,11 +214,11 @@ superseded criteria and post hoc status; legacy markers and counterfactual-SCM
 results are not pooled or retroactively relabeled under the current estimands.
 \texttt{RELEASE\_NOTES.md} identifies the corresponding development-source and
 fresh-history public commits on the repository \texttt{main} branches listed
-above. The present version is frozen by the immutable tag \texttt{v1.3-r20}
+above. The present version is frozen by the immutable tag \texttt{v1.4-r21}
 with a two-environment clean-worktree replay manifest
-(\texttt{sim/runs/20261122\_r20/validation.json}); the earlier tags
-\texttt{v1.1-r18} and \texttt{v1.2-r19} are retained, and the recorded R18
-cross-environment replay failure and its repair are preserved in
+(\texttt{sim/runs/20261122\_r21/validation.json}); the earlier tags
+\texttt{v1.1-r18}, \texttt{v1.2-r19}, and \texttt{v1.3-r20} are retained, and the
+recorded R18 cross-environment replay failure and its repair are preserved in
 \texttt{sim/runs/20261122\_r19/REPLAY\_FAILURE\_R18.md}. A version DOI requires
 Zenodo archiving of the current tag and remains a publication-time requirement.
 The historical concept DOI does not discharge it. The complete
