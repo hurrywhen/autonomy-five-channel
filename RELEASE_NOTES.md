@@ -12,8 +12,8 @@ R20 is a small-to-medium revision addressing the R19 review, which confirmed tha
 | Item | Value |
 |---|---|
 | R20 development-source commit | `ab169ccb9091aec39ccc59ed87defcfd957e67dd` |
-| R20 public content commit used for clean validation | `R20_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R20_VALIDATED_TREE` |
+| R20 public content commit used for clean validation | `47077855be834b04b3c7a9fc1d3f55f1509ed748` |
+| Validated public source tree | `bb644376e9b3bb464322e0acf4361e12853bf7dc` |
 | Final public synchronization commit (tag `v1.3-r20` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object itself and in the development repository's R20 release record |
 | R19 reviewed public baseline | `6aa6735d42a39e97e689e50ee4f936e99a345233` (tag `v1.2-r19`) |
 | `latex/main.tex` SHA-256 | `2107ce0cef63d98bc47d6ddb479896eb4b97566b1cfeb4c019fad76d55af65e0` |
