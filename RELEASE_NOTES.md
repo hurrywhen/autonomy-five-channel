@@ -12,8 +12,8 @@ R21 is a small revision addressing the R20 review, which confirmed that the four
 | Item | Value |
 |---|---|
 | R21 development-source commit | `a0ada0e74a9ba45a00e543514140881d8da636d5` |
-| R21 public content commit used for clean validation | `R21_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R21_VALIDATED_TREE` |
+| R21 public content commit used for clean validation | `888c0646f3385e1fed9f23c5ce3c0f18bbd415dd` |
+| Validated public source tree | `d334df651b424167eced72f7369b97ecd0f7aef7` |
 | Final public synchronization commit (tag `v1.4-r21` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object itself and in the development repository's R21 release record |
 | R20 reviewed public baseline | `33d1558facfb0134bcbe83a54b6686ed3daf06d0` (tag `v1.3-r20`) |
 | `latex/main.tex` SHA-256 | `995923aa6f03a4089f4d99d2bb578a0378df46d65f940788bbec802c9a045554` |
