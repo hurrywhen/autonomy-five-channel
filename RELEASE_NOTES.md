@@ -12,8 +12,8 @@ R22 addresses the R21 review's remaining attribution-identifiability problem. R2
 | Item | Value |
 |---|---|
 | R22 development-source commit | `da64b8e64e4cff72262035585bd25e8fd8d98ac0` |
-| R22 public content commit used for clean validation | `R22_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R22_VALIDATED_TREE` |
+| R22 public content commit used for clean validation | `22a85617192e40f3391f0a4823fe781511940da3` |
+| Validated public source tree | `a72d75349195fe4afbad9457a5114dc5f821e3fe` |
 | Final public synchronization commit (tag `v1.5-r22` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object and the development R22 release record |
 | R21 reviewed public baseline | `5f4969be1001e2198a84a5377ee222faf9ac4756` (tag `v1.4-r21`) |
 | `latex/main.tex` SHA-256 | `7cc4a4a2a8f80b7c85e25551a352b2c85f719c5ad6305e9c54ecdda64ba9b9a6` |
