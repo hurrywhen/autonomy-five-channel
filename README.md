@@ -4,20 +4,30 @@
 
 Wen Hu<sup>1,2</sup> and Gong Zhang<sup>1,2</sup> — <sup>1</sup>College of Electronic and Information Engineering, Nanjing University of Aeronautics and Astronautics, Nanjing, China; <sup>2</sup>Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China — `huwen@nuaa.edu.cn`; `gzhang@nuaa.edu.cn`
 
-**R21 public source synchronization, 2026-11-22.** Paper: [`latex/main.pdf`](latex/main.pdf) (**105 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
+**R22 public source synchronization, 2026-11-23.** Paper: [`latex/main.pdf`](latex/main.pdf) (**105 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
 
-[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present revision is frozen by the immutable tag `v1.4-r21` with a two-environment clean-worktree replay manifest (`sim/runs/20261122_r21/validation.json`). The earlier tags `v1.1-r18`, `v1.2-r19`, and `v1.3-r20` are retained, and the recorded R18 cross-environment replay failure is preserved in `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md`. A version DOI requires Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R21.**
+[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present revision is frozen by the immutable tag `v1.5-r22` with a two-environment clean-worktree replay manifest (`sim/runs/20261123_r22/validation.json`). The earlier tags `v1.1-r18`, `v1.2-r19`, `v1.3-r20`, and `v1.4-r21` are retained, and the recorded R18 cross-environment replay failure is preserved in `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md`. A version DOI requires Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R22.**
 
 ---
 
-## What R21 changes
+## What R22 changes
+
+R22 addresses the R21 review's remaining identifiability problem. R21 compared A (basic share-conditional) with C (percentile joint), which also differed in interval construction and bootstrap stream. R22 withdraws the interpretations "A misses / C covers -> conditional-design effect" and "both miss -> plug-in-bias effect". The detection rule, three-state sensitivity, estimator, formal R21 certificate, and historical evidence are unchanged.
+
+- **Matched A/B/C on common replicates:** A = basic-share-conditional (the certificate construction); B = percentile-share-conditional composite (only the share varies, all other channels fixed at the original points); C = percentile-joint composite (all data-estimated channels recomputed, structural goal fixed). B/C is a matched-replicate, matched-percentile channel-propagation contrast; A/B is an interval-construction contrast; A/C remains mixed. All are artifact-level supplementary diagnostics, not certificate semantics or a formal bias decomposition.
+- **Descriptive rather than causal attribution:** `undercoverage_attribution` is replaced by `descriptive_interval_method_contrast`, with complete 2x2 miss/miss, miss/cover, cover/miss, cover/cover counts for A/B, B/C, and A/C. A-miss/C-cover is a combined construction+conditioning difference; both-miss can reflect source-share bias, other-channel error, or construction and receives no single-cause attribution.
+- **Full-grid findings (16 seeds per cell):** at n=2048, A/B/C coverage is RNI 4/5/16, NRI 16/0/0, order-average 8/8/15; at n=8192 it is RNI 0/2/14, NRI 16/0/0, order-average 1/1/13. At n=8192, B/C gives 12 B-miss/C-cover, 2 both-miss, 2 both-cover (RNI) and 12/3/1 (order-average). NRI has 16 A-cover/B-miss cells at each n, directly showing the construction contrast. The original certificate-A results are separately reproduced (RNI 4/16 -> 0/16; order-average 8/16 -> 2/16); matched order-average A at n=8192 is 1/16, not the original 2/16, because the streams differ.
+- **Exact R21 reproduction and independent bias evaluation:** C reproduces R21's joint bounds/mean/SE exactly. Matched A does not replace the formal certificate's original A; the R22 baseline certificate is field-for-field identical to R21. Plug-in bias/RMSE are reported separately by exact-truth multi-seed simulation, never inferred from both-miss cells. NRI remains INDETERMINATE with a logical envelope; basic-A inclusion is not statistical recovery.
+- **Hardened replay and test governance:** no empirical error threshold is a software pass condition. Audit hashes cover exact integer resampling indices and platform-independent common masks, not native floating-point outputs. Top-level/table and C-alias consistency is checked; joint/matched bootstrap counts must agree; synthetic non-full-mask tests independently verify B. **429/429 tests pass.** Paper: 105 pages, 6 figures, 115 references; the authors chose no R22 page cap.
+
+## What R21 changed (historical; attribution superseded by R22)
 
 R21 is a small revision addressing the R20 review, which confirmed that the four R20 fixes were substantive and that no new foundational theory/implementation problem remained. The two remaining items were statistical-naming precision and coverage-interpretation completeness. R21 closes them WITHOUT changing the detection rule, the three-state sensitivity system, the estimator, the predeclared grid, or the historical archive.
 
 - **Share-conditional composite intervals disclosed (priority):** the above-detection-limit composite sampling interval propagates ONLY the source-share basic bootstrap interval; the execution/epistemic/reflection channels are fixed at their plug-in/structural points. It is therefore a SHARE-CONDITIONAL composite sampling interval, not a full joint-uncertainty interval. R21 renames its kind to SHARE_CONDITIONAL_SAMPLING_BASIC_BOOTSTRAP, adds a `conditioning_scope` field to every interval-mode composite interval, and a certificate-level `composite_interval_conditioning` policy declaring the design and its two under-coverage causes. The share's own interval keeps SAMPLING_BASIC_BOOTSTRAP (unconditional). The propagated bounds are numerically identical to R20 (only the kind/scope changed).
 - **Coverage semantics separated (priority):** logical-envelope anchor containment (NRI 16/16) is a CONTAINMENT DIAGNOSTIC, not statistical coverage; share-conditional sampling coverage (RNI 0/16 at n=8192) is conditional on the other channels being fixed at points. The two are reported in separate columns and NEVER combined into one rate or compared as estimator quality ("NRI containment 16/16 > RNI coverage 0/16" is not "NRI estimated more reliably").
 - **Joint trajectory bootstrap (supplementary diagnostic):** a trajectory-block bootstrap recomputes ALL operating-side channels from the same resampled batch (within-batch covariance preserved) and the execution channel from the independent stream (stratified by sequence), then the composite per convention; the percentile-95 interval is a genuine joint composite sampling interval. Per-trajectory sufficient statistics plus a small Blahut--Arimoto capacity value make it efficient and deterministic (cross-environment float diff 0). It is an ARTIFACT-LEVEL diagnostic, NOT the certificate's reported semantics, and does NOT remove plug-in bias.
-- **Two-cause under-coverage attribution:** under-coverage of above-limit intervals reflects BOTH directed-information plug-in bias AND the share-conditional design. The joint diagnostic quantifies the second cause: at n=8192, 14/16 RNI cells (11/16 order-average) miss under share-conditional but cover under joint (conditional-design attributable); residual both-miss cells (2/16 RNI, 3/16 order-average) reflect plug-in bias. Joint coverage: RNI 16/16 (n=2048) -> 14/16 (n=8192); order-average 15/16 -> 13/16; NRI 0/16 at both sizes (bias dominates; joint does not remove it). Share-conditional results reproduce R20 exactly.
+- **Superseded R21 attribution:** R21 originally interpreted A-miss/C-cover cells as conditional-design attributable and both-miss cells as residual plug-in bias. R22 withdraws that identification because basic/percentile construction and bootstrap streams also differed. The numerical R21 artifacts remain read-only and byte-identical; only the causal interpretation is withdrawn. R22 supplies matched A/B/C descriptive contrasts instead.
 - **Paper:** 105 pages (R20 was 103; the reviewer-required additions net ~+2 pages after honest compression of ~60 lines; the authors accepted 105 to preserve evidence detail, no formatting tricks). 115 references, 6 figures, 406/406 tests.
 
 ## What R20 changes
@@ -76,9 +86,11 @@ The R15 execution-horizon, compatibility, goal-identification, state/readiness, 
 
 | Evidence package | Current interpretation |
 |---|---|
-| Mathematical and implementation guards | **406/406 tests pass**, including R21 conditioning-honest certificates, joint-bootstrap diagnostic, separated coverage semantics, and all R20/R19/R18/R17/R16 controls; software correctness is decoupled from expected empirical outcomes (snapshot regressions only); not external validation |
-| R21 native joint-log audit | One SCM, one log schema, one joint operating batch; INTERVAL-valued sampled certificate with share-conditional composite intervals (conditioning_scope), separated envelope-containment / sampling-coverage semantics, a supplementary joint trajectory bootstrap (all channels recomputed per resample; not the reported semantics, does not remove bias), immutable-input evidence binding, sampled surgery/decoupled controls; exact composites \(0.4608565/0.0003908/0.4011989\) are model anchors; the honest NRI data verdict at n=8192 is INDETERMINATE |
-| R21 detection-rule study | Predeclared 16-seed x {2048,8192} grid (unchanged from R20); share-conditional results reproduce R20 (NRI INDETERMINATE 16/16, zero false classifications, envelope containment 16/16); separated joint coverage RNI 16/16->14/16, order-average 15/16->13/16, NRI 0/16; two-cause under-coverage attribution (conditional design vs plug-in bias); descriptive, not power or universal coverage |
+| Mathematical and implementation guards | **429/429 tests pass**, including R22 matched A/B/C construction and propagation contrasts, exact R21-C reproduction, platform-independent resampling/mask audits, and all R21/R20/R19/R18/R17/R16 controls; software correctness is decoupled from empirical outcomes (snapshot regressions only); not external validation |
+| R22 native joint-log audit | One SCM, one log schema, one joint operating batch; formal R21 certificate field-for-field unchanged; matched A/B/C on common replicates with C exactly reproducing R21; descriptive rather than causal coverage-pattern interpretation; immutable-input evidence binding, sampled surgery/decoupled controls; exact composites \(0.4608565/0.0003908/0.4011989\) are model anchors; NRI remains INDETERMINATE |
+| R22 detection-rule study | Full predeclared 16-seed x {2048,8192} matched grid; original formal-A and C reproduce R21 cell by cell; A/B/C coverage, widths, independent exact-truth bias/RMSE, and complete pairwise 2x2 `descriptive_interval_method_contrast` counts; no formal bias decomposition, power claim, or universal coverage |
+| R21 native joint-log audit | Read-only, superseded by R22 (matched A/B/C added; A/C causal attribution withdrawn); artifact byte-identical and replayable |
+| R21 detection-rule study | Read-only frozen study; original formal-A and C reproduced by R22; its single-cause interpretation of coverage patterns is superseded by R22's descriptive matched method contrasts |
 | R20 native joint-log audit | Read-only, superseded by R21 (share-conditional intervals now honestly named with conditioning_scope; coverage semantics separated; joint bootstrap added); artifact byte-identical, replay still passes |
 | R20 detection-rule study | Read-only frozen descriptive study; share-conditional coverage reproduced by R21; its single "coverage" heading superseded by R21's separated containment/coverage columns |
 | R19 native joint-log audit | Read-only, superseded by R20 (oracle-triggered detection outside the certificate replaced by the data-driven in-certificate rule); artifact byte-identical, replay still passes |
@@ -105,13 +117,15 @@ latex/                     complete paper source, 115-entry bibliography,
                            figures + 1 TikZ figure, built 105-page PDF
 sim/
   src/autonomy_sim/        ENV-0, estimators, SCMs, open-loop/source/certificate guards
-                           (r21_guards conditioning-honest schema, r21_joint_bootstrap,
-                           r21_joint_audit; r20_detection data-driven rule, r20_guards;
+                           (r22_interval_contrast matched A/B/C; r21_guards,
+                           r21_joint_bootstrap, r21_joint_audit; r20 detection/schema;
                            r19/r18 compatibility layers, canonical capacity input)
-  tests/                   406 unit/integration/regression tests (correctness decoupled
+  tests/                   429 unit/integration/regression tests (correctness decoupled
                            from empirical expectations; frozen-artifact snapshots labeled)
-  analysis_r21_joint_audit.* R21 single-batch joint-log audit (current)
-  analysis_r21_detection_study.* R21 separated-coverage + joint-bootstrap detection study
+  analysis_r22_joint_audit.* R22 joint-log audit with matched A/B/C (current)
+  analysis_r22_detection_study.* R22 full matched-grid method-contrast study (current)
+  analysis_r21_joint_audit.* R21 joint-log audit (read-only, superseded)
+  analysis_r21_detection_study.* R21 separated-coverage study (read-only, superseded)
   analysis_r20_joint_audit.* R20 joint-log audit (read-only, superseded)
   analysis_r20_detection_study.* R20 detection study (read-only, superseded)
   analysis_r19_joint_audit.* R19 joint-log audit (read-only, superseded)
@@ -124,7 +138,7 @@ sim/
   analysis_r15_x5c_paired.* paired cross-check SEs and tolerant replay
   EXTERNAL_VALIDATION_PROTOCOL.md design-frozen, unexecuted external protocol
   SPEC_*.md                current specifications and R14 preservation copy
-  CRITERION_VERSION_MAP.md R11–R21 supersession and evidence boundaries
+  CRITERION_VERSION_MAP.md R11–R22 supersession and evidence boundaries
   runs/20261017_full/      read-only historical 4,620-run campaign archive
   runs/20261102_r11/del1/  separate 30-run R11 replay summary
   runs/20261116_r14/       X5-c, C0-CF-v2, superseded/failed records
@@ -134,7 +148,8 @@ sim/
   runs/20261121_r18/       preserved R18 validation
   runs/20261122_r19/       preserved R19 validation + retained R18 replay-failure record
   runs/20261122_r20/       preserved R20 validation (tag v1.3-r20)
-  runs/20261122_r21/       current two-environment validation and provenance (tag v1.4-r21)
+  runs/20261122_r21/       preserved R21 validation (tag v1.4-r21)
+  runs/20261123_r22/       current two-environment validation and provenance (tag v1.5-r22)
 refs/manifest.md           graded bibliography verification ledger;
                            third-party PDFs are not redistributed
 tools/                     source-package and frozen-validation scripts
@@ -148,7 +163,7 @@ tools/                     source-package and frozen-validation scripts
 ## Reproduction
 
 ```bash
-# 1. Run all 406 tests
+# 1. Run all 429 tests
 cd sim
 python3 -m unittest discover -s tests -q
 
@@ -164,23 +179,27 @@ python3 analysis_r16_source_attribution.py --check
 python3 analysis_r17_native_benchmark.py --check
 python3 analysis_r17_weight_regions.py --check
 
-# 4. R21 current joint-log audit and separated-coverage detection study
-#    (the study --check recomputes the full grid incl. joint bootstrap; slow)
+# 4. R22 current matched A/B/C audit and full matched-grid study
+#    (the study --check recomputes the full matched grid; slow)
+python3 analysis_r22_joint_audit.py --check
+python3 analysis_r22_detection_study.py --check
+
+# 5. R21 frozen artifacts (byte-identical; superseded by R22)
 python3 analysis_r21_joint_audit.py --check
 python3 analysis_r21_detection_study.py --check
 
-# 5. R20 frozen artifacts (byte-identical; superseded by R21)
+# 6. R20 frozen artifacts (byte-identical; superseded by R21)
 python3 analysis_r20_joint_audit.py --check
 python3 analysis_r20_detection_study.py --check
 
-# 6. R19 frozen artifacts (byte-identical after validator decoupling; superseded)
+# 7. R19 frozen artifacts (byte-identical after validator decoupling; superseded)
 python3 analysis_r19_joint_audit.py --check
 python3 analysis_r19_sampling_study.py --check
 
-# 7. R18 joint-log audit (original-environment numerical replay; superseded)
+# 8. R18 joint-log audit (original-environment numerical replay; superseded)
 python3 analysis_r18_native_joint_audit.py --check
 
-# 8. Rebuild the complete paper
+# 9. Rebuild the complete paper
 cd ../latex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 bibtex main
@@ -188,9 +207,9 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-For clean-source-commit validation, create a clean worktree at the R21 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r21_validation.py`. It runs the suite and stable replays in TWO independent environments (differing thread/hash settings on the same platform), checks the R17-native/R18 numerical blocks read-only (their cross-environment byte-replay is not guaranteed; the R18 failure is recorded), builds the paper in a separate temporary directory, and writes only `sim/runs/20261122_r21/validation.json`. It does not modify historical evidence. The R21 detection-study replay recomputes the full predeclared grid including the joint trajectory bootstrap, so allow a long runtime.
+For clean-source-commit validation, create a clean worktree at the R22 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r22_validation.py`. It runs the suite and stable replays in TWO independent environments (differing thread/hash settings on the same platform), checks the R17-native/R18 numerical blocks read-only (their cross-environment byte-replay is not guaranteed; the R18 failure is recorded), builds the paper in a separate temporary directory, and writes only `sim/runs/20261123_r22/validation.json`. It does not modify historical evidence. The R21 and R22 detection-study replays each recompute their full grids, so allow a long runtime. R22 has no page-count cap; all other paper quality gates remain fail-closed.
 
-The R14 replays and R15/R16/R17/R19/R20/R21 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R21 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
+The R14 replays and R15/R16/R17/R19/R20/R21/R22 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R22 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
 
 The complete LaTeX tree is required; uploading only `main.tex` is not a valid source submission. See [`latex/SUBMISSION_MANIFEST.md`](latex/SUBMISSION_MANIFEST.md).
 
@@ -206,15 +225,15 @@ This repository is a fresh-history public snapshot of the authors' development w
 ## Citation
 
 ```bibtex
-@misc{hu_zhang2026autonomy_r21,
+@misc{hu_zhang2026autonomy_r22,
   title  = {Autonomy as Determination by One's Own Normative Structure:
             A White-Box-First Five-Channel Audit Framework with Axioms
             and Conditional Theorems},
   author = {Hu, Wen and Zhang, Gong},
   year   = {2026},
-  note   = {Author manuscript; R21 public source synchronization,
-            22 November 2026, 105 pages; immutable tag v1.4-r21;
-            no R21 version DOI yet},
+  note   = {Author manuscript; R22 public source synchronization,
+            23 November 2026, 105 pages; immutable tag v1.5-r22;
+            no R22 version DOI yet},
   url    = {https://github.com/hurrywhen/autonomy-five-channel}
 }
 ```

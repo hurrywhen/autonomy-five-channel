@@ -229,13 +229,15 @@ points. The share's own interval is unconditional
 interval is \emph{share-conditional}: the other channels are held at their
 plug-in/structural points, so their estimation error and inter-channel
 covariance are not propagated. A \path{composite_interval_conditioning} policy
-and a per-interval \path{conditioning_scope} declare this design and its two
-under-coverage causes (plug-in bias and the conditional design); a joint
-trajectory bootstrap recomputing all channels is an \emph{artifact-level
-supplementary diagnostic} (Section~\ref{sec:experiments}), not the reported
-semantics, and does not remove bias. Logical-envelope anchor containment is a
-containment diagnostic, \emph{not} statistical coverage, never combined with or
-compared against sampling coverage. \path{overall_composite_range} is the hull
+and a per-interval \path{conditioning_scope} declare this design and the
+potential roles of plug-in bias and omitted channel uncertainty, without
+identifying their contributions. Artifact-level matched diagnostics additionally
+contrast basic and percentile constructions and fixed versus joint channel
+propagation on common replicates (Section~\ref{sec:experiments}); these are
+descriptive sensitivity analyses, not the reported certificate semantics, not a
+formal bias decomposition, and not a way to remove plug-in bias. Logical-envelope
+anchor containment is a containment diagnostic, \emph{not} statistical coverage,
+never combined with or compared against sampling coverage. \path{overall_composite_range} is the hull
 of the reported convention composite intervals; interval certificates export
 \path{state_autonomy_interval} and no scalar.
 \item Three-state sensitivity: order sensitivity compares the reported

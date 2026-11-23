@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this code or data, please cite the paper below. The Zenodo identifier archives a historical release, not the current R21 source (immutable tag v1.4-r21)."
+message: "If you use this code or data, please cite the paper below. The Zenodo identifier archives a historical release, not the current R22 source (immutable tag v1.5-r22)."
 type: software
 title: "autonomy-five-channel: simulation platform and evidence packages for the Five-Channel autonomy audit framework"
 authors:
@@ -7,15 +7,15 @@ authors:
     given-names: "Wen"
     email: "huwen@nuaa.edu.cn"
     affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
-version: "r21-main-2026-11-22"
-date-released: "2026-11-22"
+version: "r22-main-2026-11-23"
+date-released: "2026-11-23"
 license: "MIT"
 repository-code: "https://github.com/hurrywhen/autonomy-five-channel"
 url: "https://github.com/hurrywhen/autonomy-five-channel"
 identifiers:
   - type: doi
     value: 10.5281/zenodo.23608751
-    description: "Historical Zenodo concept DOI; v1.0-r10 archive. The current revision is frozen by immutable tag v1.4-r21; no R21 version DOI has been minted yet."
+    description: "Historical Zenodo concept DOI; v1.0-r10 archive. The current revision is frozen by immutable tag v1.5-r22; no R22 version DOI has been minted yet."
 keywords:
   - autonomy
   - agency-measurement
@@ -37,4 +37,4 @@ preferred-citation:
       email: "gzhang@nuaa.edu.cn"
       affiliation: "Nanjing University of Aeronautics and Astronautics; Jiangsu Yunhefeng Intelligent Technology Co., Ltd."
   year: 2026
-  notes: "Author manuscript, R21 public source synchronization, 22 November 2026, 105 pages, 6 figures, 115 cited references; immutable tag v1.4-r21; no R21 version DOI yet; journal version in preparation."
+  notes: "Author manuscript, R22 public source synchronization, 23 November 2026, 105 pages, 6 figures, 115 cited references; immutable tag v1.5-r22; no R22 version DOI yet; journal version in preparation."

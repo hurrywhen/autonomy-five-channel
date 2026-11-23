@@ -1,4 +1,4 @@
-# R21 complete LaTeX submission manifest
+# R22 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -134,8 +134,9 @@ known incomplete submission configuration and must fail review.
   certificate schema: above-limit composite intervals renamed
   SHARE_CONDITIONAL_SAMPLING_BASIC_BOOTSTRAP with a conditioning_scope field and
   a certificate-level composite_interval_conditioning policy (share-conditional
-  design, two under-coverage causes, joint bootstrap as artifact-level
-  supplementary diagnostic); the share's own interval stays unconditional;
+  design, disclosed potential under-coverage sources, joint bootstrap as
+  artifact-level supplementary diagnostic; R22 does not identify their separate
+  causal contributions); the share's own interval stays unconditional;
   propagated bounds identical to R20; fail-closed governance.
 - `sim/src/autonomy_sim/r21_joint_bootstrap.py` and
   `sim/tests/test_r21_joint_bootstrap.py` — joint trajectory bootstrap recomputing
@@ -151,8 +152,24 @@ known incomplete submission configuration and must fail review.
 - `sim/analysis_r21_detection_study.{py,json}` and
   `sim/tests/test_r21_detection_study.py` — predeclared grid (unchanged from R20)
   with separated logical-envelope anchor containment / share-conditional sampling
-  coverage / joint sampling coverage, and two-cause under-coverage attribution
-  (descriptive; share-conditional results reproduce R20).
+  coverage / joint sampling coverage. Its single-cause reading of A/C coverage
+  patterns is withdrawn by R22; the artifact is read-only and its numerical
+  results reproduce R20.
+- `sim/src/autonomy_sim/r22_interval_contrast.py` and
+  `sim/tests/test_r22_interval_contrast.py` — matched A/B/C intervals on common
+  replicates: A basic-share-conditional, B percentile-share-conditional, and
+  C percentile-joint. B/C is a matched-percentile channel-propagation contrast;
+  A/B is an interval-construction contrast. C reproduces R21 exactly; common-
+  replicate accounting and deterministic replay are tested.
+- `sim/analysis_r22_joint_audit.{py,json}` and
+  `sim/tests/test_r22_joint_audit.py` — R22 joint audit: unchanged R21 formal
+  certificate and controls, matched A/B/C tables, exact R21-C reproduction,
+  descriptive rather than causal coverage-pattern interpretation.
+- `sim/analysis_r22_detection_study.{py,json}` and
+  `sim/tests/test_r22_detection_study.py` — full predeclared 16-seed x
+  {2048,8192} matched grid; formal-A and C reproduce R21 cell by cell; reports
+  A/B/C coverage, widths, separate exact-truth bias/RMSE, and full pairwise 2x2
+  `descriptive_interval_method_contrast` counts (no formal bias decomposition).
 - `sim/analysis_r17_weight_regions.{py,json}` and
   `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
   pairwise damage halfspaces (an exact weight-sensitivity characterization, not
@@ -163,14 +180,15 @@ known incomplete submission configuration and must fail review.
   remain pending.
 - `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`,
   `sim/runs/20261119_r17/`, `sim/runs/20261121_r18/`,
-  `sim/runs/20261122_r19/`, and `sim/runs/20261122_r20/` — preserved historical
-  clean-worktree validations; not R21 validation.
-- `sim/runs/20261122_r21/` — current two-environment clean-worktree provenance
-  and exact source-commit replay manifest for the immutable tag `v1.4-r21`;
+  `sim/runs/20261122_r19/`, `sim/runs/20261122_r20/`, and
+  `sim/runs/20261122_r21/` — preserved historical clean-worktree validations;
+  not R22 validation.
+- `sim/runs/20261123_r22/` — current two-environment clean-worktree provenance
+  and exact source-commit replay manifest for the immutable tag `v1.5-r22`;
   not a version DOI or external validation.
-- `tools/make_r21_validation.py` — current two-environment clean-worktree
-  validator; historical R15/R16/R17/R18/R19/R20 validators and validations are
-  retained unchanged.
+- `tools/make_r22_validation.py` — current two-environment clean-worktree
+  validator; historical R15/R16/R17/R18/R19/R20/R21 validators and validations
+  are retained unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -191,9 +209,9 @@ These evidence packages do not constitute external validation.
 corresponding fresh-history public commit on the repository `main` branches.
 Historical `a_org` and combined-gate values are not silently re-signed as
 current normative-source or present-state values. This revision is frozen by
-the immutable tag `v1.4-r21` with a two-environment clean-worktree replay
-manifest (`sim/runs/20261122_r21/validation.json`); the earlier tags
-`v1.1-r18`, `v1.2-r19`, and `v1.3-r20` are retained and the recorded R18
+the immutable tag `v1.5-r22` with a two-environment clean-worktree replay
+manifest (`sim/runs/20261123_r22/validation.json`); the earlier tags
+`v1.1-r18`, `v1.2-r19`, `v1.3-r20`, and `v1.4-r21` are retained and the recorded R18
 cross-environment replay failure is preserved. A version DOI requires Zenodo
 archiving of the current tag and is not yet minted, and the external-substrate
 power/validation program remains incomplete. The historical concept DOI does not
