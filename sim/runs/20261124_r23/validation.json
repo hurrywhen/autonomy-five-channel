@@ -1,0 +1,746 @@
+{
+  "artifact_version": "R23-editorial-frozen-source-validation-v1",
+  "source_commit": "90b89f737c2f69f7c5262873a350f520052aec1a",
+  "source_tree": "8eba649f496239fefdb6c69a52c30f15fdae28fd",
+  "r22_public_baseline": "c8e691be98a9516128b08d9e601055207c72a4b2",
+  "editorially_changed_files": [
+    "CITATION.cff",
+    "CONTENT-LICENSE.md",
+    "README.md",
+    "RELEASE_NOTES.md",
+    "latex/README.md",
+    "latex/SUBMISSION_MANIFEST.md",
+    "latex/appendix.tex",
+    "latex/main.pdf",
+    "latex/main.tex",
+    "latex/sections/sec_conclusion.tex",
+    "latex/sections/sec_experiments.tex",
+    "latex/sections/sec_framework.tex",
+    "latex/sections/sec_intro.tex",
+    "sim/CRITERION_VERSION_MAP.md",
+    "sim/README.md",
+    "sim/SPEC_experiments.md",
+    "sim/SPEC_tests.md",
+    "sim/runs/20261124_r23/PROVENANCE.md",
+    "sim/runs/20261124_r23/TECHNICAL_SUPPLEMENT.md",
+    "tools/make_r23_validation.py"
+  ],
+  "numerical_source_or_artifact_changes_since_r22": [],
+  "worktree_clean_before_and_after_commands": true,
+  "environments": [
+    {
+      "label": "env_A_default_threads",
+      "env_overrides": {},
+      "commands": [
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-q"
+          ],
+          "returncode": 0,
+          "seconds": 394.617,
+          "summary": [
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000002054 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(a, label=\"A_org\")",
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000005345 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(a, label=\"A_org\")",
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(raw, label=\"A_exec\")",
+            "----------------------------------------------------------------------",
+            "Ran 429 tests in 394.047s",
+            "",
+            "OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_x5c_r14.py",
+            "--out",
+            "runs/20261116_r14/x5c",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.247,
+          "summary": [
+            "X5-c read-only replay OK: 8 arms, overall=CONFIRMED"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_x5c_r14_stratified.py",
+            "--out",
+            "runs/20261116_r14/x5c_stratified",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.369,
+          "summary": [
+            "X5-c stratified replay OK: 24 rows, CONFIRMED, MODEL_SENSITIVE, D=0.089800"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_c0cf_r14.py",
+            "--out",
+            "runs/20261116_r14/c0cf_v2",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.261,
+          "summary": [
+            "/tmp/opencode/r23_public_frozen/sim/src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(raw, label=\"A_exec\")",
+            "C0-CF read-only replay OK: CONFIRMED"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r15_statistics.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 30.925,
+          "summary": [
+            "R15 statistics read-only check OK: 5760 historical arms"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r15_x5c_paired.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.193,
+          "summary": [
+            "R15 paired X5-c check OK: 2 strata, POST_HOC_PASS, max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r16_source_attribution.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.236,
+          "summary": [
+            "R16 source-attribution check OK: OR + three T=2 policies + mediation/bypass; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r17_weight_regions.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.445,
+          "summary": [
+            "R17 weight-region check OK: 22 unique contrasts, {'WEIGHT_DEPENDENT': 17, 'NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES': 5}; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r19_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 12.483,
+          "summary": [
+            "R19 joint audit check OK: exact anchors, immutable-input evidence binding, canonical optimizer coordinates, corrected state_autonomy_RNI, sampled negative controls, detection-limit semantics; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r20_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 29.162,
+          "summary": [
+            "R20 joint audit check OK: exact anchors, immutable-input evidence binding, data-driven in-certificate detection, real-interval propagation, three-state sensitivity, diagnostic plug-in separation, sampled negative controls; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r21_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 57.545,
+          "summary": [
+            "R21 joint audit check OK: exact anchors, immutable-input evidence binding, data-driven in-certificate detection, share-conditional conditioning disclosure, separated coverage semantics, joint-bootstrap diagnostic, three-state sensitivity, sampled negative controls; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r22_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 88.635,
+          "summary": [
+            "R22 joint audit check OK: unchanged R21 certificate/detection/controls, matched A/B/C descriptive contrasts, C reproduces R21, no causal attribution; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r17_native_benchmark import validate_result; validate_result(json.load(open('analysis_r17_native_benchmark.json'))); print('analysis_r17_native_benchmark frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.212,
+          "summary": [
+            "analysis_r17_native_benchmark frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r18_native_joint_audit import validate_result; validate_result(json.load(open('analysis_r18_native_joint_audit.json'))); print('analysis_r18_native_joint_audit frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.207,
+          "summary": [
+            "analysis_r18_native_joint_audit frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r19_sampling_study import validate_result; validate_result(json.load(open('analysis_r19_sampling_study.json'))); print('analysis_r19_sampling_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.169,
+          "summary": [
+            "analysis_r19_sampling_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r20_detection_study import validate_result; validate_result(json.load(open('analysis_r20_detection_study.json'))); print('analysis_r20_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.175,
+          "summary": [
+            "analysis_r20_detection_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r21_detection_study import validate_result; validate_result(json.load(open('analysis_r21_detection_study.json'))); print('analysis_r21_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.197,
+          "summary": [
+            "analysis_r21_detection_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r22_detection_study import validate_result; validate_result(json.load(open('analysis_r22_detection_study.json'))); print('analysis_r22_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.196,
+          "summary": [
+            "analysis_r22_detection_study frozen artifact integrity + anchors OK"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "env_B_single_thread_fixed_hash",
+      "env_overrides": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "PYTHONHASHSEED": "0"
+      },
+      "commands": [
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-q"
+          ],
+          "returncode": 0,
+          "seconds": 378.497,
+          "summary": [
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000002054 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(a, label=\"A_org\")",
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/di.py:278: NumericalBoundaryWarning: A_org=1.0000000000005345 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(a, label=\"A_org\")",
+            "/tmp/opencode/r23_public_frozen/sim/tests/../src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(raw, label=\"A_exec\")",
+            "----------------------------------------------------------------------",
+            "Ran 429 tests in 378.178s",
+            "",
+            "OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_x5c_r14.py",
+            "--out",
+            "runs/20261116_r14/x5c",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.181,
+          "summary": [
+            "X5-c read-only replay OK: 8 arms, overall=CONFIRMED"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_x5c_r14_stratified.py",
+            "--out",
+            "runs/20261116_r14/x5c_stratified",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.278,
+          "summary": [
+            "X5-c stratified replay OK: 24 rows, CONFIRMED, MODEL_SENSITIVE, D=0.089800"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "run_c0cf_r14.py",
+            "--out",
+            "runs/20261116_r14/c0cf_v2",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.142,
+          "summary": [
+            "/tmp/opencode/r23_public_frozen/sim/src/autonomy_sim/empowerment.py:228: NumericalBoundaryWarning: A_exec=1.0000000000000002 clipped to 1 within tol=1e-09",
+            "  return clip_unit_value(raw, label=\"A_exec\")",
+            "C0-CF read-only replay OK: CONFIRMED"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r15_statistics.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 31.309,
+          "summary": [
+            "R15 statistics read-only check OK: 5760 historical arms"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r15_x5c_paired.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.131,
+          "summary": [
+            "R15 paired X5-c check OK: 2 strata, POST_HOC_PASS, max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r16_source_attribution.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.158,
+          "summary": [
+            "R16 source-attribution check OK: OR + three T=2 policies + mediation/bypass; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r17_weight_regions.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 0.33,
+          "summary": [
+            "R17 weight-region check OK: 22 unique contrasts, {'WEIGHT_DEPENDENT': 17, 'NONNEGATIVE_DAMAGE_WITH_BOUNDARY_TIES': 5}; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r19_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 12.671,
+          "summary": [
+            "R19 joint audit check OK: exact anchors, immutable-input evidence binding, canonical optimizer coordinates, corrected state_autonomy_RNI, sampled negative controls, detection-limit semantics; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r20_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 31.834,
+          "summary": [
+            "R20 joint audit check OK: exact anchors, immutable-input evidence binding, data-driven in-certificate detection, real-interval propagation, three-state sensitivity, diagnostic plug-in separation, sampled negative controls; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r21_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 62.331,
+          "summary": [
+            "R21 joint audit check OK: exact anchors, immutable-input evidence binding, data-driven in-certificate detection, share-conditional conditioning disclosure, separated coverage semantics, joint-bootstrap diagnostic, three-state sensitivity, sampled negative controls; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "analysis_r22_joint_audit.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "seconds": 96.286,
+          "summary": [
+            "R22 joint audit check OK: unchanged R21 certificate/detection/controls, matched A/B/C descriptive contrasts, C reproduces R21, no causal attribution; max abs float diff=0.000e+00"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r17_native_benchmark import validate_result; validate_result(json.load(open('analysis_r17_native_benchmark.json'))); print('analysis_r17_native_benchmark frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.159,
+          "summary": [
+            "analysis_r17_native_benchmark frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r18_native_joint_audit import validate_result; validate_result(json.load(open('analysis_r18_native_joint_audit.json'))); print('analysis_r18_native_joint_audit frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.163,
+          "summary": [
+            "analysis_r18_native_joint_audit frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r19_sampling_study import validate_result; validate_result(json.load(open('analysis_r19_sampling_study.json'))); print('analysis_r19_sampling_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.134,
+          "summary": [
+            "analysis_r19_sampling_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r20_detection_study import validate_result; validate_result(json.load(open('analysis_r20_detection_study.json'))); print('analysis_r20_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.137,
+          "summary": [
+            "analysis_r20_detection_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r21_detection_study import validate_result; validate_result(json.load(open('analysis_r21_detection_study.json'))); print('analysis_r21_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.149,
+          "summary": [
+            "analysis_r21_detection_study frozen artifact integrity + anchors OK"
+          ]
+        },
+        {
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "import json; from analysis_r22_detection_study import validate_result; validate_result(json.load(open('analysis_r22_detection_study.json'))); print('analysis_r22_detection_study frozen artifact integrity + anchors OK')"
+          ],
+          "returncode": 0,
+          "seconds": 0.151,
+          "summary": [
+            "analysis_r22_detection_study frozen artifact integrity + anchors OK"
+          ]
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "ran": 429,
+    "passed": 429
+  },
+  "paper": {
+    "pages": 101,
+    "previous_pages": 105,
+    "page_reduction": 4,
+    "clean_build_text_match": true,
+    "ghostscript_all_pages": true,
+    "bibliography_database_entries": 115,
+    "bibliography_entries": 115,
+    "all_references_cited": true,
+    "figures": 6,
+    "title": "Autonomy as Determination by One's Own Normative Structure: A White-Box-First Five-Channel Audit Framework with Axioms and Conditional Theorems",
+    "author": "Wen Hu and Gong Zhang",
+    "float_too_large": false,
+    "undefined_references_or_citations": false,
+    "max_overfull_pt": 8.93814,
+    "max_overfull_limit_pt": 10.0,
+    "fonts_embedded": true,
+    "font_unicode_maps": true,
+    "font_count": 51,
+    "abstract_deversioned": true,
+    "geometry_font_figure_scaling_unmodified": true
+  },
+  "sha256": {
+    "latex/SUBMISSION_MANIFEST.md": "51a51e69bc8e9abac051ed72536d892aa9942e2cd3130127d0b4501ed22ee8a1",
+    "latex/appendix.tex": "36efe525f2b30dcbf6e1ef3abd60c5fce669631d48007400b49c4f379592b688",
+    "latex/main.bbl": "75d6e8fc2ed7bf4b16a8ba9b6dc67f721b66277488e22dd0078471d4ca5eec9f",
+    "latex/main.pdf": "275e0e1590dca9d794f27a8d751a7bffd704fbf48a9c1300530d6fc0a7c58123",
+    "latex/main.tex": "6729ead07648297c71f706417fbea5d76e246460a05b732b2a4307b3a39446b3",
+    "latex/refs.bib": "ee444e8400212e29e40f1595fb9fae6efcf6ba2c440b6917407179f02ad27de1",
+    "latex/related_work.tex": "c406747165d09786c61a1cd2bbb412c440b494cbaa0a1a057f61030372fe66ce",
+    "latex/sections/sec_axioms.tex": "afbc88c5a4cd12f386c0cd4b2ebc743c5814eb34d2b6505860cf64af94091cf6",
+    "latex/sections/sec_conclusion.tex": "ea18be7a7b2010e74298a877e4b2ce1258db5778835bc9d933b73220bcbeddf9",
+    "latex/sections/sec_discussion.tex": "5c6f0bc4b7ba7b0dfc4d98e1ac1ad769b0567dad7167f80d12f86f07e7b6bfed",
+    "latex/sections/sec_experiments.tex": "fcd9fa247c28b264d6a0c6cfc0112e9ebe1d84b448165cc92eae5579c720732a",
+    "latex/sections/sec_framework.tex": "3cd59503484c0abf5b659a1350357866cf2f946f1a67baeee9661daf9145d3b1",
+    "latex/sections/sec_identifiability.tex": "6abeafa02bd8ccb272355247ad97f2720e4503cfd9421f13acd55d463c133405",
+    "latex/sections/sec_intro.tex": "868f32d7c09bde27f25100ee919d234175c76fd2736301884a4b54afc489ae4e",
+    "latex/sections/sec_representation.tex": "3161c64933b4486b1a923219b4f9430ac2b7c163344dd2e3e89b78ec50d4664b",
+    "latex/sections/sec_theorems.tex": "413c448f54119026691c0ed87d1dd99e80d7865cef860883b223c50d1a6b0461",
+    "refs/manifest.md": "99c4ed19232c23e8ba115cefcd2056fd5ed6036f0351a23a49a37e944c8ba974",
+    "sim/CRITERION_VERSION_MAP.md": "c08d063e0ea3242b5dce06f4bab58e41d728e4c42de0a944567a680749d39eb6",
+    "sim/EXTERNAL_VALIDATION_PROTOCOL.md": "387c44c5ce17c3cf7a16308154d7c5b69cdc4cb2d349a93b7802f7c56f6f995f",
+    "sim/README.md": "4b67c5dc30172744acd3ebeb735fa5cf60661b20cb216c6857d0ae85c283f8ef",
+    "sim/SPEC_estimators.md": "a632beb44cb17bc73445c05d5bc205b63dcf823946ab9a0b51d445ea9a7f3abd",
+    "sim/SPEC_experiments.md": "ae44b9b7037d42b0975b9fe2a176e1e7b38f956b33af95b57526bfe92d1c4e0a",
+    "sim/SPEC_tests.md": "7e611f78595f8172ae68d8a696abf389d61001926db44a842fa4a60d4ec9949b",
+    "sim/analysis_r15_statistics.json": "87287071f145a04e45ff034155a905c9957349b79c262e5b3726b4cfd3938ee2",
+    "sim/analysis_r15_statistics.py": "9db4da8b94543c32f7f215f725b211a20f07878f0241ed842f01fb206497cd5f",
+    "sim/analysis_r15_x5c_paired.json": "1a7dfaa44c62e2790f5de9fc943191fbda35d7721b4cd73671bf86d9cace1ddf",
+    "sim/analysis_r15_x5c_paired.py": "043925f4d7940738d53ece4e94dffb22d4cf702d65f71a55da25a533539d3794",
+    "sim/analysis_r16_source_attribution.json": "771471a57be877e7cf7edf74146db856d1a0bc1ea95e9ccf45ab4a51a3724147",
+    "sim/analysis_r16_source_attribution.py": "92168d2dd384b819a7138f10b21439beff3b11f739a9b5b6a35af2055904eaca",
+    "sim/analysis_r17_native_benchmark.json": "4137ee272685a7a0976d2647350e6e4430960ae991b9f78956e48fa5fe01a322",
+    "sim/analysis_r17_native_benchmark.py": "823ac3db9defcb777c38dee07d60d2505033f12889b470c4dea861dc1f8cecd7",
+    "sim/analysis_r17_weight_regions.json": "7f1f1d03546650fadd53ab11d4c6d3a04a990ed78cec9062e5b3e8d54634e96e",
+    "sim/analysis_r17_weight_regions.py": "c927f854c7cadb5ac6de250d592565d2c4cfd33dd9877ecb005127de25163bdc",
+    "sim/analysis_r18_native_joint_audit.json": "29b0ec969227aefd148c46a59ce0c603a5b19490c00baf7afa2057043d3cc506",
+    "sim/analysis_r18_native_joint_audit.py": "5bef01354806a04d59da8a2a06b823c529a5ab9a7a759e8a901c0cc3ca9b40c5",
+    "sim/analysis_r19_joint_audit.json": "960784d8b45f1af0048a744f0c7285c813cd48e669e4b9eb1f50ba37995b29d8",
+    "sim/analysis_r19_joint_audit.py": "41421e45fca098ca6b6de44841911cf1da5e4bf8f7440ac96a3a5066b1598968",
+    "sim/analysis_r19_sampling_study.json": "c0bcb791f2ae73be526ffa906d44124723a9f58378a9a5de80cf5af45897d751",
+    "sim/analysis_r19_sampling_study.py": "c83be341660018a4119c8bf1d61805b5fe93509ce2284db6cdd13010f9ccfd86",
+    "sim/analysis_r20_detection_study.json": "a1ef96ca6f0431bb1934ffc06e27ce020046c69353ffa8c0bacbf07ca96c8676",
+    "sim/analysis_r20_detection_study.py": "5190abea7113d1fa96e662a6c28cf82968b66dad165b935f94fe943d3c3bfb52",
+    "sim/analysis_r20_joint_audit.json": "55f7d510ea0b4f65da92612ec8cf6a85d693c8b7d4ab1d832d1b7fd8c401a4ad",
+    "sim/analysis_r20_joint_audit.py": "9a53a620e26659b554a9f4c2b84c3b1fe517df9db6d779a1c1a7349eda529c3d",
+    "sim/analysis_r21_detection_study.json": "2ae683c5aaf5f748ff46599d66f5eeb0f66b386e13f3ce9b62e9a5a217c024d6",
+    "sim/analysis_r21_detection_study.py": "606abe9b640b1fe43ca33948799fd2a4e4712027346115403d052c784cc16837",
+    "sim/analysis_r21_joint_audit.json": "a0ffab62ae6cd0b45f65647bab03753553e8d3b87085f59fdb2a4ecd43594500",
+    "sim/analysis_r21_joint_audit.py": "fc1a5ea72fda620721b7fe04e081dba4444bca61a385cecb5220db1adc072fa0",
+    "sim/analysis_r22_detection_study.json": "73dbdd140f5c8327d43a2d905463f97e05f15360254f5ed6c6b17eac6ca8cec6",
+    "sim/analysis_r22_detection_study.py": "5572f9a9b45b3b4a2920a8b45d469f2edb66e8c5649fb03648dfe82957738f6f",
+    "sim/analysis_r22_joint_audit.json": "21419a51e80b846a4c10907516b285584c4c852652756eff4cfb01bf9037f46e",
+    "sim/analysis_r22_joint_audit.py": "77ec78524bec8896176e46104cfd3c0cfe511679e48c11b6da0aa6ae229dc1f1",
+    "sim/runs/20261117_r15/validation.json": "0ea05f2f824b093457a149d6aeb1f6b57e77fa13cb7d9c6534a335b710dc08f6",
+    "sim/runs/20261117_r16/validation.json": "c015bb17c3390c5327840f687cee1e90c5c1429004292144021c88f726e12c2b",
+    "sim/runs/20261119_r17/PROVENANCE.md": "98162b96d92cf0374326ae74204e3ba1fcc0082a61b46f83c7f0a985afad457f",
+    "sim/runs/20261119_r17/validation.json": "cb909090c4aff30d0f9a0c54a2d2924119e01a88686433a2d428b58cecfe6a00",
+    "sim/runs/20261121_r18/PROVENANCE.md": "5cb9ec8bae2359f426830085692dfe3e9e4445f2e774de414d17772f00bbc451",
+    "sim/runs/20261121_r18/validation.json": "a8ffb05e77b3e12b53f2f0c49186b24b1c4811b1a2918b6e45745f65d430683f",
+    "sim/runs/20261122_r19/PROVENANCE.md": "0f13d8af737328d3b3aa1e35fc43aa80d7d644dd89818221091d2fdf56052011",
+    "sim/runs/20261122_r19/REPLAY_FAILURE_R18.md": "b04bdb87c430c8b4fe4cd170f4b6a59d4a7dce41e207dc35e2e438ed2be868f9",
+    "sim/runs/20261122_r19/validation.json": "3a7383a3c5761d99bc42891f4ba228b0decd35d6ec816d3ded02fe469be3de7a",
+    "sim/runs/20261122_r20/PROVENANCE.md": "cdf582cf7c61ccb4e05c9c754eb986debc6cf11d71b536a0a166d18ddf30a017",
+    "sim/runs/20261122_r20/validation.json": "e2603bf2a6387a63f70218f407da7c8a8dea69ea3a437ca596d876ddefe60c4c",
+    "sim/runs/20261122_r21/PROVENANCE.md": "c601e3584041b20bbd9c2d1661e0e760a669ef2e228c37ebfce981ac20c4607e",
+    "sim/runs/20261122_r21/validation.json": "1f495944da9ef79c8f0d379b94665ba134de4b7a6da8597882d58571be399628",
+    "sim/runs/20261123_r22/PROVENANCE.md": "9b427ee8cf41856e158ae144bd17eadc5afcb97024383af7374d6f7a0d6ade8c",
+    "sim/runs/20261123_r22/validation.json": "3f87bc536b92df8e8cf7ec0d273714fa2e43eaeef9d7c48f6da701718a0075f0",
+    "sim/runs/20261124_r23/PROVENANCE.md": "03c7d02e104beebefeb67fb5ecd64c6e6a705f2ddb00e9eb664404a4b7627747",
+    "sim/runs/20261124_r23/TECHNICAL_SUPPLEMENT.md": "353c16a5b8a737de63cb8b7634ffeb32bdeb9f9cb38e81394a1c1c0368c10707",
+    "sim/src/autonomy_sim/__init__.py": "742ebe93a85718bb28ed161f08ffe6a9ceccc5783c3b62bc7619aa292f20f49e",
+    "sim/src/autonomy_sim/aggregate.py": "634fa8a16a4d3db20ec54c8b675873500e470443ddb20db52ddc0a748c7ca6af",
+    "sim/src/autonomy_sim/attack.py": "fe53e260c133b44acbdbe8a01855cb23dbf0a175f537138231b7e1a944f6cbbb",
+    "sim/src/autonomy_sim/blackbox.py": "59638ed33a46d7f539ed255334d41daa41a200d3b984558b1be5ea31f8cfa892",
+    "sim/src/autonomy_sim/c0_witness.py": "9fff5b6a63c2e16ab88cd397abdecda6511bda3fd6e65b1b76ec955399c4a98d",
+    "sim/src/autonomy_sim/components.py": "a4ca2249854faaa260a9d4a0a53ddd7faac3242545ab406211c4c9b80b03195e",
+    "sim/src/autonomy_sim/counterfactual.py": "2682865720fac830dd195b2fdc12112c9a3c60256a3aab8a47f5548c53b27d09",
+    "sim/src/autonomy_sim/delegation.py": "ed49946fa792fbc680ffe996fe6b6c7f26d639e1f5b96e0360c502f6d8aa44a4",
+    "sim/src/autonomy_sim/di.py": "bac838d3ab454597dc2cc5c5f4f76a0a21a0f386af8a50a853af258f4baef465",
+    "sim/src/autonomy_sim/dynamics.py": "e2a71c3701969ecf42e43ecdbb203f3cc27de81a09705a0318b17dd8607936db",
+    "sim/src/autonomy_sim/empowerment.py": "60069699a7a61e7397e274e47b4603c8c3a9259aeaf2f71a30e8e12417edd2a0",
+    "sim/src/autonomy_sim/env0.py": "b14a99b3b5b67c634b8ae04a36f5ad8c1801cac30f47d67f193d6005d9d23ca1",
+    "sim/src/autonomy_sim/estimators.py": "7f694799397f302f341ed9e65ccde3311fab6c04ac60b2d389ab0e09dee78f2a",
+    "sim/src/autonomy_sim/fixtures.py": "afeb2a2fd86abea5c312cb8c8884f2c7591aa3d201bb5d18af90df0fbca2bd91",
+    "sim/src/autonomy_sim/formation_audit.py": "a42ca1a04f6570960531dd8aba0f2a90839dc45a1243802c20dc8d9a9644406d",
+    "sim/src/autonomy_sim/graph.py": "f5c4f951bad72ac9090b7fa0b75d25f40a1d4a76186b0e304989b29485ecf249",
+    "sim/src/autonomy_sim/interventions.py": "21259b67a4d7ecadcd9339adc0cccb2eeb43e8d34554be0781b136624c37783c",
+    "sim/src/autonomy_sim/logschema.py": "af68f5920091d999968d244a4d0267de1954f4a8a6690c5041cb66cd2b2c2e9c",
+    "sim/src/autonomy_sim/matrix.py": "0d06833d01cbb04d9438b90e7ad657fa4b5e3e2c890e281e156198be522ed86f",
+    "sim/src/autonomy_sim/native_benchmark.py": "cfbe82c8c6ac1599083fd19ca1ddeb672688a6075890d8404d70ea06db34f173",
+    "sim/src/autonomy_sim/native_joint_audit.py": "d743d78ad70ff32f78d6d4d354254586cd769836b2b36ed4b4375f718bc6e4e9",
+    "sim/src/autonomy_sim/numerics.py": "32790709d9262f21fbe6a4478469384722ce8c724992cf046c1d8f862e98f548",
+    "sim/src/autonomy_sim/open_loop_execution.py": "e6aa13de190441c9ed4cfade1ef47e4f92b1efc5fc9c1cd577170a22d952bd96",
+    "sim/src/autonomy_sim/propagate.py": "2bcb7cdb809ce7b80f939490cbbd8516e00bdfab43de00bb446099de774b6ab4",
+    "sim/src/autonomy_sim/r15_guards.py": "b652bc8d1c26b11d291ad7d3aba20760ea3de9a43b4c2f713f81ed77931722f1",
+    "sim/src/autonomy_sim/r17_guards.py": "45af0427f886a13401a1e2a6c0bd3e71cf49234b9faad9d1eafa5fe1ac5ce357",
+    "sim/src/autonomy_sim/r18_guards.py": "3cf0ef20a575dcaa2fc98ab6b28c4a8d5bce842d68f045af94dbbddd0eb4dfc4",
+    "sim/src/autonomy_sim/r19_guards.py": "27255cc63cedc862c76781166a76802f1244297b798dc74740e36f97e2520faa",
+    "sim/src/autonomy_sim/r19_joint_audit.py": "3a85d5a50cf7a0c5c340f427f2281f7c3b451f0d3187f9e75b4f62fc3880fdbe",
+    "sim/src/autonomy_sim/r20_detection.py": "0581d182852df11fc1cb33b927d442745b85931a2d321596f702dfcac91f1d29",
+    "sim/src/autonomy_sim/r20_guards.py": "3232b3b681d0772b9df7b099d7f70f5576523aa23dcbc07fb5145dd7d8af6352",
+    "sim/src/autonomy_sim/r20_joint_audit.py": "651f707da8d8d0d15db804f19d5072d121ef0b35756ce1d8031b4acaeefffb53",
+    "sim/src/autonomy_sim/r21_guards.py": "8b3e78ac83e813b9d65311a4e167b91ac2e42c7257c22aa4e7266a1073587d9c",
+    "sim/src/autonomy_sim/r21_joint_audit.py": "79fb20069ca710a3d1d406b01461403324f3866dc5825cece2f37dc95c4568ee",
+    "sim/src/autonomy_sim/r21_joint_bootstrap.py": "d4906d6979b98be71dfd921f1b8a4329109a10c1de3ea0d1734ed93c68038759",
+    "sim/src/autonomy_sim/r22_interval_contrast.py": "c59cea451d1de9b3c91c22c11826aa48596062d7786da7d43bb1102d2de2f003",
+    "sim/src/autonomy_sim/rng.py": "0a9819406f0d8b92a03cc7cc11bbc7e78b2fc5cfaf16ea7a0624710f0a14ce51",
+    "sim/src/autonomy_sim/scenarios.py": "e7af994372aede61b15142f0d79677d3a9739f47988cbb9e0c2fc6466a59a42a",
+    "sim/src/autonomy_sim/simulate.py": "dd95cc23ab1efbc3b5552a33ec79bb6559d487c9a85fad95e08c46aa004c9812",
+    "sim/src/autonomy_sim/source_attribution.py": "9614d76d2300f0751778cd373e5f07b74bc1b147c9cb690e4975ac1ce23cb542",
+    "sim/src/autonomy_sim/stats.py": "eedffe1a9465178374ad596ca042189ef5bcc2e173cc6584fccb4b7cadd90b12",
+    "sim/src/autonomy_sim/wiring.py": "408d773d12695f47ef7b229d34d22a52834797cb3ab11e6b70222992364382b2",
+    "sim/tests/test_l0_foundation.py": "d33f4833405cfa792fa356ada444d4a506be4e5d297d5a2d354bd16462702031",
+    "sim/tests/test_l1_aggregate.py": "392c5a0c81f32d7fab1a02f544af560aa1a10d331e75d4ae2f7b89d869d249b4",
+    "sim/tests/test_l1_components.py": "6c0638f1f735921897c5ad7dd824b4715774e3ef2647c14984effcc6548769d6",
+    "sim/tests/test_l1_coverage.py": "c76645f649ea92ec30456ffcd02e2c12d9052ef004372035035dd9a47612fca3",
+    "sim/tests/test_l1_deleg_blackbox.py": "16e8041a15998395f43bfc3e6d33e31c8f13108dd17e00da5e265a7676f0305c",
+    "sim/tests/test_l1_di.py": "77b8b51b786650f85f24a3df552aa48c9cc7b264494f7e601816149e11819da3",
+    "sim/tests/test_l1_dynamics.py": "476bf6ce346b36703500ec772d2a1ac75232b66f43974e5682d77e25c7ca474a",
+    "sim/tests/test_l1_estimators.py": "0362ad24aaa0fd4629426cc7addde73296f7b4be17a075a8e6f25b5dceb95adf",
+    "sim/tests/test_l1_r11_counterexamples.py": "00d870c8f169f7f2dc74b06878dcfc008b59b03b6659a6928e18152c31037ab0",
+    "sim/tests/test_l1_r12_counterexamples.py": "f668141c495ce8d6ddb56a2ddff38ccc20d4c3edfce424dc88b47d2d815a9fd8",
+    "sim/tests/test_l1_r13_counterexamples.py": "befe51bfcd62b5a1438720167e10ebdadf8f0407662ff68b846a481558fb6f00",
+    "sim/tests/test_l1_r14_counterexamples.py": "ecfb8bd6279c556e8c0d8d3f51fa1cd3c40dbfcd91a8f59513a056da92d4a73b",
+    "sim/tests/test_l2_bb2.py": "c90dbb4d9a6716755be114deb91d54e7dbd938001ae4dadc14298e56160492e6",
+    "sim/tests/test_l2_env0.py": "e5027bf96a2079143b1698582fc9a43ecee6a30fd95f5670d05e96fccdcb37e8",
+    "sim/tests/test_l2_p3.py": "99dd96f72b3195a88a0bfb4eb59ea841bf20b885d3076e55a7b9ffc3458482d6",
+    "sim/tests/test_l2_refinement.py": "0a0b7a2ff0a25d58fdada0df8e0f34be267e9142510799979f9ab069ff196f71",
+    "sim/tests/test_l2_scenarios.py": "99abb93137ee1ae67922700a9626df7b19210e75c8bdac5fb5566e5efcc7e742",
+    "sim/tests/test_l3_matrix.py": "370057aa95541cfe411cdff7ec258a4548651ea3392c63bf09aae9cec243a8fb",
+    "sim/tests/test_r14_artifacts.py": "779ead3f4426dd3992fb369848f4dc06d081f358951da68cccfe89685644e9ad",
+    "sim/tests/test_r15_reviewer_counterexamples.py": "e4f2b34534d71037d5afdf676271d00d5ce62c010cd552a4d71cf416cdb0cfee",
+    "sim/tests/test_r16_analysis_replay.py": "01993d5dbe22225ef9a2027dec301a7e5e1c7691bdccb548f250d2670821060c",
+    "sim/tests/test_r16_certificate_guards.py": "7fdeca32d6468aaee6882fc3d05e83552da303637441d6b5c24945737f44e3d8",
+    "sim/tests/test_r16_source_attribution.py": "964b73c3d673feade026823fb20d45621674af18ea0e2c224843d00c2466ce21",
+    "sim/tests/test_r17_formation_certificate.py": "3aebd04cc1bd797e5bc8371a57d41fc2088a2256ef78d361765f30cccc4af6b8",
+    "sim/tests/test_r17_native_benchmark.py": "9edebce3dafc4f681c64763d567227db2bbc203506f990151205aff3b73b0553",
+    "sim/tests/test_r17_open_loop_execution.py": "9d2ebb056c54a4abace3a9795300bff008c04d8b9eae4b4b6a0c8d5d7e78ee77",
+    "sim/tests/test_r17_weight_regions.py": "97beb9cb72c4ab151063e2f717388fa022e78be21700ac55ed02a4168ece3678",
+    "sim/tests/test_r18_certificate_profile.py": "0f948082398e56fc269137a6d6a321f781d6485580fd734337edbcf55f44ad3e",
+    "sim/tests/test_r18_native_joint_audit.py": "342ea2e2ba759b3ac1684d1970ac0b01159d6de6de0b0d9376fc6c6b593a2682",
+    "sim/tests/test_r18_open_loop_conventions.py": "e2ccba222f463402fc6fea39f5bae793514d972fe66a42c64614dea3cd01559b",
+    "sim/tests/test_r19_certificate_schema.py": "537285a9eac1d0f4b268307e6fb5c955db135e1d50898fd477318f455c769843",
+    "sim/tests/test_r19_joint_audit.py": "f46f183e25f9afe68ed9065a42590a3de27f0143f16dd895902afd46696b8bc8",
+    "sim/tests/test_r19_numerical_reproducibility.py": "de464f5d97a8f7f3d7911f78b7fc6bdac42cbe300701e7995c7f692fc4169490",
+    "sim/tests/test_r19_sampling_study.py": "90bfc61484c4decf9e3a36e48344abd2a2ece44f64379941eb365910f6362763",
+    "sim/tests/test_r20_certificate_schema.py": "79e093b5599c6215344b295af9bc20df7ec393a59c428d9a77e1b598540afc8a",
+    "sim/tests/test_r20_detection_rule.py": "e85f47c15b350d74a2a60a8907a0aa76c73a8912ad283df5a7a37f70a4f5d3b0",
+    "sim/tests/test_r20_detection_study.py": "450a5ebc70983c45359d021ec20ea7a423cdd394e7802154272040f4267d4bfa",
+    "sim/tests/test_r20_joint_audit.py": "b1764022b18844782a28ed847aec0625cbad99c579bc01db0abe41ccc9b090da",
+    "sim/tests/test_r21_certificate_schema.py": "9d5d29fb93f9f8ebb9cc1c095573d5caf37401c1c27523e79068939791388235",
+    "sim/tests/test_r21_detection_study.py": "d2008c26b81c496a9c5e18095c1146b9f4356c7d6a09ecf92d85909e1bfbaad1",
+    "sim/tests/test_r21_joint_audit.py": "6725a30b81d3aad777afe7f2d098647ca4de0ab7c1d414e173d9528c41a32ab4",
+    "sim/tests/test_r21_joint_bootstrap.py": "717bbdcb3f1481760cc4a188d6745599803fdb7fa09bfc613ff1c69f3f86229f",
+    "sim/tests/test_r22_detection_study.py": "ee041c5f6bb36ab1b3ebd5a78196812f55a934fb33ade29ba1747b0cd40d864a",
+    "sim/tests/test_r22_interval_contrast.py": "fa4ece70239a273cdc816ac809952f1b6cadbb31f762358e4f4085067b137e7d",
+    "sim/tests/test_r22_joint_audit.py": "e1bcce6d2ad0922d058711d1072f8740cd9ddbc894baa809b3442b529ae9bc30",
+    "sim/tests/test_report_r13.py": "712b41d692e57dc0ffddc27c05509a929426dbc3b5e3532eed6e96cd46b442fb",
+    "sim/tests/test_report_r14.py": "77eb94ab58190abe99f2929f005a1212e9c9e008ba8df409f6a9cf99a2e4796b",
+    "tools/make_r17_validation.py": "8a59d7e17973dff67cb273d2e22b6969d0faf9c0fc334397219ecaf6cea3be23",
+    "tools/make_r18_validation.py": "dee8c6b27ca26ec3b479e70108338305c8ff280c7bb0552a6512d639234216a9",
+    "tools/make_r19_validation.py": "552be6db6f9cdaf1bfed688754b3dc38d6a6ddb788c3cdd2f0876fa6aef36949",
+    "tools/make_r20_validation.py": "3290ee96ceb62f971f9214e88f135dc4375a7a990d3b22213c810d418cda1da9",
+    "tools/make_r21_validation.py": "bf3b288b55595b1e51b6c29713817153ce5bf717f6e010f5a36cbd6251dfcc40",
+    "tools/make_r22_validation.py": "ef11f8b6a615e734c24597681727729cd85ee5c6eb46a5792ce94b76147ecd78",
+    "tools/make_r23_validation.py": "59315383081cb941efbf2fe53b69cb59e44b20de357afd4a0f6f3c8d9dd6fe0a"
+  },
+  "scope": {
+    "editorial_only": true,
+    "theory_or_certificate_changed": false,
+    "numerical_source_or_artifacts_changed": false,
+    "historical_r11_r22_files_modified": false,
+    "r22_two_environment_full_grid_validation_inherited": true,
+    "r23_full_detection_grids_recomputed": false,
+    "frozen_detection_artifacts_read_only_validated": true,
+    "stable_joint_and_statistical_replays_in_two_environments": true,
+    "environments_differ_in_thread_hash_not_platform": true,
+    "r18_cross_environment_replay_failure_recorded": true,
+    "matched_A_B_C_content_retained": true,
+    "descriptive_interval_method_contrast_not_causal_attribution": true,
+    "withdrawn_causal_phrases_absent": true,
+    "external_validity_boundary_explicit": true,
+    "cross_substrate_construct_validation": false,
+    "universal_interval_coverage_claim": false,
+    "statistical_consistency_claim": false,
+    "real_llm_or_human_external_validation": false,
+    "deployment_ready_tool_claim": false,
+    "cross_substrate_measurement_standard_claim": false,
+    "external_protocol_executed": false,
+    "external_sesoi_or_power": false,
+    "independent_investigator_replication": false,
+    "version_doi": false,
+    "immutable_tag": "v1.6-r23 (created on final synchronization commit)",
+    "formal_release": false,
+    "technical_supplement_public": true,
+    "historical_numerical_tables_relocated_not_deleted": true
+  }
+}

@@ -12,8 +12,8 @@ R22 was assessed as ready for acceptance with editorial finishing only. R23 make
 | Item | Value |
 |---|---|
 | R23 development-source commit | `7fa15e354399b43c328e59b1b7bc5a2ff53c5b59` |
-| R23 public content commit used for clean validation | `R23_PUBLIC_CONTENT_COMMIT` |
-| Validated public source tree | `R23_VALIDATED_TREE` |
+| R23 public content commit used for clean validation | `90b89f737c2f69f7c5262873a350f520052aec1a` |
+| Validated public source tree | `8eba649f496239fefdb6c69a52c30f15fdae28fd` |
 | Final public synchronization commit (tag `v1.6-r23` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object and development R23 release record |
 | R22 accepted public baseline | `c8e691be98a9516128b08d9e601055207c72a4b2` (tag `v1.5-r22`) |
 | `latex/main.tex` SHA-256 | `6729ead07648297c71f706417fbea5d76e246460a05b732b2a4307b3a39446b3` |
