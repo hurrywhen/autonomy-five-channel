@@ -1,5 +1,45 @@
 # Release Notes
 
+## R23 editorial finalization — 2026-11-24 (`main`, immutable tag `v1.6-r23`)
+
+**Paper:** `latex/main.pdf`, 101 pages, 6 figures, 115 cited references.
+**Authors:** Wen Hu and Gong Zhang.
+
+R22 was assessed as ready for acceptance with editorial finishing only. R23 makes **no scientific or numerical change**: theory, proofs, estimands, certificate schema, detection rule, A/B/C construction, estimators, tests, simulation inputs, numerical outputs, negative controls, and R11--R22 artifacts are unchanged. The article is explicitly positioned as a conditional conceptual and mathematical audit framework with executable model checks, not a deployment-ready tool or cross-substrate measurement standard. It does not claim cross-substrate construct validity, universal interval coverage, statistical consistency, or real-LLM/human external validation. This editorial revision is frozen by immutable annotated tag `v1.6-r23`; no formal Release page or version DOI is claimed.
+
+### Development-source and frozen-content provenance
+
+| Item | Value |
+|---|---|
+| R23 development-source commit | `7fa15e354399b43c328e59b1b7bc5a2ff53c5b59` |
+| R23 public content commit used for clean validation | `R23_PUBLIC_CONTENT_COMMIT` |
+| Validated public source tree | `R23_VALIDATED_TREE` |
+| Final public synchronization commit (tag `v1.6-r23` target) | The commit adding this validation sidecar; its SHA is recorded by the annotated tag object and development R23 release record |
+| R22 accepted public baseline | `c8e691be98a9516128b08d9e601055207c72a4b2` (tag `v1.5-r22`) |
+| `latex/main.tex` SHA-256 | `6729ead07648297c71f706417fbea5d76e246460a05b732b2a4307b3a39446b3` |
+| `latex/main.pdf` SHA-256 | `275e0e1590dca9d794f27a8d751a7bffd704fbf48a9c1300530d6fc0a7c58123` |
+| Public tag | `v1.6-r23` (annotated; created on final synchronization commit) |
+| R23 version DOI | **Not minted** (requires actual Zenodo archiving of `v1.6-r23`) |
+| Historical archive | `v1.0-r10.1`; concept DOI `10.5281/zenodo.23608751`, which does not archive R23 |
+
+`sim/runs/20261124_r23/validation.json` records the exact clean editorial content commit, tree, both environments, and scientific-source hashes. The validator requires zero changes since R22 under `sim/src/`, `sim/tests/`, `sim/analysis_*.py/json`, and every historical run directory through R22. Two clean environments run **429/429 tests** and stable R14--R22 statistical/joint replays; R17-native, R18, R19 sampling, and R20--R22 detection artifacts receive read-only integrity/anchor checks. R22's completed two-environment full-grid numerical record remains authoritative and is inherited; R23 does **not** claim to rerun those grids. The two R23 environments are same-platform thread/hash variants, not cross-platform or independent-investigator replication.
+
+The independent paper build verifies 101 pages (R22: 105), extracted-text equality, all-page Ghostscript parsing, all 115 bibliography entries cited, 6 figures, embedded Unicode-mapped fonts, complete metadata, no undefined references/citations or oversized floats, and maximum overfull at most 10 pt (actual 8.93814 pt). Font, geometry, bibliography size, and figure scaling were not used to reduce pages.
+
+### Editorial changes
+
+- **Noncausal A/B/C interpretation retained.** B/C remains a matched-percentile channel-propagation contrast, A/B an interval-construction contrast, and A/C mixed. B-miss/C-cover is not a conditional-design effect; both-miss is not a plug-in-bias effect. Source-share bias, other-channel estimation error/covariance, and interval construction remain possible sources. Matched A does not replace original certificate A; envelope containment is not statistical coverage/recovery.
+- **External-validity boundary made explicit in abstract, introduction, and conclusion.** T7 remains INCONCLUSIVE, X5-c MODEL_SENSITIVE, and failed/post hoc criteria remain visible. Independent substrates, domain SESOI/power, external execution, independent-investigator replication, and selector-conditional DEL-1 remain outstanding.
+- **Version chronology removed from scientific exposition.** Current rules and results are stated directly instead of recounting R17--R22 repairs. Complete R11--R22 history remains in `sim/CRITERION_VERSION_MAP.md`, these release notes, and all read-only provenance/failure records.
+- **Public technical supplement added.** `sim/runs/20261124_r23/TECHNICAL_SUPPLEMENT.md` preserves the historical estimator table, quantitative anchors, log-domain bookkeeping shares, older weight batteries, X5-c protocol details, registry arithmetic, 11-field native log schema, and R18 numerical-failure/repair explanation. Nothing is deleted from the public evidence chain or promoted to a new evidence grade.
+- **Honest article compression.** Repetitive certificate inventories, old software validation details, duplicated external-protocol text, and registry arithmetic are condensed or relocated. The current native audit, A/B/C formulas/table, multi-seed study, key counterexamples, negative controls, construct-validity limits, and external falsifier remain in the article. Pages decrease 105 → 101 without formatting contraction.
+
+### Evidence boundaries
+
+R23 is editorial only, not a new experiment, external construct validation, universal-coverage proof, statistical-consistency result, deployment certification, or cross-substrate standard. Independent substrates, domain SESOI/power, outcome preregistration, independent-investigator replication, selector-conditional DEL-1, general MaxEnt-IRL, deployment middleware, more SCMs, Lean, Chinese synchronization, and the three unavailable R14 run-time SPEC snapshots remain outstanding. Internal node-b hot backup is not asserted to be refreshed. No third-party bibliographic PDFs or internal review archives are redistributed.
+
+---
+
 ## R22 public source synchronization — 2026-11-23 (`main`, immutable tag `v1.5-r22`)
 
 **Paper:** `latex/main.pdf`, 105 pages, 6 figures, 115 cited references.

@@ -118,7 +118,7 @@ with Axioms and Conditional Theorems}
 Nanjing University of Aeronautics and Astronautics, Nanjing, China}}\\
 {\small\textsuperscript{2}Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China}\\[3pt]
 {\small Email: \texttt{huwen@nuaa.edu.cn; gzhang@nuaa.edu.cn}}}
-\date{23 November 2026}
+\date{24 November 2026}
 \maketitle
 
 \begin{abstract}
@@ -150,41 +150,35 @@ A legacy $4{,}620$-run campaign supplies implementation and same-model checks.
 A small native multi-step benchmark audits the current estimands from one
 joint trajectory-log batch of a single registered SCM, with a separate
 precommitted open-loop execution stream as the estimand requires, including
-sampled surgery and action-decoupled negative controls. Certificates are
-layer-aware (L0 internal-causal reports are not forced into L1 attribution
-conventions) and carry explicit DEFINED/INTERVAL/UNKNOWN/NOT-APPLICABLE channel
-states: point and interval certificates are separate modes, and composite
-intervals propagate the declared input intervals by coordinatewise
-monotonicity, with each interval marked as exact, logical envelope, or
-sampling. Above-detection-limit composite sampling intervals are
-\emph{share-conditional}---only the source-share interval is propagated, the
-other channels fixed at points---and carry an explicit conditioning scope. A
-supplementary matched trajectory bootstrap compares basic versus percentile
-interval constructions and fixed versus jointly resampled channel propagation
-on common replicates; these are descriptive method contrasts, not a formal
-decomposition of under-coverage into conditional-design and plug-in-bias
-effects. Logical-envelope anchor containment is reported separately from
-sampling coverage, never combined. Near-zero detection is a
-declared data-driven rule inside the formal certificate (bias-corrected
-bootstrap interval vs.\ a post hoc frozen internal limit;
-below/above/indeterminate states), never a truth-triggered annotation; on the
-registered instance the honest data verdict for the near-zero NRI convention is
-\emph{indeterminate} at $n=8{,}192$, reported as a conservative envelope while
-the plug-in composite stays a labeled diagnostic.
-Order and semantic-partition sensitivity use a confirmed/indeterminate/not-
-evaluable status system---identical wide intervals are never read as
-agreement---with flags only on confirmed separation under post hoc frozen
-internal thresholds. The exact RNI, NRI, and order-average composites
+sampled surgery and action-decoupled negative controls. Layer-aware
+certificates carry explicit channel states, separate point/interval modes,
+coordinatewise interval propagation, and exact/logical-envelope/sampling kinds.
+Above-limit composite intervals are \emph{share-conditional}, with other
+channels fixed at points. A supplementary matched bootstrap compares
+basic/percentile constructions and fixed/joint channel propagation on common
+replicates; these are descriptive method contrasts, not a formal decomposition
+of under-coverage into conditional-design and plug-in-bias effects. Envelope
+containment is separate from sampling coverage. Data-driven near-zero detection
+uses a bias-corrected bootstrap interval and below/above/indeterminate states,
+never a truth-triggered annotation. The registered NRI verdict is
+\emph{indeterminate} at $n=8{,}192$, with a conservative envelope and the
+plug-in retained only as a diagnostic. Order and semantic sensitivity use
+confirmed/indeterminate/not-evaluable statuses---identical wide intervals are
+never read as agreement---under post hoc frozen internal thresholds. The exact RNI, NRI, and order-average composites
 ($0.4609$, $0.0004$, $0.4012$) are model anchors, not finite-sample
 recoverability claims: multi-seed studies show plug-in bias amplified by the
 geometric composite prevents recovery of the near-zero endpoint. Evidence
-hashes bind immutable raw logs, not non-unique optimizer coordinates. This is
-internal concept validation, not external construct validation. X5-c remains
-model-sensitive, T7 remains inconclusive, and failed or post hoc criteria
-remain visible. Independent substrates, a domain-justified SESOI and power
-analysis, and external execution remain outstanding; the engineering
-equivalence/non-inferiority margins are design-frozen, and an archival version
-DOI is still pending.
+hashes bind immutable raw logs, not non-unique optimizer coordinates. The
+contribution is a conditional conceptual and mathematical audit framework with
+executable model checks, not a deployment-ready tool or cross-substrate
+measurement standard. It establishes neither cross-substrate construct
+validity, universal interval coverage, statistical consistency, nor external
+validation of real-LLM or human autonomy. X5-c remains model-sensitive, T7
+remains inconclusive, and failed or post hoc criteria remain visible.
+Independent substrates, a domain-justified SESOI and power analysis,
+independent-investigator replication, and external execution remain
+outstanding; the engineering equivalence/non-inferiority margins are
+design-frozen, and an archival version DOI is still pending.
 \end{abstract}
 
 \paragraph{Keywords} autonomy; agency measurement; directed information;
@@ -193,40 +187,25 @@ indicators; identifiability; benchmark
 
 \paragraph{Data and code availability}
 \begin{sloppypar}
-The historical ENV-0 platform, seed-derivation protocol
-(Appendix~\ref{app:counting}), manifests, auto-generated report, full
-4,620-run archive (\texttt{sim/runs/20261017\_full}), and analysis scripts
-are publicly archived at\newline
+The ENV-0 platform, seed protocol (Appendix~\ref{app:counting}), full
+4,620-run archive, current estimators and certificates, native joint-log and
+matched A/B/C artifacts, and analysis scripts are available at\newline
 \url{https://github.com/hurrywhen/autonomy-five-channel}\newline
-Gitee mirror:\newline
+and\newline
 \url{https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel}.\newline
-The historical release is \texttt{v1.0-r10.1}; its DOI is
-\url{https://doi.org/10.5281/zenodo.23608751} (a concept DOI, not a version
-DOI for the present revision). Every historical run is bit-reproducible
-from its coordinates. The repository also retains
-\texttt{sim/CRITERION\_VERSION\_MAP.md}, the separate 30-run DEL-1 replay,
-counterexample/optimizer analysis, time-stratified X5-c evidence, and the
-same-environment C0 package. Current supplements provide executable negative
-controls, source-order and closed-loop attribution checks, state/defense and
-full-profile certificate guards with enforced sensitivity flags, read-only
-statistical audits, the native joint-log multi-step audit, and exact
-weight-simplex sensitivity bounds. These
-supplements are not asserted to be contained in the historical public tag. The map records
-superseded criteria and post hoc status; legacy markers and counterfactual-SCM
-results are not pooled or retroactively relabeled under the current estimands.
-\texttt{RELEASE\_NOTES.md} identifies the corresponding development-source and
-fresh-history public commits on the repository \texttt{main} branches listed
-above. The present version is frozen by the immutable tag \texttt{v1.5-r22}
-with a two-environment clean-worktree replay manifest
-(\texttt{sim/runs/20261123\_r22/validation.json}); the earlier tags
-\texttt{v1.1-r18}, \texttt{v1.2-r19}, \texttt{v1.3-r20}, and \texttt{v1.4-r21}
-are retained, and the recorded R18 cross-environment replay failure and its repair are preserved in
-\texttt{sim/runs/20261122\_r19/REPLAY\_FAILURE\_R18.md}. A version DOI requires
-Zenodo archiving of the current tag and remains a publication-time requirement.
-The historical concept DOI does not discharge it. The complete
-compilable LaTeX source tree, bibliography, figures, and
-submission manifest are included with the submission rather than only the
-top-level \texttt{main.tex} shell.
+The historical release \texttt{v1.0-r10.1} has concept DOI
+\url{https://doi.org/10.5281/zenodo.23608751}, which does not archive the
+present revision. \texttt{sim/CRITERION\_VERSION\_MAP.md} and
+\texttt{RELEASE\_NOTES.md} retain the complete R11--R22 supersession history,
+post hoc and failed criteria, source/public commit correspondence, read-only
+artifacts, and replay-failure records; legacy markers are not retroactively
+relabeled. Detailed numerical-validation material removed from the article is
+in \texttt{sim/runs/20261124\_r23/TECHNICAL\_SUPPLEMENT.md}. The present version
+is frozen by immutable tag \texttt{v1.6-r23} and manifest
+\texttt{sim/runs/20261124\_r23/validation.json}; earlier tags through
+\texttt{v1.5-r22} are retained. A version DOI still requires Zenodo archiving
+of the current tag. The complete compilable LaTeX tree, bibliography, figures,
+and submission manifest accompany the article.
 \end{sloppypar}
 
 \paragraph{Ethics statement} This article reports theoretical results and

@@ -4,13 +4,24 @@
 
 Wen Hu<sup>1,2</sup> and Gong Zhang<sup>1,2</sup> — <sup>1</sup>College of Electronic and Information Engineering, Nanjing University of Aeronautics and Astronautics, Nanjing, China; <sup>2</sup>Jiangsu Yunhefeng Intelligent Technology Co., Ltd., Nanjing, China — `huwen@nuaa.edu.cn`; `gzhang@nuaa.edu.cn`
 
-**R22 public source synchronization, 2026-11-23.** Paper: [`latex/main.pdf`](latex/main.pdf) (**105 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
+**R23 public source synchronization, 2026-11-24.** Paper: [`latex/main.pdf`](latex/main.pdf) (**101 pages**, **6 figures**, **115 cited references**) · [Gitee mirror](https://gitee.com/jiangsu-yunhefeng-intelligent/autonomy-five-channel) · [Release and provenance notes](RELEASE_NOTES.md)
 
-[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present revision is frozen by the immutable tag `v1.5-r22` with a two-environment clean-worktree replay manifest (`sim/runs/20261123_r22/validation.json`). The earlier tags `v1.1-r18`, `v1.2-r19`, `v1.3-r20`, and `v1.4-r21` are retained, and the recorded R18 cross-environment replay failure is preserved in `sim/runs/20261122_r19/REPLAY_FAILURE_R18.md`. A version DOI requires Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R22.**
+[![Historical Zenodo concept DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23608751.svg)](https://doi.org/10.5281/zenodo.23608751) — this DOI archives the historical `v1.0-r10` release. **The present editorial revision is frozen by immutable tag `v1.6-r23` with manifest `sim/runs/20261124_r23/validation.json`. R22's full two-environment numerical replay record (`sim/runs/20261123_r22/validation.json`) and all earlier tags through `v1.5-r22` are retained, including the recorded R18 failure. A version DOI requires actual Zenodo archiving of the current tag and is not yet minted; the historical concept DOI does not cover R23.**
 
 ---
 
-## What R22 changes
+## What R23 changes
+
+R23 is the acceptance-stage **editorial finalization** of R22. It makes no change to theory, proofs, estimands, certificates, detection, estimators, simulation code, tests, numerical artifacts, negative controls, or R11--R22 historical evidence. The accepted A/B/C matched-method analysis and its noncausal interpretation are retained verbatim in substance.
+
+- **Explicit external-validity boundary:** the abstract, introduction, and conclusion now position the work as a conditional conceptual and mathematical audit framework with executable model checks, not a deployment-ready tool or cross-substrate measurement standard. It claims no cross-substrate construct validity, universal interval coverage, statistical consistency, or external validation of real-LLM or human autonomy. Independent substrates, domain SESOI/power, external execution, and independent-investigator replication remain outstanding.
+- **Article dehistoricized:** current rules and findings replace R17--R22 repair-sequence narration. The complete R11--R22 supersession history remains in `sim/CRITERION_VERSION_MAP.md`, `RELEASE_NOTES.md`, and read-only provenance/failure records.
+- **Public technical supplement:** `sim/runs/20261124_r23/TECHNICAL_SUPPLEMENT.md` preserves the old estimator table, historical quantitative anchors, log-domain bookkeeping shares, older weight batteries, X5-c protocol details, registry arithmetic, log-field schema, and R18 numerical-failure explanation. Content is relocated, not deleted or upgraded.
+- **Honest compression:** the paper decreases from 105 to **101 pages**, with 6 figures and 115 cited references unchanged. Font, geometry, bibliography size, and figure scaling were not used to reduce pages. Current native, detection, A/B/C, multi-seed, counterexample, and limitation content remains in the article.
+- **Editorial-source validation:** R23 compares against the R22 public baseline and fails if numerical source/tests/artifacts or historical runs changed. Two clean environments run **429/429 tests** and stable statistical/joint replays; frozen grids receive read-only integrity/anchor checks. R22's completed full-grid two-environment validation is inherited, not misrepresented as a new R23 full-grid run. The paper is independently rebuilt with bibliography, text, font, metadata, and overfull gates.
+- **Publication boundary:** tag `v1.6-r23`; no formal Release or version DOI is claimed. The two validation environments are same-platform thread/hash variants, not independent-investigator or cross-platform replication.
+
+## What R22 changed (scientific content retained by R23)
 
 R22 addresses the R21 review's remaining identifiability problem. R21 compared A (basic share-conditional) with C (percentile joint), which also differed in interval construction and bootstrap stream. R22 withdraws the interpretations "A misses / C covers -> conditional-design effect" and "both miss -> plug-in-bias effect". The detection rule, three-state sensitivity, estimator, formal R21 certificate, and historical evidence are unchanged.
 
@@ -86,6 +97,7 @@ The R15 execution-horizon, compatibility, goal-identification, state/readiness, 
 
 | Evidence package | Current interpretation |
 |---|---|
+| R23 editorial-source validation | Two clean environments; numerical source/artifact changes since R22 = 0; 429 tests and stable replays; frozen-grid read-only integrity; 101-page clean build. R22 full-grid validation inherited, not rerun or upgraded; not external validation |
 | Mathematical and implementation guards | **429/429 tests pass**, including R22 matched A/B/C construction and propagation contrasts, exact R21-C reproduction, platform-independent resampling/mask audits, and all R21/R20/R19/R18/R17/R16 controls; software correctness is decoupled from empirical outcomes (snapshot regressions only); not external validation |
 | R22 native joint-log audit | One SCM, one log schema, one joint operating batch; formal R21 certificate field-for-field unchanged; matched A/B/C on common replicates with C exactly reproducing R21; descriptive rather than causal coverage-pattern interpretation; immutable-input evidence binding, sampled surgery/decoupled controls; exact composites \(0.4608565/0.0003908/0.4011989\) are model anchors; NRI remains INDETERMINATE |
 | R22 detection-rule study | Full predeclared 16-seed x {2048,8192} matched grid; original formal-A and C reproduce R21 cell by cell; A/B/C coverage, widths, independent exact-truth bias/RMSE, and complete pairwise 2x2 `descriptive_interval_method_contrast` counts; no formal bias decomposition, power claim, or universal coverage |
@@ -114,7 +126,7 @@ Failed criteria, post hoc replacements, unrun programs, legacy markers, unavaila
 ```text
 latex/                     complete paper source, 115-entry bibliography,
                            Unicode map, submission manifest, 5 external PDF
-                           figures + 1 TikZ figure, built 105-page PDF
+                           figures + 1 TikZ figure, built 101-page PDF
 sim/
   src/autonomy_sim/        ENV-0, estimators, SCMs, open-loop/source/certificate guards
                            (r22_interval_contrast matched A/B/C; r21_guards,
@@ -138,7 +150,7 @@ sim/
   analysis_r15_x5c_paired.* paired cross-check SEs and tolerant replay
   EXTERNAL_VALIDATION_PROTOCOL.md design-frozen, unexecuted external protocol
   SPEC_*.md                current specifications and R14 preservation copy
-  CRITERION_VERSION_MAP.md R11–R22 supersession and evidence boundaries
+  CRITERION_VERSION_MAP.md R11–R23 supersession and evidence boundaries
   runs/20261017_full/      read-only historical 4,620-run campaign archive
   runs/20261102_r11/del1/  separate 30-run R11 replay summary
   runs/20261116_r14/       X5-c, C0-CF-v2, superseded/failed records
@@ -149,7 +161,9 @@ sim/
   runs/20261122_r19/       preserved R19 validation + retained R18 replay-failure record
   runs/20261122_r20/       preserved R20 validation (tag v1.3-r20)
   runs/20261122_r21/       preserved R21 validation (tag v1.4-r21)
-  runs/20261123_r22/       current two-environment validation and provenance (tag v1.5-r22)
+  runs/20261123_r22/       preserved R22 full numerical validation (tag v1.5-r22)
+  runs/20261124_r23/       current editorial provenance, technical supplement,
+                           and validation (tag v1.6-r23)
 refs/manifest.md           graded bibliography verification ledger;
                            third-party PDFs are not redistributed
 tools/                     source-package and frozen-validation scripts
@@ -207,9 +221,9 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-For clean-source-commit validation, create a clean worktree at the R22 content commit recorded in `RELEASE_NOTES.md` and run `tools/make_r22_validation.py`. It runs the suite and stable replays in TWO independent environments (differing thread/hash settings on the same platform), checks the R17-native/R18 numerical blocks read-only (their cross-environment byte-replay is not guaranteed; the R18 failure is recorded), builds the paper in a separate temporary directory, and writes only `sim/runs/20261123_r22/validation.json`. It does not modify historical evidence. The R21 and R22 detection-study replays each recompute their full grids, so allow a long runtime. R22 has no page-count cap; all other paper quality gates remain fail-closed.
+For R23 editorial validation, create a clean worktree at the R23 content commit in `RELEASE_NOTES.md` and run `tools/make_r23_validation.py`. It verifies zero numerical changes since R22, runs the suite and stable replays in TWO same-platform thread/hash environments, validates frozen grids read-only, and independently rebuilds the 101-page paper. It writes only `sim/runs/20261124_r23/validation.json`; it does not rerun the full grids. For the authoritative full numerical-grid recomputation, use the R22 content commit and `tools/make_r22_validation.py`, which writes the preserved `sim/runs/20261123_r22/validation.json`. Neither procedure modifies historical evidence or supplies independent-investigator replication.
 
-The R14 replays and R15/R16/R17/R19/R20/R21/R22 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R22 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
+The R14 replays and R15/R16/R17/R19/R20/R21/R22 checks use **current** source and compare against saved outputs or independent analytic anchors; they are not represented as execution of earlier source bytes or recovery of unavailable historical SPEC snapshots. See the R14–R23 `PROVENANCE.md` files, `runs/20261122_r19/REPLAY_FAILURE_R18.md`, and `sim/CRITERION_VERSION_MAP.md`.
 
 The complete LaTeX tree is required; uploading only `main.tex` is not a valid source submission. See [`latex/SUBMISSION_MANIFEST.md`](latex/SUBMISSION_MANIFEST.md).
 
@@ -225,15 +239,15 @@ This repository is a fresh-history public snapshot of the authors' development w
 ## Citation
 
 ```bibtex
-@misc{hu_zhang2026autonomy_r22,
+@misc{hu_zhang2026autonomy_r23,
   title  = {Autonomy as Determination by One's Own Normative Structure:
             A White-Box-First Five-Channel Audit Framework with Axioms
             and Conditional Theorems},
   author = {Hu, Wen and Zhang, Gong},
   year   = {2026},
-  note   = {Author manuscript; R22 public source synchronization,
-            23 November 2026, 105 pages; immutable tag v1.5-r22;
-            no R22 version DOI yet},
+  note   = {Author manuscript; R23 editorial finalization,
+            24 November 2026, 101 pages; immutable tag v1.6-r23;
+            no R23 version DOI yet},
   url    = {https://github.com/hurrywhen/autonomy-five-channel}
 }
 ```

@@ -1,4 +1,4 @@
-# R22 complete LaTeX submission manifest
+# R23 complete LaTeX submission manifest
 
 The submission unit is the complete `latex/` source tree, **not** only
 `main.tex`. The top-level file deliberately uses `\input` and `\bibliography`;
@@ -170,6 +170,16 @@ known incomplete submission configuration and must fail review.
   {2048,8192} matched grid; formal-A and C reproduce R21 cell by cell; reports
   A/B/C coverage, widths, separate exact-truth bias/RMSE, and full pairwise 2x2
   `descriptive_interval_method_contrast` counts (no formal bias decomposition).
+- `sim/runs/20261124_r23/TECHNICAL_SUPPLEMENT.md` — public repository supplement
+  preserving the historical estimator table, quantitative anchors, log-domain
+  shares, older weight batteries, X5-c protocol details, and numerical-replay
+  narrative relocated during R23 editorial compression; no new evidence grade.
+- `sim/runs/20261124_r23/PROVENANCE.md` — editorial-only change record and
+  explicit external-validity/publication boundaries.
+- `tools/make_r23_validation.py` — editorial-source validator: numerical files
+  must be unchanged from R22; 429 tests and stable replays run in two clean
+  environments, frozen grids receive read-only integrity/anchor checks, and the
+  101-page paper is independently rebuilt with all bibliography/font/text gates.
 - `sim/analysis_r17_weight_regions.{py,json}` and
   `sim/tests/test_r17_weight_regions.py` — exact closed-simplex log bounds and
   pairwise damage halfspaces (an exact weight-sensitivity characterization, not
@@ -180,15 +190,16 @@ known incomplete submission configuration and must fail review.
   remain pending.
 - `sim/runs/20261117_r15/`, `sim/runs/20261117_r16/`,
   `sim/runs/20261119_r17/`, `sim/runs/20261121_r18/`,
-  `sim/runs/20261122_r19/`, `sim/runs/20261122_r20/`, and
-  `sim/runs/20261122_r21/` — preserved historical clean-worktree validations;
-  not R22 validation.
-- `sim/runs/20261123_r22/` — current two-environment clean-worktree provenance
-  and exact source-commit replay manifest for the immutable tag `v1.5-r22`;
+  `sim/runs/20261122_r19/`, `sim/runs/20261122_r20/`,
+  `sim/runs/20261122_r21/`, and `sim/runs/20261123_r22/` — preserved historical
+  clean-worktree validations; R22 retains the authoritative full numerical-grid
+  replay record, not an R23 rerun.
+- `sim/runs/20261124_r23/` — current editorial-source provenance, public
+  technical supplement, and two-environment validation for tag `v1.6-r23`;
   not a version DOI or external validation.
-- `tools/make_r22_validation.py` — current two-environment clean-worktree
-  validator; historical R15/R16/R17/R18/R19/R20/R21 validators and validations
-  are retained unchanged.
+- `tools/make_r22_validation.py` and `tools/make_r23_validation.py` — preserved
+  R22 numerical validator and current R23 editorial-source validator; all
+  earlier validators and validations remain unchanged.
 - `sim/runs/20261116_r14/x5c_stratified/` — canonical time-stratified X5-c
   preregistration, manifest, results, verdicts and analysis.
 - `sim/runs/20261116_r14/c0cf_v2/` — same-environment C0-CF evidence package.
@@ -208,11 +219,11 @@ These evidence packages do not constitute external validation.
 `RELEASE_NOTES.md` identifies the development-source commit and the
 corresponding fresh-history public commit on the repository `main` branches.
 Historical `a_org` and combined-gate values are not silently re-signed as
-current normative-source or present-state values. This revision is frozen by
-the immutable tag `v1.5-r22` with a two-environment clean-worktree replay
-manifest (`sim/runs/20261123_r22/validation.json`); the earlier tags
-`v1.1-r18`, `v1.2-r19`, `v1.3-r20`, and `v1.4-r21` are retained and the recorded R18
-cross-environment replay failure is preserved. A version DOI requires Zenodo
-archiving of the current tag and is not yet minted, and the external-substrate
-power/validation program remains incomplete. The historical concept DOI does not
-cover them.
+current normative-source or present-state values. This editorial revision is
+frozen by immutable tag `v1.6-r23` with manifest
+`sim/runs/20261124_r23/validation.json`; the R22 full numerical replay manifest
+and earlier tags through `v1.5-r22` are retained, including the recorded R18
+cross-environment replay failure. R23 does not claim a new full-grid numerical
+run. A version DOI requires Zenodo archiving of the current tag and is not yet
+minted; independent-substrate power/validation and independent-investigator
+replication remain incomplete. The historical concept DOI does not cover them.

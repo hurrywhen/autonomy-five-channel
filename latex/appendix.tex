@@ -754,7 +754,7 @@ $c_i=s_i=1$, $B=0.5$, the interior point $(0.25,0.25)$ satisfies the
 equality-budget KKT condition with multiplier $2/3$ and Hessian $-(8/9)I$,
 hence is a local maximum of $J$, while $(0.5,0)$ or $(0,0.5)$ gives the
 smaller value $-\tfrac12\log2=-0.3465735903$ instead of $-0.2876820725$.
-The R14 grid and symbolic certificates are in
+The frozen grid and symbolic certificates are in
 \texttt{sim/analysis\_r14\_math.json}.
 \end{proof}
 
@@ -1394,25 +1394,14 @@ protocol: active behavioral probes remain a separate candidate evidence route.
 
 \section{Benchmark registry details: counting units and seeds}\label{app:counting}
 
-The historical registry arithmetic is retained in the read-only manifests and
-\path{sim/CRITERION_VERSION_MAP.md}; only the headline decomposition is
-repeated here. The $4{,}620$ execution records comprise the main matrix
-($2{,}880$), stress arm ($1{,}440$), and ten independent 30-run supplements.
-Arm-bundle pool (i) contains $8{,}640$ ATK-1/2/4 strength records
-($5{,}760$ main plus $2{,}880$ stress). The recursive six-component registry
-contains $7{,}290$ main/EXEC-1 bundles and $11{,}250$ full-campaign bundles;
-the $1{,}530$ main difference is $1{,}440$ non-row records plus $90$ EXEC-1
-chain arms. Defense-direction checks cover $840$ matched ATK-1/2 comparisons.
-Main run-level verdicts are $2{,}520$ CONFIRMED and $360$ INCONCLUSIVE.
-
-The separate R11 DEL-1 replay has 30 runs, six criteria each: 120 CONFIRMED
-and 60 INCONCLUSIVE criterion evaluations, with all 30 run-level totals
-INCONCLUSIVE because the corrected brackets are non-diagnostic. The R13 CUSUM
-sensitivity uses 30 seed-level scaled-EDD ratios with mean $1.95118556$ and
-sample SD $0.09365234$; normal and Student-$t$ half-widths are $0.034$ and
-$0.035$. Full ratios, seeds, and hashes are in
-\texttt{sim/analysis\_cusum\_sensitivity.json}. These are interval conventions
-for the same 30 ratios, not independent samples or power.
+The $4{,}620$ records comprise the main matrix ($2{,}880$), stress arm
+($1{,}440$), and ten 30-run supplements. Full bundle arithmetic and defense
+counts are retained in the manifests, version map, and public technical
+supplement. The separate DEL-1 replay has 120 CONFIRMED and 60 INCONCLUSIVE
+criterion evaluations, but all 30 run-level totals are INCONCLUSIVE because
+its corrected brackets are non-diagnostic. CUSUM sensitivity has 30 seed-level
+ratios with mean $1.95118556$ and sample SD $0.09365234$ (normal/Student-$t$
+half-widths $0.034/0.035$), not independent configurations or power.
 
 \paragraph{Seed protocol.} Seeds derive deterministically from
 (scenario, configuration, replication) coordinates:
